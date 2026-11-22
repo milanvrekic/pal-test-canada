@@ -10,7 +10,7 @@
   answer: 0
   explanation: "Keep your trigger finger off the trigger and out of the trigger guard, especially when you pick a firearm up. Lay it straight along the side of the receiver instead."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "21"}
-  review: &draftd {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: &ok {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: spot-pass-closed
   course: cfsc
   scene: pass-closed
@@ -20,7 +20,7 @@
   answer: 0
   explanation: "Pass or accept only open and unloaded firearms. Break the shotgun open and PROVE it safe before handing it over, and the person receiving it proves it safe again."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "21"}
-  review: *draftd
+  review: *ok
 - id: spot-muzzle-sweep
   course: cfsc
   scene: muzzle-sweep
@@ -30,7 +30,7 @@
   answer: 0
   explanation: "On the range the muzzle must always be pointed downrange. Turn your head to talk, never the firearm, and keep it pointed in a safe direction the whole time."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.3. Safety procedures on approved range", page: "148"}
-  review: *draftd
+  review: *ok
 - id: spot-fence
   course: cfsc
   scene: fence
@@ -40,7 +40,7 @@
   answer: 0
   explanation: "When crossing a fence alone, unload the firearm and place it flat on the ground under the fence with the action open and the muzzle pointed away from where you cross. Then cross."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
-  review: *draftd
+  review: *ok
 - id: spot-pistol-unload
   course: crfsc
   scene: pistol-unload
@@ -50,7 +50,7 @@
   answer: 0
   explanation: "Unloading is not done until you have looked. Remove the magazine, pull the slide back to eject the cartridge from the chamber, then look into the chamber and magazine well to prove the pistol is empty."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.8.1. Semi-automatic unloading procedure", page: "278"}
-  review: *draftd
+  review: *ok
 - id: spot-wall-display
   course: cfsc
   scene: wall-display
@@ -60,5 +60,5 @@
   answer: 0
   explanation: "A displayed firearm must not be displayed with, or within easy access to, ammunition that can be fired from it. Store the ammunition locked up elsewhere."
   source: {handbook_edition: "2014 (5th ed.)", section: "11.4. Display", page: "201"}
-  law_checked_on: TBD
-  review: *draftd
+  law_checked_on: 2026-11-22  # SOR/98-209 s. 8(c), last amended 2012-11-30
+  review: *ok

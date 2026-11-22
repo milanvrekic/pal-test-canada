@@ -11,3 +11,10 @@ What was reviewed, by whom, and when. One entry per review batch.
 | 2026-11-22 | Milan | cfsc-licence-002, crfsc-handling-004, cfsc-muzzle-001, crfsc-range-001 | Approved. The 28-day minimum in cfsc-licence-002 matches the current Firearms Licences Regulations (SOR/98-199), checked the same day. |
 | 2026-11-22 | Claude | Batch 2: 40 new questions (20 CFSC, 20 CRFSC) | Drafted from the 2014 handbook, each cited to its page. Awaiting instructor review. |
 | 2026-11-22 | Milan | Batch 2: 40 questions | All 40 approved, including a check of the 9 law-dependent questions against current law. |
+
+## 2026-11-22: Spot the mistake drills
+
+- All 6 drills approved by Milan with photo scenes (Gemini-generated, checked for exactly one mistake each).
+- spot-pass-closed now uses a closed over-and-under shotgun instead of a bolt rifle.
+- spot-pistol-unload reworded to "set down as unloaded / cartridge still in the chamber".
+- spot-wall-display law check: SOR/98-209 s. 8(c) (display not with or readily accessible to ammunition), last amended 2012-11-30. Checked 2026-11-22.
