@@ -1,120 +1,115 @@
-from draw import *
+# The six "what is wrong here" scenes. Each shows one mistake; everything else is done correctly.
+# Run: python3 tools/scenes/scenes.py  (writes content/drills/scenes/<id>.svg). Drawing parts are in kit.py.
+from kit import *
 
-import math
-def at(px,py,x,y,r,sc):
-    a=math.radians(r); X=px*sc; Y=py*sc
-    return (round(x+X*math.cos(a)-Y*math.sin(a),1), round(y+X*math.sin(a)+Y*math.cos(a),1))
+def outdoor(horizon=250, berm_x=400, target=True):
+    p=[f'<rect width="{W}" height="{H}" fill="url(#sky)"/>']
+    trees=''.join(f'<circle cx="{x}" cy="{horizon-6-((x*37)%11)}" r="{16+((x*13)%9)}" fill="#6F8A66"/>' for x in range(-10,W+20,22))
+    p.append(trees+f'<rect x="0" y="{horizon-8}" width="{W}" height="12" fill="#6F8A66"/>')
+    p.append(f'<rect x="0" y="{horizon}" width="{W}" height="{H-horizon}" fill="url(#grass)"/>')
+    p.append(f'<path d="M{berm_x},{horizon+2} Q{berm_x+70},{horizon-80} {W},{horizon-96} L{W},{horizon+2} Z" fill="url(#bermG)"/>')
+    if target:
+        tx=berm_x+150; ty=horizon-34
+        p.append(f'<rect x="{tx-2}" y="{ty}" width="4" height="34" fill="#6B5843"/><rect x="{tx+40}" y="{ty}" width="4" height="34" fill="#6B5843"/>'
+                 f'<rect x="{tx-6}" y="{ty-30}" width="54" height="34" fill="#F2EEE4" stroke="#6B5843" stroke-width="1.5"/>'
+                 f'<circle cx="{tx+21}" cy="{ty-13}" r="11" fill="none" stroke="#2B2F33" stroke-width="1.5"/><circle cx="{tx+21}" cy="{ty-13}" r="5" fill="#2B2F33"/>')
+    return ''.join(p)
 
-def ground(y=300,col=None):
-    return f'<rect x="0" y="{y}" width="{W}" height="{H-y}" fill="{col or C["ground"]}"/>'
-def berm(x0=470,y=300):
-    return f'<path d="M{x0},{y} Q{x0+60},{y-90} {W},{y-110} L{W},{y}Z" fill="{C["berm"]}"/>'
+def bench(y=292):
+    return (f'<rect x="0" y="{y}" width="{W}" height="{H-y}" fill="url(#bench)"/><rect x="0" y="{y-6}" width="{W}" height="10" rx="2" fill="#B89A72"/>'
+            + ''.join(f'<path d="M{x},{y+18} Q{x+60},{y+14} {x+140},{y+20}" fill="none" stroke="#6A5238" stroke-width="1" opacity=".5"/>' for x in range(-20,W,160)))
 
 def s_finger():
-    b=[ground(250,C['ground2']),berm(430,250),
-       f'<rect x="0" y="292" width="{W}" height="108" fill="#8E7556"/><rect x="0" y="286" width="{W}" height="10" fill="#A3896A"/>']
-    fist=(f'<path d="M-50,-4 Q-34,-12 -16,-6 Q-6,4 -10,18 Q-24,32 -44,26 Q-58,12 -50,-4Z" fill="{C["skin"]}" stroke="{C["skinD"]}" stroke-width="1.5"/>'
-          f'<path d="M-46,10 Q-34,16 -20,12" fill="none" stroke="{C["skinD"]}" stroke-width="1.3"/><path d="M-44,19 Q-32,24 -20,20" fill="none" stroke="{C["skinD"]}" stroke-width="1.3"/>')
-    finger=(f'<path d="M-14,4 Q0,4 6,12 Q10,20 5,24" fill="none" stroke="{C["skinD"]}" stroke-width="10" stroke-linecap="round"/>'
-            f'<path d="M-14,4 Q0,4 6,12 Q10,20 5,24" fill="none" stroke="{C["skin"]}" stroke-width="7.5" stroke-linecap="round"/>')
-    support=f'<ellipse cx="112" cy="14" rx="16" ry="10" fill="{C["skin"]}" stroke="{C["skinD"]}" stroke-width="1.5"/>'
-    b.append(g(rifle(bolt_open=True)+fist+finger+support,300,205,-3,1.12))
-    return svg(''.join(b),'Illustration: a shooter picks up a rifle on the range bench')
+    b=[outdoor(250,380),bench(292),shadow(330,292,220,10)]
+    gun=rifle(bolt_open=True)+rifle_grip_hand(True)+support_hand(108)
+    b.append(g(gun,292,236,-2,1.26))
+    return svg(''.join(b),'Illustration: a shooter picks up a rifle at the range bench')
 
 def s_pass_closed():
-    b=[ground(310),berm(500,310)]
-    rx,ry,rr,sc=335,195,-62,0.72
-    wrist=at(-40,6,rx,ry,rr,sc); fore=at(70,6,rx,ry,rr,sc); grab=at(130,3,rx,ry,rr,sc)
-    L=(215,310); R=(460,310)
-    def loc(pt,o,flip=False): return ((o[0]-pt[0]) if flip else (pt[0]-o[0]), pt[1]-o[1])
-    w=loc(wrist,L); f=loc(fore,L); gr=loc(grab,R,True)
-    left=person(C['shirt1'],1,arms=[f'M8,-150 L{(8+w[0])/2},{(-150+w[1])/2+12} L{w[0]},{w[1]}',f'M10,-146 L{(10+f[0])/2},{(-146+f[1])/2+8} L{f[0]},{f[1]}'])
-    right=person(C['shirt2'],-1,arms=[f'M8,-150 L{(8+gr[0])/2},{(-150+gr[1])/2+10} L{gr[0]},{gr[1]}'])
-    b.append(g(left,*L)); b.append(g(right,*R))
-    b.append(g(rifle(False),rx,ry,rr,sc))
-    b.append(hand(*wrist,8)+hand(*fore,8)+hand(*grab,8))
+    b=[outdoor(300,470)]
+    rx,ry,rr,sc=334,206,-74,0.72
+    grip=at(-45,22,rx,ry,rr,sc); low=at(40,10,rx,ry,rr,sc); high=at(120,8,rx,ry,rr,sc)
+    L=(262,372); R=(418,372)
+    loc=lambda pt,o,flip=False: ((o[0]-pt[0]) if flip else (pt[0]-o[0]), pt[1]-o[1])
+    b.append(shadow(262,372,44,7)+shadow(418,372,44,7))
+    b.append(g(person(hands=[loc(grip,L),loc(low,L)]),*L))
+    b.append(g(rifle(bolt_open=False),rx,ry,rr,sc))
+    b.append(g(person(jacket='#C9693D',hands=[(6,-104),loc(high,R,True)],mouth_open=True),*R,0,1,True))
+    b.append(mitt(grip,6.5)+mitt(low,6.5)+mitt(high,6.5))
     return svg(''.join(b),'Illustration: one shooter hands a rifle to another')
 
+def top_shooter(jacket):
+    # Shooter seen from above, rifle pointing toward -y.
+    rifle_top=('<path d="M-5,40 L5,40 L4,-4 L-4,-4 Z" fill="url(#wood)"/><rect x="-3.5" y="-60" width="7" height="58" rx="2" fill="#9A6538"/>'
+               '<rect x="-3" y="-34" width="6" height="30" rx="2" fill="#2B3036"/><rect x="-4.5" y="-40" width="9" height="34" rx="3" fill="#1E2124" opacity=".9"/>'
+               '<rect x="-1.6" y="-128" width="3.2" height="70" fill="#2B3036"/>')
+    return (f'<ellipse cx="0" cy="46" rx="34" ry="20" fill="{jacket}" stroke="#00000030"/>'
+            f'<path d="M-26,44 L-8,20 L-2,6" fill="none" stroke="{jacket}" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>'
+            f'<path d="M24,44 L8,28 L2,34" fill="none" stroke="{jacket}" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>'
+            + rifle_top +
+            '<circle cx="-2" cy="6" r="5.5" fill="#DCA67E" stroke="#A9744C"/><circle cx="2" cy="34" r="5.5" fill="#DCA67E" stroke="#A9744C"/>'
+            '<circle cx="0" cy="46" r="13" fill="#B5462F"/><path d="M-9,38 Q0,30 9,38 L6,42 L-6,42 Z" fill="#9E3B27"/>'
+            '<rect x="-16" y="42" width="5" height="9" rx="2" fill="#2B3036"/><rect x="11" y="42" width="5" height="9" rx="2" fill="#2B3036"/>')
+
 def s_sweep():
-    # Top-down firing line. Three shooters at benches, middle one turned to talk with the muzzle on the neighbour.
-    b=[f'<rect width="{W}" height="{H}" fill="{C["ground"]}"/>',
-       f'<rect x="0" y="0" width="{W}" height="70" fill="{C["berm"]}"/>',
-       f'<line x1="0" y1="250" x2="{W}" y2="250" stroke="{C["white"]}" stroke-width="4" stroke-dasharray="14 10"/>']
-    for x in (150,320,490):
-        b.append(f'<rect x="{x-60}" y="200" width="120" height="44" rx="6" fill="#8E7556"/>')
-        b.append(f'<rect x="{x-40}" y="90" width="80" height="12" fill="{C["white"]}" stroke="{C["line"]}" stroke-width="1"/>' if True else '')
-    def shooter(x,y,ang,shirt):
-        body=(f'<ellipse cx="0" cy="0" rx="30" ry="18" fill="{shirt}"/><circle cx="0" cy="0" r="13" fill="{C["skin"]}"/>'
-              f'<path d="M-6,-12 Q0,-18 6,-12" fill="{C["cap"]}"/>'
-              f'<rect x="-4" y="-120" width="8" height="112" rx="3" fill="{C["metal"]}"/><rect x="-6" y="-30" width="12" height="40" rx="5" fill="{C["wood"]}"/>'
-              f'<circle cx="10" cy="-26" r="6" fill="{C["skin"]}"/><circle cx="-6" cy="-60" r="6" fill="{C["skin"]}"/>')
-        return g(body,x,y,ang)
-    b.append(shooter(150,270,0,C['shirt1']))
-    b.append(shooter(490,270,0,C['shirt1']))
-    b.append(shooter(318,282,86,C['shirt2']))   # turned toward the right-hand neighbour
-    b.append(f'<path d="M352,250 q14,-16 30,-6" fill="none" stroke="{C["line"]}" stroke-width="2"/><path d="M356,240 q10,-12 22,-4" fill="none" stroke="{C["line"]}" stroke-width="2"/>')  # talking marks
+    b=[f'<rect width="{W}" height="{H}" fill="url(#grass)"/>',
+       f'<rect x="0" y="0" width="{W}" height="70" fill="url(#bermG)"/><rect x="0" y="66" width="{W}" height="6" fill="#86704F"/>']
+    for x in (130,320,510):
+        b.append(f'<rect x="{x-26}" y="84" width="52" height="34" fill="#F2EEE4" stroke="#6B5843" stroke-width="1.5"/><circle cx="{x}" cy="101" r="9" fill="none" stroke="#2B2F33" stroke-width="1.4"/><circle cx="{x}" cy="101" r="3.5" fill="#2B2F33"/>')
+        b.append(f'<rect x="{x-62}" y="214" width="124" height="44" rx="5" fill="url(#bench)" stroke="#5E4A33" stroke-width="1"/>')
+    b.append(f'<line x1="0" y1="268" x2="{W}" y2="268" stroke="#F4F1E8" stroke-width="4" stroke-dasharray="16 10"/>')
+    b.append(g(top_shooter('#3F5E4C'),130,262))
+    b.append(g(top_shooter('#3F5E4C'),510,262))
+    b.append(g(top_shooter('#C9693D'),330,286,88))   # turned to talk, muzzle on the right-hand neighbour
+    b.append('<path d="M286,262 q-12,-14 -4,-28" fill="none" stroke="#2B2F33" stroke-width="2" stroke-linecap="round"/><path d="M276,266 q-16,-18 -6,-36" fill="none" stroke="#2B2F33" stroke-width="2" stroke-linecap="round"/>')
     return svg(''.join(b),'Illustration: three shooters on a firing line, seen from above')
 
 def s_fence():
-    b=[ground(320),berm(520,320)]
-    for x in range(40,W,120):
-        b.append(f'<rect x="{x}" y="180" width="10" height="145" fill="{C["post"]}"/>')
-    for y in (205,240,275,305):
-        b.append(f'<line x1="0" y1="{y}" x2="{W}" y2="{y-4}" stroke="{C["wire"]}" stroke-width="2"/>')
-    climber=person(C['shirt1'],1,arms=['M8,-150 L30,-120 L52,-112','M8,-145 L34,-100 L74,-108'],legs='climb',muffs=False)
-    b.append(g(climber,300,300,8))
-    b.append(g(rifle(False),330,198,-18,0.6))
-    b.append(hand(352,192)+hand(372,186))
-    return svg(''.join(b),'Illustration: a hunter at a wire fence with a rifle')
-
-def pistol(slide_back=True, mag_in=True):
-    p=[]
-    p.append(f'<path d="M-10,0 L60,0 L64,14 L40,16 L30,30 L4,30 Q-4,30 -6,22 L-10,0Z" fill="{C["metal"]}"/>')  # frame and trigger guard area
-    p.append(f'<path d="M-14,8 L18,8 L10,92 Q8,100 -2,100 L-30,100 Q-40,100 -38,90 Z" fill="#2A2E33"/>')  # grip
-    p.append(f'<path d="M30,16 Q30,36 14,36 Q2,36 2,22" fill="none" stroke="{C["metal"]}" stroke-width="3.5"/><path d="M14,14 Q18,22 14,28" stroke="{C["metal"]}" stroke-width="3" fill="none" stroke-linecap="round"/>')
-    off=-26 if slide_back else 0
-    p.append(f'<rect x="{-18+off}" y="-24" width="{120}" height="24" rx="3" fill="{C["metalL"]}"/>')  # slide
-    if slide_back:
-        p.append(f'<rect x="76" y="-20" width="26" height="14" rx="2" fill="{C["metal"]}"/>')  # exposed barrel
-        p.append(f'<rect x="38" y="-22" width="34" height="20" fill="#15181B"/>')  # open ejection port
-        if mag_in:
-            p.append(f'<rect x="42" y="-10" width="22" height="8" rx="4" fill="{C["ammo"]}" stroke="{C["ammoD"]}" stroke-width="1"/>')  # cartridge at top of magazine
-    for i in range(6): p.append(f'<line x1="{-12+off+i*6}" y1="-20" x2="{-12+off+i*6}" y2="-4" stroke="{C["metal"]}" stroke-width="1.5"/>')  # serrations
-    if mag_in:
-        p.append(f'<path d="M-32,98 L6,98 L6,110 L-34,110Z" fill="{C["metalL"]}"/>')  # magazine base plate in the grip
-    return ''.join(p)
+    b=[outdoor(300,500,False)]
+    for x in range(30,W,130):
+        b.append(f'<rect x="{x}" y="196" width="11" height="132" rx="2" fill="#7E6A52"/><line x1="{x+3}" y1="200" x2="{x+3}" y2="326" stroke="#6A5743" stroke-width="1"/>')
+    for y in (214,248,282,312):
+        b.append(f'<line x1="0" y1="{y}" x2="{W}" y2="{y-6}" stroke="#5C5A55" stroke-width="1.8"/>')
+        b.append(''.join(f'<path d="M{x},{y-6*x/W-3} l4,6 M{x+4},{y-6*x/W-3} l-4,6" stroke="#5C5A55" stroke-width="1.2"/>' for x in range(18,W,46)))
+    for x in range(10,W,34): b.append(f'<path d="M{x},332 q3,-10 6,0 q3,-12 6,0" fill="#6E8556"/>')
+    rx,ry,rr,sc=352,214,-14,0.62
+    wrist=at(-45,22,rx,ry,rr,sc); fore=at(80,8,rx,ry,rr,sc)
+    o=(300,344)
+    loc=lambda pt: (pt[0]-o[0], pt[1]-o[1])
+    b.append(shadow(300,344,50,7))
+    b.append(g(person(hips=(6,-112),lean=14,legs=[(-24,-6),(34,-60)],hands=[loc(wrist),loc(fore)],muffs=False),*o))
+    b.append(g(rifle(bolt_open=False),rx,ry,rr,sc))
+    b.append(mitt(wrist,6)+mitt(fore,6))
+    return svg(''.join(b),'Illustration: a hunter on his own crosses a wire fence with a rifle')
 
 def s_pistol():
-    b=[ground(250,C['ground2']),berm(430,250),
-       f'<rect x="0" y="292" width="{W}" height="108" fill="#8E7556"/><rect x="0" y="286" width="{W}" height="10" fill="#A3896A"/>']
-    gun=pistol(True,True)
-    grip=(f'<path d="M-40,18 Q-24,10 -4,16 L-2,56 Q-16,66 -38,60 Q-46,38 -40,18Z" fill="{C["skin"]}" stroke="{C["skinD"]}" stroke-width="1.5"/>'
-          + ''.join(f'<rect x="-6" y="{26+i*11}" width="14" height="9" rx="4.5" fill="{C["skin"]}" stroke="{C["skinD"]}" stroke-width="1.2"/>' for i in range(3))
-          + f'<path d="M-4,12 L46,10" stroke="{C["skinD"]}" stroke-width="10" stroke-linecap="round"/><path d="M-4,12 L46,10" stroke="{C["skin"]}" stroke-width="7.5" stroke-linecap="round"/>')
-    b.append(g(gun+grip,260,150,0,1.75))
+    b=[outdoor(250,380),bench(300),shadow(300,300,170,9)]
+    b.append(g(pistol(slide_back=True,mag_in=True)+pistol_grip_hand(),280,170,-2,1.55))
     return svg(''.join(b),'Illustration: a shooter unloading a semi-automatic pistol at the range bench')
 
 def s_display():
-    b=[f'<rect width="{W}" height="{H}" fill="{C["wall"]}"/>',f'<rect x="0" y="340" width="{W}" height="60" fill="#B9A88E"/>',
-       f'<rect x="120" y="110" width="12" height="40" rx="3" fill="{C["shelf"]}"/><rect x="500" y="110" width="12" height="40" rx="3" fill="{C["shelf"]}"/>',
-       f'<rect x="90" y="250" width="460" height="14" rx="3" fill="{C["shelf"]}"/>']
-    b.append(g(rifle(False)+
-               f'<rect x="-2" y="8" width="20" height="22" rx="4" fill="{C["lock"]}"/><circle cx="8" cy="19" r="3" fill="{C["white"]}"/>',  # trigger lock fitted
-               330,128,0,1.15))
-    # box of cartridges on the shelf right under the rifle
-    b.append(f'<rect x="270" y="212" width="92" height="38" rx="3" fill="#E4D9C2" stroke="{C["line"]}" stroke-width="1.5"/><rect x="276" y="200" width="80" height="14" fill="#E4D9C2" stroke="{C["line"]}" stroke-width="1.5"/>')
-    for i in range(7): b.append(f'<rect x="{282+i*11}" y="186" width="7" height="22" rx="3" fill="{C["ammo"]}" stroke="{C["ammoD"]}" stroke-width="1"/>')
-    b.append(f'<rect x="284" y="222" width="64" height="16" fill="{C["shirt2"]}" opacity=".85"/>')
-    return svg(''.join(b),'Illustration: a rifle on a wall rack at home')
+    b=[f'<rect width="{W}" height="{H}" fill="url(#wall)"/>']
+    b.append(''.join(f'<line x1="{x}" y1="0" x2="{x}" y2="344" stroke="#D3C6B2" stroke-width="1.2"/>' for x in range(40,W,80)))
+    b.append(f'<rect x="0" y="340" width="{W}" height="60" fill="#A88E6E"/><rect x="0" y="336" width="{W}" height="8" fill="#8C7357"/>')
+    for x in (120,500):
+        b.append(f'<path d="M{x},96 L{x+16},96 L{x+16},140 Q{x+8},146 {x},140 Z" fill="#7A5A3C"/><rect x="{x-2}" y="132" width="20" height="6" rx="2" fill="#5E442C"/>')
+    b.append(shadow(320,152,230,8))
+    b.append(g(rifle(bolt_open=False,scope=True,trigger_lock=True),318,132,0,1.12))
+    b.append(f'<rect x="104" y="262" width="432" height="14" rx="3" fill="#7A5A3C"/><rect x="104" y="274" width="432" height="4" fill="#5E442C"/>'
+             f'<path d="M150,278 L150,304 L172,278 Z" fill="#5E442C"/><path d="M490,278 L490,304 L468,278 Z" fill="#5E442C"/>')
+    # open box of cartridges on the shelf right under the rifle
+    b.append(shadow(300,262,60,5)+'<rect x="252" y="214" width="96" height="48" rx="3" fill="#E7DCC6" stroke="#6E5F48" stroke-width="1.4"/>'
+             '<rect x="260" y="228" width="80" height="20" fill="#3F5E4C"/><rect x="266" y="234" width="40" height="3" fill="#E7DCC6"/><rect x="266" y="240" width="26" height="3" fill="#E7DCC6"/>')
+    for i in range(8):
+        x=258+i*11
+        b.append(f'<rect x="{x}" y="186" width="8" height="30" rx="2" fill="url(#brass)"/><path d="M{x},{187} Q{x+4},{174} {x+8},{187} Z" fill="url(#copper)"/>')
+    return svg(''.join(b),'Illustration: a rifle displayed on a wall rack at home')
 
 SCENES={'finger':s_finger,'pass-closed':s_pass_closed,'muzzle-sweep':s_sweep,'fence':s_fence,'pistol-unload':s_pistol,'wall-display':s_display}
+
 if __name__=='__main__':
-    # Writes each scene to content/drills/scenes/<id>.svg. Run: python3 tools/scenes/scenes.py
-    import os
-    out=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..','content','drills','scenes')
+    import os,sys
+    out=sys.argv[1] if len(sys.argv)>1 else os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..','content','drills','scenes')
     os.makedirs(out,exist_ok=True)
     for k,f in SCENES.items(): open(os.path.join(out,f'{k}.svg'),'w').write(f()+'\n')
-    print(f'Wrote {len(SCENES)} scenes to content/drills/scenes')
-if False:
-    sheet='<html><body style="margin:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#444">'+''.join(f'<div style="background:#fff"><div style="font:14px sans-serif;padding:4px">{k}</div>{open(f"out/{k}.svg").read()}</div>' for k in SCENES)+'</body></html>'
-    open('sheet.html','w').write(sheet)
+    print(f'Wrote {len(SCENES)} scenes to {out}')
