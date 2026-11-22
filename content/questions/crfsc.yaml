@@ -309,7 +309,7 @@
   answer: 1
   explanation: "The muzzle must always point downrange, and a firearm jammed with a cartridge in the chamber can be hazardous. Leave it on the firing line and get help from a qualified person rather than forcing the action or turning with it."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.9. Firearm malfunctions; 16.5. Safety procedures at the range", page: "283, 299"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan, reviewed_on: "2026-11-22", status: reviewed}
 - id: crfsc-range-002
   course: crfsc
   topic: range-and-field
@@ -330,4 +330,4 @@
   answer: 0
   explanation: "Control the muzzle direction at all times: identify the safest available direction and keep the firearm pointed that way. The muzzle should never point towards yourself or anyone else."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "218"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan, reviewed_on: "2026-11-22", status: reviewed}

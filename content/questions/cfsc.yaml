@@ -251,7 +251,7 @@
   answer: 1
   explanation: "Use only black powder or a black powder substitute, and never smokeless powder in a muzzleloader: it produces far higher pressure and can destroy the firearm. Some modern firearms are made to handle smokeless powder, so always follow the manufacturer's instructions on powder type and loads."
   source: {handbook_edition: "2014 (5th ed.)", section: "2.2. Muzzleloading firearms", page: "37, 42"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan, reviewed_on: "2026-11-22", status: reviewed}
 - id: cfsc-storage-001
   course: cfsc
   topic: storage
@@ -318,5 +318,5 @@
   answer: 2
   explanation: "There is a minimum 28-day waiting period for a PAL, unless the applicant already holds a valid Possession Only Licence, PAL or Minors Possession Licence."
   source: {handbook_edition: "2014 (5th ed.)", section: "Appendix I: Firearms licences", page: "338"}
-  law_checked_on: TBD
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  law_checked_on: "2026-11-22"
+  review: {reviewed_by: Milan, reviewed_on: "2026-11-22", status: reviewed}
