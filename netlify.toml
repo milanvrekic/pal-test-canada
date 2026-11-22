@@ -1,0 +1,15 @@
+# Web build. Production runs the strict content check, so it fails while any
+# question or guide is still a draft. Deploy previews allow drafts and show a banner.
+[build]
+  base = "app"
+  publish = "dist"
+  command = "npm run build:web"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[context.deploy-preview]
+  command = "npm run build:web:preview"
+
+[context.branch-deploy]
+  command = "npm run build:web:preview"
