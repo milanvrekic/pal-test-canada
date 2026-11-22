@@ -249,9 +249,9 @@
   question: "What propellant may be used in a muzzleloader?"
   options: ["Any smokeless powder", "Only black powder or a black powder substitute made for muzzleloaders", "Shotgun powder in reduced amounts", "Whatever is recommended for the same calibre of cartridge"]
   answer: 1
-  explanation: "Use only black powder or an approved black powder substitute. Smokeless powder produces far higher pressure and can destroy a muzzleloader."
-  source: {handbook_edition: "2014 (5th ed.)", section: "2.2. Muzzleloading firearms", page: "42"}
-  review: *reviewed
+  explanation: "Use only black powder or a black powder substitute, and never smokeless powder in a muzzleloader: it produces far higher pressure and can destroy the firearm. Some modern firearms are made to handle smokeless powder, so always follow the manufacturer's instructions on powder type and loads."
+  source: {handbook_edition: "2014 (5th ed.)", section: "2.2. Muzzleloading firearms", page: "37, 42"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
 - id: cfsc-storage-001
   course: cfsc
   topic: storage

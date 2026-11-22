@@ -305,11 +305,11 @@
   topic: range-and-field
   type: multiple-choice
   question: "Your handgun jams on the firing line and you cannot clear it. What is the correct response?"
-  options: ["Carry it to the range officer", "Keep the muzzle pointed downrange, finger off the trigger, and signal the range officer", "Point it at the ground behind the line while you work on it", "Hand it to the shooter beside you"]
+  options: ["Carry it back to the range officer", "Keep the muzzle pointed downrange, finger off the trigger, and get help from the range officer or another qualified person", "Turn around and point it at the ground behind the firing line while you work on it", "Force the action open to clear it yourself"]
   answer: 1
-  explanation: "The firearm stays on the line pointed downrange. Signal for help instead of turning with a firearm that may be loaded."
-  source: {handbook_edition: "2014 (5th ed.)", section: "16.5. Safety procedures at the range", page: "299"}
-  review: *reviewed
+  explanation: "The muzzle must always point downrange, and a firearm jammed with a cartridge in the chamber can be hazardous. Leave it on the firing line and get help from a qualified person rather than forcing the action or turning with it."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.9. Firearm malfunctions; 16.5. Safety procedures at the range", page: "283, 299"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
 - id: crfsc-range-002
   course: crfsc
   topic: range-and-field
