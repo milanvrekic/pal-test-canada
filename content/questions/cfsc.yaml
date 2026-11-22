@@ -321,7 +321,7 @@
   law_checked_on: "2026-11-22"
   review: {reviewed_by: Milan, reviewed_on: "2026-11-22", status: reviewed}
 
-# Batch 2, drafted 2026-11-22 from the 2014 handbook. Drafts until reviewed.
+# Batch 2, drafted from the 2014 handbook and reviewed by the instructor on 2026-11-22.
 - id: cfsc-parts-001
   course: cfsc
   topic: parts
@@ -331,7 +331,7 @@
   answer: 0
   explanation: "Modern firearms consist of three major parts: the barrel, the action and the stock."
   source: {handbook_edition: "2014 (5th ed.)", section: "3.1. Major firearms parts", page: "47"}
-  review: &draft2 {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: &reviewed2 {reviewed_by: Milan, reviewed_on: "2026-11-22", status: reviewed}
 - id: cfsc-parts-002
   course: cfsc
   topic: parts
@@ -341,7 +341,7 @@
   answer: 1
   explanation: "Cartridge information marked on the barrel is the data stamp. The head stamp is the marking on the cartridge itself."
   source: {handbook_edition: "2014 (5th ed.)", section: "3.1.1. Barrel", page: "48"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-parts-003
   course: cfsc
   topic: parts
@@ -351,7 +351,7 @@
   answer: 1
   explanation: "The trigger releases the firing mechanism, the firing pin strikes the primer, and the primer's flame ignites the powder. The expanding gas drives the bullet or shot down the barrel."
   source: {handbook_edition: "2014 (5th ed.)", section: "3.2. The firing sequence", page: "51"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-ammo-005
   course: cfsc
   topic: ammunition
@@ -361,7 +361,7 @@
   answer: 0
   explanation: "Rifling is the spiral grooves and lands inside the barrel. It spins the bullet so it stays stable in flight, which makes it more accurate."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.1. Rifling", page: "64"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-ammo-006
   course: cfsc
   topic: ammunition
@@ -371,7 +371,7 @@
   answer: 1
   explanation: "Calibre is a measurement of bore diameter, in thousandths of an inch or in millimetres. Always check the data stamp for the exact ammunition name."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.2. Calibre", page: "64"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-ammo-007
   course: cfsc
   topic: ammunition
@@ -381,7 +381,7 @@
   answer: 2
   explanation: "If 12 lead balls the diameter of the bore weigh one pound, the shotgun is 12 gauge. The .410 is the exception: it is measured as a calibre."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.5. Shotgun gauge", page: "75"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-ammo-008
   course: cfsc
   topic: ammunition
@@ -391,7 +391,7 @@
   answer: 0
   explanation: "The choke narrows the muzzle to control the spread of shot. Full choke gives the tightest pattern; cylinder bore, which has no narrowing, gives the most open."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.6. Choke", page: "77"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-ammo-009
   course: cfsc
   topic: ammunition
@@ -401,7 +401,7 @@
   answer: 0
   explanation: "The wad separates the powder charge from the shot or slug, seals the gas behind the charge, and separates the shot from the inside of the barrel."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.7. Shotgun shells", page: "80"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-ammo-010
   course: cfsc
   topic: ammunition
@@ -411,7 +411,7 @@
   answer: 3
   explanation: "Some rifles can fire bullets further than five kilometres, and shotguns can fire shot more than the length of a football field. Know the dangerous range of your firearm and ammunition."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.8. Ballistics", page: "89"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-ammo-011
   course: cfsc
   topic: ammunition
@@ -421,7 +421,7 @@
   answer: 1
   explanation: "Ammunition is most safely carried in its original container. Carry only ammunition for the firearm you are using."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.12. Ammunition precautions and legislation", page: "94"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-actions-004
   course: cfsc
   topic: actions
@@ -431,7 +431,7 @@
   answer: 2
   explanation: "Do not touch any firearm unless you know how to handle it safely. Consult the owner's manual or a person who knows that firearm well."
   source: {handbook_edition: "2014 (5th ed.)", section: "6.3. Action releases", page: "107"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-range-001
   course: cfsc
   topic: range-and-field
@@ -441,7 +441,7 @@
   answer: 2
   explanation: "A gunshot is about as loud as a jet engine taking off at close range. For maximum protection, wear earplugs and headphone-type protectors together."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.2. Personal safety protection", page: "146"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-range-002
   course: cfsc
   topic: range-and-field
@@ -451,7 +451,7 @@
   answer: 1
   explanation: "Range rules normally require the action to be open at all times except when actually shooting."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.3. Safety procedures on approved range", page: "148"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-range-003
   course: cfsc
   topic: range-and-field
@@ -461,7 +461,7 @@
   answer: 1
   explanation: "On cease-fire all firing stops at once. Firearms are unloaded, actions opened, and firearms laid down with muzzles downrange. Shooters step behind the cease-fire line and handle nothing until the next command."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.3. Safety procedures on approved range", page: "148"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-handling-004
   course: cfsc
   topic: handling
@@ -471,7 +471,7 @@
   answer: 2
   explanation: "Never have a loaded firearm in or on any vehicle unless you are allowed to shoot from it. Unload before getting in, and load only after getting out."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.5. Safe handling of firearms in vehicles", page: "152"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-field-002
   course: cfsc
   topic: range-and-field
@@ -481,7 +481,7 @@
   answer: 1
   explanation: "Looking through a mounted scope points the firearm at what you are looking at, which may be a person. Use binoculars to identify people, animals or objects."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-field-003
   course: cfsc
   topic: range-and-field
@@ -491,7 +491,7 @@
   answer: 1
   explanation: "Agree on the area each shooter will cover so everyone has a defined safe zone of fire. As the group moves, always know exactly where your partners are."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.7. Shooting or hunting with a group", page: "156"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-care-001
   course: cfsc
   topic: care
@@ -501,7 +501,7 @@
   answer: 1
   explanation: "Oil or moisture can freeze safeties and other firing mechanism parts in a firing position. When the firearm thaws later, it may fire."
   source: {handbook_edition: "2014 (5th ed.)", section: "9.2. Firearm cleaning", page: "181"}
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-resp-001
   course: cfsc
   topic: responsibilities
@@ -513,7 +513,7 @@
   source: {handbook_edition: "2014 (5th ed.)", section: "10.3. Firearms reported lost, missing or stolen", page: "190"}
   law_sensitive: true
   law_checked_on: TBD
-  review: *draft2
+  review: *reviewed2
 - id: cfsc-display-001
   course: cfsc
   topic: display
@@ -524,4 +524,4 @@
   explanation: "A non-restricted firearm may be displayed only if it is unloaded, made inoperable with a secure locking device or kept in a securely locked container or room, and not displayed with or within easy access to ammunition for it."
   source: {handbook_edition: "2014 (5th ed.)", section: "11.4. Display", page: "201"}
   law_checked_on: TBD
-  review: *draft2
+  review: *reviewed2
