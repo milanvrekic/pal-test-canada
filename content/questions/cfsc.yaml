@@ -7,7 +7,7 @@
   topic: vital-four-acts
   type: multiple-choice
   question: "What does the A in ACTS stand for?"
-  options: ["Always keep the safety on", "Assume every firearm is loaded", "Aim only at your target", "Ask before handling a firearm"]
+  options: ["Always keep the safety on when carrying", "Assume every firearm is loaded", "Aim only at your target", "Ask before handling a firearm"]
   answer: 1
   explanation: "ACTS: Assume every firearm is loaded, Control the muzzle direction at all times, Trigger finger off the trigger and out of the trigger guard, See that the firearm is unloaded."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "21"}
@@ -17,7 +17,7 @@
   topic: vital-four-acts
   type: multiple-choice
   question: "What does the C in ACTS stand for?"
-  options: ["Check the chamber", "Control the muzzle direction at all times", "Clear the action", "Carry the firearm unloaded"]
+  options: ["Check the chamber", "Control the muzzle direction at all times", "Clear the action", "Carry the firearm unloaded and cased in the field"]
   answer: 1
   explanation: "C is Control the muzzle direction at all times. A firearm pointed in a safe direction cannot hurt anyone even if it fires."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "21"}
@@ -27,7 +27,7 @@
   topic: vital-four-acts
   type: multiple-choice
   question: "Under ACTS, where should your trigger finger be until you have decided to fire?"
-  options: ["Resting lightly on the trigger", "Inside the trigger guard but off the trigger", "Off the trigger and outside the trigger guard", "On the safety"]
+  options: ["Resting lightly on the trigger", "Inside the trigger guard but not touching the trigger", "Off the trigger and outside the trigger guard", "On the safety"]
   answer: 2
   explanation: "T is Trigger finger must be kept off the trigger and out of the trigger guard. Resting it along the frame or stock keeps it clear."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "21"}
@@ -47,7 +47,7 @@
   topic: prove
   type: multiple-choice
   question: "What is the first step of PROVE?"
-  options: ["Remove all ammunition", "Point the firearm in the safest available direction", "Put the safety on", "Open the action"]
+  options: ["Remove all ammunition from the chamber and the magazine", "Point the firearm in the safest available direction", "Put the safety on", "Open the action"]
   answer: 1
   explanation: "P comes first: Point the firearm in the safest available direction. Every later step is done with the muzzle under control."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: PROVE It Safe Pointers", page: "22"}
@@ -67,7 +67,7 @@
   topic: prove
   type: multiple-choice
   question: "What does the O in PROVE stand for?"
-  options: ["Open the magazine", "Observe the chamber", "Oil the action", "Operate the safety"]
+  options: ["Open the magazine", "Observe the chamber", "Oil the action", "Operate the safety catch"]
   answer: 1
   explanation: "O is Observe the chamber. You look, and feel if needed, to confirm no cartridge is in it."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: PROVE It Safe Pointers", page: "22"}
@@ -87,7 +87,7 @@
   topic: prove
   type: multiple-choice
   question: "What does the E in PROVE stand for, and why does it matter?"
-  options: ["Engage the safety, so the firearm cannot fire", "Eject the magazine, so it cannot feed", "Examine the bore, because an obstruction can burst the barrel", "Empty your pockets, so no ammunition is nearby"]
+  options: ["Engage the safety, so the firearm cannot fire", "Eject the magazine, so it cannot feed", "Examine the bore, because an obstruction can burst the barrel", "Engage the action lock, so the bolt cannot close on a cartridge"]
   answer: 2
   explanation: "E is Examine the bore. Mud, snow, a cleaning patch or a lodged bullet in the barrel can cause it to bulge or burst when fired."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: PROVE It Safe Pointers", page: "22"}
@@ -107,7 +107,7 @@
   topic: ammunition
   type: multiple-choice
   question: "How do you confirm a cartridge is the correct one for a firearm?"
-  options: ["It fits into the chamber", "The box looks like the one you used before", "The head stamp on the cartridge matches the data stamp on the barrel", "The bullet is the same diameter as the muzzle"]
+  options: ["It fits into the chamber", "The box looks like the one you used before", "The head stamp on the cartridge matches the data stamp on the barrel", "The bullet looks the same diameter as the muzzle when you hold them together"]
   answer: 2
   explanation: "Match the head stamp on the cartridge to the data stamp on the firearm's barrel. A cartridge that fits is not necessarily the right one."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.2. Calibre", page: "66"}
@@ -147,7 +147,7 @@
   topic: misfires
   type: multiple-choice
   question: "What is a hang fire?"
-  options: ["A cartridge that fires with more recoil than normal", "A delay between the firing pin striking the primer and the cartridge firing", "A cartridge that will not chamber", "A bullet that lodges in the barrel"]
+  options: ["A cartridge that fires with far more recoil and noise than a normal cartridge would", "A delay between the firing pin striking the primer and the cartridge firing", "A cartridge that will not chamber", "A bullet that lodges in the barrel"]
   answer: 1
   explanation: "A hang fire is a delayed ignition. The cartridge may still fire some time after the trigger is pulled, which is why the muzzle must stay pointed in a safe direction."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.10. Hazards", page: "92"}
@@ -157,7 +157,7 @@
   topic: misfires
   type: multiple-choice
   question: "You pull the trigger and hear only a click. What should you do first?"
-  options: ["Open the action right away to look at the cartridge", "Keep the muzzle pointed in a safe direction and wait 60 seconds", "Pull the trigger again", "Turn the firearm to look down the muzzle"]
+  options: ["Open the action right away to look at the cartridge and see what went wrong", "Keep the muzzle pointed in a safe direction and wait 60 seconds", "Pull the trigger again", "Turn the firearm to look down the muzzle"]
   answer: 1
   explanation: "Treat every failure to fire as a possible hang fire. Keep the firearm pointed in a safe direction and wait 60 seconds before opening the action."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.10. Hazards", page: "92"}
@@ -167,7 +167,7 @@
   topic: misfires
   type: multiple-choice
   question: "A shot sounds much weaker than normal and has little recoil. What should you do?"
-  options: ["Fire again to clear the barrel", "Stop, PROVE the firearm safe and check the bore for an obstruction", "Switch to a different brand of ammunition and continue", "Tap the muzzle on the ground"]
+  options: ["Fire again to clear the barrel", "Stop, PROVE the firearm safe and check the bore for an obstruction", "Switch to a different brand of ammunition and continue with the rest of the string", "Tap the muzzle on the ground"]
   answer: 1
   explanation: "A weak report can mean the bullet or wad is lodged in the barrel. Firing another round behind an obstruction can burst the barrel."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.10. Hazards", page: "92"}
@@ -197,7 +197,7 @@
   topic: actions
   type: multiple-choice
   question: "What does a semi-automatic firearm do each time the trigger is pulled?"
-  options: ["Fires continuously until the trigger is released", "Fires one cartridge and loads the next one automatically", "Fires one cartridge and must be cycled by hand", "Fires two cartridges"]
+  options: ["Fires continuously until the trigger is released", "Fires one cartridge and loads the next one automatically", "Fires one cartridge and must then be cycled by hand to load another", "Fires two cartridges"]
   answer: 1
   explanation: "A semi-automatic fires one cartridge per trigger pull and uses the energy of that shot to load the next. It can be ready to fire again immediately."
   source: {handbook_edition: "2014 (5th ed.)", section: "6.1. Action types", page: "100"}
@@ -247,7 +247,7 @@
   topic: muzzleloaders
   type: multiple-choice
   question: "What propellant may be used in a muzzleloader?"
-  options: ["Any smokeless powder", "Only black powder or a black powder substitute made for muzzleloaders", "Shotgun powder in reduced amounts", "Whatever is recommended for the same calibre of cartridge"]
+  options: ["Any smokeless powder", "Only black powder or a black powder substitute made for muzzleloaders", "Shotgun powder in reduced amounts", "Whatever powder is recommended for a modern cartridge of the same calibre"]
   answer: 1
   explanation: "Use only black powder or a black powder substitute, and never smokeless powder in a muzzleloader: it produces far higher pressure and can destroy the firearm. Some modern firearms are made to handle smokeless powder, so always follow the manufacturer's instructions on powder type and loads."
   source: {handbook_edition: "2014 (5th ed.)", section: "2.2. Muzzleloading firearms", page: "37, 42"}
@@ -257,7 +257,7 @@
   topic: storage
   type: multiple-choice
   question: "Which of these meets the storage rules for a non-restricted firearm?"
-  options: ["Loaded, in a locked cabinet", "Unloaded, with a trigger lock on, and ammunition not within easy reach", "Unloaded, on an open rack beside its ammunition", "Unloaded, under a bed with the safety on"]
+  options: ["Loaded, in a locked cabinet", "Unloaded, with a trigger lock on, and ammunition not within easy reach", "Unloaded, on an open rack in the hallway, with its ammunition on the shelf beside it", "Unloaded, under a bed with the safety on"]
   answer: 1
   explanation: "A non-restricted firearm must be stored unloaded and either made inoperable with a secure locking device, have its bolt removed, or be locked in a sturdy container or room. Ammunition must not be readily accessible unless it is locked up."
   source: {handbook_edition: "2014 (5th ed.)", section: "11.3. Storage", page: "199"}
@@ -290,7 +290,7 @@
   topic: classification
   type: multiple-choice
   question: "What are the three classes of firearms in Canadian law?"
-  options: ["Hunting, sporting and military", "Non-restricted, restricted and prohibited", "Rifles, shotguns and handguns", "Manual, semi-automatic and automatic"]
+  options: ["Hunting, sporting and military", "Non-restricted, restricted and prohibited", "Rifles, shotguns and handguns", "Manual-action, semi-automatic and fully automatic"]
   answer: 1
   explanation: "Firearms are classed as non-restricted, restricted or prohibited. The class decides which licence privileges and rules apply."
   source: {handbook_edition: "2014 (5th ed.)", section: "3.4. Classification of firearms", page: "54"}
@@ -357,7 +357,7 @@
   topic: ammunition
   type: multiple-choice
   question: "What does rifling in a barrel do?"
-  options: ["Makes the bullet spin so it is stable in flight and more accurate", "Spreads the shot into a wider pattern", "Lets the barrel take any calibre of ammunition", "Slows the bullet down to reduce recoil"]
+  options: ["Makes the bullet spin so it is stable in flight and more accurate", "Spreads the shot into a wider pattern", "Lets the same barrel safely fire several different calibres of ammunition", "Slows the bullet down to reduce recoil"]
   answer: 0
   explanation: "Rifling is the spiral grooves and lands inside the barrel. It spins the bullet so it stays stable in flight, which makes it more accurate."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.1. Rifling", page: "64"}
@@ -377,7 +377,7 @@
   topic: ammunition
   type: multiple-choice
   question: "How is the gauge of a shotgun determined?"
-  options: ["By the bore diameter in thousandths of an inch", "By the length of the shell in inches", "By the number of lead balls the size of the bore that weigh one pound", "By the number of pellets in a standard shell"]
+  options: ["By the bore diameter measured in thousandths of an inch, as rifle calibre is", "By the length of the shell in inches", "By the number of lead balls the size of the bore that weigh one pound", "By the number of pellets in a standard shell"]
   answer: 2
   explanation: "If 12 lead balls the diameter of the bore weigh one pound, the shotgun is 12 gauge. The .410 is the exception: it is measured as a calibre."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.5. Shotgun gauge", page: "75"}
@@ -427,7 +427,7 @@
   topic: actions
   type: multiple-choice
   question: "You are handed a firearm you have never used, and you cannot work out how to open the action. What should you do?"
-  options: ["Pull the trigger to see if that releases the action", "Force the action open", "Stop and check the owner's manual or ask someone who knows that firearm well", "Hand it back closed and say nothing"]
+  options: ["Pull the trigger while pointing it in a safe direction to see if that releases the action", "Force the action open", "Stop and check the owner's manual or ask someone who knows that firearm well", "Hand it back closed and say nothing"]
   answer: 2
   explanation: "Do not touch any firearm unless you know how to handle it safely. Consult the owner's manual or a person who knows that firearm well."
   source: {handbook_edition: "2014 (5th ed.)", section: "6.3. Action releases", page: "107"}
@@ -437,7 +437,7 @@
   topic: range-and-field
   type: multiple-choice
   question: "For maximum hearing protection when shooting, what does the handbook recommend?"
-  options: ["Foam earplugs only", "Headphone-type protectors only", "Both earplugs and headphone-type protectors", "Cotton in the ears"]
+  options: ["Foam earplugs only", "Headphone-type protectors only, since plugs add nothing", "Both earplugs and headphone-type protectors", "Cotton in the ears"]
   answer: 2
   explanation: "A gunshot is about as loud as a jet engine taking off at close range. For maximum protection, wear earplugs and headphone-type protectors together."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.2. Personal safety protection", page: "146"}
@@ -467,7 +467,7 @@
   topic: handling
   type: multiple-choice
   question: "When may you have a loaded firearm in or on a vehicle?"
-  options: ["Whenever the safety is on", "When the vehicle is parked", "Only where you are allowed to shoot from that vehicle", "When the firearm is in a soft case"]
+  options: ["Whenever the safety is on", "When the vehicle is parked", "Only where you are allowed to shoot from that vehicle", "When the firearm is in a soft case with the safety on and the action closed"]
   answer: 2
   explanation: "Never have a loaded firearm in or on any vehicle unless you are allowed to shoot from it. Unload before getting in, and load only after getting out."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.5. Safe handling of firearms in vehicles", page: "152"}
@@ -477,7 +477,7 @@
   topic: range-and-field
   type: multiple-choice
   question: "You see movement in the distance and are not sure what it is. Why should you not look at it through your rifle's scope?"
-  options: ["The scope may lose its zero", "You would be pointing the rifle at whatever it is", "The scope is not powerful enough", "It is legal only during daylight"]
+  options: ["The scope may lose its zero", "You would be pointing the rifle at whatever it is", "The scope is not powerful enough to identify game at that range", "It is legal only during daylight"]
   answer: 1
   explanation: "Looking through a mounted scope points the firearm at what you are looking at, which may be a person. Use binoculars to identify people, animals or objects."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
@@ -507,7 +507,7 @@
   topic: responsibilities
   type: multiple-choice
   question: "Your rifle is stolen from your home. Who must you report the theft to?"
-  options: ["No one, if it is insured", "Only your insurance company", "Your local police service and the Canadian Firearms Program", "The store where you bought it"]
+  options: ["No one, if it is insured", "Only your insurance company, which then informs the police for you", "Your local police service and the Canadian Firearms Program", "The store where you bought it"]
   answer: 2
   explanation: "The Criminal Code requires owners to report the loss or theft of a firearm. Report it to your local police service and to the Canadian Firearms Program at 1-800-731-4000."
   source: {handbook_edition: "2014 (5th ed.)", section: "10.3. Firearms reported lost, missing or stolen", page: "190"}
@@ -519,7 +519,7 @@
   topic: display
   type: multiple-choice
   question: "You want to display a non-restricted rifle on a wall rack at home. Which set of conditions meets the rules?"
-  options: ["Loaded, with the safety on", "Unloaded, with a secure locking device, and not displayed with or near its ammunition", "Unloaded, with a box of its ammunition on the shelf below", "Unloaded, with the bolt closed so dust stays out"]
+  options: ["Loaded, with the safety on", "Unloaded, with a secure locking device, and not displayed with or near its ammunition", "Unloaded, with a secure locking device, and a box of its ammunition on the shelf just below", "Unloaded, with the bolt closed so dust stays out"]
   answer: 1
   explanation: "A non-restricted firearm may be displayed only if it is unloaded, made inoperable with a secure locking device or kept in a securely locked container or room, and not displayed with or within easy access to ammunition for it."
   source: {handbook_edition: "2014 (5th ed.)", section: "11.4. Display", page: "201"}
