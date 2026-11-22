@@ -1,8 +1,11 @@
 import type { Metadata } from 'expo-router/server';
+
+import { page } from '@/lib/seo';
 import { useState } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
+import { HandoffCards } from '@/components/handoff-cards';
 import { ThemedText } from '@/components/themed-text';
 import { Button, Card, Notice, ProgressBar, Screen } from '@/components/ui';
 import { Radius, Spacing } from '@/constants/theme';
@@ -13,10 +16,10 @@ import { drillPhotos } from '@/content/drill-photos';
 import { type Drill, drills } from '@/lib/content';
 
 export function generateMetadata(): Metadata {
-  return {
+  return page('/spot', {
     title: 'Spot the mistake: PAL handling drill | PAL Test Canada',
     description: 'Look at each scene and find the handling mistake. Practise for the CFSC and CRFSC practical test.',
-  };
+  });
 }
 
 // The right answer moves around, so position gives nothing away.
@@ -50,6 +53,7 @@ function SpotSession({ onRestart }: { onRestart: () => void }) {
         <Button label="Try again" onPress={onRestart} />
         <Button variant="secondary" label="Read: what fails people" href="/guides/what-fails-people" />
         <Button variant="secondary" label="Back to home" href="/" />
+        <HandoffCards placement="drill_results" title="After your course" lead="Once your licence arrives, find where you can hunt and shoot." />
       </Screen>
     );
   }

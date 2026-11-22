@@ -41,9 +41,9 @@
     "web": "npm run content:preview && expo start --web",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "build:web": "npm run content && expo export --platform web",
-    "build:web:preview": "npm run content:preview && expo export --platform web",
-    "test": "node --test --experimental-strip-types src/features/quiz/engine.test.ts",
+    "build:web": "npm run content && expo export --platform web && node ../tools/sitemap.mjs dist",
+    "build:web:preview": "npm run content:preview && expo export --platform web && node ../tools/sitemap.mjs dist",
+    "test": "node --test --experimental-strip-types src/features/*/*.test.ts",
     "typecheck": "tsc --noEmit",
     "lint": "expo lint"
   },

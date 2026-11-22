@@ -15,6 +15,8 @@ import {
   shuffleOptions,
   topicStats,
   weakTopics,
+  topicGroup,
+  topicsFor,
 } from './engine.ts';
 
 const make = (n: number, course: 'cfsc' | 'crfsc', topics: string[]): Question[] =>
@@ -82,8 +84,15 @@ test('weak topics need at least three answers and sit under 80%', () => {
   [2, 6, 10, 14].forEach((i, n) => (p = recordAnswer(p, `cfsc-${i}`, n === 0, '2026-01-01')));
   p = recordAnswer(p, 'cfsc-0', false, '2026-01-01'); // acts: one answer only, not enough to judge
   const weak = weakTopics(topicStats(bank, p, 'cfsc'));
-  assert.deepEqual(weak.map((w) => w.topic), ['storage']);
+  assert.deepEqual(weak.map((w) => w.topic), ['storage-transport-display']);
   assert.equal(weak[0].accuracy, 0.25);
+});
+
+test('thin topics share a practice group', () => {
+  const qs = make(6, 'cfsc', ['storage', 'transport', 'display']);
+  assert.deepEqual(topicsFor(qs, 'cfsc'), ['storage-transport-display']);
+  assert.equal(buildPractice(qs, emptyProgress(), { course: 'cfsc', topic: 'storage-transport-display' }).length, 6);
+  assert.equal(topicGroup('prove'), 'prove');
 });
 
 test('readiness needs three exams at 90% and no weak topic', () => {

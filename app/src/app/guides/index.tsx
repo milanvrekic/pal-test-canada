@@ -1,5 +1,7 @@
 import { Link } from 'expo-router';
 import type { Metadata } from 'expo-router/server';
+
+import { page } from '@/lib/seo';
 import { Pressable, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
@@ -8,10 +10,10 @@ import { Spacing } from '@/constants/theme';
 import { guides } from '@/lib/content';
 
 export function generateMetadata(): Metadata {
-  return {
+  return page('/guides', {
     title: 'PAL guides: the tests, what fails people and applying | PAL Test Canada',
     description: 'Plain-language guides to the CFSC and CRFSC tests, the mistakes that fail people, and applying for your PAL afterwards.',
-  };
+  });
 }
 
 export default function Guides() {

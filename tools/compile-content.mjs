@@ -156,6 +156,36 @@ function writeDrillPhotos(list) {
   );
 }
 
+// Self-reported licence wait times (content/wait-times/README.md). Plain CSV: no field contains a comma.
+function loadWaitTimes() {
+  const file = join(root, 'content', 'wait-times', 'reports.csv');
+  if (!existsSync(file)) return { rows: [] };
+  const [head, ...lines] = readFileSync(file, 'utf8').trim().split(/\r?\n/);
+  const cols = head.split(',');
+  const at = (r, name) => (r[cols.indexOf(name)] ?? '').trim();
+  const rows = [];
+  for (const [i, line] of lines.entries()) {
+    const r = line.split(',');
+    const days = Number(at(r, 'Days'));
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(at(r, 'Report date')) || !Number.isFinite(days) || days <= 0) {
+      errors.push(`wait-times/reports.csv line ${i + 2}: needs a report date and a positive day count`);
+      continue;
+    }
+    rows.push({
+      date: at(r, 'Report date'),
+      province: at(r, 'Province') || null,
+      licence: at(r, 'Licence') || null,
+      application: at(r, 'Application') || null,
+      method: at(r, 'Method') || null,
+      days,
+      measured: at(r, 'Measured') || null,
+      complication: at(r, 'Complication reported') === 'Y',
+      source: at(r, 'Source page'),
+    });
+  }
+  return { rows };
+}
+
 function loadGuides() {
   const dir = join(root, 'content', 'guides');
   const out = [];
@@ -185,6 +215,7 @@ function loadGuides() {
 const questions = loadQuestions();
 const guides = loadGuides();
 const drills = loadDrills();
+const waitTimes = loadWaitTimes();
 writeDrillPhotos(drills);
 
 for (const course of COURSES) {
@@ -200,7 +231,7 @@ if (errors.length) {
   process.exit(1);
 }
 
-const body = { questions, guides, drills };
+const body = { questions, guides, drills, waitTimes };
 const version = createHash('sha256').update(JSON.stringify(body)).digest('hex').slice(0, 12);
 const bundle = { version, builtAt: new Date().toISOString().slice(0, 10), containsDrafts: questions.some((q) => q.draft) || guides.some((g) => g.draft) || drills.some((d) => d.draft), ...body };
 const outDir = join(root, 'app', 'src', 'content');

@@ -1,4 +1,5 @@
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import type { Metadata } from 'expo-router/server';
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 
@@ -23,6 +24,15 @@ import { useTheme } from '@/hooks/use-theme';
 import { track } from '@/lib/analytics';
 import { questions } from '@/lib/content';
 import { updateProgress, useProgress } from '@/lib/progress';
+import { page } from '@/lib/seo';
+
+export function generateMetadata(): Metadata {
+  return page('/quiz', {
+    title: 'CFSC and CRFSC practice test | PAL Test Canada',
+    description: 'Practice questions for the Canadian Firearms Safety Course, with handbook citations.',
+    noindex: true,
+  });
+}
 
 type Mode = 'practice' | 'exam' | 'review';
 
@@ -45,6 +55,8 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [picks, setPicks] = useState<number[]>([]);
+  const [quitting, setQuitting] = useState(false);
+  const router = useRouter();
 
   // Build the question set once, after saved progress has loaded.
   useEffect(() => {
@@ -102,11 +114,31 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
   return (
     <Screen>
       <View style={{ gap: Spacing.two }}>
-        <ThemedText type="smallBold" themeColor="textSecondary">
-          {heading} · Question {index + 1} of {set.length}
-        </ThemedText>
+        <View style={styles.headRow}>
+          <ThemedText type="smallBold" themeColor="textSecondary" style={{ flex: 1 }}>
+            {heading} · Question {index + 1} of {set.length}
+          </ThemedText>
+          <Pressable accessibilityRole="button" onPress={() => setQuitting(true)} hitSlop={8} style={styles.quit}>
+            <ThemedText type="smallBold" themeColor="textSecondary">
+              Quit
+            </ThemedText>
+          </Pressable>
+        </View>
         <ProgressBar value={index / set.length} />
       </View>
+
+      {quitting ? (
+        <Card>
+          <ThemedText type="bold">Quit this {mode === 'exam' ? 'exam' : 'session'}?</ThemedText>
+          <ThemedText type="small" themeColor="textSecondary">
+            {mode === 'exam'
+              ? 'Answers so far are kept for review, but this exam will not count toward your readiness score.'
+              : 'Answers so far are kept for review.'}
+          </ThemedText>
+          <Button label="Quit" onPress={() => router.replace('/')} />
+          <Button variant="secondary" label="Keep going" onPress={() => setQuitting(false)} />
+        </Card>
+      ) : null}
 
       <ThemedText type="subheading" accessibilityRole="header">
         {q.question}
@@ -228,11 +260,21 @@ function Results({ heading, set, picks, mode, course }: { heading: string; set: 
         <Notice tone="success">No missed questions.</Notice>
       )}
 
-      {mode === 'exam' && passed ? <HandoffCards placement="exam_results" /> : null}
+      {mode === 'exam' ? (
+        passed ? (
+          <HandoffCards placement="exam_pass" title="Passed? Here's what's next" lead="Once your licence arrives, find where you can hunt and shoot." />
+        ) : (
+          <HandoffCards placement="exam_fail" title="For when you pass" lead="Free apps from the same team, for after your licence arrives." />
+        )
+      ) : (
+        <HandoffCards placement="practice_results" title="After your course" />
+      )}
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
+  headRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two },
+  quit: { minHeight: 44, minWidth: 44, alignItems: 'flex-end', justifyContent: 'center' },
   option: { borderWidth: 2, borderRadius: Radius, padding: Spacing.three, gap: Spacing.one, minHeight: 48, justifyContent: 'center' },
 });
