@@ -1,6 +1,6 @@
 import type { Metadata } from 'expo-router/server';
 import { useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
 import { ThemedText } from '@/components/themed-text';
@@ -9,6 +9,7 @@ import { Radius, Spacing } from '@/constants/theme';
 import { shuffle } from '@/features/quiz/engine';
 import { useTheme } from '@/hooks/use-theme';
 import { track } from '@/lib/analytics';
+import { drillPhotos } from '@/content/drill-photos';
 import { type Drill, drills } from '@/lib/content';
 
 export function generateMetadata(): Metadata {
@@ -74,8 +75,12 @@ function SpotSession({ onRestart }: { onRestart: () => void }) {
         <ProgressBar value={index / set.length} />
       </View>
 
-      <View style={[styles.scene, { borderColor: theme.border }]} accessibilityRole="image" accessibilityLabel={`Scene ${index + 1}`}>
-        <SvgXml xml={d.scene} width="100%" height="100%" />
+      <View style={[styles.scene, { borderColor: theme.border }]} accessibilityRole="image" accessibilityLabel={d.alt ?? `Scene ${index + 1}`}>
+        {d.photo && drillPhotos[d.photo] ? (
+          <Image source={drillPhotos[d.photo]} style={styles.photo} resizeMode="cover" accessibilityIgnoresInvertColors />
+        ) : (
+          <SvgXml xml={d.scene} width="100%" height="100%" />
+        )}
       </View>
 
       <ThemedText type="subheading" accessibilityRole="header">
@@ -139,5 +144,6 @@ function SpotSession({ onRestart }: { onRestart: () => void }) {
 
 const styles = StyleSheet.create({
   scene: { width: '100%', aspectRatio: 640 / 400, borderRadius: Radius, overflow: 'hidden', borderWidth: 1 },
+  photo: { width: '100%', height: '100%' },
   option: { borderWidth: 2, borderRadius: Radius, padding: Spacing.three, gap: Spacing.one, minHeight: 48, justifyContent: 'center' },
 });

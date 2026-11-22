@@ -19,8 +19,11 @@ export type Drill = {
   answer: number;
   explanation: string;
   source: { edition: string | null; section: string | null; page: string | null };
-  /** Standalone SVG markup for the scene. */
+  /** Standalone SVG markup for the scene; empty when the scene is a photo. */
   scene: string;
+  /** Key into drillPhotos when the scene is a photo. */
+  photo: string | null;
+  alt: string | null;
   draft: boolean;
 };
 

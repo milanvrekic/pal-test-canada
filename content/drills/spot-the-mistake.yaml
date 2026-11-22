@@ -22,8 +22,9 @@
 - id: spot-muzzle-sweep
   course: cfsc
   scene: muzzle-sweep
+  alt: "Three shooters on an outdoor firing line, each at a wooden bench, with targets in front of a dirt berm."
   question: "What is wrong on this firing line?"
-  options: ["The middle shooter's muzzle is pointed at the next shooter", "The two outer shooters' rifles are pointed downrange", "Each shooter is standing behind their own bench", "The targets are set up in front of the backstop berm"]
+  options: ["The middle shooter's rifle is pointed at the next shooter", "The two outer shooters' rifles are pointed downrange", "Each shooter is standing behind their own bench", "The targets are set up in front of the backstop berm"]
   answer: 0
   explanation: "On the range the muzzle must always be pointed downrange. Turn your head to talk, never the firearm, and keep it pointed in a safe direction the whole time."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.3. Safety procedures on approved range", page: "148"}
@@ -31,8 +32,9 @@
 - id: spot-fence
   course: cfsc
   scene: fence
+  alt: "A hunter in a green jacket stepping up onto a barbed-wire fence in an autumn field, holding a scoped rifle."
   question: "This hunter is alone. What is wrong here?"
-  options: ["He is climbing the fence while holding the rifle", "He is wearing safety glasses while out hunting", "He is crossing the fence right beside a post", "His rifle's muzzle is pointed away from his body"]
+  options: ["He is climbing the fence while holding the rifle", "His rifle's muzzle is pointed up, away from his body", "He is crossing between two fence posts"]
   answer: 0
   explanation: "When crossing a fence alone, unload the firearm and place it flat on the ground under the fence with the action open and the muzzle pointed away from where you cross. Then cross."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
@@ -40,15 +42,17 @@
 - id: spot-pistol-unload
   course: crfsc
   scene: pistol-unload
-  question: "This shooter is unloading. What is wrong here?"
-  options: ["The magazine is still in, so a cartridge can feed", "The slide is locked open to show the chamber", "The trigger finger is straight along the frame", "The pistol is pointed downrange at the berm"]
+  alt: "A semi-automatic pistol lying on a range bench with its slide locked back, beside a shooting bag and ear muffs."
+  question: "This pistol has been set down as unloaded. What is wrong here?"
+  options: ["A cartridge is still in the chamber", "The slide is locked back so the chamber can be seen", "The pistol is lying flat on the bench, not held", "Nobody's finger is near the trigger"]
   answer: 0
-  explanation: "Remove the magazine first, then pull the slide back to empty the chamber. With the magazine still in, working the slide loads the next cartridge."
+  explanation: "Unloading is not done until you have looked. Remove the magazine, pull the slide back to eject the cartridge from the chamber, then look into the chamber and magazine well to prove the pistol is empty."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.8.1. Semi-automatic unloading procedure", page: "278"}
   review: *draftd
 - id: spot-wall-display
   course: cfsc
   scene: wall-display
+  alt: "A scoped bolt-action rifle on two wooden wall pegs with a red trigger lock, above a small shelf holding an open box of cartridges."
   question: "This rifle is displayed at home. What is wrong here?"
   options: ["Its ammunition is displayed right beside the rifle", "A trigger lock is fitted through the trigger guard", "The rifle is resting level on two wall pegs", "The rifle hangs above the shelf, not on it"]
   answer: 0
