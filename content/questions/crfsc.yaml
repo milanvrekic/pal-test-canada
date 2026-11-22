@@ -331,3 +331,213 @@
   explanation: "Control the muzzle direction at all times: identify the safest available direction and keep the firearm pointed that way. The muzzle should never point towards yourself or anyone else."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "218"}
   review: {reviewed_by: Milan, reviewed_on: "2026-11-22", status: reviewed}
+
+# Batch 2, drafted 2026-11-22 from the 2014 handbook. Drafts until reviewed.
+- id: crfsc-actions-004
+  course: crfsc
+  topic: actions
+  type: multiple-choice
+  question: "How does a revolver hold its cartridges?"
+  options: ["One in each chamber of a rotating cylinder", "In a detachable magazine in the grip", "In a tube under the barrel", "In a single chamber loaded by hand for each shot"]
+  answer: 0
+  explanation: "A revolver has several chambers in a rotating cylinder, each holding one cartridge. Cylinders may be non-swing, swing-out or top break."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.1. Common types of handgun actions", page: "256"}
+  review: &draft2 {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-safeties-001
+  course: crfsc
+  topic: safeties
+  type: multiple-choice
+  question: "What does a decocking lever do on a double-action semi-automatic handgun?"
+  options: ["Releases the magazine", "Safely lowers the hammer", "Locks the slide open", "Lightens the trigger pull"]
+  answer: 1
+  explanation: "Pressing the decocking lever safely lowers the hammer, so you do not have to lower it by hand. On some handguns it also engages the safety."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: "259"}
+  review: *draft2
+- id: crfsc-safeties-002
+  course: crfsc
+  topic: safeties
+  type: multiple-choice
+  question: "What does a magazine disconnect safety do?"
+  options: ["Prevents the handgun from firing when the magazine is removed", "Ejects the magazine when the handgun is empty", "Stops the magazine from being removed while the safety is on", "Counts the cartridges left in the magazine"]
+  answer: 0
+  explanation: "A magazine disconnect safety prevents the firearm from being discharged when the magazine is removed. Like any safety, it can fail."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: "260"}
+  review: *draft2
+- id: crfsc-safeties-003
+  course: crfsc
+  topic: safeties
+  type: true-false
+  question: "If a handgun has a half-cock position, that position is always a safety."
+  options: ["True", "False"]
+  answer: 1
+  explanation: "The presence of a half cock does not guarantee it is a safety. Some firearms do not use it as one. Consult the owner's manual."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: "260"}
+  review: *draft2
+- id: crfsc-safeties-004
+  course: crfsc
+  topic: safeties
+  type: multiple-choice
+  question: "On a revolver, what does a hammer block or transfer bar do?"
+  options: ["Keeps the firing pin from reaching the primer unless the trigger is held all the way back", "Locks the cylinder so it cannot be opened", "Stops the hammer from being cocked by hand", "Holds the cartridges in the cylinder"]
+  answer: 0
+  explanation: "On many older revolvers the firing pin can rest on a cartridge's primer, so a blow to the hammer can fire it. A hammer block or transfer bar prevents this unless the trigger is held fully to the rear."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: "260"}
+  review: *draft2
+- id: crfsc-muzzle-001
+  course: crfsc
+  topic: muzzleloaders
+  type: multiple-choice
+  question: "In a black powder revolver, why is grease placed in front of each projectile?"
+  options: ["To increase the speed of the ball", "To prevent chain-firing", "To make the cylinder easier to turn", "So the revolver never needs cleaning"]
+  answer: 1
+  explanation: "Grease in front of each projectile helps stop the flash from one shot igniting the charges in the other chambers, which is called chain-firing."
+  source: {handbook_edition: "2014 (5th ed.)", section: "12.2.3. DOs and DON'Ts of muzzleloading", page: "232"}
+  review: *draft2
+- id: crfsc-muzzle-002
+  course: crfsc
+  topic: muzzleloaders
+  type: multiple-choice
+  question: "How should you put the powder charge into a muzzleloader?"
+  options: ["Pour it straight from the powder horn into the muzzle", "Measure it with a volumetric measure, then pour it into the muzzle", "Judge the amount by eye", "Use smokeless powder for a cleaner shot"]
+  answer: 1
+  explanation: "Always use a volumetric measure to pour powder into the muzzle, never the powder horn or flask, and follow the manufacturer's maximum charge."
+  source: {handbook_edition: "2014 (5th ed.)", section: "12.2.3. DOs and DON'Ts of muzzleloading", page: "232"}
+  review: *draft2
+- id: crfsc-shooting-001
+  course: crfsc
+  topic: shooting-technique
+  type: multiple-choice
+  question: "With open sights, what is sight alignment?"
+  options: ["Lining up the rear and front sights with the target", "Adjusting the sights at a gunsmith", "Closing one eye", "Moving the target closer"]
+  answer: 0
+  explanation: "Sight alignment is physically lining up the rear and front sights with the target. Aiming them at a target creates the sight picture."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.1. Sight alignment/Sight picture", page: "297"}
+  review: *draft2
+- id: crfsc-shooting-002
+  course: crfsc
+  topic: shooting-technique
+  type: multiple-choice
+  question: "When in your breathing cycle should you release the shot?"
+  options: ["While holding a full breath", "While breathing in", "In the natural pause at the bottom of an exhale", "Right after a deep breath in"]
+  answer: 2
+  explanation: "Holding your breath is not natural. Release the shot in the natural pause at the bottom of each exhale."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.2. Breathing as it relates to shot release", page: "297"}
+  review: *draft2
+- id: crfsc-shooting-003
+  course: crfsc
+  topic: shooting-technique
+  type: multiple-choice
+  question: "How should you operate the trigger for an accurate shot?"
+  options: ["Pull it quickly once the sights cross the target", "Squeeze it slowly and steadily", "Jerk it to beat the recoil", "Press it halfway, then snap it"]
+  answer: 1
+  explanation: "With the sights aligned on the target, squeeze the trigger slowly and steadily. Anything other than a smooth squeeze moves the firearm and sends the shot off target."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.3. Trigger control", page: "298"}
+  review: *draft2
+- id: crfsc-shooting-004
+  course: crfsc
+  topic: shooting-technique
+  type: multiple-choice
+  question: "What is follow-through?"
+  options: ["Walking to the target to check your shot", "Keeping your sight picture and shooting position after the shot", "Reloading immediately after firing", "Cleaning the barrel after each string"]
+  answer: 1
+  explanation: "Follow-through means maintaining your sight picture and position after discharging the firearm. Without it, the shot is more likely to go off target."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.4. Follow-through", page: "298"}
+  review: *draft2
+- id: crfsc-range-003
+  course: crfsc
+  topic: range-and-field
+  type: multiple-choice
+  question: "When is a firearm under your direct control?"
+  options: ["When it is registered to you", "When it is within your eyesight and/or arm's reach", "When it is anywhere on the same range", "When it is locked in your car"]
+  answer: 1
+  explanation: "Direct control means the firearm is within eyesight and/or arm's reach of the shooter. A firearm that leaves your direct control must be proven safe again."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.5. Safety procedures at the range", page: "301"}
+  review: *draft2
+- id: crfsc-range-004
+  course: crfsc
+  topic: range-and-field
+  type: multiple-choice
+  question: "A guest without a firearms licence wants to try shooting at the range. What does the handbook recommend?"
+  options: ["They may not shoot at all", "They must be under direct and immediate supervision while shooting", "They may shoot alone if they have watched others first", "They may shoot only rimfire firearms"]
+  answer: 1
+  explanation: "Minors and guests without a valid firearms licence should be under direct and immediate supervision while shooting. Check the range's own rules too."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.5. Safety procedures at the range", page: "301"}
+  review: *draft2
+- id: crfsc-class-008
+  course: crfsc
+  topic: classification
+  type: multiple-choice
+  question: "Which of these is a reason for which individuals may generally possess restricted firearms?"
+  options: ["Target practice or competition", "Hunting big game", "Protecting their home", "Carrying for personal protection"]
+  answer: 0
+  explanation: "In general, restricted firearms may be possessed for a lawful profession or occupation, for target practice or competition, or as part of a gun collection."
+  source: {handbook_edition: "2014 (5th ed.)", section: "17.1. Classes of firearms: restricted firearms", page: "312"}
+  law_checked_on: TBD
+  review: *draft2
+- id: crfsc-class-009
+  course: crfsc
+  topic: classification
+  type: multiple-choice
+  question: "Which of these is a prohibited firearm?"
+  options: ["An automatic firearm", "A single-shot shotgun", "A lever-action rifle", "A bolt-action rifle with a 24-inch barrel"]
+  answer: 0
+  explanation: "Automatic firearms are prohibited. Ordinary single-shot, lever-action and bolt-action long guns of normal length are non-restricted."
+  source: {handbook_edition: "2014 (5th ed.)", section: "17.1. Classes of firearms: prohibited firearms", page: "313"}
+  law_checked_on: TBD
+  review: *draft2
+- id: crfsc-class-010
+  course: crfsc
+  topic: classification
+  type: multiple-choice
+  question: "Which of these is a prohibited device?"
+  options: ["A telescopic sight", "A device designed to muffle or stop the sound of a firearm", "A trigger lock", "A bipod"]
+  answer: 1
+  explanation: "Silencers, meaning devices designed to muffle or stop the sound of a firearm, are prohibited devices. So are handgun barrels of 105 mm or less and magazines prescribed as prohibited."
+  source: {handbook_edition: "2014 (5th ed.)", section: "17.2.1. Prohibited devices", page: "314"}
+  law_checked_on: TBD
+  review: *draft2
+- id: crfsc-storage-004
+  course: crfsc
+  topic: storage
+  type: multiple-choice
+  question: "Where may a restricted firearm be stored?"
+  options: ["At any address where you stay overnight", "Only at the address on its registration", "At a friend's home if they hold a licence", "In your vehicle, if it is locked"]
+  answer: 1
+  explanation: "A restricted firearm may only be stored at the address shown on its registration."
+  source: {handbook_edition: "2014 (5th ed.)", section: "17.3. Storage", page: "316"}
+  law_checked_on: TBD
+  review: *draft2
+- id: crfsc-display-002
+  course: crfsc
+  topic: display
+  type: multiple-choice
+  question: "You display a restricted firearm at a gun show, away from its registered address. Which set of conditions is required?"
+  options: ["Loaded, as long as you stand beside it", "Unloaded and lying loose on the table", "Unloaded, with a secure locking device, and fastened by a chain or metal cable so it cannot easily be removed", "Only inside a closed case, never on display"]
+  answer: 2
+  explanation: "Away from its usual address, a displayed restricted firearm must be unloaded, have a secure locking device, be securely attached by a chain, metal cable or similar device, and not be within easy access to its ammunition. It may be removed to let someone handle it under your direct supervision."
+  source: {handbook_edition: "2014 (5th ed.)", section: "17.4. Display", page: "319"}
+  law_checked_on: TBD
+  review: *draft2
+- id: crfsc-transport-005
+  course: crfsc
+  topic: transport
+  type: true-false
+  question: "Removing the firing pin from a restricted handgun makes it legally disabled for transport."
+  options: ["True", "False"]
+  answer: 1
+  explanation: "Removing the firing pin or any other component does not make a restricted or prohibited handgun legally disabled for transport. The transport rules still apply."
+  source: {handbook_edition: "2014 (5th ed.)", section: "17.5. Transportation", page: "321"}
+  law_checked_on: TBD
+  review: *draft2
+- id: crfsc-resp-001
+  course: crfsc
+  topic: responsibilities
+  type: multiple-choice
+  question: "You lose your firearms licence. What must you do?"
+  options: ["Nothing until it is time to renew", "Report the loss with reasonable dispatch to a peace officer, firearms officer or Chief Firearms Officer", "Tell your shooting club only", "Wait six months in case it turns up"]
+  answer: 1
+  explanation: "Losing a firearm, licence, registration certificate or authorization, or having one stolen, must be reported with reasonable dispatch to a peace officer, firearms officer or Chief Firearms Officer. Failing to do so is an offence."
+  source: {handbook_edition: "2014 (5th ed.)", section: "Appendix F: Reporting lost or stolen firearms, licences, etc.", page: "335"}
+  law_sensitive: true
+  law_checked_on: TBD
+  review: *draft2

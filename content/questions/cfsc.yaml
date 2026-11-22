@@ -320,3 +320,208 @@
   source: {handbook_edition: "2014 (5th ed.)", section: "Appendix I: Firearms licences", page: "338"}
   law_checked_on: "2026-11-22"
   review: {reviewed_by: Milan, reviewed_on: "2026-11-22", status: reviewed}
+
+# Batch 2, drafted 2026-11-22 from the 2014 handbook. Drafts until reviewed.
+- id: cfsc-parts-001
+  course: cfsc
+  topic: parts
+  type: multiple-choice
+  question: "What are the three major parts of a modern firearm?"
+  options: ["Barrel, action and stock", "Barrel, magazine and sights", "Trigger, hammer and firing pin", "Stock, scope and sling"]
+  answer: 0
+  explanation: "Modern firearms consist of three major parts: the barrel, the action and the stock."
+  source: {handbook_edition: "2014 (5th ed.)", section: "3.1. Major firearms parts", page: "47"}
+  review: &draft2 {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-parts-002
+  course: cfsc
+  topic: parts
+  type: multiple-choice
+  question: "Manufacturers often mark the cartridge a firearm is made for on its barrel. What is this marking called?"
+  options: ["The head stamp", "The data stamp", "The proof mark", "The serial number"]
+  answer: 1
+  explanation: "Cartridge information marked on the barrel is the data stamp. The head stamp is the marking on the cartridge itself."
+  source: {handbook_edition: "2014 (5th ed.)", section: "3.1.1. Barrel", page: "48"}
+  review: *draft2
+- id: cfsc-parts-003
+  course: cfsc
+  topic: parts
+  type: multiple-choice
+  question: "In the firing sequence, what ignites the powder?"
+  options: ["The firing pin touching the powder directly", "The flame from the primer", "Friction from the bullet moving down the barrel", "The trigger creating a spark"]
+  answer: 1
+  explanation: "The trigger releases the firing mechanism, the firing pin strikes the primer, and the primer's flame ignites the powder. The expanding gas drives the bullet or shot down the barrel."
+  source: {handbook_edition: "2014 (5th ed.)", section: "3.2. The firing sequence", page: "51"}
+  review: *draft2
+- id: cfsc-ammo-005
+  course: cfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "What does rifling in a barrel do?"
+  options: ["Makes the bullet spin so it is stable in flight and more accurate", "Spreads the shot into a wider pattern", "Lets the barrel take any calibre of ammunition", "Slows the bullet down to reduce recoil"]
+  answer: 0
+  explanation: "Rifling is the spiral grooves and lands inside the barrel. It spins the bullet so it stays stable in flight, which makes it more accurate."
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.1. Rifling", page: "64"}
+  review: *draft2
+- id: cfsc-ammo-006
+  course: cfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "What does the calibre of a rifled firearm measure?"
+  options: ["The length of the barrel", "The diameter of the bore", "The weight of the bullet", "The amount of powder in the cartridge"]
+  answer: 1
+  explanation: "Calibre is a measurement of bore diameter, in thousandths of an inch or in millimetres. Always check the data stamp for the exact ammunition name."
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.2. Calibre", page: "64"}
+  review: *draft2
+- id: cfsc-ammo-007
+  course: cfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "How is the gauge of a shotgun determined?"
+  options: ["By the bore diameter in thousandths of an inch", "By the length of the shell in inches", "By the number of lead balls the size of the bore that weigh one pound", "By the number of pellets in a standard shell"]
+  answer: 2
+  explanation: "If 12 lead balls the diameter of the bore weigh one pound, the shotgun is 12 gauge. The .410 is the exception: it is measured as a calibre."
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.5. Shotgun gauge", page: "75"}
+  review: *draft2
+- id: cfsc-ammo-008
+  course: cfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "Which shotgun choke produces the tightest shot pattern?"
+  options: ["Full", "Modified", "Improved cylinder", "Cylinder bore"]
+  answer: 0
+  explanation: "The choke narrows the muzzle to control the spread of shot. Full choke gives the tightest pattern; cylinder bore, which has no narrowing, gives the most open."
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.6. Choke", page: "77"}
+  review: *draft2
+- id: cfsc-ammo-009
+  course: cfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "A shotgun shell has five components, one more than a rifle cartridge. Which component does the shell have that the cartridge does not?"
+  options: ["The wad", "The primer", "The powder charge", "The firing pin"]
+  answer: 0
+  explanation: "The wad separates the powder charge from the shot or slug, seals the gas behind the charge, and separates the shot from the inside of the barrel."
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.7. Shotgun shells", page: "80"}
+  review: *draft2
+- id: cfsc-ammo-010
+  course: cfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "According to the handbook, how far can some rifles fire a bullet?"
+  options: ["About 500 metres", "About 1 kilometre", "About 2 kilometres", "More than 5 kilometres"]
+  answer: 3
+  explanation: "Some rifles can fire bullets further than five kilometres, and shotguns can fire shot more than the length of a football field. Know the dangerous range of your firearm and ammunition."
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.8. Ballistics", page: "89"}
+  review: *draft2
+- id: cfsc-ammo-011
+  course: cfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "What is the safest way to carry ammunition?"
+  options: ["Loose in a jacket pocket", "In its original container", "In one box with ammunition for your other firearms", "Loaded in the firearm"]
+  answer: 1
+  explanation: "Ammunition is most safely carried in its original container. Carry only ammunition for the firearm you are using."
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.12. Ammunition precautions and legislation", page: "94"}
+  review: *draft2
+- id: cfsc-actions-004
+  course: cfsc
+  topic: actions
+  type: multiple-choice
+  question: "You are handed a firearm you have never used, and you cannot work out how to open the action. What should you do?"
+  options: ["Pull the trigger to see if that releases the action", "Force the action open", "Stop and check the owner's manual or ask someone who knows that firearm well", "Hand it back closed and say nothing"]
+  answer: 2
+  explanation: "Do not touch any firearm unless you know how to handle it safely. Consult the owner's manual or a person who knows that firearm well."
+  source: {handbook_edition: "2014 (5th ed.)", section: "6.3. Action releases", page: "107"}
+  review: *draft2
+- id: cfsc-range-001
+  course: cfsc
+  topic: range-and-field
+  type: multiple-choice
+  question: "For maximum hearing protection when shooting, what does the handbook recommend?"
+  options: ["Foam earplugs only", "Headphone-type protectors only", "Both earplugs and headphone-type protectors", "Cotton in the ears"]
+  answer: 2
+  explanation: "A gunshot is about as loud as a jet engine taking off at close range. For maximum protection, wear earplugs and headphone-type protectors together."
+  source: {handbook_edition: "2014 (5th ed.)", section: "7.2. Personal safety protection", page: "146"}
+  review: *draft2
+- id: cfsc-range-002
+  course: cfsc
+  topic: range-and-field
+  type: multiple-choice
+  question: "At an approved range, when must the action of your firearm be open?"
+  options: ["Only during a cease-fire", "At all times, except when actually shooting", "Only while walking to and from the firing line", "Only when the range officer asks"]
+  answer: 1
+  explanation: "Range rules normally require the action to be open at all times except when actually shooting."
+  source: {handbook_edition: "2014 (5th ed.)", section: "7.3. Safety procedures on approved range", page: "148"}
+  review: *draft2
+- id: cfsc-range-003
+  course: cfsc
+  topic: range-and-field
+  type: multiple-choice
+  question: "The range officer calls \"cease-fire\". What do you do?"
+  options: ["Finish the shot you are on, then load for the next string", "Stop firing, unload, open the action, lay the firearm down pointing downrange, and step back behind the cease-fire line", "Keep the firearm loaded and in your hands, pointed downrange", "Walk forward to check your target"]
+  answer: 1
+  explanation: "On cease-fire all firing stops at once. Firearms are unloaded, actions opened, and firearms laid down with muzzles downrange. Shooters step behind the cease-fire line and handle nothing until the next command."
+  source: {handbook_edition: "2014 (5th ed.)", section: "7.3. Safety procedures on approved range", page: "148"}
+  review: *draft2
+- id: cfsc-handling-004
+  course: cfsc
+  topic: handling
+  type: multiple-choice
+  question: "When may you have a loaded firearm in or on a vehicle?"
+  options: ["Whenever the safety is on", "When the vehicle is parked", "Only where you are allowed to shoot from that vehicle", "When the firearm is in a soft case"]
+  answer: 2
+  explanation: "Never have a loaded firearm in or on any vehicle unless you are allowed to shoot from it. Unload before getting in, and load only after getting out."
+  source: {handbook_edition: "2014 (5th ed.)", section: "7.5. Safe handling of firearms in vehicles", page: "152"}
+  review: *draft2
+- id: cfsc-field-002
+  course: cfsc
+  topic: range-and-field
+  type: multiple-choice
+  question: "You see movement in the distance and are not sure what it is. Why should you not look at it through your rifle's scope?"
+  options: ["The scope may lose its zero", "You would be pointing the rifle at whatever it is", "The scope is not powerful enough", "It is legal only during daylight"]
+  answer: 1
+  explanation: "Looking through a mounted scope points the firearm at what you are looking at, which may be a person. Use binoculars to identify people, animals or objects."
+  source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
+  review: *draft2
+- id: cfsc-field-003
+  course: cfsc
+  topic: range-and-field
+  type: multiple-choice
+  question: "Before a group hunt starts, what should everyone agree on?"
+  options: ["Who gets the first shot", "Each shooter's safe zone of fire", "Which ammunition brand to use", "How many shots each person may take"]
+  answer: 1
+  explanation: "Agree on the area each shooter will cover so everyone has a defined safe zone of fire. As the group moves, always know exactly where your partners are."
+  source: {handbook_edition: "2014 (5th ed.)", section: "7.7. Shooting or hunting with a group", page: "156"}
+  review: *draft2
+- id: cfsc-care-001
+  course: cfsc
+  topic: care
+  type: multiple-choice
+  question: "Why can too much oil on a firearm be dangerous in cold weather?"
+  options: ["It makes the firearm too slippery to hold", "It can freeze safeties and firing parts in the firing position, and the firearm may fire as it thaws", "It changes the calibre of the barrel", "It makes the ammunition corrode"]
+  answer: 1
+  explanation: "Oil or moisture can freeze safeties and other firing mechanism parts in a firing position. When the firearm thaws later, it may fire."
+  source: {handbook_edition: "2014 (5th ed.)", section: "9.2. Firearm cleaning", page: "181"}
+  review: *draft2
+- id: cfsc-resp-001
+  course: cfsc
+  topic: responsibilities
+  type: multiple-choice
+  question: "Your rifle is stolen from your home. Who must you report the theft to?"
+  options: ["No one, if it is insured", "Only your insurance company", "Your local police service and the Canadian Firearms Program", "The store where you bought it"]
+  answer: 2
+  explanation: "The Criminal Code requires owners to report the loss or theft of a firearm. Report it to your local police service and to the Canadian Firearms Program at 1-800-731-4000."
+  source: {handbook_edition: "2014 (5th ed.)", section: "10.3. Firearms reported lost, missing or stolen", page: "190"}
+  law_sensitive: true
+  law_checked_on: TBD
+  review: *draft2
+- id: cfsc-display-001
+  course: cfsc
+  topic: display
+  type: multiple-choice
+  question: "You want to display a non-restricted rifle on a wall rack at home. Which set of conditions meets the rules?"
+  options: ["Loaded, with the safety on", "Unloaded, with a secure locking device, and not displayed with or near its ammunition", "Unloaded, with a box of its ammunition on the shelf below", "Unloaded, with the bolt closed so dust stays out"]
+  answer: 1
+  explanation: "A non-restricted firearm may be displayed only if it is unloaded, made inoperable with a secure locking device or kept in a securely locked container or room, and not displayed with or within easy access to ammunition for it."
+  source: {handbook_edition: "2014 (5th ed.)", section: "11.4. Display", page: "201"}
+  law_checked_on: TBD
+  review: *draft2
