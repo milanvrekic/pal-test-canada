@@ -11,11 +11,25 @@ export type Guide = {
   body: string;
 };
 
+export type Drill = {
+  id: string;
+  course: 'cfsc' | 'crfsc';
+  question: string;
+  options: string[];
+  answer: number;
+  explanation: string;
+  source: { edition: string | null; section: string | null; page: string | null };
+  /** Standalone SVG markup for the scene. */
+  scene: string;
+  draft: boolean;
+};
+
 export const contentVersion: string = bundle.version;
 export const contentBuiltAt: string = bundle.builtAt;
 export const containsDrafts: boolean = bundle.containsDrafts;
 export const questions = bundle.questions as Question[];
 export const guides = bundle.guides as Guide[];
+export const drills = bundle.drills as Drill[];
 
 export const SITE_NAME = 'PAL Test Canada';
 export const DISCLAIMER =

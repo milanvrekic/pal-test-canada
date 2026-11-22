@@ -126,6 +126,14 @@ export default function Home() {
       </View>
 
       <Card>
+        <ThemedText type="bold">Spot the mistake</ThemedText>
+        <ThemedText themeColor="textSecondary">
+          Practise for the practical test: look at each scene and find the handling mistake.
+        </ThemedText>
+        <Button variant="secondary" label="Start the drill" href="/spot" />
+      </Card>
+
+      <Card>
         <ThemedText type="bold">What fails people</ThemedText>
         <ThemedText themeColor="textSecondary">
           Most failures are handling habits, not missing knowledge. See the common ones and how to fix them.

@@ -85,6 +85,53 @@ function loadQuestions() {
   return out;
 }
 
+function loadDrills() {
+  const file = join(root, 'content', 'drills', 'spot-the-mistake.yaml');
+  const list = YAML.parse(readFileSync(file, 'utf8')) ?? [];
+  const out = [];
+  const seen = new Set();
+  for (const d of list) {
+    const at = `spot-the-mistake.yaml:${d.id ?? '(no id)'}`;
+    const bad = (msg) => errors.push(`${at} ${msg}`);
+    if (!d.id || seen.has(d.id)) bad('missing or duplicate id');
+    seen.add(d.id);
+    if (!COURSES.includes(d.course)) bad(`course must be one of ${COURSES.join(', ')}`);
+    if (!Array.isArray(d.options) || d.options.length < 2) bad('needs at least 2 options');
+    if (!Number.isInteger(d.answer) || d.answer < 0 || d.answer >= (d.options?.length ?? 0)) bad('answer index out of range');
+    if (!d.explanation) bad('missing explanation');
+    let scene = '';
+    try {
+      scene = readFileSync(join(root, 'content', 'drills', 'scenes', `${d.scene}.svg`), 'utf8').trim();
+    } catch {
+      bad(`scene file content/drills/scenes/${d.scene}.svg not found`);
+    }
+    const status = d.review?.status;
+    if (!STATUSES.includes(status)) bad(`review.status must be one of ${STATUSES.join(', ')}`);
+    if (status === 'retired') continue;
+    const unfinished = [];
+    if (status !== 'reviewed') unfinished.push('status is not reviewed');
+    if (isTbd(d.source?.page)) unfinished.push('source.page is TBD');
+    if (isTbd(d.review?.reviewed_by) || isTbd(d.review?.reviewed_on)) unfinished.push('review stamp is TBD');
+    if ('law_checked_on' in d && isTbd(d.law_checked_on)) unfinished.push('law_checked_on is missing');
+    if (unfinished.length) {
+      if (!allowDrafts) bad(`not shippable: ${unfinished.join('; ')}`);
+      else warnings.push(`${at} draft: ${unfinished.join('; ')}`);
+    }
+    out.push({
+      id: d.id,
+      course: d.course,
+      question: d.question ?? 'What is wrong here?',
+      options: d.options,
+      answer: d.answer,
+      explanation: d.explanation,
+      source: { edition: isTbd(d.source?.handbook_edition) ? null : String(d.source.handbook_edition), section: d.source?.section ?? null, page: isTbd(d.source?.page) ? null : String(d.source.page) },
+      scene,
+      draft: unfinished.length > 0,
+    });
+  }
+  return out;
+}
+
 function loadGuides() {
   const dir = join(root, 'content', 'guides');
   const out = [];
@@ -113,6 +160,7 @@ function loadGuides() {
 
 const questions = loadQuestions();
 const guides = loadGuides();
+const drills = loadDrills();
 
 for (const course of COURSES) {
   const n = questions.filter((q) => q.course === course).length;
@@ -127,11 +175,11 @@ if (errors.length) {
   process.exit(1);
 }
 
-const body = { questions, guides };
+const body = { questions, guides, drills };
 const version = createHash('sha256').update(JSON.stringify(body)).digest('hex').slice(0, 12);
-const bundle = { version, builtAt: new Date().toISOString().slice(0, 10), containsDrafts: questions.some((q) => q.draft) || guides.some((g) => g.draft), ...body };
+const bundle = { version, builtAt: new Date().toISOString().slice(0, 10), containsDrafts: questions.some((q) => q.draft) || guides.some((g) => g.draft) || drills.some((d) => d.draft), ...body };
 const outDir = join(root, 'app', 'src', 'content');
 mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, 'bundle.json'), JSON.stringify(bundle, null, 1) + '\n');
-console.log(`Bundle ${version}: ${questions.length} questions (${COURSES.map((c) => `${c} ${questions.filter((q) => q.course === c).length}`).join(', ')}), ${guides.length} guides, ${warnings.length} draft warning(s).`);
+console.log(`Bundle ${version}: ${questions.length} questions (${COURSES.map((c) => `${c} ${questions.filter((q) => q.course === c).length}`).join(', ')}), ${guides.length} guides, ${drills.length} drills, ${warnings.length} draft warning(s).`);
 if (process.argv.includes('--verbose')) warnings.forEach((w) => console.log(`  warn: ${w}`));
