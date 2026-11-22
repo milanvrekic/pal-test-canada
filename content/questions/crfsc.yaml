@@ -1,5 +1,7 @@
-# CRFSC draft sample. Every question is a DRAFT until the instructor review stamps it.
-# Law questions follow the 2014 handbook and need a law check before they ship.
+# CRFSC sample. Question, answer and explanation reviewed by the instructor on 2026-11-22.
+# Still open before these can ship: the handbook page for each question (source.page) and the
+# law_checked_on date on storage, transport, display, classification and licensing questions.
+# Written from the handbook topics, never from memory of the real exam.
 - id: crfsc-class-001
   course: crfsc
   topic: classification
@@ -10,7 +12,7 @@
   explanation: "Handguns that are not prohibited are restricted firearms."
   source: {handbook_edition: "2014 (5th ed.)", section: "Classes of firearms", page: TBD}
   law_checked_on: TBD
-  review: &draft {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: &reviewed {reviewed_by: Milan, reviewed_on: "2026-11-22", status: reviewed}
 - id: crfsc-class-002
   course: crfsc
   topic: classification
@@ -21,7 +23,7 @@
   explanation: "Handguns with a barrel of 105 mm or less are prohibited firearms."
   source: {handbook_edition: "2014 (5th ed.)", section: "Classes of firearms", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-class-003
   course: crfsc
   topic: classification
@@ -32,7 +34,7 @@
   explanation: "Handguns designed or adapted to discharge .25 or .32 calibre cartridges are prohibited, with a narrow exception for certain international sporting competition models."
   source: {handbook_edition: "2014 (5th ed.)", section: "Classes of firearms", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-class-004
   course: crfsc
   topic: classification
@@ -43,7 +45,7 @@
   explanation: "A semi-automatic centre-fire rifle or shotgun with a barrel shorter than 470 mm is a restricted firearm, unless it is prohibited."
   source: {handbook_edition: "2014 (5th ed.)", section: "Classes of firearms", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-class-005
   course: crfsc
   topic: classification
@@ -54,7 +56,7 @@
   explanation: "A firearm that can be fired when reduced by folding or telescoping to an overall length under 660 mm is restricted."
   source: {handbook_edition: "2014 (5th ed.)", section: "Classes of firearms", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-class-006
   course: crfsc
   topic: classification
@@ -65,7 +67,7 @@
   explanation: "Handgun magazines are generally limited to 10 cartridges. Magazines that hold more are prohibited devices unless permanently altered."
   source: {handbook_edition: "2014 (5th ed.)", section: "Prohibited devices: magazines", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-class-007
   course: crfsc
   topic: classification
@@ -76,7 +78,7 @@
   explanation: "Magazines for semi-automatic centre-fire rifles are generally limited to 5 cartridges."
   source: {handbook_edition: "2014 (5th ed.)", section: "Prohibited devices: magazines", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-storage-001
   course: crfsc
   topic: storage
@@ -87,7 +89,7 @@
   explanation: "A restricted firearm must be unloaded, made inoperable with a secure locking device, and also locked in a container or room that is hard to break into. Ammunition must not be readily accessible unless locked up."
   source: {handbook_edition: "2014 (5th ed.)", section: "Safe storage of restricted firearms", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-storage-002
   course: crfsc
   topic: storage
@@ -98,7 +100,7 @@
   explanation: "The rules allow two options: a secure locking device plus a locked container or room, or storage in a vault, safe or room built or modified specifically to store restricted firearms securely."
   source: {handbook_edition: "2014 (5th ed.)", section: "Safe storage of restricted firearms", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-storage-003
   course: crfsc
   topic: storage
@@ -109,7 +111,7 @@
   explanation: "A secure locking device can only be released with an electronic, magnetic or mechanical key or a combination, and it prevents the firearm from being discharged while attached. Trigger locks and cable locks are examples."
   source: {handbook_edition: "2014 (5th ed.)", section: "Safe storage: secure locking devices", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-display-001
   course: crfsc
   topic: display
@@ -120,7 +122,7 @@
   explanation: "A displayed restricted firearm must be unloaded, fitted with a secure locking device and securely attached to a non-portable structure so it cannot readily be removed. It must not be displayed with, or within easy reach of, ammunition for it."
   source: {handbook_edition: "2014 (5th ed.)", section: "Safe display of restricted firearms", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-transport-001
   course: crfsc
   topic: transport
@@ -131,7 +133,7 @@
   explanation: "A restricted firearm is transported unloaded, made inoperable with a secure locking device, and locked in an opaque container that cannot readily be broken open."
   source: {handbook_edition: "2014 (5th ed.)", section: "Safe transportation of restricted firearms", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-transport-002
   course: crfsc
   topic: transport
@@ -142,7 +144,7 @@
   explanation: "An Authorization to Transport is what allows a licensed owner to move a restricted firearm between specified places, such as home and an approved range."
   source: {handbook_edition: "2014 (5th ed.)", section: "Authorizations to transport", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-transport-003
   course: crfsc
   topic: transport
@@ -153,7 +155,7 @@
   explanation: "The locked container goes in the locked trunk or a similar lockable compartment. If the vehicle has none, the container must be out of sight inside the locked vehicle."
   source: {handbook_edition: "2014 (5th ed.)", section: "Safe transportation of restricted firearms", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-transport-004
   course: crfsc
   topic: transport
@@ -164,7 +166,7 @@
   explanation: "An ATT only authorizes moving the firearm between places. The transport rules still apply: unloaded, secure locking device, locked opaque container."
   source: {handbook_edition: "2014 (5th ed.)", section: "Authorizations to transport", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-licence-001
   course: crfsc
   topic: licensing
@@ -175,7 +177,7 @@
   explanation: "Every restricted firearm must be registered, and the owner must hold the registration certificate for it."
   source: {handbook_edition: "2014 (5th ed.)", section: "Responsibilities of the firearms owner", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-licence-002
   course: crfsc
   topic: licensing
@@ -186,7 +188,7 @@
   explanation: "Restricted firearms are generally limited to target practice or competition at an approved shooting club or range."
   source: {handbook_edition: "2014 (5th ed.)", section: "Responsibilities of the firearms owner", page: TBD}
   law_checked_on: TBD
-  review: *draft
+  review: *reviewed
 - id: crfsc-actions-001
   course: crfsc
   topic: actions
@@ -196,7 +198,7 @@
   answer: 1
   explanation: "On a single-action revolver the trigger only releases the hammer. The hammer must be cocked by hand before every shot."
   source: {handbook_edition: "2014 (5th ed.)", section: "Operating handgun actions: revolvers", page: TBD}
-  review: *draft
+  review: *reviewed
 - id: crfsc-actions-002
   course: crfsc
   topic: actions
@@ -206,7 +208,7 @@
   answer: 1
   explanation: "A double-action trigger pull both cocks and releases the hammer, and rotates the cylinder to the next chamber."
   source: {handbook_edition: "2014 (5th ed.)", section: "Operating handgun actions: revolvers", page: TBD}
-  review: *draft
+  review: *reviewed
 - id: crfsc-actions-003
   course: crfsc
   topic: actions
@@ -216,7 +218,7 @@
   answer: 1
   explanation: "A cartridge can remain in the chamber after the magazine is out. The slide must be drawn back and the chamber checked."
   source: {handbook_edition: "2014 (5th ed.)", section: "Operating handgun actions: semi-automatics", page: TBD}
-  review: *draft
+  review: *reviewed
 - id: crfsc-prove-001
   course: crfsc
   topic: prove
@@ -226,7 +228,7 @@
   answer: 1
   explanation: "With a loaded magazine still in the pistol, working the slide ejects one cartridge and chambers the next. Magazine out first, then open the action."
   source: {handbook_edition: "2014 (5th ed.)", section: "Operating handgun actions: semi-automatics", page: TBD}
-  review: *draft
+  review: *reviewed
 - id: crfsc-prove-002
   course: crfsc
   topic: prove
@@ -236,7 +238,7 @@
   answer: 1
   explanation: "A revolver's cylinder holds the cartridges, so each chamber in the cylinder must be checked to be empty."
   source: {handbook_edition: "2014 (5th ed.)", section: "Operating handgun actions: revolvers", page: TBD}
-  review: *draft
+  review: *reviewed
 - id: crfsc-prove-003
   course: crfsc
   topic: prove
@@ -246,7 +248,7 @@
   answer: 1
   explanation: "E is Examine the bore. The barrel must be clear before the firearm is considered safe."
   source: {handbook_edition: "2014 (5th ed.)", section: "Basic firearm safety: PROVE", page: TBD}
-  review: *draft
+  review: *reviewed
 - id: crfsc-handling-001
   course: crfsc
   topic: handling
@@ -256,7 +258,7 @@
   answer: 1
   explanation: "Because the barrel is short, turning your wrist or body slightly can point a handgun at someone. Muzzle control takes constant attention."
   source: {handbook_edition: "2014 (5th ed.)", section: "Safe handling of restricted firearms", page: TBD}
-  review: *draft
+  review: *reviewed
 - id: crfsc-handling-002
   course: crfsc
   topic: handling
@@ -266,7 +268,7 @@
   answer: 2
   explanation: "Keep the finger off the trigger and out of the trigger guard, resting along the frame where others can see it."
   source: {handbook_edition: "2014 (5th ed.)", section: "Basic firearm safety: the Vital Four ACTS", page: TBD}
-  review: *draft
+  review: *reviewed
 - id: crfsc-handling-003
   course: crfsc
   topic: handling
@@ -276,7 +278,7 @@
   answer: 1
   explanation: "PROVE it safe and pass it with the magazine out and the action locked open, muzzle in a safe direction. The receiver proves it safe as well."
   source: {handbook_edition: "2014 (5th ed.)", section: "Safe handling of restricted firearms", page: TBD}
-  review: *draft
+  review: *reviewed
 - id: crfsc-ammo-001
   course: crfsc
   topic: ammunition
@@ -286,7 +288,7 @@
   answer: 1
   explanation: "Match the cartridge head stamp to the firearm's data stamp. Several handgun cartridges look alike but are not interchangeable."
   source: {handbook_edition: "2014 (5th ed.)", section: "Ammunition", page: TBD}
-  review: *draft
+  review: *reviewed
 - id: crfsc-misfire-001
   course: crfsc
   topic: misfires
@@ -296,7 +298,7 @@
   answer: 1
   explanation: "It may be a hang fire. Keep the muzzle pointed downrange, wait 60 seconds, then unload following safe procedure."
   source: {handbook_edition: "2014 (5th ed.)", section: "Ammunition: misfires and hang fires", page: TBD}
-  review: *draft
+  review: *reviewed
 - id: crfsc-range-001
   course: crfsc
   topic: range-and-field
@@ -306,7 +308,7 @@
   answer: 1
   explanation: "The firearm stays on the line pointed downrange. Signal for help instead of turning with a firearm that may be loaded."
   source: {handbook_edition: "2014 (5th ed.)", section: "Firing techniques and range safety", page: TBD}
-  review: *draft
+  review: *reviewed
 - id: crfsc-range-002
   course: crfsc
   topic: range-and-field
@@ -316,4 +318,4 @@
   answer: 1
   explanation: "Anyone may call a cease fire and everyone obeys at once: stop shooting, keep the muzzle downrange, and follow the range officer's instructions."
   source: {handbook_edition: "2014 (5th ed.)", section: "Firing techniques and range safety", page: TBD}
-  review: *draft
+  review: *reviewed
