@@ -257,9 +257,9 @@
   options: ["Handguns are louder", "The short barrel means a small wrist movement swings the muzzle across a wide area", "Handguns have no safeties", "Handgun bullets travel farther than rifle bullets"]
   answer: 1
   explanation: "Because the barrel is short, turning your wrist or body slightly can point a handgun at someone. Muzzle control takes constant attention."
-  # Not found in the 2014 handbook: it does not explain why handguns need extra muzzle care.
   source: {handbook_edition: "2014 (5th ed.)", section: "Safe handling of restricted firearms", page: TBD}
-  review: *reviewed
+  # Retired 2026-11-22: the handbook does not give the reasoning this question tests. Replaced by crfsc-handling-004.
+  review: {reviewed_by: Milan, reviewed_on: "2026-11-22", status: retired}
 - id: crfsc-handling-002
   course: crfsc
   topic: handling
@@ -320,3 +320,14 @@
   explanation: "Anyone may call a cease fire and everyone obeys at once: stop shooting, keep the muzzle downrange, and follow the range officer's instructions."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.5. Safety procedures at the range", page: "300"}
   review: *reviewed
+
+- id: crfsc-handling-004
+  course: crfsc
+  topic: handling
+  type: multiple-choice
+  question: "Under the Vital Four ACTS, what does controlling the muzzle direction involve?"
+  options: ["Identifying the safest available direction and keeping the muzzle pointed there", "Pointing the muzzle at the person you are handing the firearm to, so they can see it", "Keeping the safety on, so the muzzle direction no longer matters", "Pointing the muzzle at yourself, where you can watch it"]
+  answer: 0
+  explanation: "Control the muzzle direction at all times: identify the safest available direction and keep the firearm pointed that way. The muzzle should never point towards yourself or anyone else."
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "218"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}

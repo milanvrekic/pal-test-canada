@@ -304,7 +304,19 @@
   options: ["Every year", "Every 3 years", "Every 5 years", "Never, it is valid for life"]
   answer: 2
   explanation: "A PAL is valid for five years and must be renewed before it expires to keep possessing firearms lawfully."
-  # Not found in the 2014 handbook: it does not state how long a PAL is valid.
   source: {handbook_edition: "2014 (5th ed.)", section: "Responsibilities of the firearms owner", page: TBD}
   law_checked_on: "2026-11-22"
-  review: *reviewed
+  # Retired 2026-11-22: the handbook does not state how long a PAL is valid. Replaced by cfsc-licence-002.
+  review: {reviewed_by: Milan, reviewed_on: "2026-11-22", status: retired}
+
+- id: cfsc-licence-002
+  course: cfsc
+  topic: licensing
+  type: multiple-choice
+  question: "You hold no firearms licence and apply for your first PAL. What is the minimum waiting period before it can be issued?"
+  options: ["7 days", "14 days", "28 days", "60 days"]
+  answer: 2
+  explanation: "There is a minimum 28-day waiting period for a PAL, unless the applicant already holds a valid Possession Only Licence, PAL or Minors Possession Licence."
+  source: {handbook_edition: "2014 (5th ed.)", section: "Appendix I: Firearms licences", page: "338"}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
