@@ -10,4 +10,4 @@ What was reviewed, by whom, and when. One entry per review batch.
 | 2026-11-22 | Claude | Tightened two weak matches | cfsc-muzzle-001 explanation adds the p. 37 manufacturer caveat. crfsc-range-001 answer now says to get help from the range officer or a qualified person (pp. 283, 299). Both back to draft for re-review. |
 | 2026-11-22 | Milan | cfsc-licence-002, crfsc-handling-004, cfsc-muzzle-001, crfsc-range-001 | Approved. The 28-day minimum in cfsc-licence-002 matches the current Firearms Licences Regulations (SOR/98-199), checked the same day. |
 | 2026-11-22 | Claude | Batch 2: 40 new questions (20 CFSC, 20 CRFSC) | Drafted from the 2014 handbook, each cited to its page. Awaiting instructor review. |
-| 2026-11-22 | Milan | Batch 2: 40 questions | All 40 approved. Law-check dates on the 8 law-dependent questions still to confirm. |
+| 2026-11-22 | Milan | Batch 2: 40 questions | All 40 approved, including a check of the 9 law-dependent questions against current law. |

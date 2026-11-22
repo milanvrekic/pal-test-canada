@@ -512,7 +512,7 @@
   explanation: "The Criminal Code requires owners to report the loss or theft of a firearm. Report it to your local police service and to the Canadian Firearms Program at 1-800-731-4000."
   source: {handbook_edition: "2014 (5th ed.)", section: "10.3. Firearms reported lost, missing or stolen", page: "190"}
   law_sensitive: true
-  law_checked_on: TBD
+  law_checked_on: "2026-11-22"
   review: *reviewed2
 - id: cfsc-display-001
   course: cfsc
@@ -523,5 +523,5 @@
   answer: 1
   explanation: "A non-restricted firearm may be displayed only if it is unloaded, made inoperable with a secure locking device or kept in a securely locked container or room, and not displayed with or within easy access to ammunition for it."
   source: {handbook_edition: "2014 (5th ed.)", section: "11.4. Display", page: "201"}
-  law_checked_on: TBD
+  law_checked_on: "2026-11-22"
   review: *reviewed2
