@@ -1,6 +1,6 @@
 # CFSC sample. Question, answer and explanation reviewed by the instructor on 2026-11-22.
-# Still open before these can ship: the handbook page for each question (source.page) and the
-# law_checked_on date on storage, transport, display, classification and licensing questions.
+# Law questions were checked against current regulations the same day.
+# Still open before these can ship: the handbook page for each question (source.page).
 # Written from the handbook topics, never from memory of the real exam.
 - id: cfsc-acts-001
   course: cfsc
@@ -261,7 +261,7 @@
   answer: 1
   explanation: "A non-restricted firearm must be stored unloaded and either made inoperable with a secure locking device, have its bolt removed, or be locked in a sturdy container or room. Ammunition must not be readily accessible unless it is locked up."
   source: {handbook_edition: "2014 (5th ed.)", section: "Safe storage, display, transportation and handling", page: TBD}
-  law_checked_on: TBD
+  law_checked_on: "2026-11-22"
   review: *reviewed
 - id: cfsc-storage-002
   course: cfsc
@@ -272,7 +272,7 @@
   answer: 0
   explanation: "Ammunition must not be readily accessible to the firearm unless it is stored, with or without the firearm, in a securely locked container that cannot readily be broken open."
   source: {handbook_edition: "2014 (5th ed.)", section: "Safe storage, display, transportation and handling", page: TBD}
-  law_checked_on: TBD
+  law_checked_on: "2026-11-22"
   review: *reviewed
 - id: cfsc-transport-001
   course: cfsc
@@ -283,7 +283,7 @@
   answer: 2
   explanation: "An unattended non-restricted firearm must be unloaded and locked in the trunk or a similar compartment. If the vehicle has no trunk, it must be out of sight inside the locked vehicle."
   source: {handbook_edition: "2014 (5th ed.)", section: "Safe storage, display, transportation and handling", page: TBD}
-  law_checked_on: TBD
+  law_checked_on: "2026-11-22"
   review: *reviewed
 - id: cfsc-class-001
   course: cfsc
@@ -294,7 +294,7 @@
   answer: 1
   explanation: "Firearms are classed as non-restricted, restricted or prohibited. The class decides which licence privileges and rules apply."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction to firearms: classes of firearms", page: TBD}
-  law_checked_on: TBD
+  law_checked_on: "2026-11-22"
   review: *reviewed
 - id: cfsc-licence-001
   course: cfsc
@@ -305,5 +305,5 @@
   answer: 2
   explanation: "A PAL is valid for five years and must be renewed before it expires to keep possessing firearms lawfully."
   source: {handbook_edition: "2014 (5th ed.)", section: "Responsibilities of the firearms owner", page: TBD}
-  law_checked_on: TBD
+  law_checked_on: "2026-11-22"
   review: *reviewed
