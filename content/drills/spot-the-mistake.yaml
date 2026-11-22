@@ -4,6 +4,7 @@
 - id: spot-finger
   course: cfsc
   scene: finger
+  alt: "A man in a green jacket at a range bench holds a scoped bolt-action rifle with the bolt pulled back, his right index finger inside the trigger guard."
   question: "What is wrong here?"
   options: ["The trigger finger is inside the trigger guard", "The bolt is drawn back and the action is open", "The muzzle is pointed downrange toward the berm", "The other hand is supporting the fore-end"]
   answer: 0
@@ -13,10 +14,11 @@
 - id: spot-pass-closed
   course: cfsc
   scene: pass-closed
+  alt: "Two men in caps, shooting glasses and ear muffs on a range; one hands an over-and-under shotgun, closed and pointed straight up, to the other."
   question: "What is wrong here?"
-  options: ["The rifle is being handed over with the action closed", "The muzzle is pointed up and away from both people", "Both people are wearing eye and ear protection", "The person receiving it grips the fore-end first"]
+  options: ["The shotgun is being handed over with the action closed", "The muzzle is pointed up and away from both people", "Both people are wearing eye and ear protection", "Both people keep their fingers away from the trigger"]
   answer: 0
-  explanation: "Pass or accept only open and unloaded firearms. Open the action and PROVE it safe before handing it over, and the person receiving it proves it safe again."
+  explanation: "Pass or accept only open and unloaded firearms. Break the shotgun open and PROVE it safe before handing it over, and the person receiving it proves it safe again."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "21"}
   review: *draftd
 - id: spot-muzzle-sweep
