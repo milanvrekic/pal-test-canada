@@ -18,3 +18,7 @@ What was reviewed, by whom, and when. One entry per review batch.
 - spot-pass-closed now uses a closed over-and-under shotgun instead of a bolt rifle.
 - spot-pistol-unload reworded to "set down as unloaded / cartridge still in the chamber".
 - spot-wall-display law check: SOR/98-209 s. 8(c) (display not with or readily accessible to ammunition), last amended 2012-11-30. Checked 2026-11-22.
+
+## 2026-11-22: Guides
+
+- what-fails-people, exam-day and after-the-exam approved by Milan.
