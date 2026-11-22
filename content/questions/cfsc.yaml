@@ -1,6 +1,6 @@
 # CFSC sample. Question, answer and explanation reviewed by the instructor on 2026-11-22.
 # Law questions were checked against current regulations the same day.
-# Still open before these can ship: the handbook page for each question (source.page).
+# Pages cite the printed page of the 2014 (5th ed.) handbook, PS99-2/2-1-2014, which matches the PDF page.
 # Written from the handbook topics, never from memory of the real exam.
 - id: cfsc-acts-001
   course: cfsc
@@ -10,7 +10,7 @@
   options: ["Always keep the safety on", "Assume every firearm is loaded", "Aim only at your target", "Ask before handling a firearm"]
   answer: 1
   explanation: "ACTS: Assume every firearm is loaded, Control the muzzle direction at all times, Trigger finger off the trigger and out of the trigger guard, See that the firearm is unloaded."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Basic firearm safety: the Vital Four ACTS", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "21"}
   review: &reviewed {reviewed_by: Milan, reviewed_on: "2026-11-22", status: reviewed}
 - id: cfsc-acts-002
   course: cfsc
@@ -20,7 +20,7 @@
   options: ["Check the chamber", "Control the muzzle direction at all times", "Clear the action", "Carry the firearm unloaded"]
   answer: 1
   explanation: "C is Control the muzzle direction at all times. A firearm pointed in a safe direction cannot hurt anyone even if it fires."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Basic firearm safety: the Vital Four ACTS", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "21"}
   review: *reviewed
 - id: cfsc-acts-003
   course: cfsc
@@ -30,7 +30,7 @@
   options: ["Resting lightly on the trigger", "Inside the trigger guard but off the trigger", "Off the trigger and outside the trigger guard", "On the safety"]
   answer: 2
   explanation: "T is Trigger finger must be kept off the trigger and out of the trigger guard. Resting it along the frame or stock keeps it clear."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Basic firearm safety: the Vital Four ACTS", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "21"}
   review: *reviewed
 - id: cfsc-acts-004
   course: cfsc
@@ -40,7 +40,7 @@
   options: ["PROVE", "Engaging the safety", "Dry firing", "Removing the scope"]
   answer: 0
   explanation: "S is See that the firearm is unloaded: PROVE it safe. PROVE is the step-by-step check that the firearm holds no ammunition and the bore is clear."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Basic firearm safety: the Vital Four ACTS", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "21"}
   review: *reviewed
 - id: cfsc-prove-001
   course: cfsc
@@ -50,7 +50,7 @@
   options: ["Remove all ammunition", "Point the firearm in the safest available direction", "Put the safety on", "Open the action"]
   answer: 1
   explanation: "P comes first: Point the firearm in the safest available direction. Every later step is done with the muzzle under control."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Basic firearm safety: PROVE", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: PROVE It Safe Pointers", page: "22"}
   review: *reviewed
 - id: cfsc-prove-002
   course: cfsc
@@ -60,7 +60,7 @@
   options: ["Release the safety", "Rack the action twice", "Remove all ammunition", "Return the firearm to storage"]
   answer: 2
   explanation: "R is Remove all ammunition, from the magazine and the chamber."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Basic firearm safety: PROVE", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: PROVE It Safe Pointers", page: "22"}
   review: *reviewed
 - id: cfsc-prove-003
   course: cfsc
@@ -70,7 +70,7 @@
   options: ["Open the magazine", "Observe the chamber", "Oil the action", "Operate the safety"]
   answer: 1
   explanation: "O is Observe the chamber. You look, and feel if needed, to confirm no cartridge is in it."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Basic firearm safety: PROVE", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: PROVE It Safe Pointers", page: "22"}
   review: *reviewed
 - id: cfsc-prove-004
   course: cfsc
@@ -80,7 +80,7 @@
   options: ["Verify the feeding path", "Verify the serial number", "View the target", "Vent the barrel"]
   answer: 0
   explanation: "V is Verify the feeding path: check that no cartridge remains in the magazine or anywhere it could feed into the chamber."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Basic firearm safety: PROVE", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: PROVE It Safe Pointers", page: "22"}
   review: *reviewed
 - id: cfsc-prove-005
   course: cfsc
@@ -90,7 +90,7 @@
   options: ["Engage the safety, so the firearm cannot fire", "Eject the magazine, so it cannot feed", "Examine the bore, because an obstruction can burst the barrel", "Empty your pockets, so no ammunition is nearby"]
   answer: 2
   explanation: "E is Examine the bore. Mud, snow, a cleaning patch or a lodged bullet in the barrel can cause it to bulge or burst when fired."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Basic firearm safety: PROVE", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: PROVE It Safe Pointers", page: "22"}
   review: *reviewed
 - id: cfsc-prove-006
   course: cfsc
@@ -100,7 +100,7 @@
   options: ["Nothing, it was already proven safe", "Check only that the safety is on", "PROVE it safe again", "Ask if anyone touched it"]
   answer: 2
   explanation: "A firearm that has been out of your direct control must be proven safe again. You cannot know what happened to it while you were away."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Basic firearm safety: PROVE", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: PROVE It Safe Pointers", page: "22"}
   review: *reviewed
 - id: cfsc-ammo-001
   course: cfsc
@@ -110,7 +110,7 @@
   options: ["It fits into the chamber", "The box looks like the one you used before", "The head stamp on the cartridge matches the data stamp on the barrel", "The bullet is the same diameter as the muzzle"]
   answer: 2
   explanation: "Match the head stamp on the cartridge to the data stamp on the firearm's barrel. A cartridge that fits is not necessarily the right one."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Ammunition", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.2. Calibre", page: "66"}
   review: *reviewed
 - id: cfsc-ammo-002
   course: cfsc
@@ -120,7 +120,7 @@
   options: ["Case, primer, powder, bullet", "Hull, wad, shot, crimp", "Case, primer, wad, slug", "Jacket, core, rim, neck"]
   answer: 0
   explanation: "A cartridge is made of the case, the primer, the powder and the bullet."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Ammunition", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.3. Cartridges", page: "69"}
   review: *reviewed
 - id: cfsc-ammo-003
   course: cfsc
@@ -130,7 +130,7 @@
   options: ["In a separate primer pressed into the centre of the case head", "Inside the rim of the case", "Mixed through the powder", "In the base of the bullet"]
   answer: 1
   explanation: "In rimfire ammunition the priming compound sits inside the rim of the case. Centre-fire ammunition has a separate primer in the centre of the case head."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Ammunition", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.3. Cartridges: types of cartridges", page: "71"}
   review: *reviewed
 - id: cfsc-ammo-004
   course: cfsc
@@ -140,7 +140,7 @@
   options: ["True", "False"]
   answer: 0
   explanation: "A 20-gauge shell can slide past the chamber of a 12-gauge shotgun and lodge in the barrel. A 12-gauge shell loaded behind it can then burst the barrel."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Ammunition", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.7. Shotgun shells", page: "87"}
   review: *reviewed
 - id: cfsc-misfire-001
   course: cfsc
@@ -150,7 +150,7 @@
   options: ["A cartridge that fires with more recoil than normal", "A delay between the firing pin striking the primer and the cartridge firing", "A cartridge that will not chamber", "A bullet that lodges in the barrel"]
   answer: 1
   explanation: "A hang fire is a delayed ignition. The cartridge may still fire some time after the trigger is pulled, which is why the muzzle must stay pointed in a safe direction."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Ammunition: misfires and hang fires", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.10. Hazards", page: "92"}
   review: *reviewed
 - id: cfsc-misfire-002
   course: cfsc
@@ -160,7 +160,7 @@
   options: ["Open the action right away to look at the cartridge", "Keep the muzzle pointed in a safe direction and wait 60 seconds", "Pull the trigger again", "Turn the firearm to look down the muzzle"]
   answer: 1
   explanation: "Treat every failure to fire as a possible hang fire. Keep the firearm pointed in a safe direction and wait 60 seconds before opening the action."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Ammunition: misfires and hang fires", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.10. Hazards", page: "92"}
   review: *reviewed
 - id: cfsc-misfire-003
   course: cfsc
@@ -170,7 +170,7 @@
   options: ["Fire again to clear the barrel", "Stop, PROVE the firearm safe and check the bore for an obstruction", "Switch to a different brand of ammunition and continue", "Tap the muzzle on the ground"]
   answer: 1
   explanation: "A weak report can mean the bullet or wad is lodged in the barrel. Firing another round behind an obstruction can burst the barrel."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Ammunition: misfires and hang fires", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.10. Hazards", page: "92"}
   review: *reviewed
 - id: cfsc-actions-001
   course: cfsc
@@ -180,7 +180,7 @@
   options: ["Lever action", "Pump action", "Bolt action", "Break action"]
   answer: 2
   explanation: "A bolt action is opened by lifting the bolt handle and drawing the bolt back."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Operating firearm actions", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "6.7. Single shot: bolt action unloading", page: "119"}
   review: *reviewed
 - id: cfsc-actions-002
   course: cfsc
@@ -190,7 +190,7 @@
   options: ["By swinging a lever under the receiver", "By sliding the fore-end back and forward", "By pressing a release so the barrel hinges down", "By gas from the fired cartridge"]
   answer: 1
   explanation: "A pump action is cycled by sliding the fore-end to the rear and then forward."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Operating firearm actions", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "6.1. Action types", page: "100"}
   review: *reviewed
 - id: cfsc-actions-003
   course: cfsc
@@ -200,7 +200,7 @@
   options: ["Fires continuously until the trigger is released", "Fires one cartridge and loads the next one automatically", "Fires one cartridge and must be cycled by hand", "Fires two cartridges"]
   answer: 1
   explanation: "A semi-automatic fires one cartridge per trigger pull and uses the energy of that shot to load the next. It can be ready to fire again immediately."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Operating firearm actions", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "6.1. Action types", page: "100"}
   review: *reviewed
 - id: cfsc-handling-001
   course: cfsc
@@ -210,7 +210,7 @@
   options: ["True", "False"]
   answer: 1
   explanation: "A safety is a mechanical device and can fail. It never replaces muzzle control and keeping your finger off the trigger."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Safe handling: safeties", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "4.2.3. Be sure before you shoot", page: "60"}
   review: *reviewed
 - id: cfsc-handling-002
   course: cfsc
@@ -220,7 +220,7 @@
   options: ["Hand it over with the safety on", "PROVE it safe and pass it with the action open", "Pass it muzzle first so they can grip the barrel", "Close the action so nothing falls out"]
   answer: 1
   explanation: "PROVE the firearm safe and hand it over with the action open and the muzzle controlled. The person receiving it should PROVE it safe too."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Safe handling", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "21"}
   review: *reviewed
 - id: cfsc-handling-003
   course: cfsc
@@ -230,7 +230,7 @@
   options: ["Climb over holding the rifle with the safety on", "Lean the loaded rifle against the fence and climb over", "Unload, open the action, place the rifle under the fence with the muzzle pointing away, then cross away from the muzzle", "Sling the loaded rifle on your back and climb"]
   answer: 2
   explanation: "Unload and leave the action open, lay the firearm down on the far side with the muzzle pointing away from where you will cross, then cross."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Safe handling in the field", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
   review: *reviewed
 - id: cfsc-field-001
   course: cfsc
@@ -240,7 +240,7 @@
   options: ["That the target is within 100 metres", "Your target and what lies beyond it", "That the wind is calm", "That your safety has been tested"]
   answer: 1
   explanation: "Identify the target beyond any doubt and know what is behind it. A bullet can pass through or miss the target and travel a long way."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Firing techniques and procedures", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "4.2.4. Be sure of your target and beyond", page: "60"}
   review: *reviewed
 - id: cfsc-muzzle-001
   course: cfsc
@@ -250,7 +250,7 @@
   options: ["Any smokeless powder", "Only black powder or a black powder substitute made for muzzleloaders", "Shotgun powder in reduced amounts", "Whatever is recommended for the same calibre of cartridge"]
   answer: 1
   explanation: "Use only black powder or an approved black powder substitute. Smokeless powder produces far higher pressure and can destroy a muzzleloader."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Muzzleloaders", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "2.2. Muzzleloading firearms", page: "42"}
   review: *reviewed
 - id: cfsc-storage-001
   course: cfsc
@@ -260,7 +260,7 @@
   options: ["Loaded, in a locked cabinet", "Unloaded, with a trigger lock on, and ammunition not within easy reach", "Unloaded, on an open rack beside its ammunition", "Unloaded, under a bed with the safety on"]
   answer: 1
   explanation: "A non-restricted firearm must be stored unloaded and either made inoperable with a secure locking device, have its bolt removed, or be locked in a sturdy container or room. Ammunition must not be readily accessible unless it is locked up."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Safe storage, display, transportation and handling", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "11.3. Storage", page: "199"}
   law_checked_on: "2026-11-22"
   review: *reviewed
 - id: cfsc-storage-002
@@ -271,7 +271,7 @@
   options: ["True", "False"]
   answer: 0
   explanation: "Ammunition must not be readily accessible to the firearm unless it is stored, with or without the firearm, in a securely locked container that cannot readily be broken open."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Safe storage, display, transportation and handling", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "11.3. Storage", page: "199"}
   law_checked_on: "2026-11-22"
   review: *reviewed
 - id: cfsc-transport-001
@@ -282,7 +282,7 @@
   options: ["Loaded but with the safety on, in the trunk", "Unloaded, on the back seat under a coat, doors unlocked", "Unloaded, in the locked trunk", "Unloaded, on the dashboard so it is visible"]
   answer: 2
   explanation: "An unattended non-restricted firearm must be unloaded and locked in the trunk or a similar compartment. If the vehicle has no trunk, it must be out of sight inside the locked vehicle."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Safe storage, display, transportation and handling", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "11.5. Transportation", page: "203"}
   law_checked_on: "2026-11-22"
   review: *reviewed
 - id: cfsc-class-001
@@ -293,7 +293,7 @@
   options: ["Hunting, sporting and military", "Non-restricted, restricted and prohibited", "Rifles, shotguns and handguns", "Manual, semi-automatic and automatic"]
   answer: 1
   explanation: "Firearms are classed as non-restricted, restricted or prohibited. The class decides which licence privileges and rules apply."
-  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction to firearms: classes of firearms", page: TBD}
+  source: {handbook_edition: "2014 (5th ed.)", section: "3.4. Classification of firearms", page: "54"}
   law_checked_on: "2026-11-22"
   review: *reviewed
 - id: cfsc-licence-001
@@ -304,6 +304,7 @@
   options: ["Every year", "Every 3 years", "Every 5 years", "Never, it is valid for life"]
   answer: 2
   explanation: "A PAL is valid for five years and must be renewed before it expires to keep possessing firearms lawfully."
+  # Not found in the 2014 handbook: it does not state how long a PAL is valid.
   source: {handbook_edition: "2014 (5th ed.)", section: "Responsibilities of the firearms owner", page: TBD}
   law_checked_on: "2026-11-22"
   review: *reviewed
