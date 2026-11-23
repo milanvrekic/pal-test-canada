@@ -36,7 +36,7 @@ const BUILTIN: Record<AppId, Builtin> = {
     color: '#7A4A1C',
     months: [9, 10, 11],
     soon: false,
-    ios: 'https://apps.apple.com/app/huntable-can-i-hunt-here/id6827829619',
+    ios: 'https://apps.apple.com/app/apple-store/id6827829619',
     android: 'https://play.google.com/store/apps/details?id=app.gethuntable',
     web: 'https://gethuntable.app',
   },
@@ -46,7 +46,7 @@ const BUILTIN: Record<AppId, Builtin> = {
     color: '#1F5F8B',
     months: [4, 5, 6, 7, 8, 9, 10],
     soon: false,
-    ios: 'https://apps.apple.com/app/fishable-bc-can-i-fish-here/id6828685801',
+    ios: 'https://apps.apple.com/app/apple-store/id6828685801',
     android: 'https://play.google.com/store/apps/details?id=app.getfishable',
     web: 'https://getfishable.app',
   },
@@ -56,7 +56,7 @@ const BUILTIN: Record<AppId, Builtin> = {
     color: '#2F5D3A',
     months: [5, 6, 7, 8, 9],
     soon: false,
-    ios: 'https://apps.apple.com/app/campable-can-i-camp-here/id6831671747',
+    ios: 'https://apps.apple.com/app/apple-store/id6831671747',
     web: 'https://getcampable.app',
   },
   shootable: {
@@ -80,7 +80,9 @@ export const APP_ICONS: Record<AppId, number> = {
  * Apple's provider token (App Store Connect → Analytics → Campaigns). It is public: it appears in every campaign link.
  * Without it Apple still opens the store, but App Analytics can't attribute installs to a campaign. Play needs no token.
  */
-export const APPLE_PROVIDER_TOKEN = '';
+export const APPLE_PROVIDER_TOKEN = '129676545';
+/** The App Store Connect campaign for every link from this app (set up by Milan). Placement detail is in Play's utm_content and our own handoff_click events. */
+export const APPLE_CAMPAIGN = 'pal-test-app';
 
 /** Which store to send this person to. On the website this reads the browser, so phones skip the landing page. */
 export function deviceOs(os: string = Platform.OS): 'ios' | 'android' | 'other' {
@@ -95,15 +97,14 @@ export function deviceOs(os: string = Platform.OS): 'ios' | 'android' | 'other' 
 
 /**
  * Store link with campaign tags, matching the Moment Engine's /xp/go redirect (storeUrlFor in netlify/lib/apps.mts), plus
- * the placement so each spot in the app can be compared: Apple `ct=xp-paltest-<placement>`, Play `utm_content=<placement>`.
+ * the placement so each spot can be compared on Play (`utm_content=<placement>`). Apple uses the single pal-test-app campaign.
  */
 export function directLink(id: AppId, placement?: string, os: string = Platform.OS): string {
   const a = BUILTIN[id];
   const where = deviceOs(os);
   const spot = placement ? placement.replace(/[^a-z0-9_]/gi, '').slice(0, 28) : '';
   if (!a.soon && where === 'ios' && a.ios) {
-    const pt = APPLE_PROVIDER_TOKEN ? `&pt=${APPLE_PROVIDER_TOKEN}` : '';
-    return `${a.ios}?ct=xp-${CAMPAIGN}${spot ? `-${spot}` : ''}${pt}&mt=8`;
+    return `${a.ios}?pt=${APPLE_PROVIDER_TOKEN}&ct=${APPLE_CAMPAIGN}&mt=8`;
   }
   const utm = `utm_source=10ten-crosspromo&utm_medium=${Platform.OS === 'web' ? 'web' : 'app'}&utm_campaign=${CAMPAIGN}${spot ? `&utm_content=${spot}` : ''}`;
   if (!a.soon && where === 'android' && a.android) return `${a.android}&referrer=${encodeURIComponent(utm)}`;
