@@ -1,4 +1,4 @@
-# PAL course providers in Ontario. Same rules as bc.yaml. Status "draft" until Milan approves.
+# PAL course providers in Ontario. Same rules as bc.yaml. Approved by Milan 2026-11-23.
 province: ON
 intro: >-
   In Ontario, every CFSC and CRFSC instructor works through the Firearms Safety Education Service of Ontario (FSESO),
@@ -19,4 +19,4 @@ providers:
     email: "info@fseso.org"
     source: "https://fseso.org/contact-us/"
     checked: 2026-11-23
-    status: draft
+    status: reviewed
