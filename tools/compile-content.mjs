@@ -212,10 +212,45 @@ function loadGuides() {
   return out.sort((a, b) => a.order - b.order);
 }
 
+function loadCourses() {
+  const dir = join(root, 'content', 'courses');
+  const provinces = [];
+  for (const file of readdirSync(dir).filter((f) => f.endsWith('.yaml')).sort()) {
+    const doc = YAML.parse(readFileSync(join(dir, file), 'utf8'));
+    const regionIds = new Set((doc.regions ?? []).map((r) => r.id));
+    const providers = [];
+    for (const p of doc.providers ?? []) {
+      const at = `${file} ${p.id}`;
+      for (const k of ['id', 'name', 'regions', 'venues', 'courses', 'website', 'source', 'checked', 'status']) if (!p[k]) errors.push(`${at} missing ${k}`);
+      for (const r of p.regions ?? []) if (!regionIds.has(r)) errors.push(`${at} unknown region ${r}`);
+      if (p.status !== 'reviewed') {
+        if (!allowDrafts) errors.push(`${at} not shippable: status is ${p.status}`);
+        else warnings.push(`${at} draft listing`);
+      }
+      providers.push({
+        id: p.id,
+        name: p.name,
+        regions: p.regions ?? [],
+        venues: p.venues ?? [],
+        courses: p.courses ?? [],
+        website: p.website,
+        phone: p.phone ?? null,
+        email: p.email ?? null,
+        source: p.source,
+        checked: String(p.checked),
+        draft: p.status !== 'reviewed',
+      });
+    }
+    provinces.push({ province: doc.province, regions: doc.regions ?? [], providers: providers.sort((a, b) => a.name.localeCompare(b.name)) });
+  }
+  return provinces;
+}
+
 const questions = loadQuestions();
 const guides = loadGuides();
 const drills = loadDrills();
 const waitTimes = loadWaitTimes();
+const courses = loadCourses();
 writeDrillPhotos(drills);
 
 for (const course of COURSES) {
@@ -231,11 +266,11 @@ if (errors.length) {
   process.exit(1);
 }
 
-const body = { questions, guides, drills, waitTimes };
+const body = { questions, guides, drills, waitTimes, courses };
 const version = createHash('sha256').update(JSON.stringify(body)).digest('hex').slice(0, 12);
-const bundle = { version, builtAt: new Date().toISOString().slice(0, 10), containsDrafts: questions.some((q) => q.draft) || guides.some((g) => g.draft) || drills.some((d) => d.draft), ...body };
+const bundle = { version, builtAt: new Date().toISOString().slice(0, 10), containsDrafts: questions.some((q) => q.draft) || guides.some((g) => g.draft) || drills.some((d) => d.draft) || courses.some((c) => c.providers.some((p) => p.draft)), ...body };
 const outDir = join(root, 'app', 'src', 'content');
 mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, 'bundle.json'), JSON.stringify(bundle, null, 1) + '\n');
-console.log(`Bundle ${version}: ${questions.length} questions (${COURSES.map((c) => `${c} ${questions.filter((q) => q.course === c).length}`).join(', ')}), ${guides.length} guides, ${drills.length} drills, ${warnings.length} draft warning(s).`);
+console.log(`Bundle ${version}: ${questions.length} questions (${COURSES.map((c) => `${c} ${questions.filter((q) => q.course === c).length}`).join(', ')}), ${guides.length} guides, ${drills.length} drills, ${courses.reduce((n, c) => n + c.providers.length, 0)} course listings, ${warnings.length} draft warning(s).`);
 if (process.argv.includes('--verbose')) warnings.forEach((w) => console.log(`  warn: ${w}`));

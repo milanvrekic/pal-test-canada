@@ -42,8 +42,8 @@ export function Screen({ children, width = 'reading', bottomBar, bottomTone }: S
             </View>
           </Link>
           <View style={styles.navLinks}>
+            <NavLink href="/pal-courses/bc">Courses</NavLink>
             <NavLink href="/wait-times">Wait times</NavLink>
-            <NavLink href="/guides">Guides</NavLink>
           </View>
         </View>
       </View>
@@ -79,8 +79,10 @@ const FOOTER_GROUPS: { title: string; links: { href: Href; label: string }[] }[]
   {
     title: 'Your licence',
     links: [
+      { href: '/pal-courses/bc', label: 'PAL courses in BC' },
       { href: '/wait-times', label: 'PAL wait times' },
       { href: '/guides', label: 'Guides' },
+      { href: '/pal-courses', label: 'All course providers' },
       { href: '/about', label: 'About' },
     ],
   },

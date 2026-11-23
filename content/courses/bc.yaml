@@ -1,0 +1,141 @@
+# PAL course providers in British Columbia.
+# Every listing comes from the provider's own public page (or the host venue's page) and records where and when it was
+# checked. No prices: they change too often. Status "draft" until Milan approves; release builds refuse drafts.
+#
+# Fields: id, name, region, venues (city + place), courses (cfsc, crfsc), website, phone, email, source, checked, status, note
+province: BC
+regions:
+  - {id: lower-mainland, name: "Lower Mainland and Fraser Valley"}
+  - {id: vancouver-island, name: "Vancouver Island"}
+  - {id: thompson-okanagan, name: "Thompson-Okanagan"}
+  - {id: kootenays, name: "Kootenays"}
+  - {id: north, name: "Northern BC"}
+
+providers:
+  - id: vancouver-gun-club
+    name: "Vancouver Gun Club"
+    regions: [lower-mainland]
+    venues: [{city: Richmond, place: "Vancouver Gun Club, 7340 Sidaway Rd"}]
+    courses: [cfsc, crfsc]
+    website: "https://vancouvergunclub.wildapricot.org/CANADIAN-FIREARMS-SAFETY-COURSE"
+    source: "https://vancouvergunclub.wildapricot.org/CANADIAN-FIREARMS-SAFETY-COURSE"
+    checked: 2026-11-22
+    status: draft
+
+  - id: pcdhfc
+    name: "Port Coquitlam & District Hunting and Fishing Club"
+    regions: [lower-mainland]
+    venues: [{city: "Port Coquitlam", place: "Club grounds, 5000 Harper Rd"}]
+    courses: [cfsc, crfsc]
+    website: "https://pcdhfc.com/cfsc-course/"
+    phone: "604-942-9772"
+    source: "https://pcdhfc.com/cfsc-course/"
+    checked: 2026-11-22
+    status: draft
+
+  - id: silvercore
+    name: "Silvercore"
+    regions: [lower-mainland, vancouver-island]
+    venues:
+      - {city: Delta, place: "Silvercore Training Facility, #115-7198 Vantage Way"}
+      - {city: "New Westminster", place: "Douglas College, 700 Royal Ave"}
+      - {city: Langley, place: "The Range Langley, 9938 201 St"}
+      - {city: Victoria, place: "Quality Inn, 850 Blanshard St"}
+      - {city: Nanaimo, place: "Vancouver Island University, 900 Fifth St"}
+      - {city: Parksville, place: "Shelly Hall, 186 Shelly Rd"}
+      - {city: Courtenay, place: "Comox Valley Sports Centre, 3001 Vanier Dr"}
+    courses: [cfsc, crfsc]
+    website: "https://silvercore.ca"
+    phone: "604-940-7785"
+    email: "info@silvercore.ca"
+    source: "https://silvercore-staging.vercel.app/pal-course-vancouver"
+    checked: 2026-11-22
+    status: draft
+    note: "Venues were read from Silvercore's location pages; confirm against silvercore.ca before approving."
+
+  - id: bc-firearms-academy
+    name: "BC Firearms Academy"
+    regions: [lower-mainland]
+    venues: [{city: Abbotsford, place: "Bass Pro Shops / Cabela's Abbotsford"}]
+    courses: [cfsc, crfsc]
+    website: "https://bcfirearmsacademy.ca/"
+    source: "https://bcfirearmsacademy.ca/events/category/cabelas-abbotsford-courses/"
+    checked: 2026-11-22
+    status: draft
+    note: "Also runs courses on request for communities around BC."
+
+  - id: lockhart-tactical
+    name: "Lockhart Tactical"
+    regions: [vancouver-island]
+    venues: [{city: "Lake Cowichan", place: "Lockhart Tactical training facility"}]
+    courses: [cfsc, crfsc]
+    website: "https://lockharttactical.com/pal"
+    phone: "250-715-7290"
+    source: "https://lockharttactical.com/pal"
+    checked: 2026-11-22
+    status: draft
+
+  - id: kdfgc
+    name: "Kelowna & District Fish and Game Club"
+    regions: [thompson-okanagan]
+    venues: [{city: Kelowna, place: "Clubhouse, 4041 Casorso Rd"}]
+    courses: [cfsc, crfsc]
+    website: "https://kdfgc.wildapricot.org/PAL"
+    source: "https://kdfgc.wildapricot.org/PAL"
+    checked: 2026-11-22
+    status: draft
+
+  - id: college-of-the-rockies
+    name: "College of the Rockies (Continuing Education)"
+    regions: [kootenays]
+    venues: [{city: "Cranbrook and Fernie", place: "College of the Rockies campuses"}]
+    courses: [cfsc, crfsc]
+    website: "https://cotr.bc.ca/continuing-education/courses/canadian-firearms-safety-course/"
+    source: "https://cotr.bc.ca/continuing-education/courses/canadian-restricted-firearms/"
+    checked: 2026-11-22
+    status: draft
+
+  - id: selkirk-college
+    name: "Selkirk College (Continuing Education)"
+    regions: [kootenays]
+    venues: [{city: "West Kootenay", place: "Selkirk College"}]
+    courses: [cfsc]
+    website: "https://selkirk.ca/node/68805"
+    source: "https://selkirk.ca/node/68805"
+    checked: 2026-11-22
+    status: draft
+    note: "Confirm the campus and whether the restricted course is offered."
+
+  - id: gerwing-outdoor-education
+    name: "Gerwing Outdoor Education"
+    regions: [north]
+    venues: [{city: "Prince George", place: "The Exploration Place, 333 Becott Pl"}]
+    courses: [cfsc]
+    website: "https://gerwingoutdooreducation.ca/"
+    phone: "250-967-4456"
+    source: "https://theexplorationplace.com/series/non-restricted-canadian-firearms-safety-course"
+    checked: 2026-11-22
+    status: draft
+
+  - id: north-central-firearms-training
+    name: "North Central Firearms Training"
+    regions: [north]
+    venues: [{city: "Prince George", place: "Prince George, plus out-of-town group courses"}]
+    courses: [cfsc, crfsc]
+    website: "https://northcentralfirearmstraining.ca"
+    source: "https://www.localgymsandfitness.com/CA/Prince-George/1394425264114298/North-Central-Firearms-Training"
+    checked: 2026-11-22
+    status: draft
+    note: "Found through a directory listing; confirm the website address before approving."
+
+  - id: alfreds-outdoor-education
+    name: "Alfred's Outdoor Education"
+    regions: [north]
+    venues:
+      - {city: "Fort St. John", place: "Fort St John Métis Society, 9316 99 Ave"}
+      - {city: "Charlie Lake", place: "Charlie Lake Community Church, 12731 Old Hope Rd"}
+    courses: [cfsc]
+    website: "https://alfredsoutdooreducation.corsizio.com/"
+    source: "https://www.fortstjohn.ca/node/100126"
+    checked: 2026-11-22
+    status: draft
