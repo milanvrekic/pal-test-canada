@@ -25,5 +25,5 @@
   descent-override: 20%;
   line-gap-override: 0%;
 }
-html, body { background-color: #F5F5F7; -webkit-font-smoothing: antialiased; }
-@media (prefers-color-scheme: dark) { html, body { background-color: #0A0B0E; } }
+html, body { background-color: #F1F4F7; -webkit-font-smoothing: antialiased; }
+@media (prefers-color-scheme: dark) { html, body { background-color: #18191A; } }

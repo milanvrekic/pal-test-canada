@@ -307,7 +307,7 @@ function ResultsHead({ heading, correct, total, score, passed, exam }: { heading
   const good = !exam || passed;
   return (
     <View style={[styles.resultHead, { backgroundColor: good ? theme.successBg : theme.tintSand }]}>
-      <Ring value={score} size={132} stroke={12} color={good ? theme.accent : theme.signal} track="rgba(0,0,0,0.07)" label={`${Math.round(score * 100)}%`} />
+      <Ring value={score} size={132} stroke={12} color={good ? theme.success : theme.danger} track="rgba(0,0,0,0.07)" label={`${Math.round(score * 100)}%`} />
       <View style={{ alignItems: 'center', gap: Spacing.one }}>
         <Eyebrow>{heading}</Eyebrow>
         <ThemedText type="title" accessibilityRole="header" style={{ textAlign: 'center' }}>

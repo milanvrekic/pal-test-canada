@@ -10,7 +10,7 @@ import { HandoffCards } from '@/components/handoff-cards';
 import { TryScene } from '@/components/try-scene';
 import { ThemedText } from '@/components/themed-text';
 import { Button, Col, Eyebrow, LinkCard, Ring, Screen, Split } from '@/components/ui';
-import { Glass, Radius, RadiusControl, Spacing, TINTS } from '@/constants/theme';
+import { Radius, RadiusControl, Shadow, Spacing, TINTS } from '@/constants/theme';
 import { type Course, EXAM_SIZE, READY_EXAMS, READY_MARK, dueForReview, readiness, today, topicLabel, topicStats } from '@/features/quiz/engine';
 import { useTheme } from '@/hooks/use-theme';
 import { drillPhotos } from '@/content/drill-photos';
@@ -59,25 +59,25 @@ export default function Home() {
 
   return (
     <Screen width="wide">
-      <View style={styles.hero}>
+      <View style={[styles.hero, { backgroundColor: theme.backgroundElement }, Shadow]}>
         <HeroGlow />
         <Split gap={Spacing.five} style={{ alignItems: 'center' }}>
           <Col basis={420} grow={5} style={{ gap: Spacing.four }}>
-            <View style={[styles.chip, Glass]}>
-              <View style={[styles.dot, { backgroundColor: '#4ADE80' }]} />
-              <ThemedText type="smallBold" style={{ color: '#E6E7EB' }}>
+            <View style={[styles.chip, { backgroundColor: theme.backgroundElement, borderColor: theme.border }]}>
+              <View style={[styles.dot, { backgroundColor: theme.success }]} />
+              <ThemedText type="smallBold" themeColor="textSecondary">
                 Free · Instructor-reviewed
               </ThemedText>
             </View>
-            <ThemedText type="display" accessibilityRole="header" style={{ color: '#FFFFFF' }}>
-              Pass your PAL course <ThemedText type="display" style={{ color: '#FF8A7A' }}>the first time.</ThemedText>
+            <ThemedText type="display" accessibilityRole="header">
+              Pass your PAL course <ThemedText type="display" style={{ color: theme.accent }}>the first time.</ThemedText>
             </ThemedText>
-            <ThemedText style={{ color: '#B4B8C2', fontSize: 18, lineHeight: 28, maxWidth: 520 }}>
+            <ThemedText themeColor="textSecondary" style={{ fontSize: 18, lineHeight: 28, maxWidth: 520 }}>
               Practice tests for the CFSC and CRFSC, written from the student handbook. No account, no ads. Your progress
               stays on this device.
             </ThemedText>
 
-            <View style={[styles.segment, Glass]} accessibilityRole="radiogroup" accessibilityLabel="Which course are you taking?">
+            <View style={[styles.segment, { backgroundColor: theme.backgroundSelected }]} accessibilityRole="radiogroup" accessibilityLabel="Which course are you taking?">
               {COURSES.map((c) => {
                 const active = c.id === course;
                 return (
@@ -86,12 +86,12 @@ export default function Home() {
                     accessibilityRole="radio"
                     accessibilityState={{ checked: active }}
                     onPress={() => setCourse(c.id)}
-                    style={[styles.segmentItem, active ? styles.segmentActive : null]}
+                    style={[styles.segmentItem, active ? [styles.segmentActive, Shadow, { backgroundColor: theme.backgroundElement }] : null]}
                   >
-                    <ThemedText type="bold" style={{ color: active ? '#0A0B0E' : '#FFFFFF' }}>
+                    <ThemedText type="bold" themeColor={active ? 'accent' : 'text'}>
                       {c.label}
                     </ThemedText>
-                    <ThemedText type="small" style={{ color: active ? '#5B5F69' : '#A3A7B2' }}>
+                    <ThemedText type="small" themeColor="textSecondary">
                       {c.sub}
                     </ThemedText>
                   </Pressable>
@@ -100,13 +100,13 @@ export default function Home() {
             </View>
 
             <View style={styles.ctaRow}>
-              <Button size="lg" variant="inverse" label="Start practice exam" href={{ pathname: '/quiz', params: { course, mode: 'exam' } }} />
-              <Button size="lg" variant="glass" label="Quick practice" href={{ pathname: '/quiz', params: { course, mode: 'practice' } }} />
+              <Button size="lg" label="Start practice exam" href={{ pathname: '/quiz', params: { course, mode: 'exam' } }} />
+              <Button size="lg" variant="secondary" label="Quick practice" href={{ pathname: '/quiz', params: { course, mode: 'practice' } }} />
             </View>
             <View style={styles.facts}>
               {[`${questions.length} questions`, `${drills.length} photo drills`, `${examSize}-question exams`, 'No sign-up'].map((f) => (
-                <ThemedText key={f} type="small" style={{ color: '#A3A7B2' }}>
-                  <ThemedText type="smallBold" style={{ color: '#4ADE80' }}>✓ </ThemedText>
+                <ThemedText key={f} type="small" themeColor="textSecondary">
+                  <ThemedText type="smallBold" themeColor="success">✓ </ThemedText>
                   {f}
                 </ThemedText>
               ))}
@@ -208,7 +208,7 @@ export default function Home() {
                         size={48}
                         label={s.accuracy === null ? '–' : `${Math.round(s.accuracy * 100)}%`}
                         track="rgba(0,0,0,0.08)"
-                        color={s.accuracy !== null && s.accuracy < 0.8 ? theme.signal : theme.success}
+                        color={s.accuracy !== null && s.accuracy < 0.8 ? theme.danger : theme.success}
                       />
                     </View>
                   )}
@@ -278,12 +278,12 @@ function HeroGlow() {
     <Svg style={StyleSheet.absoluteFill} width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100" accessibilityElementsHidden importantForAccessibility="no">
       <Defs>
         <RadialGradient id="g1" cx="85%" cy="10%" rx="55%" ry="70%" fx="85%" fy="10%">
-          <Stop offset="0" stopColor="#E5322D" stopOpacity={0.55} />
-          <Stop offset="1" stopColor="#E5322D" stopOpacity={0} />
+          <Stop offset="0" stopColor="#0064E0" stopOpacity={0.16} />
+          <Stop offset="1" stopColor="#0064E0" stopOpacity={0} />
         </RadialGradient>
         <RadialGradient id="g2" cx="5%" cy="100%" rx="55%" ry="60%" fx="5%" fy="100%">
-          <Stop offset="0" stopColor="#F59E0B" stopOpacity={0.28} />
-          <Stop offset="1" stopColor="#F59E0B" stopOpacity={0} />
+          <Stop offset="0" stopColor="#7B61FF" stopOpacity={0.10} />
+          <Stop offset="1" stopColor="#7B61FF" stopOpacity={0} />
         </RadialGradient>
       </Defs>
       <Rect x="0" y="0" width="100" height="100" fill="url(#g1)" />
@@ -383,12 +383,12 @@ const styles = StyleSheet.create({
   panelTop: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three },
   ticks: { flexDirection: 'row', gap: Spacing.two },
   tick: { flex: 1, height: 40, borderRadius: 999, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
-  hero: { backgroundColor: '#0A0B0E', borderRadius: 32, overflow: 'hidden', padding: Spacing.four, paddingVertical: Spacing.five },
-  chip: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two, alignSelf: 'flex-start', borderRadius: 999, borderWidth: 1, borderColor: 'rgba(255,255,255,0.14)', backgroundColor: 'rgba(255,255,255,0.06)', paddingHorizontal: Spacing.three, paddingVertical: 6 },
+  hero: { borderRadius: 32, overflow: 'hidden', padding: Spacing.four, paddingVertical: Spacing.five },
+  chip: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two, alignSelf: 'flex-start', borderRadius: 999, borderWidth: 1, paddingHorizontal: Spacing.three, paddingVertical: 6 },
   dot: { width: 8, height: 8, borderRadius: 4 },
-  segment: { flexDirection: 'row', borderRadius: 20, borderWidth: 1, borderColor: 'rgba(255,255,255,0.14)', backgroundColor: 'rgba(255,255,255,0.06)', padding: 4, gap: 4, maxWidth: 460 },
+  segment: { flexDirection: 'row', borderRadius: 20, padding: 4, gap: 4, maxWidth: 460 },
   segmentItem: { flex: 1, borderRadius: 16, paddingVertical: Spacing.two + 2, paddingHorizontal: Spacing.three },
-  segmentActive: { backgroundColor: '#FFFFFF' },
+  segmentActive: {},
   ctaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two + 4 },
   toolTile: { borderRadius: 24, padding: Spacing.four, gap: Spacing.two, flexGrow: 1, minHeight: 170 },
   tile: { borderRadius: 28, padding: Spacing.four, gap: Spacing.three, flexGrow: 1, minHeight: 230 },

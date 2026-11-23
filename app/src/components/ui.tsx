@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Svg, { Circle, Path } from 'react-native-svg';
 
-import { Fonts, Glass, MaxContentWidth, MaxWideWidth, Radius, RadiusControl, Spacing } from '@/constants/theme';
+import { Fonts, Glass, MaxContentWidth, MaxWideWidth, Radius, RadiusControl, Shadow, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { DISCLAIMER, SITE_NAME, containsDrafts } from '@/lib/content';
 
@@ -30,9 +30,9 @@ export function Screen({ children, width = 'reading', bottomBar, bottomTone }: S
         <View style={[styles.navInner, { maxWidth: MaxWideWidth }]}>
           <Link href="/" style={styles.brand} accessibilityLabel={`${SITE_NAME} home`}>
             <View style={styles.brandRow}>
-              <View style={[styles.mark, { backgroundColor: theme.signal }]}>
+              <View style={[styles.mark, { backgroundColor: theme.brand }]}>
                 <Svg width={20} height={20} viewBox="0 0 24 24" accessibilityElementsHidden importantForAccessibility="no">
-                  <Path d="M5 12.5l4.2 4.2L19 7" stroke={theme.onSignal} strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                  <Path d="M5 12.5l4.2 4.2L19 7" stroke="#FFFFFF" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
                 </Svg>
               </View>
               <View>
@@ -141,7 +141,7 @@ export function Col({ children, basis = 320, grow = 1, style }: { children: Reac
 
 export function Card({ style, ...rest }: ViewProps) {
   const theme = useTheme();
-  return <View style={[styles.card, { backgroundColor: theme.backgroundElement, borderColor: theme.border }, style]} {...rest} />;
+  return <View style={[styles.card, Shadow, { backgroundColor: theme.backgroundElement, borderColor: theme.border }, style]} {...rest} />;
 }
 
 /** Small uppercase label above a title. */
@@ -184,7 +184,7 @@ export function Button({ label, onPress, href, variant = 'primary', disabled, si
     ? { backgroundColor: theme.backgroundSelected, borderColor: theme.backgroundSelected }
     : {
         primary: { backgroundColor: theme.accent, borderColor: theme.accent },
-        secondary: { backgroundColor: theme.backgroundElement, borderColor: theme.borderStrong },
+        secondary: { backgroundColor: theme.backgroundSelected, borderColor: theme.backgroundSelected },
         inverse: { backgroundColor: '#FFFFFF', borderColor: '#FFFFFF' },
         glass: { backgroundColor: 'rgba(255,255,255,0.10)', borderColor: 'rgba(255,255,255,0.22)', ...Glass },
       }[v];
