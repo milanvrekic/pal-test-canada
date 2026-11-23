@@ -62,3 +62,45 @@
   source: {handbook_edition: "2014 (5th ed.)", section: "11.4. Display", page: "201"}
   law_checked_on: 2026-11-22  # SOR/98-209 s. 8(c), last amended 2012-11-30
   review: *ok
+
+# Batch 3 drills (drafted 2026-11-22; awaiting instructor review)
+- id: spot-lean-truck
+  course: cfsc
+  scene: lean-truck
+  alt: "A hunter in a blaze orange vest pours coffee at the tailgate of a pickup on a forest road while his scoped rifle stands by itself, leaning against the tailgate."
+  question: "What is wrong here?"
+  options: ["His rifle is leaning against the truck on its own", "He is wearing a blaze orange vest and cap", "The rifle's muzzle is pointed up, away from him", "He has stopped on a gravel road beside the forest"]
+  answer: 0
+  explanation: "Never lean a firearm against a vehicle, tree or wall: it could fall over and fire if loaded. Unload it and case it, or keep it in your hands."
+  source: {handbook_edition: "2014 (5th ed.)", section: "4.2.2. Load a firearm only for actual use", page: "59"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: spot-water-target
+  course: cfsc
+  scene: water-target
+  alt: "A shooter in shooting glasses and ear muffs kneels on a lake shore aiming a scoped rifle at a plastic bottle floating on the water."
+  question: "What is wrong here?"
+  options: ["He is aiming at a target floating on the water", "He is wearing shooting glasses and ear muffs", "He is aiming from a steady kneeling position", "There are no other people near where he is aiming"]
+  answer: 0
+  explanation: "Never shoot if your bullet may hit water or a hard, flat surface. The bullet or its fragments can ricochet in unsafe directions."
+  source: {handbook_edition: "2014 (5th ed.)", section: "4.2.4. Be sure of your target and beyond", page: "61"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: spot-partner-muzzle
+  course: cfsc
+  scene: partner-muzzle
+  alt: "Two hunters in blaze orange walk one behind the other on a forest trail; the rear hunter's rifle points straight at the back of the hunter in front."
+  question: "What is wrong here?"
+  options: ["The rear hunter's muzzle is pointed at the hunter in front", "Both hunters are wearing blaze orange", "The front hunter's muzzle points down and to the side", "They are walking in single file on the trail"]
+  answer: 0
+  explanation: "Never use a carry that points the muzzle at another person. Choose your carry for where your companions are: with someone in front, the muzzle goes down and to the side, away from them."
+  source: {handbook_edition: "2014 (5th ed.)", section: "7.8. Carrying positions", page: "160"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: spot-hilltop
+  course: cfsc
+  scene: hilltop
+  alt: "A hunter in blaze orange lies prone in open grassland aiming uphill at a deer standing on the crest of a ridge, with only sky behind it."
+  question: "What is wrong here?"
+  options: ["The deer is on the crest of the hill, with no backstop behind it", "He is shooting from the steady prone position", "He is wearing a blaze orange vest and cap", "He has positively identified the animal as a deer"]
+  answer: 0
+  explanation: "Don't shoot at game standing on top of a hill. You can't see what is beyond it, and people or livestock may be in the line of fire."
+  source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
