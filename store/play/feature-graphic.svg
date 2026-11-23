@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="500" viewBox="0 0 1024 500">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6A5BE8"/><stop offset="1" stop-color="#4433C2"/>
+    </linearGradient>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#1B1352" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <rect width="1024" height="500" fill="url(#bg)"/>
+
+  <!-- Brand and promise, left -->
+  <g transform="translate(64 92)">
+    <rect width="72" height="72" rx="18" fill="#FFFFFF" fill-opacity="0.14"/>
+    <g transform="translate(36 36) scale(0.078) translate(-512 -512)" fill="none" stroke="#FFFFFF" stroke-width="62" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M332 196 H580 L712 328 V752 a76 76 0 0 1 -76 76 H388 a76 76 0 0 1 -76 -76 V272 a76 76 0 0 1 76 -76 Z"/>
+      <path d="M580 196 V300 a28 28 0 0 0 28 28 H712"/>
+      <path d="M410 520 L478 588 L614 452"/>
+      <path d="M420 690 H604"/>
+    </g>
+    <text x="92" y="50" font-family="Khand" font-weight="700" font-size="40" letter-spacing="1" fill="#FFFFFF">PAL TEST CANADA</text>
+  </g>
+  <text font-family="Geist" font-weight="800" font-size="50" letter-spacing="-1.5" fill="#FFFFFF">
+    <tspan x="64" y="252">Pass your PAL course</tspan>
+    <tspan x="64" y="310">the first time.</tspan>
+  </text>
+  <text font-family="Geist" font-weight="600" font-size="22" fill="#FFFFFF" fill-opacity="0.82">
+    <tspan x="64" y="372">CFSC and CRFSC practice tests,</tspan>
+    <tspan x="64" y="402">checked by a certified instructor.</tspan>
+  </text>
+
+  <!-- A question card, right -->
+  <g transform="translate(596 64)" filter="url(#sh)">
+    <rect width="368" height="372" rx="28" fill="#FFFFFF"/>
+    <text x="28" y="48" font-family="Geist" font-weight="600" font-size="15" fill="#65778A">CFSC · Quick practice   3 / 10</text>
+    <rect x="28" y="62" width="312" height="8" rx="4" fill="#CDD5DD"/>
+    <rect x="28" y="62" width="94" height="8" rx="4" fill="#0064E0"/>
+    <text font-family="Geist" font-weight="700" font-size="21" fill="#1C2B33">
+      <tspan x="28" y="112">What does the A in ACTS</tspan>
+      <tspan x="28" y="138">stand for?</tspan>
+    </text>
+    <g font-family="Geist" font-weight="600" font-size="16" fill="#1C2B33">
+      <rect x="28" y="160" width="312" height="44" rx="14" fill="#FFFFFF" stroke="#DEE3E9"/>
+      <circle cx="54" cy="182" r="11" fill="none" stroke="#B5C0CA"/><text x="49" y="187" font-size="13" fill="#65778A">A</text>
+      <text x="76" y="188">Aim only at your target</text>
+      <rect x="28" y="214" width="312" height="44" rx="14" fill="#E6F4EA" stroke="#13803D" stroke-width="2"/>
+      <circle cx="54" cy="236" r="11" fill="#13803D"/>
+      <path d="M48.5 236.5l3.6 3.6 6.4-7" stroke="#FFFFFF" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="76" y="242" fill="#0E5C2C">Assume every firearm is loaded</text>
+      <rect x="28" y="268" width="312" height="44" rx="14" fill="#FFFFFF" stroke="#DEE3E9"/>
+      <circle cx="54" cy="290" r="11" fill="none" stroke="#B5C0CA"/><text x="49.5" y="295" font-size="13" fill="#65778A">C</text>
+      <text x="76" y="296">Ask before handling</text>
+    </g>
+    <text x="28" y="345" font-family="Geist" font-weight="600" font-size="13.5" fill="#65778A">Student handbook, page 21</text>
+  </g>
+</svg>
