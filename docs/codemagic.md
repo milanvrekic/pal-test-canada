@@ -49,11 +49,11 @@ starts it alongside the Android release, so one tag ships both.
 
 1. **App record.** The app exists in App Store Connect with bundle ID `ca.paltest.app` (registered under Certificates,
    Identifiers & Profiles → Identifiers).
-2. **App Store Connect API key.** Codemagic signs and uploads with an App Store Connect API key. If Huntable already
-   uses one (Codemagic → Team settings → Team integrations → Developer Portal), PAL Test uses the same key: put its
-   name in `integrations: app_store_connect:` in `codemagic.yaml` (it says `asc_api_key` now). If there isn't one yet:
-   App Store Connect → Users and Access → Integrations → App Store Connect API → generate a key with the **App Manager**
-   role, download the `.p8` (it can only be downloaded once), then add it in Codemagic with the Issuer ID and Key ID.
+2. **App Store Connect API key** (PAL Test has its own). App Store Connect → Users and Access → Integrations → App
+   Store Connect API → Team Keys → **+**. Name `Codemagic PAL Test`, access **App Manager**. Download the `.p8`: Apple
+   only lets you download it once, so keep it somewhere safe and never commit it. Note the **Issuer ID** (above the
+   key list) and the **Key ID**. Then in Codemagic → Team settings → Team integrations → Developer Portal → Manage
+   keys → Add key: name `paltest_asc` (the name `codemagic.yaml` uses), the Issuer ID, the Key ID and the `.p8`.
 3. **Apple ID of the app.** App Store Connect → PAL Test Canada → App Information → Apple ID (a number). Put it in
    `APP_STORE_APPLE_ID` in `codemagic.yaml`. Until then, builds still work; the build number just comes from
    Codemagic's counter.
