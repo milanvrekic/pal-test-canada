@@ -1,77 +1,101 @@
-// Canadian red for the brand and the one main action, charcoal for structure, white cards on a soft neutral canvas.
-// Pastel tints mark topics and stats. Deliberately not the Canada.ca look: no flag symbol, no federal blue.
+import { Platform } from 'react-native';
+
+// 2026: cool neutral canvas, ink-black primary actions, a deep ink hero with a red/amber glow and glass panels,
+// blue for your pick, green/red for right/wrong, Canadian red as the brand accent. Not the Canada.ca look.
 export const Colors = {
   light: {
-    text: '#232326',
-    textSecondary: '#5D5F66',
-    background: '#F6F6F4',
+    text: '#0A0B0E',
+    textSecondary: '#5B5F69',
+    background: '#F5F5F7',
     backgroundElement: '#FFFFFF',
-    backgroundSelected: '#ECECEA',
-    border: '#E2E2DF',
-    accent: '#2B2B2F',
+    backgroundSelected: '#EDEDF0',
+    border: '#E4E4E8',
+    borderStrong: '#D3D3DA',
+    accent: '#0A0B0E',
+    accentDark: '#000000',
     onAccent: '#FFFFFF',
     accentSoft: '#EDEDF0',
-    signal: '#C8281E',
+    select: '#2563EB',
+    selectDark: '#1D4ED8',
+    selectBg: '#EEF3FE',
+    signal: '#E5322D',
     onSignal: '#FFFFFF',
-    signalBg: '#FCE9E6',
-    cover: '#232326',
+    signalBg: '#FDECEC',
+    cover: '#0A0B0E',
     onCover: '#FFFFFF',
-    onCoverMuted: '#B7B8BE',
-    tintRed: '#FCE9E6',
-    tintBlue: '#E7EDFA',
-    tintGreen: '#E3F3E9',
-    tintSand: '#FBF0DA',
-    tintLilac: '#EEEAFA',
-    success: '#1D7542',
-    successBg: '#E3F3E9',
-    danger: '#B3261E',
-    dangerBg: '#FBE7E4',
+    onCoverMuted: '#A3A7B2',
+    tintRed: '#FFE9E7',
+    tintBlue: '#E8EFFF',
+    tintGreen: '#E2F6E9',
+    tintSand: '#FFF2D9',
+    tintLilac: '#EFEAFF',
+    success: '#12813B',
+    successDark: '#0B6A2F',
+    successBg: '#E2F6E9',
+    danger: '#DC2626',
+    dangerDark: '#B91C1C',
+    dangerBg: '#FDECEC',
     warning: '#7A5200',
-    warningBg: '#FBF0DA',
+    warningBg: '#FFF2D9',
   },
   dark: {
-    text: '#F2F2F3',
-    textSecondary: '#A9AAB1',
-    background: '#121214',
-    backgroundElement: '#1C1C1F',
-    backgroundSelected: '#29292D',
-    border: '#333338',
-    accent: '#F2F2F3',
-    onAccent: '#121214',
-    accentSoft: '#2A2A2F',
-    signal: '#FF6B5E',
+    text: '#F4F4F6',
+    textSecondary: '#A3A7B2',
+    background: '#0A0B0E',
+    backgroundElement: '#15171C',
+    backgroundSelected: '#22252C',
+    border: '#272A31',
+    borderStrong: '#3A3E47',
+    accent: '#F4F4F6',
+    accentDark: '#FFFFFF',
+    onAccent: '#0A0B0E',
+    accentSoft: '#22252C',
+    select: '#60A5FA',
+    selectDark: '#3B82F6',
+    selectBg: '#14213A',
+    signal: '#FF5A50',
     onSignal: '#1A0705',
     signalBg: '#3A1714',
-    cover: '#1C1C1F',
-    onCover: '#F2F2F3',
-    onCoverMuted: '#A9AAB1',
-    tintRed: '#33191A',
-    tintBlue: '#1A2233',
-    tintGreen: '#16291E',
-    tintSand: '#2E2618',
-    tintLilac: '#241F33',
-    success: '#7CC59A',
-    successBg: '#16291E',
-    danger: '#FF8A80',
-    dangerBg: '#3A1614',
+    cover: '#0A0B0E',
+    onCover: '#F4F4F6',
+    onCoverMuted: '#A3A7B2',
+    tintRed: '#2E1716',
+    tintBlue: '#14213A',
+    tintGreen: '#12281B',
+    tintSand: '#2C2416',
+    tintLilac: '#211C33',
+    success: '#4ADE80',
+    successDark: '#86EFAC',
+    successBg: '#12281B',
+    danger: '#F87171',
+    dangerDark: '#FCA5A5',
+    dangerBg: '#2E1716',
     warning: '#FFD27A',
-    warningBg: '#2E2618',
+    warningBg: '#2C2416',
   },
 } as const;
 
 export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
 
-// Archivo at expanded width for headings and numbers (wordmark feel); the platform font for reading.
-// File names equal the PostScript names, so one family string works on iOS, Android and web.
+// Geist everywhere. Web loads the variable font (all weights from one file); native uses static files for headings
+// and the system font for body text.
+const web = Platform.OS === 'web';
 export const Fonts = {
-  display: 'ArchivoExpanded-ExtraBold',
-  displaySemi: 'ArchivoExpanded-Bold',
+  display: web ? 'Geist' : 'Geist-ExtraBold',
+  bold: web ? 'Geist' : 'Geist-Bold',
+  semi: web ? 'Geist' : 'Geist-SemiBold',
+  body: web ? 'Geist' : undefined,
 };
 
 export const TINTS = ['tintRed', 'tintBlue', 'tintGreen', 'tintSand', 'tintLilac'] as const;
 
 /** Soft card shadow (React Native 0.76+ supports boxShadow on all platforms). */
-export const Shadow = { boxShadow: '0 1px 2px rgba(20, 20, 30, 0.05), 0 6px 20px rgba(20, 20, 30, 0.06)' } as const;
+export const Shadow = { boxShadow: '0 1px 2px rgba(10, 11, 14, 0.04), 0 12px 32px -8px rgba(10, 11, 14, 0.10)' } as const;
+
+/** Frosted glass on the web (Liquid Glass-style); a solid translucent fill elsewhere. */
+export const Glass = web
+  ? ({ backdropFilter: 'blur(24px) saturate(160%)', WebkitBackdropFilter: 'blur(24px) saturate(160%)' } as object)
+  : {};
 
 export const Spacing = { half: 2, one: 4, two: 8, three: 16, four: 24, five: 32, six: 64 } as const;
 /** Reading pages (quiz, guides). */
@@ -79,6 +103,6 @@ export const MaxContentWidth = 720;
 /** Pages laid out in columns on desktop (home, drills, wait times). */
 export const MaxWideWidth = 1120;
 /** Cards and panels. */
-export const Radius = 20;
+export const Radius = 24;
 /** Buttons, inputs, answer rows. */
-export const RadiusControl = 14;
+export const RadiusControl = 16;

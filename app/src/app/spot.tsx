@@ -8,6 +8,7 @@ import { SvgXml } from 'react-native-svg';
 import { HandoffCards } from '@/components/handoff-cards';
 import { ThemedText } from '@/components/themed-text';
 import { AnswerOption, Feedback, sourceLine } from '@/components/answer';
+import { VerdictBar } from '@/components/verdict-bar';
 import { Button, Col, Eyebrow, Notice, ProgressBar, Screen, Split } from '@/components/ui';
 import { Radius, Spacing } from '@/constants/theme';
 import { shuffle } from '@/features/quiz/engine';
@@ -93,19 +94,20 @@ function SpotSession({ onRestart }: { onRestart: () => void }) {
   };
 
   const isLast = index + 1 === set.length;
+  const verdict = answered ? (selected === d.answer ? 'correct' : 'wrong') : null;
   const bar = (
-    <View style={styles.barRow}>
-      <ThemedText type="small" themeColor="textSecondary" style={{ flex: 1 }}>
-        {answered ? (selected === d.answer ? 'Spotted it' : 'Not quite') : 'Find the one mistake'}
-      </ThemedText>
-      <View style={{ flex: 1, maxWidth: 280 }}>
-        <Button variant="primary" label={isLast ? 'Finish' : 'Next scene'} onPress={next} disabled={!answered} />
-      </View>
-    </View>
+    <VerdictBar
+      verdict={verdict}
+      hint="Find the mistake"
+      detail={verdict === 'wrong' ? `The mistake: ${d.options[d.answer]}` : verdict === 'correct' ? 'You spotted the mistake.' : undefined}
+      label={isLast ? 'Finish' : verdict ? 'Continue' : 'Next scene'}
+      onPress={next}
+      disabled={!answered}
+    />
   );
 
   return (
-    <Screen width="wide" bottomBar={bar}>
+    <Screen width="wide" bottomBar={bar} bottomTone={verdict === 'correct' ? 'success' : verdict === 'wrong' ? 'danger' : null}>
       <View style={{ gap: Spacing.two }}>
         <View style={styles.headRow}>
           <Eyebrow>Spot the mistake · {d.course.toUpperCase()}</Eyebrow>
@@ -117,7 +119,7 @@ function SpotSession({ onRestart }: { onRestart: () => void }) {
             </ThemedText>
           </ThemedText>
         </View>
-        <ProgressBar value={(index + (answered ? 1 : 0)) / set.length} tone="signal" />
+        <ProgressBar value={(index + (answered ? 1 : 0)) / set.length} height={12} />
       </View>
 
       <Split gap={Spacing.four}>
@@ -142,7 +144,7 @@ function SpotSession({ onRestart }: { onRestart: () => void }) {
                 label={opt}
                 state={!answered ? 'idle' : i === d.answer ? 'correct' : i === selected ? 'wrong' : 'idle'}
                 dimmed={answered && i !== d.answer && i !== selected}
-                notes={{ correct: 'The mistake', wrong: 'This part is done correctly' }}
+                notes={{ correct: 'The mistake', wrong: 'Your pick: this part is safe' }}
                 onPress={() => {
                   if (answered) return;
                   setSelected(i);
@@ -154,7 +156,7 @@ function SpotSession({ onRestart }: { onRestart: () => void }) {
           {answered ? (
             <Feedback
               good={selected === d.answer}
-              title={selected === d.answer ? 'Spotted it' : 'Not quite'}
+              title="Why"
               explanation={d.explanation}
               source={sourceLine(d.source)}
             />

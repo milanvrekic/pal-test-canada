@@ -1,15 +1,16 @@
-import { Link } from 'expo-router';
+import { Link, type Href } from 'expo-router';
 import type { Metadata } from 'expo-router/server';
 
 import { page } from '@/lib/seo';
 import { useState } from 'react';
-import { Image, Pressable, StyleSheet, View } from 'react-native';
-import Svg, { Circle } from 'react-native-svg';
+import { Pressable, StyleSheet, View } from 'react-native';
+import Svg, { Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
 
 import { HandoffCards } from '@/components/handoff-cards';
+import { TryScene } from '@/components/try-scene';
 import { ThemedText } from '@/components/themed-text';
 import { Button, Col, Eyebrow, LinkCard, Ring, Screen, Split } from '@/components/ui';
-import { Radius, RadiusControl, Spacing, TINTS } from '@/constants/theme';
+import { Glass, Radius, RadiusControl, Spacing, TINTS } from '@/constants/theme';
 import { type Course, EXAM_SIZE, READY_EXAMS, READY_MARK, dueForReview, readiness, today, topicLabel, topicStats } from '@/features/quiz/engine';
 import { useTheme } from '@/hooks/use-theme';
 import { drillPhotos } from '@/content/drill-photos';
@@ -58,24 +59,25 @@ export default function Home() {
 
   return (
     <Screen width="wide">
-      <Split gap={Spacing.four}>
-        <Col basis={460} grow={3} style={{ gap: Spacing.three }}>
-          <View style={{ gap: Spacing.two }}>
-            <Eyebrow tone="signal">Free · Reviewed by a certified instructor</Eyebrow>
-            <ThemedText type="title" accessibilityRole="header" style={{ maxWidth: 580 }}>
-              Pass your PAL course the first time
+      <View style={styles.hero}>
+        <HeroGlow />
+        <Split gap={Spacing.five} style={{ alignItems: 'center' }}>
+          <Col basis={420} grow={5} style={{ gap: Spacing.four }}>
+            <View style={[styles.chip, Glass]}>
+              <View style={[styles.dot, { backgroundColor: '#4ADE80' }]} />
+              <ThemedText type="smallBold" style={{ color: '#E6E7EB' }}>
+                Free · Instructor-reviewed
+              </ThemedText>
+            </View>
+            <ThemedText type="display" accessibilityRole="header" style={{ color: '#FFFFFF' }}>
+              Pass your PAL course <ThemedText type="display" style={{ color: '#FF8A7A' }}>the first time.</ThemedText>
             </ThemedText>
-            <ThemedText themeColor="textSecondary" style={{ maxWidth: 560 }}>
-              Practice tests for the CFSC and CRFSC, written from the handbook. No account, no ads. Your progress stays on this
-              device.
+            <ThemedText style={{ color: '#B4B8C2', fontSize: 18, lineHeight: 28, maxWidth: 520 }}>
+              Practice tests for the CFSC and CRFSC, written from the student handbook. No account, no ads. Your progress
+              stays on this device.
             </ThemedText>
-          </View>
 
-          <View style={{ gap: Spacing.two }}>
-            <ThemedText type="smallBold" themeColor="textSecondary" nativeID="course-label">
-              Which course are you taking?
-            </ThemedText>
-            <View style={styles.switch} accessibilityRole="radiogroup" aria-labelledby="course-label">
+            <View style={[styles.segment, Glass]} accessibilityRole="radiogroup" accessibilityLabel="Which course are you taking?">
               {COURSES.map((c) => {
                 const active = c.id === course;
                 return (
@@ -84,104 +86,65 @@ export default function Home() {
                     accessibilityRole="radio"
                     accessibilityState={{ checked: active }}
                     onPress={() => setCourse(c.id)}
-                    style={[
-                      styles.switchItem,
-                      {
-                        borderColor: active ? theme.accent : theme.border,
-                        backgroundColor: active ? theme.accentSoft : theme.backgroundElement,
-                      },
-                    ]}
+                    style={[styles.segmentItem, active ? styles.segmentActive : null]}
                   >
-                    <View style={[styles.radio, { borderColor: active ? theme.accent : theme.border }]}>
-                      {active ? <View style={[styles.radioDot, { backgroundColor: theme.accent }]} /> : null}
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      <ThemedText type="bold">{c.label}</ThemedText>
-                      <ThemedText type="small" themeColor="textSecondary">
-                        {c.sub}
-                      </ThemedText>
-                    </View>
+                    <ThemedText type="bold" style={{ color: active ? '#0A0B0E' : '#FFFFFF' }}>
+                      {c.label}
+                    </ThemedText>
+                    <ThemedText type="small" style={{ color: active ? '#5B5F69' : '#A3A7B2' }}>
+                      {c.sub}
+                    </ThemedText>
                   </Pressable>
                 );
               })}
             </View>
-          </View>
 
-          <View style={{ gap: Spacing.two }}>
-            <Button
-              variant="signal"
-              label={`Start a practice exam · ${examSize} questions`}
-              href={{ pathname: '/quiz', params: { course, mode: 'exam' } }}
-            />
-            <Split gap={Spacing.two}>
-              <Col basis={200}>
-                <Button
-                  variant="secondary"
-                  label="Quick practice · 10"
-                  href={{ pathname: '/quiz', params: { course, mode: 'practice' } }}
-                />
-              </Col>
-              {due > 0 ? (
-                <Col basis={200}>
-                  <Button
-                    variant="secondary"
-                    label={`Review ${due} missed`}
-                    href={{ pathname: '/quiz', params: { course, mode: 'review' } }}
-                  />
-                </Col>
-              ) : null}
-            </Split>
-          </View>
-        </Col>
+            <View style={styles.ctaRow}>
+              <Button size="lg" variant="inverse" label="Start practice exam" href={{ pathname: '/quiz', params: { course, mode: 'exam' } }} />
+              <Button size="lg" variant="glass" label="Quick practice" href={{ pathname: '/quiz', params: { course, mode: 'practice' } }} />
+            </View>
+            <View style={styles.facts}>
+              {[`${questions.length} questions`, `${drills.length} photo drills`, `${examSize}-question exams`, 'No sign-up'].map((f) => (
+                <ThemedText key={f} type="small" style={{ color: '#A3A7B2' }}>
+                  <ThemedText type="smallBold" style={{ color: '#4ADE80' }}>✓ </ThemedText>
+                  {f}
+                </ThemedText>
+              ))}
+            </View>
+          </Col>
+          <Col basis={360} grow={4}>
+            <TryScene />
+          </Col>
+        </Split>
+      </View>
 
-        <Col basis={300} grow={2} style={{ justifyContent: 'flex-start' }}>
-          <ReadinessPanel loaded={loaded} hasHistory={hasHistory} ready={ready} exams={exams} />
-        </Col>
-      </Split>
+      {due > 0 ? (
+        <Button variant="secondary" label={`Review ${due} missed question${due === 1 ? '' : 's'}`} href={{ pathname: '/quiz', params: { course, mode: 'review' } }} />
+      ) : null}
 
       <Split>
-        <Col basis={300}>
-          <LinkCard
-            href="/spot"
-            title="Spot the mistake"
-            body={`${drills.length} photo scenes for the practical test. Find the one handling mistake in each.`}
-            cta="Start the drill"
-          >
-            {drillPhoto?.photo ? (
-              <View style={styles.drillPhoto}>
-                <Image
-                  source={drillPhotos[drillPhoto.photo]}
-                  style={styles.fill}
-                  resizeMode="cover"
-                  accessibilityIgnoresInvertColors
-                />
-              </View>
-            ) : null}
-          </LinkCard>
+        <Col basis={380} grow={3}>
+          <ReadinessPanel loaded={loaded} hasHistory={hasHistory} ready={ready} exams={exams} />
         </Col>
-        <Col basis={300}>
-          <LinkCard
-            href="/guides/what-fails-people"
-            title="What fails people"
-            body="Most failures are handling habits, not missing knowledge. The common ones and how to fix them."
-            cta="Read the guide"
-          >
-            <CardBand tint="tintSand" label="Guide" big="80%" small="pass mark on both tests" />
-          </LinkCard>
-        </Col>
-        <Col basis={300}>
-          <LinkCard
+        <Col basis={240} grow={2}>
+          <BentoTile
             href="/wait-times"
-            title={tracking ? 'Your licence tracker' : 'Licence wait times'}
-            body={
-              tracking
-                ? 'See how your wait compares with what other applicants report.'
-                : 'How long applicants report waiting for their PAL, and a tracker for yours.'
-            }
-            cta={tracking ? 'Open the tracker' : 'See wait times'}
-          >
-            <CardBand tint="tintGreen" label="Wait times" big="28" small="day legal minimum for a first licence" />
-          </LinkCard>
+            tint="tintBlue"
+            eyebrow={tracking ? 'Your licence tracker' : 'Licence wait times'}
+            stat="28"
+            statNote="day legal minimum"
+            body={tracking ? 'See how your wait compares with other applicants.' : 'How long applicants wait for a PAL, plus a tracker for yours.'}
+          />
+        </Col>
+        <Col basis={240} grow={2}>
+          <BentoTile
+            href="/guides/what-fails-people"
+            tint="tintSand"
+            eyebrow="What fails people"
+            stat="80%"
+            statNote="to pass each test"
+            body="Most failures are handling habits, not missing knowledge. How to fix them."
+          />
         </Col>
       </Split>
 
@@ -194,7 +157,7 @@ export default function Home() {
             {course.toUpperCase()} · {bank.length} questions
           </ThemedText>
         </View>
-        <Split gap={Spacing.two}>
+        <Split gap={Spacing.two + 4}>
           {shown.map((s, i) => (
             <Col key={s.topic} basis={320}>
               <Link href={{ pathname: '/quiz', params: { course, mode: 'practice', topic: s.topic } }} asChild>
@@ -243,23 +206,57 @@ export default function Home() {
   );
 }
 
-/** A tinted band at the top of a link card, so the three cards line up with the photo card. */
-function CardBand({ label, big, small, tint }: { label: string; big: string; small: string; tint: (typeof TINTS)[number] }) {
+/** A tinted bento tile that links somewhere, with one big number. */
+function BentoTile({ href, tint, eyebrow, stat, statNote, body }: { href: Href; tint: (typeof TINTS)[number]; eyebrow: string; stat: string; statNote: string; body: string }) {
   const theme = useTheme();
   return (
-    <View style={[styles.band, { backgroundColor: theme[tint] }]}>
-      <ThemedText type="eyebrow" themeColor="signal">
-        {label}
-      </ThemedText>
-      <View style={styles.bandStat}>
-        <ThemedText type="stat" style={{ fontSize: 52, lineHeight: 56 }}>
-          {big}
-        </ThemedText>
-        <ThemedText type="small" themeColor="textSecondary" style={{ flex: 1, paddingBottom: 6 }}>
-          {small}
-        </ThemedText>
-      </View>
-    </View>
+    <Link href={href} asChild>
+      <Pressable accessibilityRole="link" style={{ flexGrow: 1 }}>
+        {({ pressed }) => (
+          <View style={[styles.tile, { backgroundColor: theme[tint] }, pressed ? { transform: [{ scale: 0.98 }] } : null]}>
+            <View style={styles.tileHead}>
+              <ThemedText type="eyebrow">{eyebrow}</ThemedText>
+              <View style={[styles.arrow, { backgroundColor: theme.backgroundElement }]}>
+                <ThemedText type="bold" style={{ lineHeight: 18 }}>
+                  →
+                </ThemedText>
+              </View>
+            </View>
+            <View style={{ marginTop: 'auto', gap: Spacing.one }}>
+              <View style={styles.bandStat}>
+                <ThemedText type="stat">{stat}</ThemedText>
+                <ThemedText type="smallBold" themeColor="textSecondary" style={{ flex: 1, paddingBottom: 8 }}>
+                  {statNote}
+                </ThemedText>
+              </View>
+              <ThemedText type="small" themeColor="textSecondary">
+                {body}
+              </ThemedText>
+            </View>
+          </View>
+        )}
+      </Pressable>
+    </Link>
+  );
+}
+
+/** Soft red and amber light on the dark hero (SVG radial gradients render the same on web and native). */
+function HeroGlow() {
+  return (
+    <Svg style={StyleSheet.absoluteFill} width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100" accessibilityElementsHidden importantForAccessibility="no">
+      <Defs>
+        <RadialGradient id="g1" cx="85%" cy="10%" rx="55%" ry="70%" fx="85%" fy="10%">
+          <Stop offset="0" stopColor="#E5322D" stopOpacity={0.55} />
+          <Stop offset="1" stopColor="#E5322D" stopOpacity={0} />
+        </RadialGradient>
+        <RadialGradient id="g2" cx="5%" cy="100%" rx="55%" ry="60%" fx="5%" fy="100%">
+          <Stop offset="0" stopColor="#F59E0B" stopOpacity={0.28} />
+          <Stop offset="1" stopColor="#F59E0B" stopOpacity={0} />
+        </RadialGradient>
+      </Defs>
+      <Rect x="0" y="0" width="100" height="100" fill="url(#g1)" />
+      <Rect x="0" y="0" width="100" height="100" fill="url(#g2)" />
+    </Svg>
   );
 }
 
@@ -285,20 +282,22 @@ function ReadinessPanel({
       ? 'Your last three practice exams were 90% or better and no topic is weak.'
       : hasHistory
         ? ready.reasons.join(' ')
-        : 'Score 90% or better on three practice exams in a row with no weak topic. The real written test needs 80%.';
+        : 'Score 90% or better on three practice exams in a row, with no weak topic. The real written test needs 80%.';
   return (
-    <View style={[styles.panel, { backgroundColor: theme.cover }]}>
-      <ThemedText type="eyebrow" style={{ color: theme.onCoverMuted }}>
-        Readiness
-      </ThemedText>
+    <View style={[styles.panel, { backgroundColor: theme.backgroundElement, borderColor: theme.border }]}>
       <View style={styles.panelTop}>
-        <ReadyRing value={strong / READY_EXAMS} done={ready.ready} />
-        <View style={{ flex: 1, gap: Spacing.half }}>
-          <ThemedText type="stat" style={{ color: theme.onCover }}>
-            {last ? `${Math.round((last.correct / last.total) * 100)}%` : `${strong} / ${READY_EXAMS}`}
-          </ThemedText>
-          <ThemedText type="small" style={{ color: theme.onCoverMuted }}>
-            {last ? 'your last practice exam' : 'practice exams at 90% or better'}
+        <Ring
+          value={strong / READY_EXAMS}
+          size={96}
+          stroke={9}
+          color={theme.success}
+          label={`${strong}/${READY_EXAMS}`}
+        />
+        <View style={{ flex: 1, gap: Spacing.one }}>
+          <ThemedText type="eyebrow" themeColor="textSecondary">Readiness</ThemedText>
+          <ThemedText type="heading">{status}</ThemedText>
+          <ThemedText type="small" themeColor="textSecondary">
+            {detail}
           </ThemedText>
         </View>
       </View>
@@ -307,55 +306,32 @@ function ReadinessPanel({
           const e = recent[i];
           const ok = e ? e.correct / e.total >= READY_MARK : false;
           return (
-            <View key={i} style={[styles.tick, { borderColor: theme.onCoverMuted }, e ? { backgroundColor: ok ? theme.onCover : 'transparent' } : null]}>
-              <ThemedText type="smallBold" style={{ color: ok ? theme.cover : theme.onCoverMuted, fontVariant: ['tabular-nums'] }}>
-                {e ? `${Math.round((e.correct / e.total) * 100)}` : i + 1}
+            <View
+              key={i}
+              style={[
+                styles.tick,
+                { borderColor: ok ? theme.success : theme.border, backgroundColor: ok ? theme.successBg : e ? theme.dangerBg : theme.background },
+              ]}>
+              <ThemedText type="smallBold" style={{ color: ok ? theme.successDark : theme.textSecondary, fontVariant: ['tabular-nums'] }}>
+                {e ? `${Math.round((e.correct / e.total) * 100)}%` : `Exam ${i + 1}`}
               </ThemedText>
             </View>
           );
         })}
       </View>
-      <View style={{ gap: Spacing.one }}>
-        <ThemedText type="bold" style={{ color: theme.onCover }}>
-          {status}
+      {last ? null : (
+        <ThemedText type="small" themeColor="textSecondary">
+          Your practice exam scores will fill these in.
         </ThemedText>
-        <ThemedText type="small" style={{ color: theme.onCoverMuted }}>
-          {detail}
-        </ThemedText>
-      </View>
+      )}
     </View>
-  );
-}
-
-function ReadyRing({ value, done }: { value: number; done: boolean }) {
-  const theme = useTheme();
-  const size = 76;
-  const stroke = 7;
-  const r = (size - stroke) / 2;
-  const c = 2 * Math.PI * r;
-  return (
-    <Svg width={size} height={size} accessibilityElementsHidden importantForAccessibility="no">
-      <Circle cx={size / 2} cy={size / 2} r={r} stroke={theme.onCoverMuted} strokeOpacity={0.35} strokeWidth={stroke} fill="none" />
-      <Circle
-        cx={size / 2}
-        cy={size / 2}
-        r={r}
-        stroke={done ? theme.onCover : theme.signal}
-        strokeWidth={stroke}
-        fill="none"
-        strokeLinecap="round"
-        strokeDasharray={`${c * value} ${c}`}
-        strokeOpacity={value > 0 ? 1 : 0}
-        transform={`rotate(-90 ${size / 2} ${size / 2})`}
-      />
-    </Svg>
   );
 }
 
 const styles = StyleSheet.create({
   drillPhoto: { width: '100%', aspectRatio: 16 / 9, overflow: 'hidden' },
   fill: { width: '100%', height: '100%' },
-  band: { aspectRatio: 16 / 9, padding: Spacing.three, justifyContent: 'space-between' },
+  band: { height: 132, padding: Spacing.three + 4, justifyContent: 'space-between' },
   bandStat: { flexDirection: 'row', alignItems: 'flex-end', gap: Spacing.two },
   switch: { flexDirection: 'row', gap: Spacing.two },
   switchItem: {
@@ -364,16 +340,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: Spacing.two + 4,
     borderWidth: 2,
+    borderBottomWidth: 4,
     borderRadius: RadiusControl,
     paddingVertical: Spacing.two + 4,
     paddingHorizontal: Spacing.three,
   },
   radio: { width: 20, height: 20, borderRadius: 10, borderWidth: 2, alignItems: 'center', justifyContent: 'center' },
   radioDot: { width: 10, height: 10, borderRadius: 5 },
-  panel: { borderRadius: Radius, padding: Spacing.four, gap: Spacing.three },
+  panel: { borderRadius: 28, borderWidth: 1, padding: Spacing.four, gap: Spacing.three, flexGrow: 1 },
   panelTop: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three },
   ticks: { flexDirection: 'row', gap: Spacing.two },
-  tick: { flex: 1, height: 36, borderRadius: 8, borderWidth: 1.5, alignItems: 'center', justifyContent: 'center' },
+  tick: { flex: 1, height: 40, borderRadius: 999, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
+  hero: { backgroundColor: '#0A0B0E', borderRadius: 32, overflow: 'hidden', padding: Spacing.four, paddingVertical: Spacing.five },
+  chip: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two, alignSelf: 'flex-start', borderRadius: 999, borderWidth: 1, borderColor: 'rgba(255,255,255,0.14)', backgroundColor: 'rgba(255,255,255,0.06)', paddingHorizontal: Spacing.three, paddingVertical: 6 },
+  dot: { width: 8, height: 8, borderRadius: 4 },
+  segment: { flexDirection: 'row', borderRadius: 20, borderWidth: 1, borderColor: 'rgba(255,255,255,0.14)', backgroundColor: 'rgba(255,255,255,0.06)', padding: 4, gap: 4, maxWidth: 460 },
+  segmentItem: { flex: 1, borderRadius: 16, paddingVertical: Spacing.two + 2, paddingHorizontal: Spacing.three },
+  segmentActive: { backgroundColor: '#FFFFFF' },
+  ctaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two + 4 },
+  tile: { borderRadius: 28, padding: Spacing.four, gap: Spacing.three, flexGrow: 1, minHeight: 230 },
+  tileHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: Spacing.two },
+  arrow: { width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center' },
+  facts: { flexDirection: 'row', flexWrap: 'wrap', columnGap: Spacing.four, rowGap: Spacing.one },
+  fact: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two },
+  factTick: { width: 20, height: 20, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
   sectionHead: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: Spacing.two },
   topicCard: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three, borderRadius: Radius, paddingVertical: Spacing.three, paddingHorizontal: Spacing.three + 4, minHeight: 80 },
   topicRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: Spacing.two },

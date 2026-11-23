@@ -59,7 +59,7 @@ export function RangeBar({ s, you }: { s: WaitSummary; you?: number }) {
   return (
     <View accessible accessibilityLabel={`Half of reports took between ${s.p25} and ${s.p75} days. Median ${s.median} days.`}>
       <View style={[styles.bar, { backgroundColor: theme.backgroundSelected }]}>
-        <View style={[styles.band, { left: pct(s.p25), width: pct(s.p75 - s.p25), backgroundColor: theme.signal, opacity: 0.28 }]} />
+        <View style={[styles.band, { left: pct(s.p25), width: pct(s.p75 - s.p25), backgroundColor: theme.accent, opacity: 0.3 }]} />
         <View style={[styles.mark, { left: pct(s.median), backgroundColor: theme.accent }]} />
         <View style={[styles.min, { left: pct(MINIMUM_WAIT_DAYS), borderColor: theme.textSecondary }]} />
         {you !== undefined ? <View style={[styles.you, { left: pct(you), backgroundColor: theme.signal, borderColor: theme.backgroundElement }]} /> : null}

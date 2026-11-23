@@ -1,11 +1,11 @@
 import { Link, type Href } from 'expo-router';
 import { type ReactNode } from 'react';
-import { Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewProps, type ViewStyle } from 'react-native';
+import { Platform, Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewProps, type ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Svg, { Circle, Path } from 'react-native-svg';
 
-import { Fonts, MaxContentWidth, MaxWideWidth, Radius, RadiusControl, Shadow, Spacing } from '@/constants/theme';
+import { Fonts, Glass, MaxContentWidth, MaxWideWidth, Radius, RadiusControl, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { DISCLAIMER, SITE_NAME, containsDrafts } from '@/lib/content';
 
@@ -17,14 +17,16 @@ type ScreenProps = {
   width?: 'reading' | 'wide';
   /** Pinned to the bottom of the viewport, outside the scroll area (e.g. the quiz Next button). */
   bottomBar?: ReactNode;
+  /** Tints the bottom bar after answering, Duolingo style. */
+  bottomTone?: 'success' | 'danger' | null;
 };
 
-export function Screen({ children, width = 'reading', bottomBar }: ScreenProps) {
+export function Screen({ children, width = 'reading', bottomBar, bottomTone }: ScreenProps) {
   const theme = useTheme();
   const maxWidth = width === 'wide' ? MaxWideWidth : MaxContentWidth;
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.background }]} edges={['top', 'left', 'right']}>
-      <View style={[styles.navBar, { borderBottomColor: theme.border, backgroundColor: theme.background }]}>
+      <View style={[styles.navBar, { borderBottomColor: theme.border, backgroundColor: `${theme.background}D9` }, Glass]}>
         <View style={[styles.navInner, { maxWidth: MaxWideWidth }]}>
           <Link href="/" style={styles.brand} accessibilityLabel={`${SITE_NAME} home`}>
             <View style={styles.brandRow}>
@@ -56,7 +58,7 @@ export function Screen({ children, width = 'reading', bottomBar }: ScreenProps) 
         {bottomBar ? <View style={{ height: Spacing.five }} /> : <Footer />}
       </ScrollView>
       {bottomBar ? (
-        <SafeAreaView edges={['bottom']} style={[styles.bottomBar, { borderTopColor: theme.border, backgroundColor: theme.background }]}>
+        <SafeAreaView edges={['bottom']} style={[styles.bottomBar, { backgroundColor: theme.background }]}>
           <View style={[styles.bottomInner, { maxWidth }]}>{bottomBar}</View>
         </SafeAreaView>
       ) : null}
@@ -133,7 +135,7 @@ export function Col({ children, basis = 320, grow = 1, style }: { children: Reac
 
 export function Card({ style, ...rest }: ViewProps) {
   const theme = useTheme();
-  return <View style={[styles.card, Shadow, { backgroundColor: theme.backgroundElement }, style]} {...rest} />;
+  return <View style={[styles.card, { backgroundColor: theme.backgroundElement, borderColor: theme.border }, style]} {...rest} />;
 }
 
 /** Small uppercase label above a title. */
@@ -160,27 +162,35 @@ type ButtonProps = {
   label: string;
   onPress?: () => void;
   href?: Href;
-  /** signal = the one main action on a screen; primary = pine; secondary = outline. */
-  variant?: 'signal' | 'primary' | 'secondary';
+  /**
+   * primary = ink pill (signal is an alias); secondary = white pill with a hairline;
+   * inverse = white pill for dark surfaces; glass = frosted pill for dark surfaces.
+   */
+  variant?: 'signal' | 'primary' | 'secondary' | 'inverse' | 'glass' | 'danger';
   disabled?: boolean;
+  size?: 'md' | 'lg';
 };
 
-export function Button({ label, onPress, href, variant = 'primary', disabled }: ButtonProps) {
+export function Button({ label, onPress, href, variant = 'primary', disabled, size = 'md' }: ButtonProps) {
   const theme = useTheme();
+  const v = variant === 'signal' || variant === 'danger' ? 'primary' : variant;
   const look = disabled
-    ? { backgroundColor: theme.backgroundSelected, borderColor: theme.border }
-    : variant === 'signal'
-      ? { backgroundColor: theme.signal, borderColor: theme.signal }
-      : variant === 'primary'
-        ? { backgroundColor: theme.accent, borderColor: theme.accent }
-        : { backgroundColor: theme.backgroundElement, borderColor: theme.border };
-  const textColor = disabled ? 'textSecondary' : variant === 'signal' ? 'onSignal' : variant === 'primary' ? 'onAccent' : 'text';
+    ? { backgroundColor: theme.backgroundSelected, borderColor: theme.backgroundSelected }
+    : {
+        primary: { backgroundColor: theme.accent, borderColor: theme.accent },
+        secondary: { backgroundColor: theme.backgroundElement, borderColor: theme.borderStrong },
+        inverse: { backgroundColor: '#FFFFFF', borderColor: '#FFFFFF' },
+        glass: { backgroundColor: 'rgba(255,255,255,0.10)', borderColor: 'rgba(255,255,255,0.22)', ...Glass },
+      }[v];
+  const color = disabled
+    ? theme.textSecondary
+    : { primary: theme.onAccent, secondary: theme.text, inverse: '#0A0B0E', glass: '#FFFFFF' }[v];
   // The look lives on an inner View: Link asChild replaces the style of the element it wraps.
   const body = (
     <Pressable accessibilityRole={href ? 'link' : 'button'} accessibilityState={{ disabled: !!disabled }} disabled={disabled} onPress={onPress}>
       {({ pressed }) => (
-        <View style={[styles.button, look, pressed && !disabled ? styles.pressed : null]}>
-          <ThemedText type="bold" themeColor={textColor}>
+        <View style={[styles.button, size === 'lg' ? styles.buttonLg : null, look, pressed && !disabled ? styles.pressed : null]}>
+          <ThemedText type="bold" style={{ color, textAlign: 'center', fontSize: size === 'lg' ? 17 : 16 }}>
             {label}
           </ThemedText>
         </View>
@@ -211,7 +221,7 @@ export function LinkCard({ href, title, body, cta, children, style }: { href: Hr
                   {body}
                 </ThemedText>
               ) : null}
-              <ThemedText type="smallBold" themeColor="signal" style={{ marginTop: 'auto', paddingTop: Spacing.one }}>
+              <ThemedText type="smallBold" style={{ marginTop: 'auto', paddingTop: Spacing.one }}>
                 {cta} →
               </ThemedText>
             </View>
@@ -222,12 +232,12 @@ export function LinkCard({ href, title, body, cta, children, style }: { href: Hr
   );
 }
 
-export function ProgressBar({ value, tone = 'signal' }: { value: number; tone?: 'accent' | 'signal' }) {
+export function ProgressBar({ value, tone = 'accent', height = 8 }: { value: number; tone?: 'accent' | 'signal'; height?: number }) {
   const theme = useTheme();
   const pct = Math.max(0, Math.min(1, value));
   return (
-    <View style={[styles.track, { backgroundColor: theme.backgroundSelected }]}>
-      <View style={[styles.fill, { backgroundColor: theme[tone], width: `${Math.round(pct * 100)}%` }]} />
+    <View style={[styles.track, { backgroundColor: theme.backgroundSelected, height, borderRadius: height / 2 }]}>
+      <View style={[styles.fill, { backgroundColor: theme[tone], width: `${Math.round(pct * 100)}%`, height, borderRadius: height / 2 }]} />
     </View>
   );
 }
@@ -257,7 +267,14 @@ export function Ring({ value, size = 44, stroke = 4, color, track, label }: { va
         ) : null}
       </Svg>
       {label !== undefined ? (
-        <ThemedText style={{ fontSize: size > 60 ? 15 : 11, lineHeight: 14, fontWeight: '700', color: color ?? theme.signal }}>{label}</ThemedText>
+        <ThemedText
+          style={
+            size > 60
+              ? { fontFamily: Fonts.display, fontWeight: Platform.OS === 'web' ? '800' : undefined, fontSize: Math.round(size * 0.24), lineHeight: Math.round(size * 0.3), letterSpacing: -1, color: theme.text, fontVariant: ['tabular-nums'] }
+              : { fontSize: 11, lineHeight: 14, fontWeight: '700', color: theme.text }
+          }>
+          {label}
+        </ThemedText>
       ) : null}
     </View>
   );
@@ -269,9 +286,9 @@ const styles = StyleSheet.create({
   navInner: { width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', minHeight: 60 },
   brand: { paddingVertical: Spacing.two },
   brandRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two },
-  mark: { borderRadius: 10, width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
+  mark: { borderRadius: 11, width: 34, height: 34, alignItems: 'center', justifyContent: 'center' },
   markText: { fontFamily: Fonts.display, fontSize: 14, lineHeight: 18, letterSpacing: 0.4 },
-  wordmark: { fontFamily: Fonts.display, fontSize: 15, lineHeight: 19, letterSpacing: -0.2 },
+  wordmark: { fontFamily: Fonts.bold, fontWeight: Platform.OS === 'web' ? '700' : undefined, fontSize: 16, lineHeight: 20, letterSpacing: -0.4 },
   tagline: { fontSize: 11, lineHeight: 14, fontWeight: '500' },
   navLinks: { flexDirection: 'row' },
   navLink: { paddingVertical: Spacing.two, paddingHorizontal: 6, minHeight: 44, justifyContent: 'center' },
@@ -284,11 +301,11 @@ const styles = StyleSheet.create({
   footerGroup: { flexBasis: 150, flexGrow: 1, maxWidth: 260, gap: Spacing.half },
   footerLink: { minHeight: 36, justifyContent: 'center', paddingVertical: Spacing.one },
   disclaimer: { maxWidth: 640 },
-  card: { borderRadius: Radius, padding: Spacing.three + 4, gap: Spacing.two },
+  card: { borderRadius: Radius, borderWidth: 1, padding: Spacing.four, gap: Spacing.two },
   linkCardBody: { padding: Spacing.three, gap: Spacing.one, flexGrow: 1 },
   notice: { borderRadius: RadiusControl, borderLeftWidth: 4, paddingVertical: Spacing.two + 2, paddingHorizontal: Spacing.three },
   button: {
-    minHeight: 52,
+    minHeight: 50,
     borderRadius: 999,
     borderWidth: 1,
     paddingHorizontal: Spacing.four,
@@ -296,9 +313,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  pressed: { opacity: 0.85, transform: [{ scale: 0.99 }] },
-  bottomBar: { borderTopWidth: StyleSheet.hairlineWidth, alignItems: 'center', paddingHorizontal: Spacing.three },
-  bottomInner: { width: '100%', paddingVertical: Spacing.two + 4 },
+  buttonLg: { minHeight: 58, paddingHorizontal: Spacing.five },
+  buttonPressed: { transform: [{ scale: 0.97 }] },
+  pressed: { opacity: 0.9, transform: [{ scale: 0.97 }] },
+  bottomBar: { alignItems: 'center', paddingHorizontal: Spacing.three },
+  bottomInner: { width: '100%', paddingTop: Spacing.two, paddingBottom: Spacing.three },
   track: { height: 6, borderRadius: 3, overflow: 'hidden' },
   fill: { height: 6, borderRadius: 3 },
 });

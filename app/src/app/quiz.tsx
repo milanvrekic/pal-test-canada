@@ -5,8 +5,9 @@ import { Pressable, StyleSheet, View } from 'react-native';
 
 import { AnswerOption, Feedback, sourceLine } from '@/components/answer';
 import { HandoffCards } from '@/components/handoff-cards';
+import { VerdictBar } from '@/components/verdict-bar';
 import { ThemedText } from '@/components/themed-text';
-import { Button, Card, Col, Eyebrow, Notice, ProgressBar, Screen, Split } from '@/components/ui';
+import { Button, Card, Col, Eyebrow, Notice, ProgressBar, Ring, Screen, Split } from '@/components/ui';
 import { Radius, RadiusControl, Spacing } from '@/constants/theme';
 import {
   type Course,
@@ -113,19 +114,20 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
   };
 
   const isLast = index + 1 === set.length;
+  const verdict = showFeedback ? (selected === q.answer ? 'correct' : 'wrong') : null;
   const nextBar = (
-    <View style={styles.barRow}>
-      <ThemedText type="small" themeColor="textSecondary" style={styles.barHint}>
-        {selected === null ? 'Pick an answer' : showFeedback ? (selected === q.answer ? 'Correct' : 'Not quite') : 'Answer locked in'}
-      </ThemedText>
-      <View style={{ flex: 1, maxWidth: 280 }}>
-        <Button variant="primary" label={isLast ? 'Finish' : 'Next question'} onPress={next} disabled={selected === null} />
-      </View>
-    </View>
+    <VerdictBar
+      verdict={verdict}
+      hint={mode === 'exam' && selected !== null ? 'Saved' : 'Pick an answer'}
+      detail={verdict === 'wrong' ? `Correct answer: ${q.options[q.answer]}` : undefined}
+      label={isLast ? 'Finish' : verdict ? 'Continue' : 'Next'}
+      onPress={next}
+      disabled={selected === null}
+    />
   );
 
   return (
-    <Screen bottomBar={nextBar}>
+    <Screen bottomBar={nextBar} bottomTone={verdict === 'correct' ? 'success' : verdict === 'wrong' ? 'danger' : null}>
       <View style={{ gap: Spacing.two }}>
         <View style={styles.headRow}>
           <Eyebrow>{heading}</Eyebrow>
@@ -142,7 +144,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
             </ThemedText>
           </Pressable>
         </View>
-        <ProgressBar value={(index + (selected !== null ? 1 : 0)) / set.length} tone="signal" />
+        <ProgressBar value={(index + (selected !== null ? 1 : 0)) / set.length} height={12} />
       </View>
 
       {quitting ? (
@@ -184,7 +186,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
       </View>
 
       {showFeedback ? (
-        <Feedback good={selected === q.answer} title={selected === q.answer ? 'Correct' : 'Not quite'} explanation={q.explanation} source={sourceLine(q.source)} />
+        <Feedback good={selected === q.answer} title="Why" explanation={q.explanation} source={sourceLine(q.source)} />
       ) : null}
     </Screen>
   );
@@ -260,27 +262,18 @@ function Results({ heading, set, picks, mode, course }: { heading: string; set: 
 
 function ResultsHead({ heading, correct, total, score, passed, exam }: { heading: string; correct: number; total: number; score: number; passed: boolean; exam: boolean }) {
   const theme = useTheme();
+  const good = !exam || passed;
   return (
-    <View style={[styles.resultHead, { backgroundColor: theme.cover }]}>
-      <ThemedText type="eyebrow" style={{ color: theme.onCoverMuted }}>
-        {heading}
-      </ThemedText>
-      <View style={styles.resultRow}>
-        <ThemedText type="stat" style={{ color: theme.onCover, fontSize: 72, lineHeight: 72 }} accessibilityRole="header">
-          {Math.round(score * 100)}%
+    <View style={[styles.resultHead, { backgroundColor: good ? theme.successBg : theme.tintSand }]}>
+      <Ring value={score} size={132} stroke={12} color={good ? theme.accent : theme.signal} track="rgba(0,0,0,0.07)" label={`${Math.round(score * 100)}%`} />
+      <View style={{ alignItems: 'center', gap: Spacing.one }}>
+        <Eyebrow>{heading}</Eyebrow>
+        <ThemedText type="title" accessibilityRole="header" style={{ textAlign: 'center' }}>
+          {exam ? (passed ? 'That’s a pass' : 'Not a pass yet') : 'Round complete'}
         </ThemedText>
-        <View style={{ flex: 1, gap: Spacing.half }}>
-          <ThemedText type="bold" style={{ color: theme.onCover }}>
-            {correct} of {total} correct
-          </ThemedText>
-          <ThemedText type="small" style={{ color: theme.onCoverMuted }}>
-            {exam ? (passed ? 'Above the 80% pass mark' : 'Below the 80% pass mark') : 'Practice round'}
-          </ThemedText>
-        </View>
-      </View>
-      <View style={[styles.track, { backgroundColor: 'rgba(255,255,255,0.18)' }]}>
-        <View style={[styles.fill, { width: `${Math.round(score * 100)}%`, backgroundColor: passed ? theme.onCover : theme.signal }]} />
-        <View style={[styles.passLine, { left: `${Math.round(PASS_MARK * 100)}%`, backgroundColor: theme.onCover }]} />
+        <ThemedText themeColor="textSecondary" style={{ textAlign: 'center' }}>
+          {correct} of {total} correct{exam ? ` · pass mark ${Math.round(PASS_MARK * 100)}%` : ''}
+        </ThemedText>
       </View>
     </View>
   );
@@ -294,7 +287,7 @@ const styles = StyleSheet.create({
   explain: { borderLeftWidth: 4 },
   barRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: Spacing.three },
   barHint: { flex: 1 },
-  resultHead: { borderRadius: Radius, padding: Spacing.four, gap: Spacing.three },
+  resultHead: { borderRadius: Radius + 4, padding: Spacing.five, gap: Spacing.three, alignItems: 'center' },
   resultRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three },
   track: { height: 8, borderRadius: 4, overflow: 'visible', position: 'relative' },
   fill: { height: 8, borderRadius: 4 },

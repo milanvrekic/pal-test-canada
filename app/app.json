@@ -42,8 +42,9 @@
         "expo-font",
         {
           "fonts": [
-            "./assets/fonts/ArchivoExpanded-ExtraBold.ttf",
-            "./assets/fonts/ArchivoExpanded-Bold.ttf"
+            "./assets/fonts/Geist-ExtraBold.ttf",
+            "./assets/fonts/Geist-Bold.ttf",
+            "./assets/fonts/Geist-SemiBold.ttf"
           ]
         }
       ]
