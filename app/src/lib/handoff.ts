@@ -11,7 +11,7 @@
 import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 
-export type AppId = 'huntable' | 'shootable';
+export type AppId = 'huntable' | 'shootable' | 'fishable' | 'campable';
 
 export type PromoItem = {
   id: AppId;
@@ -40,6 +40,25 @@ const BUILTIN: Record<AppId, Builtin> = {
     android: 'https://play.google.com/store/apps/details?id=app.gethuntable',
     web: 'https://gethuntable.app',
   },
+  fishable: {
+    name: 'Fishable',
+    line: 'Can I fish here, right now? BC freshwater rules by lake and river.',
+    color: '#1F5F8B',
+    months: [4, 5, 6, 7, 8, 9, 10],
+    soon: false,
+    ios: 'https://apps.apple.com/app/fishable-bc-can-i-fish-here/id6828685801',
+    android: 'https://play.google.com/store/apps/details?id=app.getfishable',
+    web: 'https://getfishable.app',
+  },
+  campable: {
+    name: 'Campable',
+    line: 'Can I camp here, and can I have a campfire? BC rec sites and fire bans.',
+    color: '#2F5D3A',
+    months: [5, 6, 7, 8, 9],
+    soon: false,
+    ios: 'https://apps.apple.com/app/campable-can-i-camp-here/id6831671747',
+    web: 'https://getcampable.app',
+  },
   shootable: {
     name: 'Shootable',
     line: 'Where can I shoot today, with this firearm? For BC and Alberta PAL holders.',
@@ -53,6 +72,8 @@ const BUILTIN: Record<AppId, Builtin> = {
 export const APP_ICONS: Record<AppId, number> = {
   huntable: require('../../assets/images/apps/huntable.png'),
   shootable: require('../../assets/images/apps/shootable.png'),
+  fishable: require('../../assets/images/apps/fishable.png'),
+  campable: require('../../assets/images/apps/campable.png'),
 };
 
 /** The same campaign tags the Moment Engine's /xp/go redirect adds (storeUrlFor in netlify/lib/apps.mts). */
@@ -84,7 +105,7 @@ function load(): Promise<PromoItem[] | null> {
       if (!feed) return fallback;
       if (!feed.enabled) return null;
       const remote = new Map(feed.items.map((i) => [i.id, i]));
-      // Only Huntable and Shootable belong in this app; anything the feed doesn't list keeps the built-in copy.
+      // Only the apps known here are shown; anything the feed doesn't list keeps the built-in copy.
       return fallback.map((b) => {
         const r = remote.get(b.id);
         return r && /^https:\/\//.test(r.href) ? { ...b, name: r.name, line: r.line, inSeason: r.inSeason, soon: r.soon, href: r.href } : b;

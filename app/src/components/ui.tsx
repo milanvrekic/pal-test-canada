@@ -1,13 +1,15 @@
 import { Link, type Href } from 'expo-router';
 import { type ReactNode } from 'react';
-import { Platform, Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewProps, type ViewStyle } from 'react-native';
+import { Linking, Platform, Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewProps, type ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Svg, { Circle, Path } from 'react-native-svg';
 
 import { Fonts, Glass, MaxContentWidth, MaxWideWidth, Radius, RadiusControl, Shadow, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
+import { track } from '@/lib/analytics';
 import { DISCLAIMER, SITE_NAME, containsDrafts } from '@/lib/content';
+import { type AppId, usePromo } from '@/lib/handoff';
 
 import { ThemedText } from './themed-text';
 
@@ -92,8 +94,11 @@ const FOOTER_GROUPS: { title: string; links: { href: Href; label: string }[] }[]
   },
 ];
 
+const FAMILY: AppId[] = ['huntable', 'fishable', 'campable', 'shootable'];
+
 function Footer() {
   const theme = useTheme();
+  const family = usePromo(FAMILY);
   return (
     <View style={styles.footer}>
       <View style={[styles.footerInner, { maxWidth: MaxWideWidth, borderTopColor: theme.border }]}>
@@ -110,6 +115,26 @@ function Footer() {
               ))}
             </View>
           ))}
+          <View style={styles.footerGroup}>
+            <ThemedText type="eyebrow" themeColor="textSecondary">
+              Outdoor apps by 10ten
+            </ThemedText>
+            {family.map((a) => (
+              <Pressable
+                key={a.id}
+                accessibilityRole="link"
+                onPress={() => {
+                  track({ name: 'handoff_click', destination: a.id, placement: 'footer' });
+                  void Linking.openURL(a.href);
+                }}
+                style={styles.footerLink}>
+                <ThemedText type="small">
+                  {a.name}
+                  {a.soon ? <ThemedText type="small" themeColor="textSecondary">{' · coming soon'}</ThemedText> : null}
+                </ThemedText>
+              </Pressable>
+            ))}
+          </View>
         </View>
         <ThemedText type="small" themeColor="textSecondary" style={styles.disclaimer}>
           {DISCLAIMER}
