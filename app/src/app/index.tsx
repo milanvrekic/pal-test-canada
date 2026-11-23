@@ -4,7 +4,6 @@ import type { Metadata } from 'expo-router/server';
 import { page } from '@/lib/seo';
 import { useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import Svg, { Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
 
 import { HandoffCards } from '@/components/handoff-cards';
 import { TryScene } from '@/components/try-scene';
@@ -60,7 +59,6 @@ export default function Home() {
   return (
     <Screen width="wide">
       <View style={[styles.hero, { backgroundColor: theme.backgroundElement }, Shadow]}>
-        <HeroGlow />
         <Split gap={Spacing.five} style={{ alignItems: 'center' }}>
           <Col basis={420} grow={5} style={{ gap: Spacing.four }}>
             <View style={[styles.chip, { backgroundColor: theme.backgroundElement, borderColor: theme.border }]}>
@@ -269,26 +267,6 @@ function BentoTile({ href, tint, eyebrow, stat, statNote, body }: { href: Href; 
         )}
       </Pressable>
     </Link>
-  );
-}
-
-/** Soft red and amber light on the dark hero (SVG radial gradients render the same on web and native). */
-function HeroGlow() {
-  return (
-    <Svg style={StyleSheet.absoluteFill} width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100" accessibilityElementsHidden importantForAccessibility="no">
-      <Defs>
-        <RadialGradient id="g1" cx="85%" cy="10%" rx="55%" ry="70%" fx="85%" fy="10%">
-          <Stop offset="0" stopColor="#0064E0" stopOpacity={0.16} />
-          <Stop offset="1" stopColor="#0064E0" stopOpacity={0} />
-        </RadialGradient>
-        <RadialGradient id="g2" cx="5%" cy="100%" rx="55%" ry="60%" fx="5%" fy="100%">
-          <Stop offset="0" stopColor="#7B61FF" stopOpacity={0.10} />
-          <Stop offset="1" stopColor="#7B61FF" stopOpacity={0} />
-        </RadialGradient>
-      </Defs>
-      <Rect x="0" y="0" width="100" height="100" fill="url(#g1)" />
-      <Rect x="0" y="0" width="100" height="100" fill="url(#g2)" />
-    </Svg>
   );
 }
 
