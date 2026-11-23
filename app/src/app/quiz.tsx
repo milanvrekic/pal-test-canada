@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { AnswerOption, Feedback, sourceLine } from '@/components/answer';
-import { HandoffCards } from '@/components/handoff-cards';
+import { FeaturedHandoff, HandoffCards } from '@/components/handoff-cards';
 import { VerdictBar } from '@/components/verdict-bar';
 import { ThemedText } from '@/components/themed-text';
 import { Button, Card, Col, Eyebrow, Notice, ProgressBar, Ring, Screen, Split } from '@/components/ui';
@@ -289,12 +289,16 @@ function Results({ heading, set, picks, mode, course }: { heading: string; set: 
           <Button label="Start the practical trainer" href="/practical" />
         </Card>
       ) : null}
-      {mode === 'exam' || mode === 'mock' ? (
-        passed ? (
-          <HandoffCards placement="exam_pass" title="Passed? Here's what's next" lead="Once your licence arrives, find where you can hunt and shoot." />
-        ) : (
-          <HandoffCards placement="exam_fail" title="For when you pass" lead="Free apps from the same team, for after your licence arrives." />
-        )
+      {passed ? (
+        // A success moment: one app, picked for the course they're studying.
+        <FeaturedHandoff
+          placement={mode === 'exam' || mode === 'mock' ? 'exam_pass' : 'practice_results'}
+          app={course === 'crfsc' ? 'shootable' : 'huntable'}
+          headline={course === 'crfsc' ? 'Where will you shoot once you have your RPAL?' : "Planning to hunt once you're licensed?"}
+          more={course === 'crfsc' ? ['huntable', 'fishable'] : ['fishable', 'campable']}
+        />
+      ) : mode === 'exam' || mode === 'mock' ? (
+        <HandoffCards placement="exam_fail" title="For when you pass" lead="Free apps from the same team, for after your licence arrives." />
       ) : (
         <HandoffCards placement="practice_results" title="After your course" />
       )}

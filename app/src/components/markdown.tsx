@@ -1,3 +1,4 @@
+import { Link } from 'expo-router';
 import { Linking, View } from 'react-native';
 
 import { Spacing } from '@/constants/theme';
@@ -5,7 +6,7 @@ import { Spacing } from '@/constants/theme';
 import { ThemedText } from './themed-text';
 
 // A small renderer for the subset of markdown the guides use:
-// ## and ### headings, paragraphs, - and 1. lists, **bold** and [links](https://...).
+// ## and ### headings, paragraphs, - and 1. lists, **bold** and [links](https://...) or [site links](/path).
 type Block =
   | { kind: 'h2'; text: string }
   | { kind: 'h3'; text: string }
@@ -29,13 +30,19 @@ function parse(md: string): Block[] {
 }
 
 function Inline({ text }: { text: string }) {
-  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\(https?:\/\/[^)\s]+\))/g).filter(Boolean);
+  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\((?:https?:\/\/|\/)[^)\s]*\))/g).filter(Boolean);
   return (
     <>
       {parts.map((part, i) => {
         const bold = part.match(/^\*\*([^*]+)\*\*$/);
         if (bold) return <ThemedText key={i} type="bold">{bold[1]}</ThemedText>;
-        const link = part.match(/^\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)$/);
+        const link = part.match(/^\[([^\]]+)\]\(((?:https?:\/\/|\/)[^)\s]*)\)$/);
+        if (link && link[2].startsWith('/'))
+          return (
+            <Link key={i} href={link[2] as never} style={{ textDecorationLine: 'underline' }}>
+              <ThemedText themeColor="signal">{link[1]}</ThemedText>
+            </Link>
+          );
         if (link)
           return (
             <ThemedText

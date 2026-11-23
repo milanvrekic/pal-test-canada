@@ -4,6 +4,7 @@ import { page } from '@/lib/seo';
 import { Link, useLocalSearchParams } from 'expo-router';
 import { View } from 'react-native';
 
+import { NextSteps } from '@/components/next-steps';
 import { ThemedText } from '@/components/themed-text';
 import { Button, Col, Screen, Split } from '@/components/ui';
 import { SourceNote, SummaryCard, Tracker, provincesWithData, waitData } from '@/components/wait-times';
@@ -68,6 +69,12 @@ export default function ProvinceWaitTimes() {
           <Tracker national={d.national} />
         </Col>
       </Split>
+
+      <NextSteps
+        placement="wait_times"
+        title="Use the wait"
+        lead="Most people wait weeks for their licence card. These are worth starting now, so you're ready when it arrives."
+      />
       <Button variant="secondary" label="Wait times for every province" href="/wait-times" />
       <SourceNote total={d.total} first={d.first} last={d.last} />
     </Screen>

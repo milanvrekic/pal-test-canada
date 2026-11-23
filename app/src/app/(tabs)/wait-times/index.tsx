@@ -5,6 +5,7 @@ import { Link } from 'expo-router';
 import { Pressable, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
+import { NextSteps } from '@/components/next-steps';
 import { Card, Col, Eyebrow, Screen, Split } from '@/components/ui';
 import { SourceNote, SummaryCard, Tracker, provincesWithData, waitData } from '@/components/wait-times';
 import { Spacing } from '@/constants/theme';
@@ -48,6 +49,12 @@ export default function WaitTimes() {
           <Tracker national={d.national} />
         </Col>
       </Split>
+
+      <NextSteps
+        placement="wait_times"
+        title="Use the wait"
+        lead="Most people wait weeks for their licence card. These are worth starting now, so you're ready when it arrives."
+      />
 
       <View style={{ gap: Spacing.two }}>
         <ThemedText type="heading" accessibilityRole="header">

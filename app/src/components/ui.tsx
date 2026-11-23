@@ -8,8 +8,8 @@ import Svg, { Circle, Path, G } from 'react-native-svg';
 import { Fonts, Glass, MaxContentWidth, MaxWideWidth, Radius, RadiusControl, Shadow, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { track } from '@/lib/analytics';
-import { DISCLAIMER, SITE_NAME, containsDrafts } from '@/lib/content';
-import { type AppId, usePromo } from '@/lib/handoff';
+import { DISCLAIMER, SITE_NAME, containsDrafts, guides } from '@/lib/content';
+import { type AppId, hrefFor, usePromo } from '@/lib/handoff';
 
 import { ThemedText } from './themed-text';
 
@@ -131,6 +131,7 @@ const FOOTER_GROUPS: { title: string; links: { href: Href; label: string }[] }[]
       { href: '/pal-courses/bc', label: 'PAL courses in BC' },
       { href: '/apply', label: 'Application checklist' },
       { href: '/wait-times', label: 'PAL wait times' },
+      ...(guides.some((g) => g.slug === 'after-you-get-your-pal') ? [{ href: '/guides/after-you-get-your-pal', label: 'After you get your PAL' }] : []),
       { href: '/guides', label: 'Guides' },
       { href: '/pal-courses', label: 'All course providers' },
       { href: '/about', label: 'About' },
@@ -170,7 +171,7 @@ function Footer() {
                 accessibilityRole="link"
                 onPress={() => {
                   track({ name: 'handoff_click', destination: a.id, placement: 'footer' });
-                  void Linking.openURL(a.href);
+                  void Linking.openURL(hrefFor(a, 'footer'));
                 }}
                 style={styles.footerLink}>
                 <ThemedText type="small">
