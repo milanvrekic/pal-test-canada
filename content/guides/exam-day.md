@@ -2,8 +2,8 @@
 title: What to expect on test day
 description: How the written and practical tests run, what the pass mark is, and what happens if you do not pass one part.
 order: 2
-status: draft
-last_reviewed: TBD
+status: reviewed
+last_reviewed: 2026-11-22
 ---
 Each course ends with two tests: a written test and a practical handling test. You need 80% on each one.
 

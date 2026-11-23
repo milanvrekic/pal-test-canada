@@ -2,8 +2,8 @@
 title: What fails people on the CFSC and CRFSC
 description: The handling habits and written-test topics that cost the most marks, and how to fix each one before course day.
 order: 1
-status: draft
-last_reviewed: TBD
+status: reviewed
+last_reviewed: 2026-11-22
 ---
 Most people who fail do not fail on knowledge. They fail the practical on a habit they did not know they had, or the written test on storage and transport rules they tried to reason out instead of learning.
 

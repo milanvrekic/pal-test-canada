@@ -84,7 +84,7 @@
   topic: storage
   type: multiple-choice
   question: "Which option meets the storage rules for a restricted firearm kept in a home without a vault or safe?"
-  options: ["Unloaded with a trigger lock, on a shelf", "Unloaded in a locked container, no trigger lock", "Unloaded, with a secure locking device, inside a securely locked container", "Loaded, in a locked room"]
+  options: ["Unloaded with a trigger lock, on a shelf", "Unloaded, in a locked container that is easy to carry, with no locking device on the firearm", "Unloaded, with a secure locking device, inside a securely locked container", "Loaded, in a locked room"]
   answer: 2
   explanation: "A restricted firearm must be unloaded, made inoperable with a secure locking device, and also locked in a container or room that is hard to break into. Ammunition must not be readily accessible unless locked up."
   source: {handbook_edition: "2014 (5th ed.)", section: "17.3. Storage", page: "315"}
@@ -117,7 +117,7 @@
   topic: display
   type: multiple-choice
   question: "A restricted firearm is displayed in a home. Besides being unloaded and fitted with a secure locking device, what else is required?"
-  options: ["It must be in a glass case", "It must be securely attached to a structure that cannot easily be moved", "It must have its magazine inserted", "Nothing else"]
+  options: ["It must be kept in a glass case that visitors can see into but cannot open", "It must be securely attached to a structure that cannot easily be moved", "It must have its magazine inserted", "Nothing else"]
   answer: 1
   explanation: "A displayed restricted firearm must be unloaded, fitted with a secure locking device and securely attached to a non-portable structure so it cannot readily be removed. It must not be displayed with, or within easy reach of, ammunition for it."
   source: {handbook_edition: "2014 (5th ed.)", section: "17.4. Display", page: "319"}
@@ -139,7 +139,7 @@
   topic: transport
   type: multiple-choice
   question: "What does ATT stand for?"
-  options: ["Approved Target Training", "Authorization to Transport", "Automatic Trigger Test", "Annual Transfer Tax"]
+  options: ["Approved Target Training course", "Authorization to Transport", "Automatic Trigger Test", "Annual Transfer Tax"]
   answer: 1
   explanation: "An Authorization to Transport is what allows a licensed owner to move a restricted firearm between specified places, such as home and an approved range."
   source: {handbook_edition: "2014 (5th ed.)", section: "17.5. Transportation", page: "321"}
@@ -234,7 +234,7 @@
   topic: prove
   type: multiple-choice
   question: "On a revolver, what does verifying the feeding path mean?"
-  options: ["Checking the magazine well", "Checking every chamber in the cylinder", "Checking the hammer spur", "Checking the ejector rod is straight"]
+  options: ["Checking the magazine well", "Checking every chamber in the cylinder", "Checking the hammer spur", "Checking the ejector rod is straight and clean"]
   answer: 1
   explanation: "A revolver's cylinder holds the cartridges, so each chamber in the cylinder must be checked to be empty."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.7.3. Revolver: double-action swing-out cylinder unloading", page: "271"}
@@ -244,7 +244,7 @@
   topic: prove
   type: multiple-choice
   question: "What is the last step of PROVE on a handgun?"
-  options: ["Engage the safety", "Examine the bore for obstructions", "Reinsert the empty magazine", "Close the action"]
+  options: ["Engage the safety", "Examine the bore for obstructions", "Reinsert the empty magazine and close it", "Close the action"]
   answer: 1
   explanation: "E is Examine the bore. The barrel must be clear before the firearm is considered safe."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: PROVE It Safe", page: "219"}
@@ -265,7 +265,7 @@
   topic: handling
   type: multiple-choice
   question: "Where should your trigger finger rest while you handle a handgun without intending to fire?"
-  options: ["On the trigger, lightly", "Inside the trigger guard", "Straight along the frame, outside the trigger guard", "On the hammer"]
+  options: ["On the trigger, lightly", "Inside the trigger guard, but resting in front of the trigger", "Straight along the frame, outside the trigger guard", "On the hammer"]
   answer: 2
   explanation: "Keep the finger off the trigger and out of the trigger guard, resting along the frame where others can see it."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "218"}
@@ -275,7 +275,7 @@
   topic: handling
   type: multiple-choice
   question: "In what condition should a semi-automatic pistol be handed to another person?"
-  options: ["Magazine in, slide forward, safety on", "Proven safe, magazine removed, slide locked open", "Hammer cocked so they can see it is ready", "In its holster"]
+  options: ["Magazine in, slide forward, safety on", "Proven safe, magazine removed, slide locked open", "Hammer cocked and safety on, so they can see it is ready", "In its holster"]
   answer: 1
   explanation: "PROVE it safe and pass it with the magazine out and the action locked open, muzzle in a safe direction. The receiver proves it safe as well."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "218"}
@@ -315,7 +315,7 @@
   topic: range-and-field
   type: multiple-choice
   question: "Someone calls \"cease fire\" at the range. What do you do?"
-  options: ["Finish your magazine, then stop", "Stop shooting immediately and wait for instructions", "Only stop if the range officer called it", "Holster your loaded handgun"]
+  options: ["Finish your magazine, then stop", "Stop shooting immediately and wait for instructions", "Stop only if it was the range officer who called it, not another shooter", "Holster your loaded handgun"]
   answer: 1
   explanation: "Anyone may call a cease fire and everyone obeys at once: stop shooting, keep the muzzle downrange, and follow the range officer's instructions."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.5. Safety procedures at the range", page: "300"}
@@ -358,7 +358,7 @@
   topic: safeties
   type: multiple-choice
   question: "What does a magazine disconnect safety do?"
-  options: ["Prevents the handgun from firing when the magazine is removed", "Ejects the magazine when the handgun is empty", "Stops the magazine from being removed while the safety is on", "Counts the cartridges left in the magazine"]
+  options: ["Prevents the handgun from firing when the magazine is removed", "Ejects the magazine when the handgun is empty", "Stops the magazine from being removed while the safety catch is on", "Counts the cartridges left in the magazine"]
   answer: 0
   explanation: "A magazine disconnect safety prevents the firearm from being discharged when the magazine is removed. Like any safety, it can fail."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: "260"}
@@ -398,7 +398,7 @@
   topic: muzzleloaders
   type: multiple-choice
   question: "How should you put the powder charge into a muzzleloader?"
-  options: ["Pour it straight from the powder horn into the muzzle", "Measure it with a volumetric measure, then pour it into the muzzle", "Judge the amount by eye", "Use smokeless powder for a cleaner shot"]
+  options: ["Pour it straight from the powder horn or flask into the muzzle until it looks right", "Measure it with a volumetric measure, then pour it into the muzzle", "Judge the amount by eye", "Use smokeless powder for a cleaner shot"]
   answer: 1
   explanation: "Always use a volumetric measure to pour powder into the muzzle, never the powder horn or flask, and follow the manufacturer's maximum charge."
   source: {handbook_edition: "2014 (5th ed.)", section: "12.2.3. DOs and DON'Ts of muzzleloading", page: "232"}
@@ -418,7 +418,7 @@
   topic: shooting-technique
   type: multiple-choice
   question: "When in your breathing cycle should you release the shot?"
-  options: ["While holding a full breath", "While breathing in", "In the natural pause at the bottom of an exhale", "Right after a deep breath in"]
+  options: ["While holding a full breath", "While breathing in", "In the natural pause at the bottom of an exhale", "Right after a deep breath in, while the lungs are still full"]
   answer: 2
   explanation: "Holding your breath is not natural. Release the shot in the natural pause at the bottom of each exhale."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.2. Breathing as it relates to shot release", page: "297"}
@@ -438,7 +438,7 @@
   topic: shooting-technique
   type: multiple-choice
   question: "What is follow-through?"
-  options: ["Walking to the target to check your shot", "Keeping your sight picture and shooting position after the shot", "Reloading immediately after firing", "Cleaning the barrel after each string"]
+  options: ["Walking to the target to check where your shot landed once the line is safe", "Keeping your sight picture and shooting position after the shot", "Reloading immediately after firing", "Cleaning the barrel after each string"]
   answer: 1
   explanation: "Follow-through means maintaining your sight picture and position after discharging the firearm. Without it, the shot is more likely to go off target."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.4. Follow-through", page: "298"}
@@ -448,7 +448,7 @@
   topic: range-and-field
   type: multiple-choice
   question: "When is a firearm under your direct control?"
-  options: ["When it is registered to you", "When it is within your eyesight and/or arm's reach", "When it is anywhere on the same range", "When it is locked in your car"]
+  options: ["When it is registered to you", "When it is within your eyesight and/or arm's reach", "When it is anywhere on the same range as you, even out of sight", "When it is locked in your car"]
   answer: 1
   explanation: "Direct control means the firearm is within eyesight and/or arm's reach of the shooter. A firearm that leaves your direct control must be proven safe again."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.5. Safety procedures at the range", page: "301"}
@@ -458,7 +458,7 @@
   topic: range-and-field
   type: multiple-choice
   question: "A guest without a firearms licence wants to try shooting at the range. What does the handbook recommend?"
-  options: ["They may not shoot at all", "They must be under direct and immediate supervision while shooting", "They may shoot alone if they have watched others first", "They may shoot only rimfire firearms"]
+  options: ["They may not shoot at all", "They must be under direct and immediate supervision while shooting", "They may shoot alone once they have watched licensed shooters for a while first", "They may shoot only rimfire firearms"]
   answer: 1
   explanation: "Minors and guests without a valid firearms licence should be under direct and immediate supervision while shooting. Check the range's own rules too."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.5. Safety procedures at the range", page: "301"}

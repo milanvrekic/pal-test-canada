@@ -2,8 +2,8 @@
 title: "After the exam: applying for your PAL"
 description: The steps between passing the course and holding your licence, including the 28-day minimum wait.
 order: 3
-status: draft
-last_reviewed: TBD
+status: reviewed
+last_reviewed: 2026-11-22
 ---
 Passing the course does not give you a licence. You still have to apply to the RCMP Canadian Firearms Program.
 
