@@ -39,3 +39,33 @@ the result.
 
 Uploads go in as drafts (`submit_as_draft: true`) because Google Play only accepts drafts until the app is published.
 After the first production release, change it to `false` so each build goes straight out to internal testers.
+
+# Building the iOS release on Codemagic
+
+`paltest-ios` in the same `codemagic.yaml` builds the signed iOS app and sends it to TestFlight. The same `v*` tag
+starts it alongside the Android release, so one tag ships both.
+
+## Set up once
+
+1. **App record.** The app exists in App Store Connect with bundle ID `ca.paltest.app` (registered under Certificates,
+   Identifiers & Profiles → Identifiers).
+2. **App Store Connect API key** (PAL Test has its own). App Store Connect → Users and Access → Integrations → App
+   Store Connect API → Team Keys → **+**. Name `Codemagic PAL Test`, access **App Manager**. Download the `.p8`: Apple
+   only lets you download it once, so keep it somewhere safe and never commit it. Note the **Issuer ID** (above the
+   key list) and the **Key ID**. Then in Codemagic → Team settings → Team integrations → Developer Portal → Manage
+   keys → Add key: name `paltest_asc` (the name `codemagic.yaml` uses), the Issuer ID, the Key ID and the `.p8`.
+3. **Apple ID of the app.** App Store Connect → PAL Test Canada → App Information → Apple ID (a number). Put it in
+   `APP_STORE_APPLE_ID` in `codemagic.yaml`. Until then, builds still work; the build number just comes from
+   Codemagic's counter.
+4. **Signing.** Nothing to upload. With the API key, Codemagic fetches or creates the App Store distribution
+   certificate and provisioning profile for `ca.paltest.app` on the first build. If the team already has the maximum
+   number of distribution certificates, upload the existing one (`.p12`) under Team settings → codemagic.yaml
+   settings → Code signing identities → iOS certificates instead.
+5. **First build.** Start `paltest-ios` by hand (branch `main`). When it finishes, the build shows up in App Store
+   Connect → TestFlight after Apple processes it (usually 10–30 minutes).
+
+## Each release
+
+The same tag as Android: `git tag v1.0.1 && git push origin v1.0.1`. The tag sets the version; the build number is the
+higher of App Store Connect's latest + 1 and Codemagic's build number + 10. The build goes to TestFlight. Submitting
+it for App Store review stays a manual step in App Store Connect.

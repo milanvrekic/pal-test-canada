@@ -1,4 +1,5 @@
-# Codemagic: builds the signed Android App Bundle in the cloud and sends it to Google Play (internal testing).
+# Codemagic: builds the signed Android App Bundle in the cloud and sends it to Google Play (internal testing), and the
+# signed iOS app to TestFlight (paltest-ios).
 # Same setup as Huntable's. One-time steps are in docs/codemagic.md. A release starts when a version tag is pushed
 # (v1.0.0 -> version name 1.0.0); a build can also be started by hand from the dashboard ("paltest-android", branch main).
 # GitHub Actions (.github/workflows/android.yml) keeps checking that every push to main still builds.
@@ -94,6 +95,84 @@ workflows:
         recipients:
           - milan@vrekic.com
         notify: { success: true, failure: true }
+
+  # The iOS app: builds the signed .ipa and sends it to TestFlight. The same v* tag starts it alongside the Android
+  # release; it can also be started by hand ("paltest-ios", branch main). One-time steps are in docs/codemagic.md.
+  paltest-ios:
+    name: PAL Test iOS (TestFlight)
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    integrations:
+      app_store_connect: paltest_asc   # the App Store Connect API key's name in Codemagic (Team integrations)
+    environment:
+      ios_signing:
+        distribution_type: app_store   # Codemagic creates or fetches the distribution certificate and profile itself
+        bundle_identifier: ca.paltest.app
+      vars:
+        BUNDLE_ID: ca.paltest.app
+        APP_STORE_APPLE_ID: 6838490033          # App Store Connect → PAL Test Canada → App Information → Apple ID (a number)
+        XCODE_WORKSPACE: ios/PALTestCanada.xcworkspace   # Expo names the project after "name" in app.json
+        XCODE_SCHEME: PALTestCanada
+      node: 22
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - tag
+      tag_patterns:
+        - pattern: 'v*'
+          include: true
+    scripts:
+      - name: Install
+        working_directory: app
+        script: npm ci
+      - name: Compile content (approved questions, guides and drills only)
+        working_directory: app
+        script: npm run content
+      - name: Version from the tag
+        working_directory: app
+        script: |
+          case "$CM_TAG" in v*) node -e "const f='app.json',j=require('./'+f);j.expo.version=process.argv[1];require('fs').writeFileSync(f,JSON.stringify(j,null,2)+'\n')" "${CM_TAG#v}" ;; esac
+          node -p "'Version: ' + require('./app.json').expo.version"
+      - name: Build number (always higher than any before)
+        working_directory: app
+        script: |
+          # The higher of: App Store Connect's latest + 1, and Codemagic's build counter + 10, so it never repeats one
+          # Apple already has, even when Apple can't be asked (before the first upload, or APP_STORE_APPLE_ID not set yet).
+          if [ "$APP_STORE_APPLE_ID" != "0" ] && LATEST=$(app-store-connect get-latest-build-number "$APP_STORE_APPLE_ID" 2>/tmp/latest.err); then
+            echo "App Store Connect's latest build number: $LATEST"
+          else
+            echo "Couldn't read the latest build number from App Store Connect (the counter below still keeps this build unique):"
+            cat /tmp/latest.err 2>/dev/null; LATEST=0
+          fi
+          FLOOR=$(( ${BUILD_NUMBER:-0} + 10 ))
+          NUM=$(( LATEST + 1 > FLOOR ? LATEST + 1 : FLOOR ))
+          node -e "const f='app.json',j=require('./'+f);j.expo.ios.buildNumber=process.argv[1];require('fs').writeFileSync(f,JSON.stringify(j,null,2)+'\n')" "$NUM"
+          echo "This build's number: $NUM"
+      - name: Generate the native iOS project
+        working_directory: app
+        script: npx expo prebuild --platform ios --no-install --clean
+      - name: Install pods
+        working_directory: app/ios
+        script: pod install
+      - name: Signing
+        working_directory: app
+        script: xcode-project use-profiles
+      - name: Signed .ipa
+        working_directory: app
+        script: xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
+    artifacts:
+      - app/build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    publishing:
+      email:
+        recipients:
+          - milan@vrekic.com
+        notify: { success: true, failure: true }
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true     # internal testers get it once Apple finishes processing; App Store release stays manual
 
   # A 2-minute check of the Google Play key, with no build: which service account is loaded, and can it see the app?
   # Start it by hand ("paltest-play-access-check", branch main) after changing the key or Play Console permissions.
