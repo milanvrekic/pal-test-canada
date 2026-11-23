@@ -55,6 +55,8 @@ export type PracticalDrill = {
   id: string;
   course: 'cfsc' | 'crfsc';
   title: string;
+  /** Flashcard front, phrased as a question. */
+  prompt: string;
   situation: string;
   steps: string[];
   why: string;
