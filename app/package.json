@@ -42,8 +42,8 @@
     "web": "npm run content:preview && expo start --web",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "build:web": "npm run content && expo export --platform web && node ../tools/postexport.mjs dist",
-    "build:web:preview": "npm run content:preview && expo export --platform web && node ../tools/postexport.mjs dist",
+    "build:web": "npm run content && expo export --platform web && node --experimental-strip-types --no-warnings ../tools/postexport.mjs dist",
+    "build:web:preview": "npm run content:preview && expo export --platform web && node --experimental-strip-types --no-warnings ../tools/postexport.mjs dist",
     "test": "node --test --experimental-strip-types src/features/*/*.test.ts",
     "typecheck": "tsc --noEmit",
     "lint": "expo lint"

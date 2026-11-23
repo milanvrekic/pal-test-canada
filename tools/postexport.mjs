@@ -19,3 +19,4 @@ rmSync(join(dist, '_sitemap.html'), { force: true });
 for (const f of readdirSync(dist)) if (f.startsWith('(')) rmSync(join(dist, f), { recursive: true, force: true });
 console.log('404.html written; _sitemap.html removed');
 await import('./sitemap.mjs');
+await import('./agent-files.mjs');

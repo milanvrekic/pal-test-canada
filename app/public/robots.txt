@@ -1,4 +1,23 @@
+# PAL Test Canada welcomes search engines and AI assistants.
+# A plain-text map of the site for AI tools: https://paltest.ca/llms.txt
+# Everything in one file: https://paltest.ca/llms-full.txt
+
 User-agent: *
+Allow: /
+Disallow: /quiz
+
+# AI crawlers and assistants: allowed (listed so the intent is explicit).
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
 Allow: /
 Disallow: /quiz
 
