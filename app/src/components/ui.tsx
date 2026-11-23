@@ -25,6 +25,8 @@ type ScreenProps = {
 
 // The app layout; EXPO_PUBLIC_APP_LAYOUT=1 renders it on the web for screenshots and review.
 const native = Platform.OS !== 'web' || process.env.EXPO_PUBLIC_APP_LAYOUT === '1';
+/** True in the iOS and Android apps (and the web preview of them); false on the website. */
+export const APP_LAYOUT = native;
 const TAB_ROOTS = ['/', '/practical', '/spot', '/wait-times', '/more'];
 
 /** The native apps' slim header: the logo on a tab's first screen, a Back button on screens opened on top. */
@@ -128,12 +130,11 @@ const FOOTER_GROUPS: { title: string; links: { href: Href; label: string }[] }[]
   {
     title: 'Your licence',
     links: [
-      { href: '/pal-courses/bc', label: 'PAL courses in BC' },
+      { href: '/pal-courses', label: 'PAL courses by province' },
       { href: '/apply', label: 'Application checklist' },
       { href: '/wait-times', label: 'PAL wait times' },
       ...(guides.some((g) => g.slug === 'after-you-get-your-pal') ? [{ href: '/guides/after-you-get-your-pal', label: 'After you get your PAL' }] : []),
       { href: '/guides', label: 'Guides' },
-      { href: '/pal-courses', label: 'All course providers' },
       { href: '/about', label: 'About' },
       { href: '/privacy', label: 'Privacy' },
     ],
@@ -313,7 +314,7 @@ export function ProgressBar({ value, tone = 'accent', height = 8 }: { value: num
   const theme = useTheme();
   const pct = Math.max(0, Math.min(1, value));
   return (
-    <View style={[styles.track, { backgroundColor: theme.backgroundSelected, height, borderRadius: height / 2 }]}>
+    <View style={[styles.track, { backgroundColor: theme.track, height, borderRadius: height / 2 }]}>
       <View style={[styles.fill, { backgroundColor: theme[tone], width: `${Math.round(pct * 100)}%`, height, borderRadius: height / 2 }]} />
     </View>
   );
@@ -368,7 +369,7 @@ const styles = StyleSheet.create({
   mark: { borderRadius: 11, width: 34, height: 34, alignItems: 'center', justifyContent: 'center' },
   markText: { fontFamily: Fonts.display, fontSize: 14, lineHeight: 18, letterSpacing: 0.4 },
   wordmark: { fontFamily: Fonts.logo, fontWeight: Platform.OS === 'web' ? '700' : undefined, fontSize: 22, lineHeight: 22, letterSpacing: 0.4, textTransform: 'uppercase' },
-  tagline: { fontSize: 11, lineHeight: 14, fontWeight: '500' },
+  tagline: { fontSize: 12, lineHeight: 16, fontWeight: '500' },
   navLinks: { flexDirection: 'row' },
   navLink: { paddingVertical: Spacing.two, paddingHorizontal: 6, minHeight: 44, justifyContent: 'center' },
   scroll: { flexGrow: 1, alignItems: 'center', paddingHorizontal: Spacing.three, paddingTop: Spacing.four },

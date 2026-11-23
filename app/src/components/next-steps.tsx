@@ -81,7 +81,8 @@ export function NextSteps({ placement, title, lead }: { placement: Placement; ti
                   track({ name: 'handoff_click', destination: item.id, placement: `${placement}_step` });
                   void Linking.openURL(hrefFor(item, `${placement}_step`));
                 }}
-                style={({ pressed }) => [styles.app, { backgroundColor: theme.background, borderColor: pressed ? theme.accent : theme.border }]}>
+                // A filled row, not a bordered card: it sits inside the steps card.
+                style={({ pressed }) => [styles.app, { backgroundColor: pressed ? theme.backgroundSelected : theme.background }]}>
                 <View style={styles.appTop}>
                   <Image source={APP_ICONS[item.id]} style={styles.icon} accessibilityIgnoresInvertColors />
                   <View style={{ flex: 1, gap: 2 }}>
@@ -123,6 +124,6 @@ const styles = StyleSheet.create({
   appTop: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three },
   cta: { borderRadius: 999, paddingHorizontal: Spacing.three, paddingVertical: 8 },
   num: { width: 28, height: 28, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
-  app: { gap: Spacing.two, borderWidth: 1, borderRadius: Radius - 8, padding: Spacing.three },
+  app: { gap: Spacing.two, borderRadius: Radius - 8, padding: Spacing.three },
   icon: { width: 48, height: 48, borderRadius: 11 },
 });

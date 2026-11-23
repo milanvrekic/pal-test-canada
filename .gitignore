@@ -5,3 +5,6 @@ app/src/content/bundle.json
 app/src/content/drill-photos/
 app/src/content/drill-photos.ts
 .oil-ui/
+
+# Impeccable design critiques (local working notes)
+.impeccable/

@@ -9,6 +9,8 @@ export const Colors = {
     background: '#F1F4F7',
     backgroundElement: '#FFFFFF',
     backgroundSelected: '#E7ECF0',
+    /** Empty part of progress bars: dark enough to read against the page background. */
+    track: '#CDD5DD',
     border: '#DEE3E9',
     borderStrong: '#CBD2D9',
     accent: '#0064E0',
@@ -45,6 +47,7 @@ export const Colors = {
     background: '#18191A',
     backgroundElement: '#242526',
     backgroundSelected: '#3A3B3C',
+    track: '#4A4D50',
     border: '#3A3B3C',
     borderStrong: '#4E4F50',
     accent: '#4C9AFF',

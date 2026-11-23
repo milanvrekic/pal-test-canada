@@ -1,13 +1,13 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import type { Metadata } from 'expo-router/server';
-import { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { Platform, Pressable, StyleSheet, View } from 'react-native';
 
 import { AnswerOption, Feedback, sourceLine } from '@/components/answer';
 import { FeaturedHandoff, HandoffCards } from '@/components/handoff-cards';
 import { VerdictBar } from '@/components/verdict-bar';
 import { ThemedText } from '@/components/themed-text';
-import { Button, Card, Col, Eyebrow, Notice, ProgressBar, Ring, Screen, Split } from '@/components/ui';
+import { APP_LAYOUT, Button, Card, Col, Eyebrow, Notice, ProgressBar, Ring, Screen, Split } from '@/components/ui';
 import { Radius, RadiusControl, Spacing } from '@/constants/theme';
 import {
   type Course,
@@ -63,6 +63,30 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
   const [quitting, setQuitting] = useState(false);
   const [deadline, setDeadline] = useState<number | null>(null);
   const [now, setNow] = useState(() => Date.now());
+  // Keyboard answering on the web: A–F or 1–6 picks an answer, Enter goes on. The handlers change every render, so the
+  // listener (added once) calls whatever the latest render stored here.
+  const keys = useRef<{ choose?: (i: number) => void; next?: () => void; count: number }>({ count: 0 });
+  useEffect(() => {
+    if (Platform.OS !== 'web' || typeof window === 'undefined') return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.metaKey || e.ctrlKey || e.altKey || (e.key.length !== 1 && e.key !== 'Enter')) return;
+      const target = e.target as HTMLElement | null;
+      if (target?.tagName === 'INPUT' || target?.tagName === 'TEXTAREA') return;
+      const k = e.key.toLowerCase();
+      const i = Math.max('abcdef'.indexOf(k), '123456'.indexOf(k));
+      if (e.key !== 'Enter' && i >= 0 && i < keys.current.count && keys.current.choose) {
+        e.preventDefault();
+        keys.current.choose(i);
+      } else if (e.key === 'Enter' && keys.current.next) {
+        // Enter on a focused button already presses it; don't press Next a second time.
+        if (target?.closest?.('button,a,[role="button"],[role="link"],[role="radio"]')) return;
+        e.preventDefault();
+        keys.current.next();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   // Test-day mock: start the clock once the questions are ready, tick every second.
   useEffect(() => {
@@ -140,6 +164,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
     setSelected(null);
     setIndex(index + 1);
   };
+  keys.current = quitting ? { count: 0 } : { choose, next, count: q.options.length };
 
   const isLast = index + 1 === set.length;
   const verdict = showFeedback ? (selected === q.answer ? 'correct' : 'wrong') : null;
@@ -177,7 +202,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
             </ThemedText>
           </Pressable>
         </View>
-        <ProgressBar value={(index + (selected !== null ? 1 : 0)) / set.length} height={12} />
+        <ProgressBar value={(index + 1) / set.length} height={12} />
       </View>
 
       {quitting ? (
@@ -220,6 +245,11 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
 
       {showFeedback ? (
         <Feedback good={selected === q.answer} title="Why" explanation={q.explanation} source={sourceLine(q.source)} />
+      ) : null}
+      {Platform.OS === 'web' && !APP_LAYOUT ? (
+        <ThemedText type="small" themeColor="textSecondary">
+          Keyboard: press A to {LETTERS[q.options.length - 1]} to answer, Enter for the next question.
+        </ThemedText>
       ) : null}
     </Screen>
   );
