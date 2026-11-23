@@ -2,8 +2,8 @@
 title: How to get your PAL in BC
 description: The steps from booking a course to holding your firearms licence in British Columbia, including applying online and how long it takes.
 order: 7
-status: draft
-last_reviewed: TBD
+status: reviewed
+last_reviewed: 2026-11-22
 ---
 Getting a PAL in British Columbia takes three steps: pass the course, apply to the RCMP Canadian Firearms Program, and wait for your card. Most of the time is the wait.
 

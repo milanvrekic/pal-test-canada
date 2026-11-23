@@ -2,8 +2,8 @@
 title: How to get a hunting licence in BC
 description: CORE, your Fish and Wildlife ID, the hunting and species licences, limited entry draws and the one-time initiation licence, step by step.
 order: 8
-status: draft
-last_reviewed: TBD
+status: reviewed
+last_reviewed: 2026-11-22
 ---
 To hunt in British Columbia you need CORE hunter education, a Fish and Wildlife ID (FWID), a hunting licence and, for big game, species licences. Your PAL is a separate federal licence for owning firearms.
 
