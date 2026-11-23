@@ -74,3 +74,7 @@ The correct answer was the longest option in 56 of 92 multiple-choice questions;
 - how-to-get-your-pal-in-bc and how-to-get-a-hunting-licence-in-bc approved by Milan.
 
 - 2026-11-22: BC PAL course listings (11 providers, content/courses/bc.yaml) approved by Milan.
+
+## 2026-11-22: Practical trainer drills
+
+- All 7 drills (content/practical/drills.yaml) approved by Milan; flashcard prompts added in his style ("Click, but no bang. What do you do?").

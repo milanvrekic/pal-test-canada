@@ -21,16 +21,189 @@ export function generateMetadata(): Metadata {
   });
 }
 
-type Phase = { kind: 'pick' } | { kind: 'order'; drill: PracticalDrill } | { kind: 'recite'; drill: PracticalDrill };
+type Phase = { kind: 'cards' } | { kind: 'pick' } | { kind: 'order'; drill: PracticalDrill } | { kind: 'recite'; drill: PracticalDrill };
 
 export default function Practical() {
-  const [phase, setPhase] = useState<Phase>({ kind: 'pick' });
+  const [phase, setPhase] = useState<Phase>({ kind: 'cards' });
   if (phase.kind === 'order') return <OrderDrill key={phase.drill.id} drill={phase.drill} onBack={() => setPhase({ kind: 'pick' })} onRecite={() => setPhase({ kind: 'recite', drill: phase.drill })} />;
   if (phase.kind === 'recite') return <Recite key={phase.drill.id} drill={phase.drill} onBack={() => setPhase({ kind: 'pick' })} />;
-  return <Picker onPick={(drill) => setPhase({ kind: 'order', drill })} />;
+  if (phase.kind === 'pick') return <Picker onPick={(drill) => setPhase({ kind: 'order', drill })} onCards={() => setPhase({ kind: 'cards' })} />;
+  return <DrillCards onOrder={(drill) => setPhase({ kind: 'order', drill })} onPick={() => setPhase({ kind: 'pick' })} />;
 }
 
-function Picker({ onPick }: { onPick: (d: PracticalDrill) => void }) {
+function ModeSwitch({ mode, onCards, onPick }: { mode: 'cards' | 'pick'; onCards: () => void; onPick: () => void }) {
+  const theme = useTheme();
+  return (
+    <View style={[styles.seg, { backgroundColor: theme.backgroundSelected }]} accessibilityRole="tablist">
+      {(
+        [
+          ['cards', 'Flashcards', onCards],
+          ['pick', 'Put steps in order', onPick],
+        ] as const
+      ).map(([id, label, go]) => (
+        <Pressable key={id} accessibilityRole="tab" accessibilityState={{ selected: mode === id }} onPress={go} style={[styles.segItem, mode === id ? { backgroundColor: theme.backgroundElement } : null]}>
+          <ThemedText type="smallBold" themeColor={mode === id ? 'accent' : 'textSecondary'}>
+            {label}
+          </ThemedText>
+        </Pressable>
+      ))}
+    </View>
+  );
+}
+
+/** Flip cards: the situation as a question on the front, the steps in order on the back. */
+function DrillCards({ onOrder, onPick }: { onOrder: (d: PracticalDrill) => void; onPick: () => void }) {
+  const theme = useTheme();
+  const [course, setCourse] = useState<'all' | 'cfsc' | 'crfsc'>('all');
+  const [deck, setDeck] = useState<PracticalDrill[] | null>(null);
+  const [i, setI] = useState(0);
+  const [flipped, setFlipped] = useState(false);
+  const [known, setKnown] = useState(0);
+  // Shuffle after mount so the pre-rendered page and the app agree.
+  useEffect(() => {
+    setDeck(shuffle(practicalDrills.filter((d) => course === 'all' || d.course === course)));
+    setI(0);
+    setFlipped(false);
+    setKnown(0);
+  }, [course]);
+  const d = deck?.[i];
+  const next = (gotIt: boolean) => {
+    if (gotIt) setKnown(known + 1);
+    if (d) track({ name: 'test_completed', course: d.course, mode: `practical_card:${d.id}`, correct: gotIt ? 1 : 0, total: 1 });
+    setFlipped(false);
+    setI(i + 1);
+  };
+
+  return (
+    <Screen>
+      <View style={{ gap: Spacing.two }}>
+        <Eyebrow tone="signal">Practical test trainer</Eyebrow>
+        <ThemedText type="title" accessibilityRole="header">
+          What do you do?
+        </ThemedText>
+        <ThemedText themeColor="textSecondary" style={{ fontSize: 18, lineHeight: 27 }}>
+          Say the steps out loud, in order, then flip the card to check. The practical test is where most marks are lost.
+        </ThemedText>
+        <ModeSwitch mode="cards" onCards={() => {}} onPick={onPick} />
+        <View style={styles.chips} accessibilityRole="radiogroup">
+          {(['all', 'cfsc', 'crfsc'] as const).map((c) => (
+            <Pressable key={c} accessibilityRole="radio" accessibilityState={{ checked: course === c }} onPress={() => setCourse(c)} style={[styles.chip, course === c ? { backgroundColor: theme.accent, borderColor: theme.accent } : { borderColor: theme.borderStrong }]}>
+              <ThemedText type="smallBold" style={{ color: course === c ? theme.onAccent : theme.text }}>
+                {c === 'all' ? 'All' : c === 'cfsc' ? 'Non-restricted' : 'Restricted'}
+              </ThemedText>
+            </Pressable>
+          ))}
+        </View>
+      </View>
+
+      {practicalDrills.length === 0 ? (
+        <Card style={{ gap: Spacing.two }}>
+          <ThemedText type="heading">Being reviewed</ThemedText>
+          <ThemedText themeColor="textSecondary">The handling drills are with our certified instructor for review and will appear here once approved.</ThemedText>
+        </Card>
+      ) : !deck ? (
+        <ThemedText themeColor="textSecondary">Shuffling cards…</ThemedText>
+      ) : d ? (
+        <View style={{ gap: Spacing.three }}>
+          <View style={styles.meta}>
+            <ThemedText type="smallBold" themeColor="textSecondary">
+              Card {i + 1} of {deck.length}
+            </ThemedText>
+            <ThemedText type="smallBold" themeColor="textSecondary">
+              {known} known
+            </ThemedText>
+          </View>
+          <ProgressBar value={i / deck.length} height={10} />
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={flipped ? 'Answer side. Tap to see the question.' : 'Question side. Tap to see the steps.'}
+            onPress={() => setFlipped(!flipped)}
+            style={({ pressed }) => [styles.card, { backgroundColor: flipped ? theme.backgroundElement : theme.tintBlue, borderColor: theme.border }, pressed ? { transform: [{ scale: 0.99 }] } : null]}>
+            {flipped ? (
+              <View style={{ gap: Spacing.three }}>
+                <ThemedText type="eyebrow" themeColor="textSecondary">
+                  {d.title} · {d.steps.length} steps
+                </ThemedText>
+                <View style={{ gap: Spacing.two }}>
+                  {d.steps.map((step, n) => (
+                    <View key={step} style={styles.stepRow}>
+                      <View style={[styles.num, { backgroundColor: theme.accent }]}>
+                        <ThemedText type="smallBold" style={{ color: theme.onAccent }}>
+                          {n + 1}
+                        </ThemedText>
+                      </View>
+                      <ThemedText style={{ flex: 1 }}>{step}</ThemedText>
+                    </View>
+                  ))}
+                </View>
+                <ThemedText type="small" themeColor="textSecondary">
+                  {d.why}
+                </ThemedText>
+                <ThemedText type="small" themeColor="textSecondary">
+                  {sourceLine(d.source)}
+                </ThemedText>
+              </View>
+            ) : (
+              <View style={{ gap: Spacing.three }}>
+                <ThemedText type="eyebrow" themeColor="textSecondary">
+                  {d.course === 'cfsc' ? 'Non-restricted' : 'Restricted'}
+                </ThemedText>
+                <ThemedText type="title" style={{ fontSize: 30, lineHeight: 36 }}>
+                  {d.prompt}
+                </ThemedText>
+                <ThemedText type="smallBold" themeColor="textSecondary">
+                  Say the {d.steps.length} steps, then tap to flip
+                </ThemedText>
+              </View>
+            )}
+          </Pressable>
+          {flipped ? (
+            <View style={{ gap: Spacing.two }}>
+              <Split gap={Spacing.two}>
+                <Col basis={150}>
+                  <Button variant="secondary" label="Again" onPress={() => next(false)} />
+                </Col>
+                <Col basis={150}>
+                  <Button label="Got it" onPress={() => next(true)} />
+                </Col>
+              </Split>
+              <Pressable accessibilityRole="button" onPress={() => onOrder(d)} style={styles.back}>
+                <ThemedText type="smallBold" themeColor="accent">
+                  Practise putting these steps in order →
+                </ThemedText>
+              </Pressable>
+            </View>
+          ) : (
+            <Button variant="secondary" label="Show the steps" onPress={() => setFlipped(true)} />
+          )}
+        </View>
+      ) : (
+        <View style={{ gap: Spacing.three }}>
+          <ThemedText type="heading">
+            Deck done: {known} of {deck.length} known
+          </ThemedText>
+          <Split gap={Spacing.two}>
+            <Col basis={180}>
+              <Button
+                label="Shuffle again"
+                onPress={() => {
+                  setDeck(shuffle(deck));
+                  setI(0);
+                  setKnown(0);
+                }}
+              />
+            </Col>
+            <Col basis={180}>
+              <Button variant="secondary" label="Spot the mistake" href="/spot" />
+            </Col>
+          </Split>
+        </View>
+      )}
+    </Screen>
+  );
+}
+
+function Picker({ onPick, onCards }: { onPick: (d: PracticalDrill) => void; onCards: () => void }) {
   const theme = useTheme();
   return (
     <Screen width="wide">
@@ -43,6 +216,7 @@ function Picker({ onPick }: { onPick: (d: PracticalDrill) => void }) {
           The practical test is where most marks are lost. Pick a situation, put the steps in the right order, then say them out
           loud from memory. Do it with a real (unloaded) firearm only under an instructor.
         </ThemedText>
+        <ModeSwitch mode="pick" onCards={onCards} onPick={() => {}} />
       </View>
       {practicalDrills.length === 0 ? (
         <Card style={{ gap: Spacing.two }}>
@@ -277,9 +451,16 @@ function Recite({ drill, onBack }: { drill: PracticalDrill; onBack: () => void }
 }
 
 const styles = StyleSheet.create({
+  seg: { flexDirection: 'row', borderRadius: 999, padding: 4, gap: 4, alignSelf: 'flex-start', marginTop: Spacing.two },
+  segItem: { borderRadius: 999, paddingHorizontal: Spacing.three + 2, minHeight: 38, justifyContent: 'center' },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two },
+  chip: { borderWidth: 1, borderRadius: 999, paddingHorizontal: Spacing.three, minHeight: 36, justifyContent: 'center' },
+  meta: { flexDirection: 'row', justifyContent: 'space-between' },
+  card: { borderWidth: 1, borderRadius: 28, padding: Spacing.five, minHeight: 320, justifyContent: 'center' },
+  stepRow: { flexDirection: 'row', gap: Spacing.three, alignItems: 'flex-start' },
   back: { minHeight: 40, justifyContent: 'center', alignSelf: 'flex-start' },
   slot: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three, borderWidth: 1.5, borderRadius: RadiusControl, paddingVertical: Spacing.two + 4, paddingHorizontal: Spacing.three, minHeight: 56 },
-  num: { width: 28, height: 28, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
+  num: { width: 28, height: 28, borderRadius: 14, alignItems: 'center', justifyContent: 'center', marginTop: -2 },
   tile: { borderWidth: 1, borderRadius: RadiusControl, paddingVertical: Spacing.three - 2, paddingHorizontal: Spacing.three + 4, minHeight: 56, justifyContent: 'center', gap: 2 },
   result: { borderRadius: 24, padding: Spacing.four, gap: Spacing.two },
   cite: { borderRadius: 12, paddingVertical: Spacing.two, paddingHorizontal: Spacing.three, alignSelf: 'flex-start' },

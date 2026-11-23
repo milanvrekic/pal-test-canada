@@ -2,9 +2,10 @@
 # Steps are worded from approved questions' explanations; each drill cites the handbook pages those questions use.
 # Status "draft" until Milan approves the step wording; release builds refuse drafts.
 #
-# Fields: id, course (cfsc|crfsc), title, situation, steps (in the correct order), why, source {section, page}, based_on (question ids), status
+# Fields: id, prompt (flashcard front), course (cfsc|crfsc), title, situation, steps (in the correct order), why, source {section, page}, based_on (question ids), status
 
 - id: prove
+  prompt: "You pick up a firearm. How do you PROVE it safe?"
   course: cfsc
   title: "PROVE it safe"
   situation: "You pick up any firearm. Check that it is unloaded."
@@ -17,9 +18,10 @@
   why: "Every later step is done with the muzzle under control, and an obstruction in the bore can burst the barrel."
   source: {section: "Introduction: PROVE It Safe Pointers", page: "22"}
   based_on: [cfsc-prove-001, cfsc-prove-002, cfsc-prove-003, cfsc-prove-004, cfsc-prove-005]
-  status: draft
+  status: reviewed
 
 - id: hand-over
+  prompt: "Your partner asks to see your rifle. How do you hand it over?"
   course: cfsc
   title: "Hand a firearm to someone"
   situation: "Your partner asks to look at your rifle."
@@ -32,9 +34,10 @@
   why: "Pass or accept only open, unloaded firearms, and never take someone else's word that it is unloaded."
   source: {section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "21"}
   based_on: [cfsc-handling-002, cfsc-acts-001]
-  status: draft
+  status: reviewed
 
 - id: cease-fire
+  prompt: "The range officer calls \"cease-fire\". What do you do?"
   course: cfsc
   title: "Cease-fire on the range"
   situation: "The range officer calls \"cease-fire\"."
@@ -47,9 +50,10 @@
   why: "On cease-fire all firing stops, and every firearm is made safe and left alone until the range is clear."
   source: {section: "7.3. Safety procedures on approved range", page: "148"}
   based_on: [cfsc-range-003]
-  status: draft
+  status: reviewed
 
 - id: fence-alone
+  prompt: "You're hunting alone and reach a fence. How do you cross it?"
   course: cfsc
   title: "Cross a fence alone"
   situation: "You are hunting alone and reach a fence."
@@ -61,9 +65,10 @@
   why: "Never climb or cross an obstacle with a loaded firearm, and never toss a firearm over a fence."
   source: {section: "7.6. Safe handling of firearms outdoors", page: "153"}
   based_on: [cfsc-handling-003, cfsc-handling-102]
-  status: draft
+  status: reviewed
 
 - id: pit-blind
+  prompt: "You're hunting alone from a pit or blind. How do you get in?"
   course: cfsc
   title: "Get into a pit or blind alone"
   situation: "You are hunting alone from a pit or blind."
@@ -75,9 +80,10 @@
   why: "Climbing into a pit or blind with a loaded firearm in hand makes muzzle control almost impossible."
   source: {section: "7.6. Safe handling of firearms outdoors", page: "153"}
   based_on: [cfsc-handling-104]
-  status: draft
+  status: reviewed
 
 - id: pistol-unload
+  prompt: "You're handed a semi-automatic pistol. How do you unload it?"
   course: crfsc
   title: "Unload a semi-automatic pistol"
   situation: "You are handed a semi-automatic pistol and need to make it safe."
@@ -91,9 +97,10 @@
   why: "With a loaded magazine still in, working the slide just chambers the next cartridge. Magazine out first, then open the action."
   source: {section: "14.8.1. Semi-automatic unloading procedure", page: "278"}
   based_on: [crfsc-prove-001, crfsc-actions-003, crfsc-handling-002, crfsc-prove-003]
-  status: draft
+  status: reviewed
 
 - id: hang-fire
+  prompt: "Click, but no bang. What do you do?"
   course: crfsc
   title: "A click but no bang"
   situation: "At the range your pistol clicks but does not fire."
@@ -104,4 +111,4 @@
   why: "It may be a hang fire: the cartridge can still fire some time after the trigger is pulled."
   source: {section: "13.6. Hazards", page: "250"}
   based_on: [crfsc-misfire-001]
-  status: draft
+  status: reviewed

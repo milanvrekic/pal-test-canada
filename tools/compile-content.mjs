@@ -251,7 +251,7 @@ function loadPractical() {
   const out = [];
   for (const d of YAML.parse(readFileSync(file, 'utf8')) ?? []) {
     const at = `practical ${d.id}`;
-    for (const k of ['id', 'course', 'title', 'situation', 'steps', 'why', 'source', 'status']) if (!d[k]) errors.push(`${at} missing ${k}`);
+    for (const k of ['id', 'prompt', 'course', 'title', 'situation', 'steps', 'why', 'source', 'status']) if (!d[k]) errors.push(`${at} missing ${k}`);
     if ((d.steps ?? []).length < 3) errors.push(`${at} needs at least 3 steps`);
     if (d.status !== 'reviewed') {
       // Release builds leave unapproved drills out (they never ship) rather than failing the whole deploy.
@@ -265,6 +265,7 @@ function loadPractical() {
       id: d.id,
       course: d.course,
       title: d.title,
+      prompt: d.prompt ?? d.situation,
       situation: d.situation,
       steps: d.steps,
       why: d.why,
