@@ -4,6 +4,10 @@
   base = "app"
   publish = "dist"
   command = "npm run build:web"
+  # The site is built from app/ but also from content/ and tools/ at the repo root. Netlify's default check only
+  # looks at app/, so it skipped deploys that changed only content (like approving listings). Build when any of
+  # them changed. (Runs in app/; exit 0 skips the build.)
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- . ../content ../tools ../netlify.toml"
 
 [build.environment]
   NODE_VERSION = "22"
