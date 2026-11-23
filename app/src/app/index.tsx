@@ -1,15 +1,17 @@
-import { Link } from 'expo-router';
+import { Link, type Href } from 'expo-router';
 import type { Metadata } from 'expo-router/server';
 
 import { page } from '@/lib/seo';
 import { useState } from 'react';
-import { Image, Pressable, StyleSheet, View, useWindowDimensions } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
+import Svg, { Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
 
 import { HandoffCards } from '@/components/handoff-cards';
+import { TryScene } from '@/components/try-scene';
 import { ThemedText } from '@/components/themed-text';
-import { Button, Card, Notice, ProgressBar, Screen } from '@/components/ui';
-import { Radius, Spacing } from '@/constants/theme';
-import { type Course, EXAM_SIZE, dueForReview, readiness, today, topicLabel, topicStats } from '@/features/quiz/engine';
+import { Button, Col, Eyebrow, LinkCard, Ring, Screen, Split } from '@/components/ui';
+import { Glass, Radius, RadiusControl, Spacing, TINTS } from '@/constants/theme';
+import { type Course, EXAM_SIZE, READY_EXAMS, READY_MARK, dueForReview, readiness, today, topicLabel, topicStats } from '@/features/quiz/engine';
 import { useTheme } from '@/hooks/use-theme';
 import { drillPhotos } from '@/content/drill-photos';
 import { drills, questions } from '@/lib/content';
@@ -37,7 +39,8 @@ export default function Home() {
   const [allTopics, setAllTopics] = useState(false);
   const { progress, loaded } = useProgress();
   const { tracker } = useTracker();
-  const drillPhoto = drills.find((d) => d.photo && drillPhotos[d.photo]);
+  // The handover scene reads well cropped to 16:9; fall back to any scene with a photo.
+  const drillPhoto = drills.find((d) => d.id === 'spot-pass-closed' && d.photo && drillPhotos[d.photo]) ?? drills.find((d) => d.photo && drillPhotos[d.photo]);
 
   const bank = questions.filter((q) => q.course === course);
   const examSize = Math.min(EXAM_SIZE, bank.length);
@@ -51,162 +54,145 @@ export default function Home() {
   );
   const shown = allTopics ? sorted : sorted.slice(0, TOPICS_SHOWN);
 
+  const tracking = !!tracker.submittedOn && !tracker.arrivedOn;
+  const exams = progress.exams.filter((e) => e.course === course);
+
   return (
-    <Screen>
-      <View style={{ gap: Spacing.two }}>
-        <ThemedText type="title" accessibilityRole="header">
-          Pass your PAL course the first time
-        </ThemedText>
-        <ThemedText themeColor="textSecondary">
-          Free practice tests for the CFSC and CRFSC. No account, no ads. Your progress stays on this device.
-        </ThemedText>
-      </View>
-
-      <View style={styles.switch}>
-        {COURSES.map((c) => {
-          const active = c.id === course;
-          return (
-            <Pressable
-              key={c.id}
-              accessibilityRole="button"
-              accessibilityState={{ selected: active }}
-              onPress={() => setCourse(c.id)}
-              style={[
-                styles.switchItem,
-                {
-                  borderColor: active ? theme.accent : theme.border,
-                  backgroundColor: active ? theme.backgroundElement : theme.background,
-                },
-              ]}
-            >
-              <ThemedText type="bold">{c.label}</ThemedText>
-              <ThemedText type="small" themeColor="textSecondary">
-                {c.sub}
+    <Screen width="wide">
+      <View style={styles.hero}>
+        <HeroGlow />
+        <Split gap={Spacing.five} style={{ alignItems: 'center' }}>
+          <Col basis={420} grow={5} style={{ gap: Spacing.four }}>
+            <View style={[styles.chip, Glass]}>
+              <View style={[styles.dot, { backgroundColor: '#4ADE80' }]} />
+              <ThemedText type="smallBold" style={{ color: '#E6E7EB' }}>
+                Free · Instructor-reviewed
               </ThemedText>
-            </Pressable>
-          );
-        })}
+            </View>
+            <ThemedText type="display" accessibilityRole="header" style={{ color: '#FFFFFF' }}>
+              Pass your PAL course <ThemedText type="display" style={{ color: '#FF8A7A' }}>the first time.</ThemedText>
+            </ThemedText>
+            <ThemedText style={{ color: '#B4B8C2', fontSize: 18, lineHeight: 28, maxWidth: 520 }}>
+              Practice tests for the CFSC and CRFSC, written from the student handbook. No account, no ads. Your progress
+              stays on this device.
+            </ThemedText>
+
+            <View style={[styles.segment, Glass]} accessibilityRole="radiogroup" accessibilityLabel="Which course are you taking?">
+              {COURSES.map((c) => {
+                const active = c.id === course;
+                return (
+                  <Pressable
+                    key={c.id}
+                    accessibilityRole="radio"
+                    accessibilityState={{ checked: active }}
+                    onPress={() => setCourse(c.id)}
+                    style={[styles.segmentItem, active ? styles.segmentActive : null]}
+                  >
+                    <ThemedText type="bold" style={{ color: active ? '#0A0B0E' : '#FFFFFF' }}>
+                      {c.label}
+                    </ThemedText>
+                    <ThemedText type="small" style={{ color: active ? '#5B5F69' : '#A3A7B2' }}>
+                      {c.sub}
+                    </ThemedText>
+                  </Pressable>
+                );
+              })}
+            </View>
+
+            <View style={styles.ctaRow}>
+              <Button size="lg" variant="inverse" label="Start practice exam" href={{ pathname: '/quiz', params: { course, mode: 'exam' } }} />
+              <Button size="lg" variant="glass" label="Quick practice" href={{ pathname: '/quiz', params: { course, mode: 'practice' } }} />
+            </View>
+            <View style={styles.facts}>
+              {[`${questions.length} questions`, `${drills.length} photo drills`, `${examSize}-question exams`, 'No sign-up'].map((f) => (
+                <ThemedText key={f} type="small" style={{ color: '#A3A7B2' }}>
+                  <ThemedText type="smallBold" style={{ color: '#4ADE80' }}>✓ </ThemedText>
+                  {f}
+                </ThemedText>
+              ))}
+            </View>
+          </Col>
+          <Col basis={360} grow={4}>
+            <TryScene />
+          </Col>
+        </Split>
       </View>
 
-      <ReadinessCard loaded={loaded} hasHistory={hasHistory} ready={ready} />
+      {due > 0 ? (
+        <Button variant="secondary" label={`Review ${due} missed question${due === 1 ? '' : 's'}`} href={{ pathname: '/quiz', params: { course, mode: 'review' } }} />
+      ) : null}
 
-      <View style={{ gap: Spacing.two }}>
-        <Button label={`Practice exam (${examSize} questions)`} href={{ pathname: '/quiz', params: { course, mode: 'exam' } }} />
-        <Button
-          variant="secondary"
-          label="Quick practice (10 questions)"
-          href={{ pathname: '/quiz', params: { course, mode: 'practice' } }}
-        />
-        {due > 0 ? (
-          <Button
-            variant="secondary"
-            label={`Review ${due} missed question${due === 1 ? '' : 's'}`}
-            href={{ pathname: '/quiz', params: { course, mode: 'review' } }}
+      <Split>
+        <Col basis={380} grow={3}>
+          <ReadinessPanel loaded={loaded} hasHistory={hasHistory} ready={ready} exams={exams} />
+        </Col>
+        <Col basis={240} grow={2}>
+          <BentoTile
+            href="/wait-times"
+            tint="tintBlue"
+            eyebrow={tracking ? 'Your licence tracker' : 'Licence wait times'}
+            stat="28"
+            statNote="day legal minimum"
+            body={tracking ? 'See how your wait compares with other applicants.' : 'How long applicants wait for a PAL, plus a tracker for yours.'}
           />
-        ) : null}
-      </View>
+        </Col>
+        <Col basis={240} grow={2}>
+          <BentoTile
+            href="/guides/what-fails-people"
+            tint="tintSand"
+            eyebrow="What fails people"
+            stat="80%"
+            statNote="to pass each test"
+            body="Most failures are handling habits, not missing knowledge. How to fix them."
+          />
+        </Col>
+      </Split>
 
-      <View style={styles.grid}>
-        <View style={styles.half}>
-          <Link href="/spot" asChild>
-            <Pressable accessibilityRole="link">
-              <Card style={{ padding: 0, overflow: 'hidden' }}>
-                {drillPhoto?.photo ? (
-                  <View style={styles.drillPhoto}>
-                    <Image
-                      source={drillPhotos[drillPhoto.photo]}
-                      style={StyleSheet.absoluteFill}
-                      resizeMode="cover"
-                      accessibilityIgnoresInvertColors
-                    />
-                  </View>
-                ) : null}
-                <View style={{ padding: Spacing.three, gap: Spacing.one }}>
-                  <ThemedText type="bold">Spot the mistake</ThemedText>
-                  <ThemedText type="small" themeColor="textSecondary">
-                    {drills.length} photo scenes for the practical test. Find the one handling mistake in each.
-                  </ThemedText>
-                  <ThemedText type="smallBold" themeColor="accent">
-                    Start the drill
-                  </ThemedText>
-                </View>
-              </Card>
-            </Pressable>
-          </Link>
+      <View style={{ gap: Spacing.three }}>
+        <View style={styles.sectionHead}>
+          <ThemedText type="heading" accessibilityRole="header">
+            {hasHistory ? 'Your topics, weakest first' : 'Practice by topic'}
+          </ThemedText>
+          <ThemedText type="small" themeColor="textSecondary">
+            {course.toUpperCase()} · {bank.length} questions
+          </ThemedText>
         </View>
-        <View style={[{ gap: Spacing.three }, styles.half]}>
-          <Link href="/guides/what-fails-people" asChild>
-            <Pressable accessibilityRole="link">
-              <Card>
-                <ThemedText type="bold">What fails people</ThemedText>
-                <ThemedText type="small" themeColor="textSecondary">
-                  Most failures are handling habits, not missing knowledge. The common ones and how to fix them.
-                </ThemedText>
-                <ThemedText type="smallBold" themeColor="accent">
-                  Read the guide
-                </ThemedText>
-              </Card>
-            </Pressable>
-          </Link>
-          <Link href="/wait-times" asChild>
-            <Pressable accessibilityRole="link">
-              <Card>
-                <ThemedText type="bold">
-                  {tracker.submittedOn && !tracker.arrivedOn ? 'Your licence tracker' : 'Licence wait times'}
-                </ThemedText>
-                <ThemedText type="small" themeColor="textSecondary">
-                  {tracker.submittedOn && !tracker.arrivedOn
-                    ? 'See how your wait compares with what other applicants report.'
-                    : 'How long applicants report waiting for their PAL, and a tracker for yours.'}
-                </ThemedText>
-                <ThemedText type="smallBold" themeColor="accent">
-                  {tracker.submittedOn && !tracker.arrivedOn ? 'Open the tracker' : 'See wait times'}
-                </ThemedText>
-              </Card>
-            </Pressable>
-          </Link>
-        </View>
-      </View>
-
-      <View style={{ gap: Spacing.two }}>
-        <ThemedText type="heading" accessibilityRole="header">
-          Topics
-        </ThemedText>
-        <View style={styles.grid}>
-          {shown.map((s) => (
-            <View key={s.topic} style={styles.half}>
-              <Link
-                href={{
-                  pathname: '/quiz',
-                  params: { course, mode: 'practice', topic: s.topic },
-                }}
-                asChild
-              >
-                <Pressable accessibilityRole="link">
-                  <Card>
-                    <View style={styles.topicRow}>
-                      <ThemedText type="bold" style={{ flex: 1 }}>
-                        {topicLabel(s.topic)}
-                      </ThemedText>
-                      <ThemedText type="small" themeColor="textSecondary">
-                        {s.accuracy === null
-                          ? `${s.total} question${s.total === 1 ? '' : 's'}`
-                          : `${Math.round(s.accuracy * 100)}% correct`}
-                      </ThemedText>
+        <Split gap={Spacing.two + 4}>
+          {shown.map((s, i) => (
+            <Col key={s.topic} basis={320}>
+              <Link href={{ pathname: '/quiz', params: { course, mode: 'practice', topic: s.topic } }} asChild>
+                <Pressable accessibilityRole="link" accessibilityLabel={`${topicLabel(s.topic)}. ${s.accuracy === null ? `${s.total} questions` : `${Math.round(s.accuracy * 100)}% correct`}`}>
+                  {({ pressed }) => (
+                    <View style={[styles.topicCard, { backgroundColor: theme[TINTS[i % TINTS.length]] }, pressed ? { opacity: 0.85 } : null]}>
+                      <View style={{ flex: 1, gap: Spacing.half }}>
+                        <ThemedText type="bold">{topicLabel(s.topic)}</ThemedText>
+                        <ThemedText type="small" themeColor="textSecondary">
+                          {s.total} question{s.total === 1 ? '' : 's'}
+                          {s.seen > 0 ? ` · ${s.seen} answered` : ''}
+                        </ThemedText>
+                      </View>
+                      <Ring
+                        value={s.accuracy}
+                        size={48}
+                        label={s.accuracy === null ? '–' : `${Math.round(s.accuracy * 100)}%`}
+                        track="rgba(0,0,0,0.08)"
+                        color={s.accuracy !== null && s.accuracy < 0.8 ? theme.signal : theme.success}
+                      />
                     </View>
-                    <ProgressBar value={s.accuracy ?? 0} />
-                  </Card>
+                  )}
                 </Pressable>
               </Link>
-            </View>
+            </Col>
           ))}
-        </View>
+        </Split>
         {sorted.length > TOPICS_SHOWN ? (
-          <Button
-            variant="secondary"
-            label={allTopics ? 'Show fewer topics' : `Show all ${sorted.length} topics`}
-            onPress={() => setAllTopics(!allTopics)}
-          />
+          <View style={{ alignSelf: 'flex-start' }}>
+            <Button
+              variant="secondary"
+              label={allTopics ? 'Show fewer topics' : `Show all ${sorted.length} topics`}
+              onPress={() => setAllTopics(!allTopics)}
+            />
+          </View>
         ) : null}
       </View>
 
@@ -220,58 +206,165 @@ export default function Home() {
   );
 }
 
-function ReadinessCard({
+/** A tinted bento tile that links somewhere, with one big number. */
+function BentoTile({ href, tint, eyebrow, stat, statNote, body }: { href: Href; tint: (typeof TINTS)[number]; eyebrow: string; stat: string; statNote: string; body: string }) {
+  const theme = useTheme();
+  return (
+    <Link href={href} asChild>
+      <Pressable accessibilityRole="link" style={{ flexGrow: 1 }}>
+        {({ pressed }) => (
+          <View style={[styles.tile, { backgroundColor: theme[tint] }, pressed ? { transform: [{ scale: 0.98 }] } : null]}>
+            <View style={styles.tileHead}>
+              <ThemedText type="eyebrow">{eyebrow}</ThemedText>
+              <View style={[styles.arrow, { backgroundColor: theme.backgroundElement }]}>
+                <ThemedText type="bold" style={{ lineHeight: 18 }}>
+                  →
+                </ThemedText>
+              </View>
+            </View>
+            <View style={{ marginTop: 'auto', gap: Spacing.one }}>
+              <View style={styles.bandStat}>
+                <ThemedText type="stat">{stat}</ThemedText>
+                <ThemedText type="smallBold" themeColor="textSecondary" style={{ flex: 1, paddingBottom: 8 }}>
+                  {statNote}
+                </ThemedText>
+              </View>
+              <ThemedText type="small" themeColor="textSecondary">
+                {body}
+              </ThemedText>
+            </View>
+          </View>
+        )}
+      </Pressable>
+    </Link>
+  );
+}
+
+/** Soft red and amber light on the dark hero (SVG radial gradients render the same on web and native). */
+function HeroGlow() {
+  return (
+    <Svg style={StyleSheet.absoluteFill} width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100" accessibilityElementsHidden importantForAccessibility="no">
+      <Defs>
+        <RadialGradient id="g1" cx="85%" cy="10%" rx="55%" ry="70%" fx="85%" fy="10%">
+          <Stop offset="0" stopColor="#E5322D" stopOpacity={0.55} />
+          <Stop offset="1" stopColor="#E5322D" stopOpacity={0} />
+        </RadialGradient>
+        <RadialGradient id="g2" cx="5%" cy="100%" rx="55%" ry="60%" fx="5%" fy="100%">
+          <Stop offset="0" stopColor="#F59E0B" stopOpacity={0.28} />
+          <Stop offset="1" stopColor="#F59E0B" stopOpacity={0} />
+        </RadialGradient>
+      </Defs>
+      <Rect x="0" y="0" width="100" height="100" fill="url(#g1)" />
+      <Rect x="0" y="0" width="100" height="100" fill="url(#g2)" />
+    </Svg>
+  );
+}
+
+function ReadinessPanel({
   loaded,
   hasHistory,
   ready,
+  exams,
 }: {
   loaded: boolean;
   hasHistory: boolean;
   ready: { ready: boolean; reasons: string[] };
+  exams: { correct: number; total: number }[];
 }) {
-  if (!loaded) return null;
-  if (!hasHistory)
-    return (
-      <Card>
-        <ThemedText type="bold">How you know you're ready</ThemedText>
-        <ThemedText type="small" themeColor="textSecondary">
-          Score 90% or better on three practice exams in a row with no weak topic, and this turns green. The real written test
-          needs 80%.
-        </ThemedText>
-      </Card>
-    );
-  if (ready.ready)
-    return (
-      <Notice tone="success">You look ready: your last three practice exams were 90% or better and no topic is weak.</Notice>
-    );
+  const theme = useTheme();
+  const recent = exams.slice(-READY_EXAMS);
+  const last = exams.at(-1);
+  const strong = recent.filter((e) => e.correct / e.total >= READY_MARK).length;
+  const status = !loaded ? ' ' : ready.ready ? 'You look ready' : hasHistory ? 'Not ready yet' : 'How you know you’re ready';
+  const detail = !loaded
+    ? ' '
+    : ready.ready
+      ? 'Your last three practice exams were 90% or better and no topic is weak.'
+      : hasHistory
+        ? ready.reasons.join(' ')
+        : 'Score 90% or better on three practice exams in a row, with no weak topic. The real written test needs 80%.';
   return (
-    <Card>
-      <ThemedText type="bold">Not ready yet</ThemedText>
-      {ready.reasons.map((r) => (
-        <ThemedText key={r} type="small" themeColor="textSecondary">
-          {r}
+    <View style={[styles.panel, { backgroundColor: theme.backgroundElement, borderColor: theme.border }]}>
+      <View style={styles.panelTop}>
+        <Ring
+          value={strong / READY_EXAMS}
+          size={96}
+          stroke={9}
+          color={theme.success}
+          label={`${strong}/${READY_EXAMS}`}
+        />
+        <View style={{ flex: 1, gap: Spacing.one }}>
+          <ThemedText type="eyebrow" themeColor="textSecondary">Readiness</ThemedText>
+          <ThemedText type="heading">{status}</ThemedText>
+          <ThemedText type="small" themeColor="textSecondary">
+            {detail}
+          </ThemedText>
+        </View>
+      </View>
+      <View style={styles.ticks} accessibilityLabel={`${strong} of ${READY_EXAMS} recent exams at 90% or better`}>
+        {Array.from({ length: READY_EXAMS }, (_, i) => {
+          const e = recent[i];
+          const ok = e ? e.correct / e.total >= READY_MARK : false;
+          return (
+            <View
+              key={i}
+              style={[
+                styles.tick,
+                { borderColor: ok ? theme.success : theme.border, backgroundColor: ok ? theme.successBg : e ? theme.dangerBg : theme.background },
+              ]}>
+              <ThemedText type="smallBold" style={{ color: ok ? theme.successDark : theme.textSecondary, fontVariant: ['tabular-nums'] }}>
+                {e ? `${Math.round((e.correct / e.total) * 100)}%` : `Exam ${i + 1}`}
+              </ThemedText>
+            </View>
+          );
+        })}
+      </View>
+      {last ? null : (
+        <ThemedText type="small" themeColor="textSecondary">
+          Your practice exam scores will fill these in.
         </ThemedText>
-      ))}
-    </Card>
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  grid: { gap: Spacing.three },
-  half: {},
-  drillPhoto: { width: '100%', aspectRatio: 1024 / 637, overflow: 'hidden' },
+  drillPhoto: { width: '100%', aspectRatio: 16 / 9, overflow: 'hidden' },
+  fill: { width: '100%', height: '100%' },
+  band: { height: 132, padding: Spacing.three + 4, justifyContent: 'space-between' },
+  bandStat: { flexDirection: 'row', alignItems: 'flex-end', gap: Spacing.two },
   switch: { flexDirection: 'row', gap: Spacing.two },
   switchItem: {
     flex: 1,
-    borderWidth: 2,
-    borderRadius: Radius,
-    padding: Spacing.three,
-    gap: Spacing.half,
-  },
-  topicRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: Spacing.two,
+    gap: Spacing.two + 4,
+    borderWidth: 2,
+    borderBottomWidth: 4,
+    borderRadius: RadiusControl,
+    paddingVertical: Spacing.two + 4,
+    paddingHorizontal: Spacing.three,
   },
+  radio: { width: 20, height: 20, borderRadius: 10, borderWidth: 2, alignItems: 'center', justifyContent: 'center' },
+  radioDot: { width: 10, height: 10, borderRadius: 5 },
+  panel: { borderRadius: 28, borderWidth: 1, padding: Spacing.four, gap: Spacing.three, flexGrow: 1 },
+  panelTop: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three },
+  ticks: { flexDirection: 'row', gap: Spacing.two },
+  tick: { flex: 1, height: 40, borderRadius: 999, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
+  hero: { backgroundColor: '#0A0B0E', borderRadius: 32, overflow: 'hidden', padding: Spacing.four, paddingVertical: Spacing.five },
+  chip: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two, alignSelf: 'flex-start', borderRadius: 999, borderWidth: 1, borderColor: 'rgba(255,255,255,0.14)', backgroundColor: 'rgba(255,255,255,0.06)', paddingHorizontal: Spacing.three, paddingVertical: 6 },
+  dot: { width: 8, height: 8, borderRadius: 4 },
+  segment: { flexDirection: 'row', borderRadius: 20, borderWidth: 1, borderColor: 'rgba(255,255,255,0.14)', backgroundColor: 'rgba(255,255,255,0.06)', padding: 4, gap: 4, maxWidth: 460 },
+  segmentItem: { flex: 1, borderRadius: 16, paddingVertical: Spacing.two + 2, paddingHorizontal: Spacing.three },
+  segmentActive: { backgroundColor: '#FFFFFF' },
+  ctaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two + 4 },
+  tile: { borderRadius: 28, padding: Spacing.four, gap: Spacing.three, flexGrow: 1, minHeight: 230 },
+  tileHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: Spacing.two },
+  arrow: { width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center' },
+  facts: { flexDirection: 'row', flexWrap: 'wrap', columnGap: Spacing.four, rowGap: Spacing.one },
+  fact: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two },
+  factTick: { width: 20, height: 20, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
+  sectionHead: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: Spacing.two },
+  topicCard: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three, borderRadius: Radius, paddingVertical: Spacing.three, paddingHorizontal: Spacing.three + 4, minHeight: 80 },
+  topicRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: Spacing.two },
 });

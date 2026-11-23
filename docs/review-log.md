@@ -72,3 +72,5 @@ The correct answer was the longest option in 56 of 92 multiple-choice questions;
 ## 2026-11-22: BC guides
 
 - how-to-get-your-pal-in-bc and how-to-get-a-hunting-licence-in-bc approved by Milan.
+
+- 2026-11-22: BC PAL course listings (11 providers, content/courses/bc.yaml) approved by Milan.

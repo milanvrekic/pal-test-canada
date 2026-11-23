@@ -1,11 +1,11 @@
 import type { Metadata } from 'expo-router/server';
 
 import { page } from '@/lib/seo';
-import { useLocalSearchParams } from 'expo-router';
+import { Link, useLocalSearchParams } from 'expo-router';
 import { View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
-import { Button, Screen } from '@/components/ui';
+import { Button, Col, Screen, Split } from '@/components/ui';
 import { SourceNote, SummaryCard, Tracker, provincesWithData, waitData } from '@/components/wait-times';
 import { Spacing } from '@/constants/theme';
 import { PROVINCES } from '@/features/wait/stats';
@@ -41,19 +41,33 @@ export default function ProvinceWaitTimes() {
   }
   const d = waitData(code);
   return (
-    <Screen>
+    <Screen width="wide">
       <View style={{ gap: Spacing.two }}>
+        <Link href="/wait-times">
+          <ThemedText type="eyebrow" themeColor="signal">
+            ← All provinces
+          </ThemedText>
+        </Link>
         <ThemedText type="title" accessibilityRole="header">
           PAL wait times in {name}
         </ThemedText>
-        <ThemedText themeColor="textSecondary">
+        <ThemedText themeColor="textSecondary" style={{ maxWidth: 680 }}>
           Applications are processed by the RCMP's Canadian Firearms Program, with eligibility checks by the Chief Firearms Officer
           for your province. These are the waits applicants in {name} have reported.
         </ThemedText>
+        <ThemedText type="small" themeColor="textSecondary">
+          PAL Test Canada is an independent study aid, not part of the RCMP or the Canadian Firearms Program.
+        </ThemedText>
       </View>
-      <SummaryCard title={`New applications in ${name}`} s={d.local} note="Renewals and files with a reported problem left out" />
-      <SummaryCard title="All of Canada, for comparison" s={d.national} />
-      <Tracker national={d.national} />
+      <Split gap={Spacing.four}>
+        <Col basis={420} style={{ gap: Spacing.three }}>
+          <SummaryCard title={`New applications in ${name}`} s={d.local} note="Renewals and files with a reported problem left out" />
+          <SummaryCard title="All of Canada, for comparison" s={d.national} />
+        </Col>
+        <Col basis={380}>
+          <Tracker national={d.national} />
+        </Col>
+      </Split>
       <Button variant="secondary" label="Wait times for every province" href="/wait-times" />
       <SourceNote total={d.total} first={d.first} last={d.last} />
     </Screen>

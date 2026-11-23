@@ -34,6 +34,23 @@ export const containsDrafts: boolean = bundle.containsDrafts;
 export const questions = bundle.questions as Question[];
 export const guides = bundle.guides as Guide[];
 export const drills = bundle.drills as Drill[];
+export type CourseProvider = {
+  id: string;
+  name: string;
+  regions: string[];
+  venues: { city: string; place: string }[];
+  courses: ('cfsc' | 'crfsc')[];
+  website: string;
+  phone: string | null;
+  email: string | null;
+  source: string;
+  checked: string;
+  draft: boolean;
+};
+export type ProvinceCourses = { province: string; regions: { id: string; name: string }[]; providers: CourseProvider[] };
+export const courseDirectory = ((bundle as { courses?: ProvinceCourses[] }).courses ?? []) as ProvinceCourses[];
+/** Where instructors ask to be listed or corrected. */
+export const LISTINGS_EMAIL = 'milan@10tenStudio.com';
 export const waitRows = (bundle.waitTimes?.rows ?? []) as WaitRow[];
 
 export const SITE_NAME = 'PAL Test Canada';

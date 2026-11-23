@@ -11,6 +11,9 @@ export default function NotFound() {
   return (
     <Screen>
       <View style={{ gap: Spacing.two }}>
+        <ThemedText type="eyebrow" themeColor="signal">
+          404
+        </ThemedText>
         <ThemedText type="title" accessibilityRole="header">
           Page not found
         </ThemedText>
@@ -20,7 +23,7 @@ export default function NotFound() {
         </ThemedText>
       </View>
       <View style={{ gap: Spacing.two }}>
-        <Button label="Practice tests" href="/" />
+        <Button variant="signal" label="Practice tests" href="/" />
         <Button variant="secondary" label="Spot the mistake" href="/spot" />
         <Button variant="secondary" label="Licence wait times" href="/wait-times" />
         <Button variant="secondary" label="Guides" href="/guides" />
