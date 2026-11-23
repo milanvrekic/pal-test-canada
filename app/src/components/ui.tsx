@@ -20,6 +20,7 @@ export function Screen({ children }: { children: ReactNode }) {
               <ThemedText type="bold">{SITE_NAME}</ThemedText>
             </Link>
             <View style={styles.navLinks}>
+              <NavLink href="/wait-times">Wait times</NavLink>
               <NavLink href="/guides">Guides</NavLink>
               <NavLink href="/about">About</NavLink>
             </View>
@@ -41,7 +42,7 @@ export function Screen({ children }: { children: ReactNode }) {
 
 function NavLink({ href, children }: { href: Href; children: ReactNode }) {
   return (
-    <Link href={href}>
+    <Link href={href} style={styles.navLink}>
       <ThemedText type="small" themeColor="textSecondary">
         {children}
       </ThemedText>
@@ -82,12 +83,13 @@ export function Button({ label, onPress, href, variant = 'primary', disabled }: 
       <View
         style={[
           styles.button,
-          primary
-            ? { backgroundColor: theme.accent }
-            : { backgroundColor: theme.background, borderColor: theme.border, borderWidth: 1 },
-          disabled && styles.dim,
+          disabled
+            ? { backgroundColor: theme.backgroundSelected }
+            : primary
+              ? { backgroundColor: theme.accent }
+              : { backgroundColor: theme.background, borderColor: theme.border, borderWidth: 1 },
         ]}>
-        <ThemedText type="bold" themeColor={primary ? 'onAccent' : 'text'}>
+        <ThemedText type="bold" themeColor={disabled ? 'textSecondary' : primary ? 'onAccent' : 'text'}>
           {label}
         </ThemedText>
       </View>
@@ -124,7 +126,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   brand: { paddingVertical: Spacing.one },
-  navLinks: { flexDirection: 'row', gap: Spacing.three },
+  navLinks: { flexDirection: 'row', gap: Spacing.one },
+  navLink: { paddingVertical: Spacing.two, paddingHorizontal: Spacing.two, minHeight: 44, justifyContent: 'center' },
   footer: { marginTop: Spacing.four, paddingTop: Spacing.three, borderTopWidth: StyleSheet.hairlineWidth },
   card: { borderRadius: Radius, padding: Spacing.three, gap: Spacing.two },
   notice: { borderRadius: Radius, paddingVertical: Spacing.two, paddingHorizontal: Spacing.three },
@@ -136,7 +139,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  dim: { opacity: 0.6 },
   track: { height: 8, borderRadius: 4, overflow: 'hidden' },
   fill: { height: 8, borderRadius: 4 },
 });

@@ -1,38 +1,91 @@
-import { Linking, View } from 'react-native';
+import { Image, Linking, Pressable, StyleSheet, View } from 'react-native';
 
-import { Spacing } from '@/constants/theme';
+import { Radius, Spacing } from '@/constants/theme';
+import { useTheme } from '@/hooks/use-theme';
 import { track } from '@/lib/analytics';
-import { HANDOFFS } from '@/lib/handoff';
+import { APP_ICONS, type AppId, type PromoItem, usePromo } from '@/lib/handoff';
 
 import { ThemedText } from './themed-text';
-import { Button, Card } from './ui';
 
-export function HandoffCards({ placement }: { placement: string }) {
+export type Placement =
+  | 'home'
+  | 'exam_pass'
+  | 'exam_fail'
+  | 'practice_results'
+  | 'drill_results'
+  | 'guide'
+  | 'wait_times'
+  | 'licence_arrived';
+
+/**
+ * "What's next" cards for Huntable and Shootable. One tap opens the store (or the website on desktop; the waitlist for
+ * apps that haven't launched). The heading and lead are written for the moment the person is in.
+ */
+export function HandoffCards({
+  placement,
+  title = 'After your course',
+  lead,
+  order = ['huntable', 'shootable'],
+}: {
+  placement: Placement;
+  title?: string;
+  lead?: string;
+  order?: AppId[];
+}) {
+  const items = usePromo(order);
+  if (!items.length) return null;
   return (
-    <View style={{ gap: Spacing.two }}>
-      <ThemedText type="subheading">Once your licence arrives</ThemedText>
-      {HANDOFFS.map((h) => (
-        <Card key={h.id}>
-          <ThemedText type="bold">{h.question}</ThemedText>
-          <ThemedText themeColor="textSecondary">
-            {h.name}: {h.blurb}
-          </ThemedText>
-          {h.status === 'live' && h.url ? (
-            <Button
-              variant="secondary"
-              label={`Open ${h.name}`}
-              onPress={() => {
-                track({ name: 'handoff_click', destination: h.id, placement });
-                void Linking.openURL(h.url!);
-              }}
-            />
-          ) : (
-            <ThemedText type="small" themeColor="textSecondary">
-              {h.status === 'coming-soon' ? 'Coming soon' : 'Link coming soon'}
-            </ThemedText>
-          )}
-        </Card>
+    <View style={{ gap: Spacing.two }} accessibilityRole="none">
+      <ThemedText type="subheading" accessibilityRole="header">
+        {title}
+      </ThemedText>
+      {lead ? <ThemedText themeColor="textSecondary">{lead}</ThemedText> : null}
+      {items.map((it) => (
+        <AppRow key={it.id} item={it} placement={placement} />
       ))}
     </View>
   );
 }
+
+function AppRow({ item, placement }: { item: PromoItem; placement: Placement }) {
+  const theme = useTheme();
+  const open = () => {
+    track({ name: 'handoff_click', destination: item.id, placement });
+    void Linking.openURL(item.href);
+  };
+  const badge = item.soon ? 'Coming soon' : item.inSeason ? 'In season' : null;
+  return (
+    <Pressable
+      onPress={open}
+      accessibilityRole="link"
+      accessibilityLabel={`${item.name}. ${item.line}${badge ? `. ${badge}` : ''}`}
+      style={({ pressed }) => [styles.row, { borderColor: pressed ? theme.accent : theme.border, backgroundColor: theme.background }]}>
+      <Image source={APP_ICONS[item.id]} style={styles.icon} accessibilityIgnoresInvertColors />
+      <View style={{ flex: 1, gap: Spacing.half }}>
+        <View style={styles.nameRow}>
+          <ThemedText type="bold">{item.name}</ThemedText>
+          {badge ? (
+            <View style={[styles.badge, { borderColor: theme.border }]}>
+              <ThemedText type="small" themeColor="textSecondary" style={{ fontSize: 12, lineHeight: 16 }}>
+                {badge}
+              </ThemedText>
+            </View>
+          ) : null}
+        </View>
+        <ThemedText type="small" themeColor="textSecondary">
+          {item.line}
+        </ThemedText>
+        <ThemedText type="smallBold" themeColor="accent">
+          {item.soon ? 'Join the waitlist' : `Get ${item.name}`}
+        </ThemedText>
+      </View>
+    </Pressable>
+  );
+}
+
+const styles = StyleSheet.create({
+  row: { flexDirection: 'row', gap: Spacing.three, padding: Spacing.three, borderWidth: 1, borderRadius: Radius, alignItems: 'flex-start' },
+  icon: { width: 48, height: 48, borderRadius: 11 },
+  nameRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two, flexWrap: 'wrap' },
+  badge: { borderWidth: 1, borderRadius: 999, paddingHorizontal: Spacing.two },
+});

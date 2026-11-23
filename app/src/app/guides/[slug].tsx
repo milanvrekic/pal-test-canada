@@ -1,6 +1,8 @@
 import { useLocalSearchParams } from 'expo-router';
 import type { Metadata } from 'expo-router/server';
 
+import { page } from '@/lib/seo';
+
 import { HandoffCards } from '@/components/handoff-cards';
 import { Markdown } from '@/components/markdown';
 import { ThemedText } from '@/components/themed-text';
@@ -13,7 +15,7 @@ export function generateStaticParams(): { slug: string }[] {
 
 export function generateMetadata(_request: unknown, params: Record<string, string | string[]>): Metadata | null {
   const guide = guides.find((g) => g.slug === params.slug);
-  return guide ? { title: `${guide.title} | PAL Test Canada`, description: guide.description } : null;
+  return guide ? page(`/guides/${guide.slug}`, { title: `${guide.title} | PAL Test Canada`, description: guide.description }) : null;
 }
 
 export default function GuidePage() {
@@ -39,8 +41,8 @@ export default function GuidePage() {
         </ThemedText>
       ) : null}
       <Markdown source={guide.body} />
-      {guide.slug === 'after-the-exam' ? <HandoffCards placement="guide_after_the_exam" /> : null}
-      <Button variant="secondary" label="Start practising" href="/" />
+      <Button label="Start practising" href="/" />
+      <HandoffCards placement="guide" title="After your course" />
     </Screen>
   );
 }

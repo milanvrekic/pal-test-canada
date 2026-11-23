@@ -1,4 +1,6 @@
 import type { Metadata } from 'expo-router/server';
+
+import { page } from '@/lib/seo';
 import { useState } from 'react';
 import { View } from 'react-native';
 
@@ -7,12 +9,13 @@ import { Button, Card, Screen } from '@/components/ui';
 import { Spacing } from '@/constants/theme';
 import { DISCLAIMER, contentBuiltAt, contentVersion, questions } from '@/lib/content';
 import { resetProgress } from '@/lib/progress';
+import { resetTracker } from '@/lib/tracker';
 
 export function generateMetadata(): Metadata {
-  return {
+  return page('/about', {
     title: 'About PAL Test Canada',
     description: 'How the questions are written and reviewed, what the app is not, and how your progress is stored.',
-  };
+  });
 }
 
 export default function About() {
@@ -35,17 +38,18 @@ export default function About() {
       <Card>
         <ThemedText type="bold">Your data</ThemedText>
         <ThemedText themeColor="textSecondary">
-          There are no accounts. Your answers and scores are stored on this device only.
+          There are no accounts. Your answers, scores and licence tracker dates are stored on this device only.
         </ThemedText>
         {confirming ? (
           <View style={{ gap: Spacing.two }}>
             <ThemedText type="small" themeColor="danger">
-              This deletes all answers and exam scores on this device. It cannot be undone.
+              This deletes all answers, exam scores and tracker dates on this device. It cannot be undone.
             </ThemedText>
             <Button
               label="Delete my progress"
               onPress={() => {
                 resetProgress();
+                resetTracker();
                 setConfirming(false);
               }}
             />

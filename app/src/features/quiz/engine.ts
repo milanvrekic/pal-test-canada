@@ -80,8 +80,25 @@ export function addDays(day: string, days: number): string {
 export const today = (now: Date = new Date()): string =>
   `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 
+/**
+ * Topics with only a question or two make one-question quizzes, so related ones share a practice group.
+ * The YAML keeps its fine-grained topics (the content check keys law topics on them).
+ */
+const TOPIC_GROUPS: Record<string, string> = {
+  storage: 'storage-transport-display',
+  transport: 'storage-transport-display',
+  display: 'storage-transport-display',
+  classification: 'law-and-licensing',
+  licensing: 'law-and-licensing',
+  responsibilities: 'law-and-licensing',
+  parts: 'parts-and-care',
+  care: 'parts-and-care',
+};
+
+export const topicGroup = (topic: string): string => TOPIC_GROUPS[topic] ?? topic;
+
 export function topicsFor(questions: readonly Question[], course: Course): string[] {
-  return [...new Set(questions.filter((q) => q.course === course).map((q) => q.topic))].sort();
+  return [...new Set(questions.filter((q) => q.course === course).map((q) => topicGroup(q.topic)))].sort();
 }
 
 /** A practice set: questions never seen first, then the ones answered worst. */
@@ -90,7 +107,7 @@ export function buildPractice(
   progress: Progress,
   opts: { course: Course; topic?: string; size?: number; rng?: Rng },
 ): Question[] {
-  const pool = questions.filter((q) => q.course === opts.course && (!opts.topic || q.topic === opts.topic));
+  const pool = questions.filter((q) => q.course === opts.course && (!opts.topic || topicGroup(q.topic) === opts.topic));
   const accuracy = (q: Question) => {
     const a = progress.answers[q.id];
     return a && a.seen > 0 ? a.correct / a.seen : -1;
@@ -106,7 +123,7 @@ export function buildExam(questions: readonly Question[], course: Course, rng: R
   const pool = questions.filter((q) => q.course === course);
   if (pool.length <= size) return shuffle(pool, rng).map((q) => shuffleOptions(q, rng));
   const byTopic = new Map<string, Question[]>();
-  for (const q of shuffle(pool, rng)) byTopic.set(q.topic, [...(byTopic.get(q.topic) ?? []), q]);
+  for (const q of shuffle(pool, rng)) byTopic.set(topicGroup(q.topic), [...(byTopic.get(topicGroup(q.topic)) ?? []), q]);
   const picked: Question[] = [];
   // Round-robin across topics keeps every topic represented.
   while (picked.length < size) {
@@ -151,7 +168,7 @@ export type TopicStat = { topic: string; total: number; answered: number; seen: 
 
 export function topicStats(questions: readonly Question[], progress: Progress, course: Course): TopicStat[] {
   return topicsFor(questions, course).map((topic) => {
-    const qs = questions.filter((q) => q.course === course && q.topic === topic);
+    const qs = questions.filter((q) => q.course === course && topicGroup(q.topic) === topic);
     let seen = 0;
     let correct = 0;
     let answered = 0;
@@ -201,6 +218,9 @@ const TOPIC_LABELS: Record<string, string> = {
   misfires: 'Misfires and hang fires',
   'shooting-technique': 'Shooting technique',
   care: 'Care and cleaning',
+  'storage-transport-display': 'Storage, transport and display',
+  'law-and-licensing': 'Classes, licences and the law',
+  'parts-and-care': 'Parts and care',
 };
 
 export function topicLabel(topic: string): string {
