@@ -1,0 +1,22 @@
+# PAL course providers in Nova Scotia. Same rules as bc.yaml. Status "draft" until Milan approves.
+province: NS
+intro: >-
+  In Nova Scotia, Safety Services Nova Scotia coordinates both courses for the Provincial Firearms Office. You need
+  the CFSC before the Atlantic Provinces Hunter Education Course, so new hunters usually take it first.
+regions:
+  - {id: province-wide, name: "Across Nova Scotia"}
+
+providers:
+  - id: safety-services-ns
+    name: "Safety Services Nova Scotia"
+    regions: [province-wide]
+    venues:
+      - {city: "Across Nova Scotia", place: "Course dates by area on the Safety Services Nova Scotia website"}
+      - {city: Halifax, place: "Office, 127 Chain Lake Dr, Unit 9"}
+    courses: [cfsc, crfsc]
+    website: "https://www.safetyservicesns.ca/firearms"
+    phone: "1-866-511-2211"
+    email: "contact@safetyservicesns.ca"
+    source: "https://safetyservicesns.squarespace.com/firearms"
+    checked: 2026-11-23
+    status: draft

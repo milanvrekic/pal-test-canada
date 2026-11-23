@@ -8,12 +8,22 @@ import { ThemedText } from '@/components/themed-text';
 import { Button, Card, Col, Eyebrow, Screen, Split } from '@/components/ui';
 import { Spacing } from '@/constants/theme';
 import { PROVINCES } from '@/features/wait/stats';
-import { courseDirectory } from '@/lib/content';
+import type { AppId } from '@/lib/handoff';
+import { courseCities, courseDirectory } from '@/lib/content';
 import { page } from '@/lib/seo';
 
 export function generateStaticParams(): { province: string }[] {
   return courseDirectory.map((c) => ({ province: c.province.toLowerCase() }));
 }
+
+/** Apps that cover (or will soon cover) each province, most relevant first. */
+const APPS: Record<string, AppId[]> = {
+  BC: ['huntable', 'fishable', 'campable', 'shootable'],
+  AB: ['shootable', 'huntable', 'campable'],
+  ON: ['fishable', 'campable'],
+  NS: ['huntable'],
+  NB: ['huntable'],
+};
 
 const find = (slug: unknown) => courseDirectory.find((c) => c.province.toLowerCase() === String(slug).toLowerCase());
 
@@ -21,10 +31,13 @@ export function generateMetadata(_request: unknown, params: Record<string, strin
   const d = find(params.province);
   if (!d) return null;
   const name = PROVINCES[d.province] ?? d.province;
-  const cities = [...new Set(d.providers.flatMap((p) => p.venues.map((v) => v.city)))].slice(0, 6).join(', ');
+  const cities = courseCities(d).slice(0, 6).join(', ');
+  const n = d.providers.length;
   return page(`/pal-courses/${d.province.toLowerCase()}`, {
     title: `Where to take the PAL course in ${name} (CFSC and CRFSC) | PAL Test Canada`,
-    description: `${d.providers.length} places to take the Canadian Firearms Safety Course in ${name}, including ${cities}. Contacts for each provider, checked against their own listings.`,
+    description: cities
+      ? `${n} ${n === 1 ? 'place' : 'places'} to take the Canadian Firearms Safety Course in ${name}, including ${cities}. Contacts for each provider, checked against their own listings.`
+      : `How to book the Canadian Firearms Safety Course and the restricted course in ${name}: who runs them and how to contact them.`,
   });
 }
 
@@ -43,7 +56,9 @@ export default function ProvinceCourses() {
   return (
     <Screen width="wide">
       <View style={{ gap: Spacing.two }}>
-        <Eyebrow tone="signal">{d.providers.length} course providers · {name}</Eyebrow>
+        <Eyebrow tone="signal">
+          {d.providers.length} course {d.providers.length === 1 ? 'provider' : 'providers'} · {name}
+        </Eyebrow>
         <ThemedText type="title" accessibilityRole="header">
           Where to take the PAL course in {name}
         </ThemedText>
@@ -57,6 +72,13 @@ export default function ProvinceCourses() {
           Canadian Firearms Program, and listings are free.
         </ThemedText>
       </View>
+
+      {d.intro ? (
+        <Card style={{ gap: Spacing.two }}>
+          <ThemedText type="heading">How it works in {name}</ThemedText>
+          <ThemedText themeColor="textSecondary">{d.intro}</ThemedText>
+        </Card>
+      ) : null}
 
       <CourseDirectory data={d} />
 
@@ -84,7 +106,7 @@ export default function ProvinceCourses() {
 
       <ListYourCourse province={name} />
 
-      <HandoffCards placement="guide" title="After your course" />
+      <HandoffCards placement="guide" title="After your course" order={APPS[d.province] ?? ['huntable', 'shootable']} more={[]} />
     </Screen>
   );
 }

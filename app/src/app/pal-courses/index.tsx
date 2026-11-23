@@ -7,7 +7,7 @@ import { ThemedText } from '@/components/themed-text';
 import { Card, Col, Eyebrow, Screen, Split } from '@/components/ui';
 import { Spacing } from '@/constants/theme';
 import { PROVINCES } from '@/features/wait/stats';
-import { courseDirectory } from '@/lib/content';
+import { courseCities, courseDirectory } from '@/lib/content';
 import { page } from '@/lib/seo';
 
 export function generateMetadata(): Metadata {
@@ -26,13 +26,13 @@ export default function PalCourses() {
           Where to take the PAL course
         </ThemedText>
         <ThemedText themeColor="textSecondary" style={{ fontSize: 18, lineHeight: 27, maxWidth: 720 }}>
-          Providers of the Canadian Firearms Safety Course (CFSC) and the restricted course (CRFSC), by province. We are starting
-          with British Columbia and adding provinces as we check them.
+          Providers of the Canadian Firearms Safety Course (CFSC) and the restricted course (CRFSC), by province. We are adding
+          provinces as we check them.
         </ThemedText>
       </View>
       <Split>
         {courseDirectory.map((c) => {
-          const cities = [...new Set(c.providers.flatMap((p) => p.venues.map((v) => v.city)))];
+          const cities = courseCities(c);
           return (
             <Col key={c.province} basis={320}>
               <Link href={{ pathname: '/pal-courses/[province]', params: { province: c.province.toLowerCase() } }} asChild>
@@ -40,7 +40,9 @@ export default function PalCourses() {
                   <Card style={{ gap: Spacing.two }}>
                     <ThemedText type="heading">{PROVINCES[c.province] ?? c.province}</ThemedText>
                     <ThemedText type="small" themeColor="textSecondary">
-                      {c.providers.length} providers in {cities.length} places, including {cities.slice(0, 4).join(', ')}.
+                      {c.regions.length > 1 && cities.length
+                        ? `${c.providers.length} providers in ${cities.length} places, including ${cities.slice(0, 4).join(', ')}.`
+                        : `Who runs the courses across ${PROVINCES[c.province] ?? c.province}, and how to book.`}
                     </ThemedText>
                     <ThemedText type="smallBold">See courses →</ThemedText>
                   </Card>

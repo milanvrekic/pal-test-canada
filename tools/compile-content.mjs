@@ -228,8 +228,12 @@ function loadCourses() {
       for (const k of ['id', 'name', 'regions', 'venues', 'courses', 'website', 'source', 'checked', 'status']) if (!p[k]) errors.push(`${at} missing ${k}`);
       for (const r of p.regions ?? []) if (!regionIds.has(r)) errors.push(`${at} unknown region ${r}`);
       if (p.status !== 'reviewed') {
-        if (!allowDrafts) errors.push(`${at} not shippable: status is ${p.status}`);
-        else warnings.push(`${at} draft listing`);
+        // Release builds leave unapproved listings out rather than failing the deploy.
+        if (!allowDrafts) {
+          warnings.push(`${at} left out of release: status is ${p.status}`);
+          continue;
+        }
+        warnings.push(`${at} draft listing`);
       }
       providers.push({
         id: p.id,
@@ -245,7 +249,13 @@ function loadCourses() {
         draft: p.status !== 'reviewed',
       });
     }
-    provinces.push({ province: doc.province, regions: doc.regions ?? [], providers: providers.sort((a, b) => a.name.localeCompare(b.name)) });
+    if (!providers.length) continue; // nothing approved yet for this province
+    provinces.push({
+      province: doc.province,
+      intro: doc.intro ?? null,
+      regions: doc.regions ?? [],
+      providers: providers.sort((a, b) => a.name.localeCompare(b.name)),
+    });
   }
   return provinces;
 }

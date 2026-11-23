@@ -47,7 +47,16 @@ export type CourseProvider = {
   checked: string;
   draft: boolean;
 };
-export type ProvinceCourses = { province: string; regions: { id: string; name: string }[]; providers: CourseProvider[] };
+export type ProvinceCourses = {
+  province: string;
+  /** How courses work in this province (who runs them), shown above the listings. */
+  intro?: string | null;
+  regions: { id: string; name: string }[];
+  providers: CourseProvider[];
+};
+/** Real places only: drops placeholders like "Across Ontario". */
+export const courseCities = (c: ProvinceCourses) =>
+  [...new Set(c.providers.flatMap((p) => p.venues.map((v) => v.city)))].filter((city) => !/^across /i.test(city));
 export const courseDirectory = ((bundle as { courses?: ProvinceCourses[] }).courses ?? []) as ProvinceCourses[];
 /** Where instructors ask to be listed or corrected. */
 export const LISTINGS_EMAIL = 'milan@10tenStudio.com';

@@ -83,3 +83,10 @@ The correct answer was the longest option in 56 of 92 multiple-choice questions;
 
 - content/guides/after-you-get-your-pal.md approved by Milan on 2026-11-22.
 - Checked against RCMP pages (transfers and reference numbers, shooting clubs and ranges, licence renewal, change of address), the handgun freeze notes from Public Safety Canada, and BC's WILD and freshwater fishing licence pages.
+
+## 2026-11-23: PAL course listings for AB, ON, NS, NB (draft)
+
+- content/courses/{ab,on,ns,nb}.yaml, status draft. Release builds leave them out until approved.
+- Each province names its official course provider, checked against the RCMP find-an-instructor page and the
+  provincial pages (alberta.ca, fseso.org, Safety Services Nova Scotia, gnb.ca).
+- Alberta: alberta.ca now names the Sherwood Park Fish and Game Association; AHEIA is listed with a note to confirm.
