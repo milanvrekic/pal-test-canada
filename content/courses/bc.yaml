@@ -20,7 +20,7 @@ providers:
     website: "https://vancouvergunclub.wildapricot.org/CANADIAN-FIREARMS-SAFETY-COURSE"
     source: "https://vancouvergunclub.wildapricot.org/CANADIAN-FIREARMS-SAFETY-COURSE"
     checked: 2026-11-22
-    status: draft
+    status: reviewed
 
   - id: pcdhfc
     name: "Port Coquitlam & District Hunting and Fishing Club"
@@ -31,7 +31,7 @@ providers:
     phone: "604-942-9772"
     source: "https://pcdhfc.com/cfsc-course/"
     checked: 2026-11-22
-    status: draft
+    status: reviewed
 
   - id: silvercore
     name: "Silvercore"
@@ -50,7 +50,7 @@ providers:
     email: "info@silvercore.ca"
     source: "https://silvercore-staging.vercel.app/pal-course-vancouver"
     checked: 2026-11-22
-    status: draft
+    status: reviewed
     note: "Venues were read from Silvercore's location pages; confirm against silvercore.ca before approving."
 
   - id: bc-firearms-academy
@@ -61,7 +61,7 @@ providers:
     website: "https://bcfirearmsacademy.ca/"
     source: "https://bcfirearmsacademy.ca/events/category/cabelas-abbotsford-courses/"
     checked: 2026-11-22
-    status: draft
+    status: reviewed
     note: "Also runs courses on request for communities around BC."
 
   - id: lockhart-tactical
@@ -73,7 +73,7 @@ providers:
     phone: "250-715-7290"
     source: "https://lockharttactical.com/pal"
     checked: 2026-11-22
-    status: draft
+    status: reviewed
 
   - id: kdfgc
     name: "Kelowna & District Fish and Game Club"
@@ -83,7 +83,7 @@ providers:
     website: "https://kdfgc.wildapricot.org/PAL"
     source: "https://kdfgc.wildapricot.org/PAL"
     checked: 2026-11-22
-    status: draft
+    status: reviewed
 
   - id: college-of-the-rockies
     name: "College of the Rockies (Continuing Education)"
@@ -93,7 +93,7 @@ providers:
     website: "https://cotr.bc.ca/continuing-education/courses/canadian-firearms-safety-course/"
     source: "https://cotr.bc.ca/continuing-education/courses/canadian-restricted-firearms/"
     checked: 2026-11-22
-    status: draft
+    status: reviewed
 
   - id: selkirk-college
     name: "Selkirk College (Continuing Education)"
@@ -103,7 +103,7 @@ providers:
     website: "https://selkirk.ca/node/68805"
     source: "https://selkirk.ca/node/68805"
     checked: 2026-11-22
-    status: draft
+    status: reviewed
     note: "Confirm the campus and whether the restricted course is offered."
 
   - id: gerwing-outdoor-education
@@ -115,7 +115,7 @@ providers:
     phone: "250-967-4456"
     source: "https://theexplorationplace.com/series/non-restricted-canadian-firearms-safety-course"
     checked: 2026-11-22
-    status: draft
+    status: reviewed
 
   - id: north-central-firearms-training
     name: "North Central Firearms Training"
@@ -125,7 +125,7 @@ providers:
     website: "https://northcentralfirearmstraining.ca"
     source: "https://www.localgymsandfitness.com/CA/Prince-George/1394425264114298/North-Central-Firearms-Training"
     checked: 2026-11-22
-    status: draft
+    status: reviewed
     note: "Found through a directory listing; confirm the website address before approving."
 
   - id: alfreds-outdoor-education
@@ -138,4 +138,4 @@ providers:
     website: "https://alfredsoutdooreducation.corsizio.com/"
     source: "https://www.fortstjohn.ca/node/100126"
     checked: 2026-11-22
-    status: draft
+    status: reviewed
