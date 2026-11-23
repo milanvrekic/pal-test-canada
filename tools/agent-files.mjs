@@ -2,7 +2,8 @@
 // Makes the site easy for AI assistants and agents to read and cite. Runs after `expo export` (from postexport.mjs).
 // - llms.txt: a short map of the site in the llmstxt.org format, linking plain markdown versions of each page.
 // - llms-full.txt: every guide, the course directory and the wait-time summary in one markdown file.
-// - Markdown copies: guides/<slug>.md, pal-courses.md, wait-times.md.
+// - Markdown copies: guides/<slug>.md, pal-courses.md, wait-times.md, and the approved questions with answers
+//   ({cfsc,crfsc}-practice-test.md).
 // - JSON-LD (schema.org) in the exported HTML: the site and app on the home page, Article on guides, the providers on
 //   course pages, a Dataset on wait times, LearningResource on the practice tests.
 // - A <link rel="alternate" type="text/markdown"> on each page that has a markdown copy.
@@ -107,6 +108,34 @@ function waitMd(w) {
   return out.join('\n');
 }
 
+function questionsMd(course) {
+  const name = course === 'cfsc' ? 'CFSC (non-restricted)' : 'CRFSC (restricted)';
+  const raw = bundle.questions.filter((q) => q.course === course && !q.draft);
+  // Group by topic, keeping the order topics first appear in.
+  const order = [...new Set(raw.map((q) => q.topic))];
+  const qs = order.flatMap((t) => raw.filter((q) => q.topic === t));
+  const out = [
+    `# ${name} practice questions with answers`,
+    '',
+    `Source: ${SITE}/${course}-practice-test · ${qs.length} questions. Each answer cites the student handbook page it comes from and was checked by a certified instructor.`,
+    '',
+  ];
+  let topic = '';
+  for (const q of qs) {
+    if (q.topic !== topic) {
+      topic = q.topic;
+      out.push(`## ${topic.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase())}`, '');
+    }
+    out.push(`### ${q.question}`);
+    q.options.forEach((o, i) => out.push(`- ${i === q.answer ? '**' + o + '** (correct)' : o}`));
+    out.push('', `Why: ${q.explanation}`);
+    const src = q.source ?? {};
+    out.push(`Source: ${course.toUpperCase()} student handbook, ${src.edition ?? '2014'}, ${src.section ? `${src.section}, ` : ''}page ${src.page ?? '?'}${q.lawSensitive ? '. Law changes: confirm with the RCMP Canadian Firearms Program.' : '.'}`, '');
+  }
+  out.push('---', DISCLAIMER, '');
+  return out.join('\n');
+}
+
 // ---------- llms.txt ----------
 
 function llmsTxt() {
@@ -126,6 +155,11 @@ function llmsTxt() {
     '',
     `- [Where to take the PAL course, by province](${SITE}/pal-courses.md): who teaches the CFSC and CRFSC in ${bundle.courses.map((c) => PROV[c.province]).join(', ')}, with contact details`,
     `- [PAL wait times](${SITE}/wait-times.md): typical days from application to licence, nationally and by province`,
+    '',
+    '## Practice questions with answers',
+    '',
+    `- [CFSC practice questions](${SITE}/cfsc-practice-test.md): ${bank('cfsc')} questions, answers, explanations and handbook pages`,
+    `- [CRFSC practice questions](${SITE}/crfsc-practice-test.md): ${bank('crfsc')} restricted-course questions with answers`,
     '',
     '## Study tools (interactive pages)',
     '',
@@ -249,6 +283,8 @@ const markdownFor = (path) => {
   if (gm && guides.some((g) => g.slug === gm[1])) return `/guides/${gm[1]}.md`;
   if (path.startsWith('pal-courses/') || path === 'pal-courses.html') return '/pal-courses.md';
   if (path.startsWith('wait-times')) return '/wait-times.md';
+  if (path === 'cfsc-practice-test.html') return '/cfsc-practice-test.md';
+  if (path === 'crfsc-practice-test.html') return '/crfsc-practice-test.md';
   return null;
 };
 
@@ -258,10 +294,12 @@ const wait = waitSummary();
 for (const g of guides) writeFileSync(join(dist, 'guides', `${g.slug}.md`), guideMd(g));
 writeFileSync(join(dist, 'pal-courses.md'), coursesMd());
 writeFileSync(join(dist, 'wait-times.md'), waitMd(wait));
+writeFileSync(join(dist, 'cfsc-practice-test.md'), questionsMd('cfsc'));
+writeFileSync(join(dist, 'crfsc-practice-test.md'), questionsMd('crfsc'));
 writeFileSync(join(dist, 'llms.txt'), llmsTxt());
 writeFileSync(
   join(dist, 'llms-full.txt'),
-  [`# ${NAME}`, '', `> ${ABOUT}`, '', ...guides.map(guideMd), coursesMd(), waitMd(wait)].join('\n'),
+  [`# ${NAME}`, '', `> ${ABOUT}`, '', ...guides.map(guideMd), coursesMd(), waitMd(wait), questionsMd('cfsc'), questionsMd('crfsc')].join('\n'),
 );
 
 let tagged = 0;
@@ -289,4 +327,4 @@ for (const path of pages) {
   writeFileSync(file, readFileSync(file, 'utf8').replace('</head>', `${extra}</head>`));
   tagged++;
 }
-console.log(`agent files: llms.txt, llms-full.txt, ${guides.length + 2} markdown pages; structured data on ${tagged} pages`);
+console.log(`agent files: llms.txt, llms-full.txt, ${guides.length + 4} markdown pages; structured data on ${tagged} pages`);
