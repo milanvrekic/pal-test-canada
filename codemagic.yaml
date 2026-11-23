@@ -157,7 +157,9 @@ workflows:
         script: pod install
       - name: Signing
         working_directory: app
-        script: xcode-project use-profiles
+        # Only the app's own project: with no --project it also tries every library project under node_modules
+        # (RNDateTimePicker.xcodeproj etc.) and fails on those.
+        script: xcode-project use-profiles --project "ios/*.xcodeproj"
       - name: Signed .ipa
         working_directory: app
         script: xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
