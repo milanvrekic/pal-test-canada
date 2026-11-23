@@ -10,6 +10,8 @@ export default function Root({ children }: PropsWithChildren) {
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="theme-color" content="#C8281E" />
+        <link rel="preload" href="/fonts/ArchivoExpanded-ExtraBold.ttf" as="font" type="font/ttf" crossOrigin="" />
         <ScrollViewStyleReset />
         {headNodes}
       </head>

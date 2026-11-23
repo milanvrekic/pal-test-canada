@@ -1,9 +1,10 @@
 import { StyleSheet, View } from 'react-native';
 
+import { sourceLine } from '@/components/answer';
 import { HandoffCards } from '@/components/handoff-cards';
 import { ThemedText } from '@/components/themed-text';
-import { Button, Card, Screen } from '@/components/ui';
-import { Radius, Spacing } from '@/constants/theme';
+import { Button, Card, Eyebrow, Screen } from '@/components/ui';
+import { RadiusControl, Spacing } from '@/constants/theme';
 import { type Course, type Question, topicGroup, topicLabel } from '@/features/quiz/engine';
 import { useTheme } from '@/hooks/use-theme';
 import { questions } from '@/lib/content';
@@ -40,23 +41,28 @@ function SampleQuestion({ q, n }: { q: Question; n: number }) {
   const theme = useTheme();
   return (
     <Card>
-      <ThemedText type="small" themeColor="textSecondary">
-        {n}. {topicLabel(topicGroup(q.topic))}
+      <ThemedText type="eyebrow" themeColor="textSecondary">
+        Question {n} · {topicLabel(topicGroup(q.topic))}
       </ThemedText>
-      <ThemedText type="bold">{q.question}</ThemedText>
+      <ThemedText type="subheading">{q.question}</ThemedText>
       <View style={{ gap: Spacing.one }}>
         {q.options.map((o, i) => (
           <View
             key={o}
             style={[
               styles.option,
-              { borderColor: i === q.answer ? theme.accent : theme.border, backgroundColor: i === q.answer ? theme.backgroundSelected : 'transparent' },
+              { borderColor: i === q.answer ? theme.success : theme.border, backgroundColor: i === q.answer ? theme.successBg : 'transparent' },
             ]}>
+            <View style={[styles.chip, { backgroundColor: i === q.answer ? theme.success : theme.backgroundSelected }]}>
+              <ThemedText type="smallBold" style={{ color: i === q.answer ? theme.onAccent : theme.textSecondary }}>
+                {i === q.answer ? '✓' : String.fromCharCode(65 + i)}
+              </ThemedText>
+            </View>
             <ThemedText type={i === q.answer ? 'smallBold' : 'small'} style={{ flex: 1 }}>
-              {String.fromCharCode(65 + i)}. {o}
+              {o}
             </ThemedText>
             {i === q.answer ? (
-              <ThemedText type="smallBold" themeColor="accent">
+              <ThemedText type="smallBold" themeColor="success">
                 Correct
               </ThemedText>
             ) : null}
@@ -65,9 +71,12 @@ function SampleQuestion({ q, n }: { q: Question; n: number }) {
       </View>
       <ThemedText type="small">{q.explanation}</ThemedText>
       {q.source.page ? (
-        <ThemedText type="small" themeColor="textSecondary">
-          Student handbook (2014), {q.source.section ? `${q.source.section}, ` : ''}p. {q.source.page}
-        </ThemedText>
+        <View style={[styles.cite, { backgroundColor: theme.backgroundSelected }]}>
+          <ThemedText type="eyebrow" themeColor="textSecondary">
+            Source
+          </ThemedText>
+          <ThemedText type="small">{sourceLine(q.source)}</ThemedText>
+        </View>
       ) : null}
     </Card>
   );
@@ -85,16 +94,19 @@ export function PracticeLanding({
   return (
     <Screen>
       <View style={{ gap: Spacing.two }}>
+        <Eyebrow tone="signal">Free · Cited to the handbook</Eyebrow>
         <ThemedText type="title" accessibilityRole="header">
           {title}
         </ThemedText>
-        <ThemedText themeColor="textSecondary">{intro}</ThemedText>
+        <ThemedText themeColor="textSecondary" style={{ fontSize: 18, lineHeight: 27 }}>
+          {intro}
+        </ThemedText>
       </View>
       <View style={{ gap: Spacing.two }}>
         {sections.map((s) => (
           <Button
             key={s.course}
-            variant={s === sections[0] ? 'primary' : 'secondary'}
+            variant={s === sections[0] ? 'signal' : 'secondary'}
             label={`Start a 50-question ${s.course.toUpperCase()} practice exam`}
             href={{ pathname: '/quiz', params: { course: s.course, mode: 'exam' } }}
           />
@@ -117,14 +129,15 @@ export function PracticeLanding({
               <SampleQuestion key={q.id} q={q} n={i + 1} />
             ))}
             <Button
+              variant="primary"
               label={`Practise all ${bankSize(s.course)} ${s.course.toUpperCase()} questions`}
               href={{ pathname: '/quiz', params: { course: s.course, mode: 'practice' } }}
             />
           </View>
         );
       })}
-      <Card>
-        <ThemedText type="bold">How the real test works</ThemedText>
+      <Card style={{ gap: Spacing.three }}>
+        <ThemedText type="heading">How the real test works</ThemedText>
         <ThemedText type="small" themeColor="textSecondary">
           Each course ends with a written test and a practical handling test, and you need 80% on each. The practical is where
           most marks are lost, so also try Spot the mistake.
@@ -138,5 +151,7 @@ export function PracticeLanding({
 }
 
 const styles = StyleSheet.create({
-  option: { flexDirection: 'row', gap: Spacing.two, alignItems: 'center', borderWidth: 1, borderRadius: Radius, padding: Spacing.two },
+  option: { flexDirection: 'row', gap: Spacing.two + 4, alignItems: 'center', borderWidth: 1, borderRadius: RadiusControl, paddingVertical: Spacing.two, paddingHorizontal: Spacing.two + 4 },
+  chip: { width: 26, height: 26, borderRadius: 6, alignItems: 'center', justifyContent: 'center' },
+  cite: { borderRadius: 8, paddingVertical: Spacing.two, paddingHorizontal: Spacing.two + 4, gap: Spacing.half, alignSelf: 'flex-start' },
 });

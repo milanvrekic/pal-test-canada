@@ -4,7 +4,7 @@ import { Linking, Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { HandoffCards } from '@/components/handoff-cards';
 import { ThemedText } from '@/components/themed-text';
 import { Button, Card, Notice } from '@/components/ui';
-import { Radius, Spacing } from '@/constants/theme';
+import { RadiusControl, Spacing } from '@/constants/theme';
 import { addDays, today } from '@/features/quiz/engine';
 import {
   MINIMUM_WAIT_DAYS,
@@ -59,10 +59,10 @@ export function RangeBar({ s, you }: { s: WaitSummary; you?: number }) {
   return (
     <View accessible accessibilityLabel={`Half of reports took between ${s.p25} and ${s.p75} days. Median ${s.median} days.`}>
       <View style={[styles.bar, { backgroundColor: theme.backgroundSelected }]}>
-        <View style={[styles.band, { left: pct(s.p25), width: pct(s.p75 - s.p25), backgroundColor: theme.accent, opacity: 0.35 }]} />
+        <View style={[styles.band, { left: pct(s.p25), width: pct(s.p75 - s.p25), backgroundColor: theme.signal, opacity: 0.28 }]} />
         <View style={[styles.mark, { left: pct(s.median), backgroundColor: theme.accent }]} />
         <View style={[styles.min, { left: pct(MINIMUM_WAIT_DAYS), borderColor: theme.textSecondary }]} />
-        {you !== undefined ? <View style={[styles.you, { left: pct(you), backgroundColor: theme.text }]} /> : null}
+        {you !== undefined ? <View style={[styles.you, { left: pct(you), backgroundColor: theme.signal, borderColor: theme.backgroundElement }]} /> : null}
       </View>
       <View style={styles.axis}>
         {[0, 30, 60, 90, 120, 150, 180].map((d) => (
@@ -78,12 +78,20 @@ export function RangeBar({ s, you }: { s: WaitSummary; you?: number }) {
 export function SummaryCard({ title, s, note, you }: { title: string; s: WaitSummary | null; note?: string; you?: number }) {
   return (
     <Card>
-      <ThemedText type="bold">{title}</ThemedText>
+      <ThemedText type="eyebrow" themeColor="textSecondary">
+        {title}
+      </ThemedText>
       {s ? (
         <>
-          <ThemedText>
-            Typical wait <ThemedText type="bold">{s.median} days</ThemedText>. Half of reports fall between {s.p25} and {s.p75} days.
-          </ThemedText>
+          <View style={styles.statRow}>
+            <ThemedText type="stat">{s.median}</ThemedText>
+            <View style={{ flex: 1 }}>
+              <ThemedText type="bold">days, typical wait</ThemedText>
+              <ThemedText type="small" themeColor="textSecondary">
+                Half of reports fall between {s.p25} and {s.p75} days.
+              </ThemedText>
+            </View>
+          </View>
           <RangeBar s={s} you={you} />
           <ThemedText type="small" themeColor="textSecondary">
             Based on {s.n} reports{note ? `. ${note}` : ''}. Dashed line: the 28-day legal minimum for new applicants.
@@ -135,8 +143,8 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
       updateTracker((t) => ({ ...t, submittedOn: value }));
     };
     return (
-      <Card>
-        <ThemedText type="bold">Track your application</ThemedText>
+      <Card style={{ gap: Spacing.three }}>
+        <ThemedText type="heading">Track your application</ThemedText>
         <ThemedText type="small" themeColor="textSecondary">
           Enter the day you sent your application. The date stays on this device.
         </ThemedText>
@@ -151,13 +159,14 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
           accessibilityLabel="Date you sent your application, YYYY-MM-DD"
           onSubmitEditing={() => save(draft.trim())}
           style={[styles.input, { borderColor: error ? theme.danger : theme.border, color: theme.text, backgroundColor: theme.background }]}
+          nativeID="tracker-date"
         />
         {error ? (
           <ThemedText type="small" themeColor="danger">
             {error}
           </ThemedText>
         ) : null}
-        <Button label="Start tracking" onPress={() => save(draft.trim())} />
+        <Button variant="signal" label="Start tracking" onPress={() => save(draft.trim())} />
         <Button variant="secondary" label="I sent it today" onPress={() => save(day)} />
       </Card>
     );
@@ -168,8 +177,16 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
   const share = national ? Math.round(shareDoneBy(recent(typical(waitRows), contentBuiltAt).rows, elapsed) * 100) : null;
   return (
     <View style={{ gap: Spacing.three }}>
-      <Card>
-        <ThemedText type="bold">Day {elapsed} of your wait</ThemedText>
+      <Card style={{ gap: Spacing.three }}>
+        <ThemedText type="eyebrow" themeColor="signal">
+          Your application
+        </ThemedText>
+        <View style={styles.statRow}>
+          <ThemedText type="stat">{elapsed}</ThemedText>
+          <ThemedText type="bold" style={{ flex: 1 }}>
+            {elapsed === 1 ? 'day' : 'days'} since you applied
+          </ThemedText>
+        </View>
         <ThemedText type="small" themeColor="textSecondary">
           Sent {tracker.submittedOn}.{' '}
           {day < minimumEnds
@@ -184,7 +201,7 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
               : `${share}% of reported first-time applicants had heard back by day ${elapsed}.`}
           </ThemedText>
         ) : null}
-        <Button label="My licence arrived" onPress={() => updateTracker((t) => ({ ...t, arrivedOn: day }))} />
+        <Button variant="signal" label="My licence arrived" onPress={() => updateTracker((t) => ({ ...t, arrivedOn: day }))} />
         <Pressable accessibilityRole="button" onPress={() => updateTracker((t) => ({ ...t, submittedOn: null }))} style={styles.linkBtn}>
           <ThemedText type="small" themeColor="textSecondary" style={{ textDecorationLine: 'underline' }}>
             Change the date
@@ -192,8 +209,8 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
         </Pressable>
       </Card>
 
-      <Card>
-        <ThemedText type="bold">While you wait</ThemedText>
+      <Card style={{ gap: Spacing.two }}>
+        <ThemedText type="heading">While you wait</ThemedText>
         {CHECKLIST.map((c) => {
           const done = !!tracker.done[c.id];
           return (
@@ -229,7 +246,7 @@ export function SourceNote({ total, first, last }: { total: number; first: strin
       .{' '}
       <ThemedText
         type="small"
-        themeColor="accent"
+        themeColor="signal"
         accessibilityRole="link"
         style={{ textDecorationLine: 'underline' }}
         onPress={() => void Linking.openURL(SOURCE_URL)}>
@@ -242,14 +259,15 @@ export function SourceNote({ total, first, last }: { total: number; first: strin
 }
 
 const styles = StyleSheet.create({
+  statRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three },
   bar: { height: 18, borderRadius: 9, overflow: 'hidden', position: 'relative', marginTop: Spacing.two },
   band: { position: 'absolute', top: 0, bottom: 0 },
   mark: { position: 'absolute', top: 0, bottom: 0, width: 3, marginLeft: -1 },
   min: { position: 'absolute', top: 0, bottom: 0, width: 0, borderLeftWidth: 2, borderStyle: 'dashed' },
-  you: { position: 'absolute', top: -2, width: 14, height: 22, borderRadius: 7, marginLeft: -7 },
+  you: { position: 'absolute', top: 0, width: 18, height: 18, borderRadius: 9, marginLeft: -9, borderWidth: 3 },
   axis: { flexDirection: 'row', justifyContent: 'space-between', marginTop: Spacing.one },
   tick: { fontSize: 12, lineHeight: 16 },
-  input: { borderWidth: 1, borderRadius: Radius, minHeight: 48, paddingHorizontal: Spacing.three, fontSize: 16 },
+  input: { borderWidth: 1, borderRadius: RadiusControl, minHeight: 48, paddingHorizontal: Spacing.three, fontSize: 16 },
   check: { flexDirection: 'row', gap: Spacing.three, alignItems: 'flex-start', minHeight: 44, paddingVertical: Spacing.one },
   box: { width: 22, height: 22, borderRadius: 6, borderWidth: 2, alignItems: 'center', justifyContent: 'center', marginTop: 1 },
   linkBtn: { minHeight: 44, justifyContent: 'center', alignSelf: 'flex-start' },

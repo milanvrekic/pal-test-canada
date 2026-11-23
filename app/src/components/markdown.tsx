@@ -40,7 +40,7 @@ function Inline({ text }: { text: string }) {
           return (
             <ThemedText
               key={i}
-              themeColor="accent"
+              themeColor="signal"
               accessibilityRole="link"
               style={{ textDecorationLine: 'underline' }}
               onPress={() => void Linking.openURL(link[2])}>
@@ -53,19 +53,21 @@ function Inline({ text }: { text: string }) {
   );
 }
 
+const READ = { fontSize: 17, lineHeight: 28 };
+
 export function Markdown({ source }: { source: string }) {
   return (
     <View style={{ gap: Spacing.three }}>
       {parse(source).map((b, i) => {
         if (b.kind === 'h2') return <ThemedText key={i} type="heading" accessibilityRole="header" style={{ marginTop: Spacing.two }}>{b.text}</ThemedText>;
         if (b.kind === 'h3') return <ThemedText key={i} type="subheading" accessibilityRole="header">{b.text}</ThemedText>;
-        if (b.kind === 'p') return <ThemedText key={i}><Inline text={b.text} /></ThemedText>;
+        if (b.kind === 'p') return <ThemedText key={i} style={READ}><Inline text={b.text} /></ThemedText>;
         return (
           <View key={i} style={{ gap: Spacing.two }}>
             {b.items.map((item, j) => (
               <View key={j} style={{ flexDirection: 'row', gap: Spacing.two }}>
-                <ThemedText themeColor="textSecondary">{b.ordered ? `${j + 1}.` : '•'}</ThemedText>
-                <ThemedText style={{ flex: 1 }}><Inline text={item} /></ThemedText>
+                <ThemedText themeColor="signal" type="bold" style={[READ, { minWidth: 18 }]}>{b.ordered ? `${j + 1}.` : '•'}</ThemedText>
+                <ThemedText style={[READ, { flex: 1 }]}><Inline text={item} /></ThemedText>
               </View>
             ))}
           </View>

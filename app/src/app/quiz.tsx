@@ -3,10 +3,11 @@ import type { Metadata } from 'expo-router/server';
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 
+import { AnswerOption, Feedback, sourceLine } from '@/components/answer';
 import { HandoffCards } from '@/components/handoff-cards';
 import { ThemedText } from '@/components/themed-text';
-import { Button, Card, Notice, ProgressBar, Screen } from '@/components/ui';
-import { Radius, Spacing } from '@/constants/theme';
+import { Button, Card, Col, Eyebrow, Notice, ProgressBar, Screen, Split } from '@/components/ui';
+import { Radius, RadiusControl, Spacing } from '@/constants/theme';
 import {
   type Course,
   type Question,
@@ -111,12 +112,29 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
     setIndex(index + 1);
   };
 
+  const isLast = index + 1 === set.length;
+  const nextBar = (
+    <View style={styles.barRow}>
+      <ThemedText type="small" themeColor="textSecondary" style={styles.barHint}>
+        {selected === null ? 'Pick an answer' : showFeedback ? (selected === q.answer ? 'Correct' : 'Not quite') : 'Answer locked in'}
+      </ThemedText>
+      <View style={{ flex: 1, maxWidth: 280 }}>
+        <Button variant="primary" label={isLast ? 'Finish' : 'Next question'} onPress={next} disabled={selected === null} />
+      </View>
+    </View>
+  );
+
   return (
-    <Screen>
+    <Screen bottomBar={nextBar}>
       <View style={{ gap: Spacing.two }}>
         <View style={styles.headRow}>
-          <ThemedText type="smallBold" themeColor="textSecondary" style={{ flex: 1 }}>
-            {heading} · Question {index + 1} of {set.length}
+          <Eyebrow>{heading}</Eyebrow>
+          <View style={{ flex: 1 }} />
+          <ThemedText type="statSmall" style={styles.count}>
+            {index + 1}
+            <ThemedText type="statSmall" themeColor="textSecondary">
+              {' '}/ {set.length}
+            </ThemedText>
           </ThemedText>
           <Pressable accessibilityRole="button" onPress={() => setQuitting(true)} hitSlop={8} style={styles.quit}>
             <ThemedText type="smallBold" themeColor="textSecondary">
@@ -124,7 +142,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
             </ThemedText>
           </Pressable>
         </View>
-        <ProgressBar value={index / set.length} />
+        <ProgressBar value={(index + (selected !== null ? 1 : 0)) / set.length} tone="signal" />
       </View>
 
       {quitting ? (
@@ -135,93 +153,54 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
               ? 'Answers so far are kept for review, but this exam will not count toward your readiness score.'
               : 'Answers so far are kept for review.'}
           </ThemedText>
-          <Button label="Quit" onPress={() => router.replace('/')} />
-          <Button variant="secondary" label="Keep going" onPress={() => setQuitting(false)} />
+          <Split gap={Spacing.two}>
+            <Col basis={160}>
+              <Button variant="secondary" label="Keep going" onPress={() => setQuitting(false)} />
+            </Col>
+            <Col basis={160}>
+              <Button label="Quit" onPress={() => router.replace('/')} />
+            </Col>
+          </Split>
         </Card>
       ) : null}
 
-      <ThemedText type="subheading" accessibilityRole="header">
+      <ThemedText type="subheading" accessibilityRole="header" style={styles.question}>
         {q.question}
       </ThemedText>
 
-      <View style={{ gap: Spacing.two }}>
+      <View style={{ gap: Spacing.two }} accessibilityRole="radiogroup">
         {q.options.map((opt, i) => (
-          <Option
+          <AnswerOption
             key={opt}
+            letter={LETTERS[i] ?? String(i + 1)}
             label={opt}
             state={
               showFeedback ? (i === q.answer ? 'correct' : i === selected ? 'wrong' : 'idle') : i === selected ? 'selected' : 'idle'
             }
+            dimmed={showFeedback && i !== q.answer && i !== selected}
             onPress={() => choose(i)}
           />
         ))}
       </View>
 
-      {showFeedback ? <Explanation q={q} wasCorrect={selected === q.answer} /> : null}
-
-      <Button label={index + 1 === set.length ? 'Finish' : 'Next'} onPress={next} disabled={selected === null} />
+      {showFeedback ? (
+        <Feedback good={selected === q.answer} title={selected === q.answer ? 'Correct' : 'Not quite'} explanation={q.explanation} source={sourceLine(q.source)} />
+      ) : null}
     </Screen>
   );
 }
 
-function Option({ label, state, onPress }: { label: string; state: 'idle' | 'selected' | 'correct' | 'wrong'; onPress: () => void }) {
-  const theme = useTheme();
-  const look = {
-    idle: { borderColor: theme.border, backgroundColor: theme.background },
-    selected: { borderColor: theme.accent, backgroundColor: theme.backgroundElement },
-    correct: { borderColor: theme.success, backgroundColor: theme.successBg },
-    wrong: { borderColor: theme.danger, backgroundColor: theme.dangerBg },
-  }[state];
-  const suffix = state === 'correct' ? ' (correct answer)' : state === 'wrong' ? ' (your answer)' : '';
-  return (
-    <Pressable
-      accessibilityRole="radio"
-      accessibilityState={{ selected: state === 'selected' || state === 'wrong' }}
-      accessibilityLabel={label + suffix}
-      onPress={onPress}
-      style={[styles.option, look]}>
-      <ThemedText>{label}</ThemedText>
-      {suffix ? (
-        <ThemedText type="small" themeColor={state === 'correct' ? 'success' : 'danger'}>
-          {state === 'correct' ? 'Correct answer' : 'Your answer'}
-        </ThemedText>
-      ) : null}
-    </Pressable>
-  );
-}
-
-function Explanation({ q, wasCorrect }: { q: Question; wasCorrect: boolean }) {
-  const cite = [q.source.section, q.source.edition ? `Handbook ${q.source.edition}` : null, q.source.page ? `p. ${q.source.page}` : null]
-    .filter(Boolean)
-    .join(' · ');
-  return (
-    <Card>
-      <ThemedText type="bold" themeColor={wasCorrect ? 'success' : 'danger'}>
-        {wasCorrect ? 'Correct' : 'Not quite'}
-      </ThemedText>
-      <ThemedText>{q.explanation}</ThemedText>
-      {cite ? (
-        <ThemedText type="small" themeColor="textSecondary">
-          {cite}
-        </ThemedText>
-      ) : null}
-    </Card>
-  );
-}
+const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
 function Results({ heading, set, picks, mode, course }: { heading: string; set: Question[]; picks: number[]; mode: Mode; course: Course }) {
   const correct = set.filter((q, i) => picks[i] === q.answer).length;
   const score = correct / set.length;
   const passed = score >= PASS_MARK;
   const missed = set.map((q, i) => ({ q, pick: picks[i] })).filter(({ q, pick }) => pick !== q.answer);
+  const theme = useTheme();
   return (
     <Screen>
-      <ThemedText type="smallBold" themeColor="textSecondary">
-        {heading}
-      </ThemedText>
-      <ThemedText type="title" accessibilityRole="header">
-        {correct} of {set.length} ({Math.round(score * 100)}%)
-      </ThemedText>
+      <ResultsHead heading={heading} correct={correct} total={set.length} score={score} passed={passed} exam={mode === 'exam'} />
       {mode === 'exam' ? (
         <Notice tone={passed ? 'success' : 'danger'}>
           {passed
@@ -231,8 +210,14 @@ function Results({ heading, set, picks, mode, course }: { heading: string; set: 
       ) : null}
 
       <View style={{ gap: Spacing.two }}>
-        <Button label="Back to home" href="/" />
-        <Button variant="secondary" label="Go again" href={{ pathname: '/quiz', params: { course, mode, t: String(Date.now()) } }} />
+        <Split gap={Spacing.two}>
+          <Col basis={200}>
+            <Button variant="signal" label="Go again" href={{ pathname: '/quiz', params: { course, mode, t: String(Date.now()) } }} />
+          </Col>
+          <Col basis={200}>
+            <Button variant="secondary" label="Back to home" href="/" />
+          </Col>
+        </Split>
       </View>
 
       {missed.length ? (
@@ -244,7 +229,7 @@ function Results({ heading, set, picks, mode, course }: { heading: string; set: 
             These come back in Review tomorrow, then after 3 and 7 days, until you get them right each time.
           </ThemedText>
           {missed.map(({ q, pick }) => (
-            <Card key={q.id}>
+            <Card key={q.id} style={[styles.explain, { borderLeftColor: theme.danger }]}>
               <ThemedText type="bold">{q.question}</ThemedText>
               <ThemedText type="small" themeColor="danger">
                 Your answer: {q.options[pick]}
@@ -273,8 +258,45 @@ function Results({ heading, set, picks, mode, course }: { heading: string; set: 
   );
 }
 
+function ResultsHead({ heading, correct, total, score, passed, exam }: { heading: string; correct: number; total: number; score: number; passed: boolean; exam: boolean }) {
+  const theme = useTheme();
+  return (
+    <View style={[styles.resultHead, { backgroundColor: theme.cover }]}>
+      <ThemedText type="eyebrow" style={{ color: theme.onCoverMuted }}>
+        {heading}
+      </ThemedText>
+      <View style={styles.resultRow}>
+        <ThemedText type="stat" style={{ color: theme.onCover, fontSize: 72, lineHeight: 72 }} accessibilityRole="header">
+          {Math.round(score * 100)}%
+        </ThemedText>
+        <View style={{ flex: 1, gap: Spacing.half }}>
+          <ThemedText type="bold" style={{ color: theme.onCover }}>
+            {correct} of {total} correct
+          </ThemedText>
+          <ThemedText type="small" style={{ color: theme.onCoverMuted }}>
+            {exam ? (passed ? 'Above the 80% pass mark' : 'Below the 80% pass mark') : 'Practice round'}
+          </ThemedText>
+        </View>
+      </View>
+      <View style={[styles.track, { backgroundColor: 'rgba(255,255,255,0.18)' }]}>
+        <View style={[styles.fill, { width: `${Math.round(score * 100)}%`, backgroundColor: passed ? theme.onCover : theme.signal }]} />
+        <View style={[styles.passLine, { left: `${Math.round(PASS_MARK * 100)}%`, backgroundColor: theme.onCover }]} />
+      </View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
-  headRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two },
+  headRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three },
+  count: { fontVariant: ['tabular-nums'] },
   quit: { minHeight: 44, minWidth: 44, alignItems: 'flex-end', justifyContent: 'center' },
-  option: { borderWidth: 2, borderRadius: Radius, padding: Spacing.three, gap: Spacing.one, minHeight: 48, justifyContent: 'center' },
+  question: { marginTop: Spacing.two, fontSize: 21, lineHeight: 29 },
+  explain: { borderLeftWidth: 4 },
+  barRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: Spacing.three },
+  barHint: { flex: 1 },
+  resultHead: { borderRadius: Radius, padding: Spacing.four, gap: Spacing.three },
+  resultRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three },
+  track: { height: 8, borderRadius: 4, overflow: 'visible', position: 'relative' },
+  fill: { height: 8, borderRadius: 4 },
+  passLine: { position: 'absolute', top: -4, width: 2, height: 16 },
 });

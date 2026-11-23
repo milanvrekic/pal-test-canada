@@ -1,11 +1,10 @@
-import { Link } from 'expo-router';
 import type { Metadata } from 'expo-router/server';
 
 import { page } from '@/lib/seo';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
-import { Card, Screen } from '@/components/ui';
+import { Col, Eyebrow, LinkCard, Screen, Split } from '@/components/ui';
 import { Spacing } from '@/constants/theme';
 import { guides } from '@/lib/content';
 
@@ -18,22 +17,23 @@ export function generateMetadata(): Metadata {
 
 export default function Guides() {
   return (
-    <Screen>
-      <ThemedText type="title" accessibilityRole="header">
-        Guides
-      </ThemedText>
+    <Screen width="wide">
       <View style={{ gap: Spacing.two }}>
-        {guides.map((g) => (
-          <Link key={g.slug} href={{ pathname: '/guides/[slug]', params: { slug: g.slug } }} asChild>
-            <Pressable accessibilityRole="link">
-              <Card>
-                <ThemedText type="bold">{g.title}</ThemedText>
-                <ThemedText themeColor="textSecondary">{g.description}</ThemedText>
-              </Card>
-            </Pressable>
-          </Link>
-        ))}
+        <Eyebrow tone="signal">Reviewed by a certified instructor</Eyebrow>
+        <ThemedText type="title" accessibilityRole="header">
+          Guides
+        </ThemedText>
+        <ThemedText themeColor="textSecondary" style={{ maxWidth: 620 }}>
+          Plain-language answers about the tests, the mistakes that cost marks, and getting your licence afterwards.
+        </ThemedText>
       </View>
+      <Split>
+        {guides.map((g) => (
+          <Col key={g.slug} basis={320}>
+            <LinkCard href={{ pathname: '/guides/[slug]', params: { slug: g.slug } }} title={g.title} body={g.description} cta="Read" />
+          </Col>
+        ))}
+      </Split>
     </Screen>
   );
 }

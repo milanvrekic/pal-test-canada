@@ -28,7 +28,7 @@ export default function About() {
       <ThemedText>{DISCLAIMER}</ThemedText>
 
       <Card>
-        <ThemedText type="bold">How questions are made</ThemedText>
+        <ThemedText type="heading">How questions are made</ThemedText>
         <ThemedText themeColor="textSecondary">
           Every question is written from the official student handbook, cited to it, and reviewed by a certified CFSC and CRFSC
           instructor before it ships. Questions are never taken from the real written or practical tests.
@@ -36,7 +36,7 @@ export default function About() {
       </Card>
 
       <Card>
-        <ThemedText type="bold">Your data</ThemedText>
+        <ThemedText type="heading">Your data</ThemedText>
         <ThemedText themeColor="textSecondary">
           There are no accounts. Your answers, scores and licence tracker dates are stored on this device only.
         </ThemedText>

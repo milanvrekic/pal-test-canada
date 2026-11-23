@@ -1,4 +1,5 @@
-import { useLocalSearchParams } from 'expo-router';
+import { Link, useLocalSearchParams } from 'expo-router';
+import { View } from 'react-native';
 import type { Metadata } from 'expo-router/server';
 
 import { page } from '@/lib/seo';
@@ -6,7 +7,8 @@ import { page } from '@/lib/seo';
 import { HandoffCards } from '@/components/handoff-cards';
 import { Markdown } from '@/components/markdown';
 import { ThemedText } from '@/components/themed-text';
-import { Button, Notice, Screen } from '@/components/ui';
+import { Button, Card, Notice, Screen } from '@/components/ui';
+import { Spacing } from '@/constants/theme';
 import { guides } from '@/lib/content';
 
 export function generateStaticParams(): { slug: string }[] {
@@ -31,9 +33,19 @@ export default function GuidePage() {
   }
   return (
     <Screen>
-      <ThemedText type="title" accessibilityRole="header">
-        {guide.title}
-      </ThemedText>
+      <View style={{ gap: Spacing.two }}>
+        <Link href="/guides">
+          <ThemedText type="eyebrow" themeColor="signal">
+            ← Guides
+          </ThemedText>
+        </Link>
+        <ThemedText type="title" accessibilityRole="header">
+          {guide.title}
+        </ThemedText>
+        <ThemedText themeColor="textSecondary" style={{ fontSize: 18, lineHeight: 27 }}>
+          {guide.description}
+        </ThemedText>
+      </View>
       {guide.draft ? <Notice tone="warning">Draft guide. Not yet reviewed by the instructor.</Notice> : null}
       {guide.lastReviewed && guide.lastReviewed !== 'TBD' ? (
         <ThemedText type="small" themeColor="textSecondary">
@@ -41,7 +53,11 @@ export default function GuidePage() {
         </ThemedText>
       ) : null}
       <Markdown source={guide.body} />
-      <Button label="Start practising" href="/" />
+      <Card style={{ gap: Spacing.three }}>
+        <ThemedText type="heading">Test yourself</ThemedText>
+        <ThemedText themeColor="textSecondary">Practice questions written from the handbook, with the page for every answer.</ThemedText>
+        <Button variant="signal" label="Start practising" href="/" />
+      </Card>
       <HandoffCards
         placement="guide"
         title={['can-you-hunt-with-a-pal', 'how-to-get-a-hunting-licence-in-bc'].includes(guide.slug) ? 'Find where you can hunt' : 'After your course'}

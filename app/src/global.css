@@ -7,3 +7,19 @@
   --font-rounded: 'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif;
   --font-serif: Georgia, 'Times New Roman', serif;
 }
+
+/* Display face: Archivo at expanded width. Family names match the font files' PostScript names. */
+@font-face {
+  font-family: 'ArchivoExpanded-ExtraBold';
+  src: url('/fonts/ArchivoExpanded-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ArchivoExpanded-Bold';
+  src: url('/fonts/ArchivoExpanded-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+html, body { background-color: #F6F6F4; }
+@media (prefers-color-scheme: dark) { html, body { background-color: #121214; } }

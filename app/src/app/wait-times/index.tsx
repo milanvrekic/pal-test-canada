@@ -5,7 +5,7 @@ import { Link } from 'expo-router';
 import { Pressable, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
-import { Card, Screen } from '@/components/ui';
+import { Card, Col, Eyebrow, Screen, Split } from '@/components/ui';
 import { SourceNote, SummaryCard, Tracker, provincesWithData, waitData } from '@/components/wait-times';
 import { Spacing } from '@/constants/theme';
 import { PROVINCES } from '@/features/wait/stats';
@@ -24,48 +24,64 @@ export default function WaitTimes() {
   const d = waitData();
   const provinces = provincesWithData();
   return (
-    <Screen>
+    <Screen width="wide">
       <View style={{ gap: Spacing.two }}>
+        <Eyebrow tone="signal">{d.total} reports from applicants</Eyebrow>
         <ThemedText type="title" accessibilityRole="header">
           PAL wait times
         </ThemedText>
-        <ThemedText themeColor="textSecondary">
+        <ThemedText themeColor="textSecondary" style={{ maxWidth: 680 }}>
           How long people report waiting for a new firearms licence after they apply, and a tracker for yours. By law a first
           licence can't be issued until at least 28 days after the application.
         </ThemedText>
       </View>
 
-      <SummaryCard
-        title={d.window === 'recent' ? 'New applications, last 12 months' : 'New applications'}
-        s={d.national}
-        note="Renewals and files with a reported problem left out"
-      />
-
-      <Tracker national={d.national} />
+      <Split gap={Spacing.four}>
+        <Col basis={420} style={{ gap: Spacing.three }}>
+          <SummaryCard
+            title={d.window === 'recent' ? 'New applications, last 12 months' : 'New applications'}
+            s={d.national}
+            note="Renewals and files with a reported problem left out"
+          />
+        </Col>
+        <Col basis={380}>
+          <Tracker national={d.national} />
+        </Col>
+      </Split>
 
       <View style={{ gap: Spacing.two }}>
         <ThemedText type="heading" accessibilityRole="header">
           By province
         </ThemedText>
-        {Object.keys(PROVINCES)
-          .filter((p) => provinces.includes(p))
-          .map((p) => {
-            const s = waitData(p).local;
-            return (
-              <Link key={p} href={{ pathname: '/wait-times/[province]', params: { province: p.toLowerCase() } }} asChild>
-                <Pressable accessibilityRole="link">
-                  <Card>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: Spacing.two }}>
-                      <ThemedText type="bold">{PROVINCES[p]}</ThemedText>
-                      <ThemedText type="small" themeColor="textSecondary">
-                        {s ? `typical ${s.median} days` : 'see details'}
-                      </ThemedText>
-                    </View>
-                  </Card>
-                </Pressable>
-              </Link>
-            );
-          })}
+        <Split gap={Spacing.two}>
+          {Object.keys(PROVINCES)
+            .filter((p) => provinces.includes(p))
+            .map((p) => {
+              const s = waitData(p).local;
+              return (
+                <Col key={p} basis={240}>
+                  <Link href={{ pathname: '/wait-times/[province]', params: { province: p.toLowerCase() } }} asChild>
+                    <Pressable accessibilityRole="link">
+                      <Card style={{ flexDirection: 'row', alignItems: 'center', gap: Spacing.three }}>
+                        <ThemedText type="statSmall" style={{ fontSize: 32, lineHeight: 34 }}>
+                          {s ? s.median : '–'}
+                        </ThemedText>
+                        <View style={{ flex: 1 }}>
+                          <ThemedText type="bold">{PROVINCES[p]}</ThemedText>
+                          <ThemedText type="small" themeColor="textSecondary">
+                            {s ? 'days, typical' : 'see details'}
+                          </ThemedText>
+                        </View>
+                        <ThemedText type="bold" themeColor="accent">
+                          →
+                        </ThemedText>
+                      </Card>
+                    </Pressable>
+                  </Link>
+                </Col>
+              );
+            })}
+        </Split>
         <ThemedText type="small" themeColor="textSecondary">
           Provinces with fewer than 5 reports aren't listed yet.
         </ThemedText>
@@ -75,9 +91,19 @@ export default function WaitTimes() {
         <ThemedText type="heading" accessibilityRole="header">
           Online or by mail
         </ThemedText>
-        <SummaryCard title="Applied online" s={d.online} />
-        <SummaryCard title="Applied by mail" s={d.mail} />
-        {d.renewals ? <SummaryCard title="Renewals" s={d.renewals} note="Renewals are usually quicker" /> : null}
+        <Split>
+          <Col basis={320}>
+            <SummaryCard title="Applied online" s={d.online} />
+          </Col>
+          <Col basis={320}>
+            <SummaryCard title="Applied by mail" s={d.mail} />
+          </Col>
+          {d.renewals ? (
+            <Col basis={320}>
+              <SummaryCard title="Renewals" s={d.renewals} note="Renewals are usually quicker" />
+            </Col>
+          ) : null}
+        </Split>
         {d.complicated.length ? (
           <ThemedText type="small" themeColor="textSecondary">
             {d.complicated.length} reports mentioned a problem, such as missing information or a returned form. Those waits ran

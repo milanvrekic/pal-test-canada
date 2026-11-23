@@ -6,6 +6,7 @@ import { track } from '@/lib/analytics';
 import { APP_ICONS, type AppId, type PromoItem, usePromo } from '@/lib/handoff';
 
 import { ThemedText } from './themed-text';
+import { Col, Eyebrow, Split } from './ui';
 
 export type Placement =
   | 'home'
@@ -35,14 +36,19 @@ export function HandoffCards({
   const items = usePromo(order);
   if (!items.length) return null;
   return (
-    <View style={{ gap: Spacing.two }} accessibilityRole="none">
-      <ThemedText type="subheading" accessibilityRole="header">
+    <View style={{ gap: Spacing.two, marginTop: Spacing.three }} accessibilityRole="none">
+      <Eyebrow tone="signal">From the same team</Eyebrow>
+      <ThemedText type="heading" accessibilityRole="header">
         {title}
       </ThemedText>
       {lead ? <ThemedText themeColor="textSecondary">{lead}</ThemedText> : null}
-      {items.map((it) => (
-        <AppRow key={it.id} item={it} placement={placement} />
-      ))}
+      <Split style={{ marginTop: Spacing.one }}>
+        {items.map((it) => (
+          <Col key={it.id} basis={300} style={{ flexDirection: 'row' }}>
+            <AppRow item={it} placement={placement} />
+          </Col>
+        ))}
+      </Split>
     </View>
   );
 }
@@ -59,14 +65,14 @@ function AppRow({ item, placement }: { item: PromoItem; placement: Placement }) 
       onPress={open}
       accessibilityRole="link"
       accessibilityLabel={`${item.name}. ${item.line}${badge ? `. ${badge}` : ''}`}
-      style={({ pressed }) => [styles.row, { borderColor: pressed ? theme.accent : theme.border, backgroundColor: theme.background }]}>
+      style={({ pressed }) => [styles.row, { borderColor: pressed ? theme.accent : theme.border, backgroundColor: theme.backgroundElement }]}>
       <Image source={APP_ICONS[item.id]} style={styles.icon} accessibilityIgnoresInvertColors />
       <View style={{ flex: 1, gap: Spacing.half }}>
         <View style={styles.nameRow}>
           <ThemedText type="bold">{item.name}</ThemedText>
           {badge ? (
-            <View style={[styles.badge, { borderColor: theme.border }]}>
-              <ThemedText type="small" themeColor="textSecondary" style={{ fontSize: 12, lineHeight: 16 }}>
+            <View style={[styles.badge, { backgroundColor: item.inSeason && !item.soon ? theme.signalBg : theme.backgroundSelected }]}>
+              <ThemedText type="smallBold" themeColor={item.inSeason && !item.soon ? 'signal' : 'textSecondary'} style={{ fontSize: 12, lineHeight: 18 }}>
                 {badge}
               </ThemedText>
             </View>
@@ -75,8 +81,8 @@ function AppRow({ item, placement }: { item: PromoItem; placement: Placement }) 
         <ThemedText type="small" themeColor="textSecondary">
           {item.line}
         </ThemedText>
-        <ThemedText type="smallBold" themeColor="accent">
-          {item.soon ? 'Join the waitlist' : `Get ${item.name}`}
+        <ThemedText type="smallBold" themeColor="signal">
+          {item.soon ? 'Join the waitlist' : `Get ${item.name}`} →
         </ThemedText>
       </View>
     </Pressable>
@@ -84,8 +90,8 @@ function AppRow({ item, placement }: { item: PromoItem; placement: Placement }) 
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: 'row', gap: Spacing.three, padding: Spacing.three, borderWidth: 1, borderRadius: Radius, alignItems: 'flex-start' },
-  icon: { width: 48, height: 48, borderRadius: 11 },
+  row: { flex: 1, flexDirection: 'row', gap: Spacing.three, padding: Spacing.three, borderWidth: 1, borderRadius: Radius, alignItems: 'flex-start' },
+  icon: { width: 56, height: 56, borderRadius: 13 },
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two, flexWrap: 'wrap' },
-  badge: { borderWidth: 1, borderRadius: 999, paddingHorizontal: Spacing.two },
+  badge: { borderRadius: 999, paddingHorizontal: Spacing.two },
 });
