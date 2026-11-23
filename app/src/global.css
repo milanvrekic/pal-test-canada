@@ -15,5 +15,15 @@
   font-weight: 100 900;
   font-display: swap;
 }
+/* Khand: the wordmark face shared by the 10ten portfolio apps (Huntable, Shootable). */
+@font-face {
+  font-family: 'Khand';
+  src: url('/fonts/khand-latin-700-normal.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+  ascent-override: 100%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+}
 html, body { background-color: #F5F5F7; -webkit-font-smoothing: antialiased; }
 @media (prefers-color-scheme: dark) { html, body { background-color: #0A0B0E; } }

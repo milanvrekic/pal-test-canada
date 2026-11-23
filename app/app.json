@@ -44,7 +44,8 @@
           "fonts": [
             "./assets/fonts/Geist-ExtraBold.ttf",
             "./assets/fonts/Geist-Bold.ttf",
-            "./assets/fonts/Geist-SemiBold.ttf"
+            "./assets/fonts/Geist-SemiBold.ttf",
+            "./assets/fonts/Khand-Bold.ttf"
           ]
         }
       ]

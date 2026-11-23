@@ -246,11 +246,41 @@ function loadCourses() {
   return provinces;
 }
 
+function loadPractical() {
+  const file = join(root, 'content', 'practical', 'drills.yaml');
+  const out = [];
+  for (const d of YAML.parse(readFileSync(file, 'utf8')) ?? []) {
+    const at = `practical ${d.id}`;
+    for (const k of ['id', 'course', 'title', 'situation', 'steps', 'why', 'source', 'status']) if (!d[k]) errors.push(`${at} missing ${k}`);
+    if ((d.steps ?? []).length < 3) errors.push(`${at} needs at least 3 steps`);
+    if (d.status !== 'reviewed') {
+      // Release builds leave unapproved drills out (they never ship) rather than failing the whole deploy.
+      if (!allowDrafts) {
+        warnings.push(`${at} left out of release: status is ${d.status}`);
+        continue;
+      }
+      warnings.push(`${at} draft drill`);
+    }
+    out.push({
+      id: d.id,
+      course: d.course,
+      title: d.title,
+      situation: d.situation,
+      steps: d.steps,
+      why: d.why,
+      source: { edition: '2014 (5th ed.)', section: d.source?.section ?? null, page: d.source?.page ? String(d.source.page) : null },
+      draft: d.status !== 'reviewed',
+    });
+  }
+  return out;
+}
+
 const questions = loadQuestions();
 const guides = loadGuides();
 const drills = loadDrills();
 const waitTimes = loadWaitTimes();
 const courses = loadCourses();
+const practical = loadPractical();
 writeDrillPhotos(drills);
 
 for (const course of COURSES) {
@@ -266,11 +296,11 @@ if (errors.length) {
   process.exit(1);
 }
 
-const body = { questions, guides, drills, waitTimes, courses };
+const body = { questions, guides, drills, waitTimes, courses, practical };
 const version = createHash('sha256').update(JSON.stringify(body)).digest('hex').slice(0, 12);
-const bundle = { version, builtAt: new Date().toISOString().slice(0, 10), containsDrafts: questions.some((q) => q.draft) || guides.some((g) => g.draft) || drills.some((d) => d.draft) || courses.some((c) => c.providers.some((p) => p.draft)), ...body };
+const bundle = { version, builtAt: new Date().toISOString().slice(0, 10), containsDrafts: questions.some((q) => q.draft) || guides.some((g) => g.draft) || drills.some((d) => d.draft) || courses.some((c) => c.providers.some((p) => p.draft)) || practical.some((d) => d.draft), ...body };
 const outDir = join(root, 'app', 'src', 'content');
 mkdirSync(outDir, { recursive: true });
 writeFileSync(join(outDir, 'bundle.json'), JSON.stringify(bundle, null, 1) + '\n');
-console.log(`Bundle ${version}: ${questions.length} questions (${COURSES.map((c) => `${c} ${questions.filter((q) => q.course === c).length}`).join(', ')}), ${guides.length} guides, ${drills.length} drills, ${courses.reduce((n, c) => n + c.providers.length, 0)} course listings, ${warnings.length} draft warning(s).`);
+console.log(`Bundle ${version}: ${questions.length} questions (${COURSES.map((c) => `${c} ${questions.filter((q) => q.course === c).length}`).join(', ')}), ${guides.length} guides, ${drills.length} drills, ${courses.reduce((n, c) => n + c.providers.length, 0)} course listings, ${practical.length} practical drills, ${warnings.length} draft warning(s).`);
 if (process.argv.includes('--verbose')) warnings.forEach((w) => console.log(`  warn: ${w}`));
