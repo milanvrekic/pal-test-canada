@@ -22,7 +22,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "ca.paltest.app"
+      "package": "ca.paltest.app",
+      "versionCode": 1
     },
     "web": {
       "output": "static",
@@ -53,7 +54,8 @@
             "./assets/fonts/Khand-Bold.ttf"
           ]
         }
-      ]
+      ],
+      "./plugins/with-release-signing"
     ],
     "experiments": {
       "reactCompiler": true
