@@ -55,7 +55,8 @@
           ]
         }
       ],
-      "./plugins/with-release-signing"
+      "./plugins/with-release-signing",
+      "./plugins/with-optional-portrait"
     ],
     "experiments": {
       "reactCompiler": true
