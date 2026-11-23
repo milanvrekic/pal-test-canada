@@ -44,6 +44,15 @@ function Picker({ onPick }: { onPick: (d: PracticalDrill) => void }) {
           loud from memory. Do it with a real (unloaded) firearm only under an instructor.
         </ThemedText>
       </View>
+      {practicalDrills.length === 0 ? (
+        <Card style={{ gap: Spacing.two }}>
+          <ThemedText type="heading">Being reviewed</ThemedText>
+          <ThemedText themeColor="textSecondary">
+            The handling drills are with our certified instructor for review and will appear here once approved. Meanwhile,
+            the photo drill covers the same mistakes.
+          </ThemedText>
+        </Card>
+      ) : null}
       {(['cfsc', 'crfsc'] as const).map((course) => {
         const list = practicalDrills.filter((d) => d.course === course);
         if (!list.length) return null;

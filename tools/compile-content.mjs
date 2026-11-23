@@ -254,8 +254,12 @@ function loadPractical() {
     for (const k of ['id', 'course', 'title', 'situation', 'steps', 'why', 'source', 'status']) if (!d[k]) errors.push(`${at} missing ${k}`);
     if ((d.steps ?? []).length < 3) errors.push(`${at} needs at least 3 steps`);
     if (d.status !== 'reviewed') {
-      if (!allowDrafts) errors.push(`${at} not shippable: status is ${d.status}`);
-      else warnings.push(`${at} draft drill`);
+      // Release builds leave unapproved drills out (they never ship) rather than failing the whole deploy.
+      if (!allowDrafts) {
+        warnings.push(`${at} left out of release: status is ${d.status}`);
+        continue;
+      }
+      warnings.push(`${at} draft drill`);
     }
     out.push({
       id: d.id,
