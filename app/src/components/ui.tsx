@@ -3,7 +3,7 @@ import { type ReactNode } from 'react';
 import { Linking, Platform, Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewProps, type ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import Svg, { Circle, Path, G } from 'react-native-svg';
+import Svg, { Circle, Path, G, Rect } from 'react-native-svg';
 
 import { Fonts, Glass, MaxContentWidth, MaxWideWidth, Radius, RadiusControl, Shadow, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
@@ -55,15 +55,17 @@ function AppHeader() {
   );
 }
 
-/** The app-icon glyph: a test sheet with a check. Same paths as store/icon/pal-test-icon.svg. */
+/** The app-icon glyph: a licence card with the holder's photo and a check. Same drawing as store/icon/pal-test-icon.svg
+ * (tools/icons/make-icons.py renders every icon from it). */
 function LogoGlyph({ size }: { size: number }) {
   return (
-    <Svg width={size} height={size} viewBox="160 160 704 704" accessibilityElementsHidden importantForAccessibility="no">
+    <Svg width={size} height={size} viewBox="112 112 800 800" accessibilityElementsHidden importantForAccessibility="no">
       <G fill="none" stroke="#FFFFFF" strokeWidth={64} strokeLinecap="round" strokeLinejoin="round">
-        <Path d="M332 196 H580 L712 328 V752 a76 76 0 0 1 -76 76 H388 a76 76 0 0 1 -76 -76 V272 a76 76 0 0 1 76 -76 Z" />
-        <Path d="M580 196 V300 a28 28 0 0 0 28 28 H712" />
-        <Path d="M410 520 L478 588 L614 452" />
-        <Path d="M420 690 H604" />
+        <Rect x={186} y={292} width={652} height={440} rx={72} />
+        <Circle cx={366} cy={462} r={58} />
+        <Path d="M270 640 c14-64 56-96 96-96 s82 32 96 96" />
+        <Path d="M548 520 L614 586 L730 470" />
+        <Path d="M556 662 H730" />
       </G>
     </Svg>
   );
