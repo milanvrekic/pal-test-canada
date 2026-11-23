@@ -1,0 +1,107 @@
+# Practical test trainer: handling sequences to put in order, then recite.
+# Steps are worded from approved questions' explanations; each drill cites the handbook pages those questions use.
+# Status "draft" until Milan approves the step wording; release builds refuse drafts.
+#
+# Fields: id, course (cfsc|crfsc), title, situation, steps (in the correct order), why, source {section, page}, based_on (question ids), status
+
+- id: prove
+  course: cfsc
+  title: "PROVE it safe"
+  situation: "You pick up any firearm. Check that it is unloaded."
+  steps:
+    - "Point the firearm in the safest available direction"
+    - "Remove all ammunition, from the magazine and the chamber"
+    - "Observe the chamber: look, and feel if needed"
+    - "Verify the feeding path: no cartridge left anywhere it could feed"
+    - "Examine the bore for obstructions"
+  why: "Every later step is done with the muzzle under control, and an obstruction in the bore can burst the barrel."
+  source: {section: "Introduction: PROVE It Safe Pointers", page: "22"}
+  based_on: [cfsc-prove-001, cfsc-prove-002, cfsc-prove-003, cfsc-prove-004, cfsc-prove-005]
+  status: draft
+
+- id: hand-over
+  course: cfsc
+  title: "Hand a firearm to someone"
+  situation: "Your partner asks to look at your rifle."
+  steps:
+    - "Keep the muzzle in the safest available direction, finger off the trigger"
+    - "PROVE the firearm safe"
+    - "Leave the action open"
+    - "Hand it over with the muzzle controlled"
+    - "The person receiving it PROVEs it safe again"
+  why: "Pass or accept only open, unloaded firearms, and never take someone else's word that it is unloaded."
+  source: {section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "21"}
+  based_on: [cfsc-handling-002, cfsc-acts-001]
+  status: draft
+
+- id: cease-fire
+  course: cfsc
+  title: "Cease-fire on the range"
+  situation: "The range officer calls \"cease-fire\"."
+  steps:
+    - "Stop firing at once"
+    - "Unload the firearm"
+    - "Open the action"
+    - "Lay the firearm down with the muzzle downrange"
+    - "Step back behind the cease-fire line"
+  why: "On cease-fire all firing stops, and every firearm is made safe and left alone until the range is clear."
+  source: {section: "7.3. Safety procedures on approved range", page: "148"}
+  based_on: [cfsc-range-003]
+  status: draft
+
+- id: fence-alone
+  course: cfsc
+  title: "Cross a fence alone"
+  situation: "You are hunting alone and reach a fence."
+  steps:
+    - "Unload the firearm"
+    - "Leave the action open"
+    - "Lay it down on the far side, muzzle pointing away from where you will cross"
+    - "Cross the fence"
+  why: "Never climb or cross an obstacle with a loaded firearm, and never toss a firearm over a fence."
+  source: {section: "7.6. Safe handling of firearms outdoors", page: "153"}
+  based_on: [cfsc-handling-003, cfsc-handling-102]
+  status: draft
+
+- id: pit-blind
+  course: cfsc
+  title: "Get into a pit or blind alone"
+  situation: "You are hunting alone from a pit or blind."
+  steps:
+    - "Unload your firearm"
+    - "Place it outside the pit or blind"
+    - "Get in"
+    - "Bring the unloaded firearm in after you"
+  why: "Climbing into a pit or blind with a loaded firearm in hand makes muzzle control almost impossible."
+  source: {section: "7.6. Safe handling of firearms outdoors", page: "153"}
+  based_on: [cfsc-handling-104]
+  status: draft
+
+- id: pistol-unload
+  course: crfsc
+  title: "Unload a semi-automatic pistol"
+  situation: "You are handed a semi-automatic pistol and need to make it safe."
+  steps:
+    - "Point the muzzle in a safe direction, finger straight along the frame"
+    - "Remove the magazine first"
+    - "Draw the slide back and lock it open"
+    - "Observe the chamber"
+    - "Verify the feeding path: the magazine well is empty"
+    - "Examine the bore for obstructions"
+  why: "With a loaded magazine still in, working the slide just chambers the next cartridge. Magazine out first, then open the action."
+  source: {section: "14.8.1. Semi-automatic unloading procedure", page: "278"}
+  based_on: [crfsc-prove-001, crfsc-actions-003, crfsc-handling-002, crfsc-prove-003]
+  status: draft
+
+- id: hang-fire
+  course: crfsc
+  title: "A click but no bang"
+  situation: "At the range your pistol clicks but does not fire."
+  steps:
+    - "Keep the muzzle pointed downrange"
+    - "Wait 60 seconds"
+    - "Then unload following safe procedure"
+  why: "It may be a hang fire: the cartridge can still fire some time after the trigger is pulled."
+  source: {section: "13.6. Hazards", page: "250"}
+  based_on: [crfsc-misfire-001]
+  status: draft

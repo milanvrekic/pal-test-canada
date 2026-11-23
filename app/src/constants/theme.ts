@@ -85,6 +85,8 @@ export const Fonts = {
   bold: web ? 'Geist' : 'Geist-Bold',
   semi: web ? 'Geist' : 'Geist-SemiBold',
   body: web ? 'Geist' : undefined,
+  /** Portfolio wordmark face (Huntable, Shootable): Khand Bold, uppercase. */
+  logo: web ? 'Khand' : 'Khand-Bold',
 };
 
 export const TINTS = ['tintRed', 'tintBlue', 'tintGreen', 'tintSand', 'tintLilac'] as const;

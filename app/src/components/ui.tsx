@@ -36,7 +36,7 @@ export function Screen({ children, width = 'reading', bottomBar, bottomTone }: S
                 </Svg>
               </View>
               <View>
-                <ThemedText style={styles.wordmark}>PAL Test Canada</ThemedText>
+                <ThemedText style={styles.wordmark}>PAL TEST CANADA</ThemedText>
                 <ThemedText style={[styles.tagline, { color: theme.textSecondary }]}>Independent study aid</ThemedText>
               </View>
             </View>
@@ -74,12 +74,16 @@ const FOOTER_GROUPS: { title: string; links: { href: Href; label: string }[] }[]
       { href: '/crfsc-practice-test', label: 'CRFSC practice test' },
       { href: '/pal-test-questions', label: 'PAL test questions' },
       { href: '/spot', label: 'Spot the mistake' },
+      { href: '/practical', label: 'Practical test trainer' },
+      { href: '/flashcards', label: 'Flashcards' },
+      { href: '/rules', label: 'Storage and transport rules' },
     ],
   },
   {
     title: 'Your licence',
     links: [
       { href: '/pal-courses/bc', label: 'PAL courses in BC' },
+      { href: '/apply', label: 'Application checklist' },
       { href: '/wait-times', label: 'PAL wait times' },
       { href: '/guides', label: 'Guides' },
       { href: '/pal-courses', label: 'All course providers' },
@@ -290,7 +294,7 @@ const styles = StyleSheet.create({
   brandRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two },
   mark: { borderRadius: 11, width: 34, height: 34, alignItems: 'center', justifyContent: 'center' },
   markText: { fontFamily: Fonts.display, fontSize: 14, lineHeight: 18, letterSpacing: 0.4 },
-  wordmark: { fontFamily: Fonts.bold, fontWeight: Platform.OS === 'web' ? '700' : undefined, fontSize: 16, lineHeight: 20, letterSpacing: -0.4 },
+  wordmark: { fontFamily: Fonts.logo, fontWeight: Platform.OS === 'web' ? '700' : undefined, fontSize: 22, lineHeight: 22, letterSpacing: 0.4, textTransform: 'uppercase' },
   tagline: { fontSize: 11, lineHeight: 14, fontWeight: '500' },
   navLinks: { flexDirection: 'row' },
   navLink: { paddingVertical: Spacing.two, paddingHorizontal: 6, minHeight: 44, justifyContent: 'center' },

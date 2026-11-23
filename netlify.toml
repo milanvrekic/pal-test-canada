@@ -13,3 +13,10 @@
 
 [context.branch-deploy]
   command = "npm run build:web:preview"
+
+# The service worker must never be served stale, or updates would not reach installed copies.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+    Service-Worker-Allowed = "/"

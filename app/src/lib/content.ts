@@ -51,6 +51,17 @@ export type ProvinceCourses = { province: string; regions: { id: string; name: s
 export const courseDirectory = ((bundle as { courses?: ProvinceCourses[] }).courses ?? []) as ProvinceCourses[];
 /** Where instructors ask to be listed or corrected. */
 export const LISTINGS_EMAIL = 'milan@10tenStudio.com';
+export type PracticalDrill = {
+  id: string;
+  course: 'cfsc' | 'crfsc';
+  title: string;
+  situation: string;
+  steps: string[];
+  why: string;
+  source: { edition: string | null; section: string | null; page: string | null };
+  draft: boolean;
+};
+export const practicalDrills = ((bundle as { practical?: PracticalDrill[] }).practical ?? []) as PracticalDrill[];
 export const waitRows = (bundle.waitTimes?.rows ?? []) as WaitRow[];
 
 export const SITE_NAME = 'PAL Test Canada';

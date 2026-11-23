@@ -36,7 +36,10 @@ export function generateMetadata(): Metadata {
   });
 }
 
-type Mode = 'practice' | 'exam' | 'review';
+type Mode = 'practice' | 'exam' | 'review' | 'mock';
+
+/** Practice time limit for the test-day mock. Not the official limit: instructors set the real one. */
+const MOCK_MINUTES = 60;
 
 const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
 
@@ -44,7 +47,7 @@ export default function Quiz() {
   const params = useLocalSearchParams();
   const course: Course = one(params.course) === 'crfsc' ? 'crfsc' : 'cfsc';
   const rawMode = one(params.mode);
-  const mode: Mode = rawMode === 'exam' || rawMode === 'review' ? rawMode : 'practice';
+  const mode: Mode = rawMode === 'exam' || rawMode === 'review' || rawMode === 'mock' ? rawMode : 'practice';
   const topic = one(params.topic);
   // A new key starts a fresh session when "Go again" changes the t parameter.
   return <Session key={`${course}:${mode}:${topic ?? ''}:${one(params.t) ?? ''}`} course={course} mode={mode} topic={topic} />;
@@ -58,12 +61,37 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
   const [selected, setSelected] = useState<number | null>(null);
   const [picks, setPicks] = useState<number[]>([]);
   const [quitting, setQuitting] = useState(false);
+  const [deadline, setDeadline] = useState<number | null>(null);
+  const [now, setNow] = useState(() => Date.now());
+
+  // Test-day mock: start the clock once the questions are ready, tick every second.
+  useEffect(() => {
+    if (mode !== 'mock' || !set || deadline) return;
+    setDeadline(Date.now() + MOCK_MINUTES * 60_000);
+  }, [mode, set, deadline]);
+  useEffect(() => {
+    if (!deadline) return;
+    const t = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(t);
+  }, [deadline]);
+  const remaining = deadline ? Math.max(0, deadline - now) : null;
+  const timeUp = remaining === 0 && !!set && index < set.length;
+  useEffect(() => {
+    if (!timeUp || !set) return;
+    // Unanswered questions count as wrong, as on a real test.
+    const allPicks = [...picks, ...Array(set.length - picks.length).fill(-1)];
+    const correct = set.filter((item, i) => allPicks[i] === item.answer).length;
+    updateProgress((p) => recordExam(p, { course, date: today(), correct, total: set.length }));
+    track({ name: 'test_completed', course, mode, correct, total: set.length });
+    setPicks(allPicks);
+    setIndex(set.length);
+  }, [timeUp]); // eslint-disable-line react-hooks/exhaustive-deps
   const router = useRouter();
 
   // Build the question set once, after saved progress has loaded.
   useEffect(() => {
     if (!loaded || set) return;
-    if (mode === 'exam') setSet(buildExam(questions, course));
+    if (mode === 'exam' || mode === 'mock') setSet(buildExam(questions, course));
     else if (mode === 'review') setSet(dueForReview(questions, progress, course, today()).map((q) => shuffleOptions(q)));
     else setSet(buildPractice(questions, progress, { course, topic }));
   }, [loaded, set, mode, course, topic, progress]);
@@ -76,7 +104,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
     );
   }
 
-  const title = mode === 'exam' ? 'Practice exam' : mode === 'review' ? 'Review' : topic ? topicLabel(topic) : 'Quick practice';
+  const title = mode === 'mock' ? 'Test-day mock' : mode === 'exam' ? 'Practice exam' : mode === 'review' ? 'Review' : topic ? topicLabel(topic) : 'Quick practice';
   const heading = `${course.toUpperCase()} · ${title}`;
 
   if (set.length === 0) {
@@ -92,7 +120,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
   if (index >= set.length) return <Results heading={heading} set={set} picks={picks} mode={mode} course={course} />;
 
   const q = set[index];
-  const showFeedback = mode !== 'exam' && selected !== null;
+  const showFeedback = mode !== 'exam' && mode !== 'mock' && selected !== null;
 
   const choose = (i: number) => {
     if (showFeedback) return;
@@ -105,7 +133,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
     updateProgress((p) => recordAnswer(p, q.id, selected === q.answer, today()));
     if (index + 1 === set.length) {
       const correct = set.filter((item, i) => allPicks[i] === item.answer).length;
-      if (mode === 'exam') updateProgress((p) => recordExam(p, { course, date: today(), correct, total: set.length }));
+      if (mode === 'exam' || mode === 'mock') updateProgress((p) => recordExam(p, { course, date: today(), correct, total: set.length }));
       track({ name: 'test_completed', course, mode, correct, total: set.length });
     }
     setPicks(allPicks);
@@ -118,7 +146,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
   const nextBar = (
     <VerdictBar
       verdict={verdict}
-      hint={mode === 'exam' && selected !== null ? 'Saved' : 'Pick an answer'}
+      hint={(mode === 'exam' || mode === 'mock') && selected !== null ? 'Saved' : 'Pick an answer'}
       detail={verdict === 'wrong' ? `Correct answer: ${q.options[q.answer]}` : undefined}
       label={isLast ? 'Finish' : verdict ? 'Continue' : 'Next'}
       onPress={next}
@@ -132,6 +160,11 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
         <View style={styles.headRow}>
           <Eyebrow>{heading}</Eyebrow>
           <View style={{ flex: 1 }} />
+          {remaining !== null ? (
+            <ThemedText type="statSmall" themeColor={remaining < 5 * 60_000 ? 'danger' : 'textSecondary'} accessibilityLabel={`${Math.ceil(remaining / 60_000)} minutes left`}>
+              {String(Math.floor(remaining / 60_000)).padStart(2, '0')}:{String(Math.floor((remaining % 60_000) / 1000)).padStart(2, '0')}
+            </ThemedText>
+          ) : null}
           <ThemedText type="statSmall" style={styles.count}>
             {index + 1}
             <ThemedText type="statSmall" themeColor="textSecondary">
@@ -149,9 +182,9 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
 
       {quitting ? (
         <Card>
-          <ThemedText type="bold">Quit this {mode === 'exam' ? 'exam' : 'session'}?</ThemedText>
+          <ThemedText type="bold">Quit this {mode === 'exam' || mode === 'mock' ? 'exam' : 'session'}?</ThemedText>
           <ThemedText type="small" themeColor="textSecondary">
-            {mode === 'exam'
+            {mode === 'exam' || mode === 'mock'
               ? 'Answers so far are kept for review, but this exam will not count toward your readiness score.'
               : 'Answers so far are kept for review.'}
           </ThemedText>
@@ -202,8 +235,8 @@ function Results({ heading, set, picks, mode, course }: { heading: string; set: 
   const theme = useTheme();
   return (
     <Screen>
-      <ResultsHead heading={heading} correct={correct} total={set.length} score={score} passed={passed} exam={mode === 'exam'} />
-      {mode === 'exam' ? (
+      <ResultsHead heading={heading} correct={correct} total={set.length} score={score} passed={passed} exam={mode === 'exam' || mode === 'mock'} />
+      {mode === 'exam' || mode === 'mock' ? (
         <Notice tone={passed ? 'success' : 'danger'}>
           {passed
             ? 'That is a pass. The real tests need 80% on both the written and the practical.'
@@ -234,7 +267,7 @@ function Results({ heading, set, picks, mode, course }: { heading: string; set: 
             <Card key={q.id} style={[styles.explain, { borderLeftColor: theme.danger }]}>
               <ThemedText type="bold">{q.question}</ThemedText>
               <ThemedText type="small" themeColor="danger">
-                Your answer: {q.options[pick]}
+                {pick >= 0 ? `Your answer: ${q.options[pick]}` : "Not answered: time ran out"}
               </ThemedText>
               <ThemedText type="small" themeColor="success">
                 Correct answer: {q.options[q.answer]}
@@ -247,7 +280,16 @@ function Results({ heading, set, picks, mode, course }: { heading: string; set: 
         <Notice tone="success">No missed questions.</Notice>
       )}
 
-      {mode === 'exam' ? (
+      {mode === 'mock' ? (
+        <Card style={{ gap: Spacing.three }}>
+          <ThemedText type="heading">Now the practical</ThemedText>
+          <ThemedText themeColor="textSecondary">
+            The real course ends with a handling test as well, and it needs 80% too. Run the practical trainer to finish your mock.
+          </ThemedText>
+          <Button label="Start the practical trainer" href="/practical" />
+        </Card>
+      ) : null}
+      {mode === 'exam' || mode === 'mock' ? (
         passed ? (
           <HandoffCards placement="exam_pass" title="Passed? Here's what's next" lead="Once your licence arrives, find where you can hunt and shoot." />
         ) : (

@@ -168,6 +168,7 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
         ) : null}
         <Button variant="signal" label="Start tracking" onPress={() => save(draft.trim())} />
         <Button variant="secondary" label="I sent it today" onPress={() => save(day)} />
+        <Button variant="secondary" label="Not sent yet? Application checklist" href="/apply" />
       </Card>
     );
   }

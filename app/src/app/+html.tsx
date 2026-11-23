@@ -12,12 +12,21 @@ export default function Root({ children }: PropsWithChildren) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="theme-color" content="#0A0B0E" />
         <link rel="preload" href="/fonts/Geist-Variable.ttf" as="font" type="font/ttf" crossOrigin="" />
+        <link rel="manifest" href="/manifest.webmanifest" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-title" content="PAL Test" />
         <ScrollViewStyleReset />
         {headNodes}
       </head>
       <body {...bodyAttributes}>
         {children}
         {bodyNodes}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})})}",
+          }}
+        />
       </body>
     </html>
   );

@@ -149,6 +149,38 @@ export default function Home() {
       </Split>
 
       <View style={{ gap: Spacing.three }}>
+        <ThemedText type="heading" accessibilityRole="header">
+          Study tools
+        </ThemedText>
+        <Split gap={Spacing.two + 4}>
+          {[
+            { href: '/practical' as Href, title: 'Practical trainer', body: 'Put PROVE and handling steps in order, then say them out loud.', tint: 'tintRed' as const },
+            { href: { pathname: '/quiz', params: { course, mode: 'mock' } } as Href, title: 'Test-day mock', body: `${examSize} questions against a 60-minute clock, then the practical.`, tint: 'tintLilac' as const },
+            { href: '/flashcards' as Href, title: 'Flashcards', body: 'Question on the front, answer and handbook page on the back.', tint: 'tintGreen' as const },
+            { href: '/rules' as Href, title: 'Storage and transport rules', body: 'Pick the firearm and situation, see what the law requires.', tint: 'tintSand' as const },
+          ].map((t) => (
+            <Col key={t.title} basis={240}>
+              <Link href={t.href} asChild>
+                <Pressable accessibilityRole="link" style={{ flexGrow: 1 }}>
+                  {({ pressed }) => (
+                    <View style={[styles.toolTile, { backgroundColor: theme[t.tint] }, pressed ? { transform: [{ scale: 0.98 }] } : null]}>
+                      <ThemedText type="heading">{t.title}</ThemedText>
+                      <ThemedText type="small" themeColor="textSecondary">
+                        {t.body}
+                      </ThemedText>
+                      <ThemedText type="smallBold" style={{ marginTop: 'auto' }}>
+                        Open →
+                      </ThemedText>
+                    </View>
+                  )}
+                </Pressable>
+              </Link>
+            </Col>
+          ))}
+        </Split>
+      </View>
+
+      <View style={{ gap: Spacing.three }}>
         <View style={styles.sectionHead}>
           <ThemedText type="heading" accessibilityRole="header">
             {hasHistory ? 'Your topics, weakest first' : 'Practice by topic'}
@@ -358,6 +390,7 @@ const styles = StyleSheet.create({
   segmentItem: { flex: 1, borderRadius: 16, paddingVertical: Spacing.two + 2, paddingHorizontal: Spacing.three },
   segmentActive: { backgroundColor: '#FFFFFF' },
   ctaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two + 4 },
+  toolTile: { borderRadius: 24, padding: Spacing.four, gap: Spacing.two, flexGrow: 1, minHeight: 170 },
   tile: { borderRadius: 28, padding: Spacing.four, gap: Spacing.three, flexGrow: 1, minHeight: 230 },
   tileHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: Spacing.two },
   arrow: { width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center' },
