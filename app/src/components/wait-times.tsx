@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Linking, Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 
 import { NextSteps } from '@/components/next-steps';
 import { ThemedText } from '@/components/themed-text';
@@ -25,7 +25,6 @@ import { contentBuiltAt, waitRows } from '@/lib/content';
 import { updateTracker, useTracker } from '@/lib/tracker';
 
 const SCALE_DAYS = 180;
-const SOURCE_URL = 'https://www.canadiangunnutz.com/forum/threads/shorten-pal-approval-times.464083/';
 
 /** The province pages: every province with enough reports gets its own page. */
 export function provincesWithData(): string[] {
@@ -239,21 +238,13 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
   );
 }
 
-export function SourceNote({ total, first, last }: { total: number; first: string; last: string }) {
+// Callers still pass the sample size and dates; the note no longer shows them.
+export function SourceNote(_props: { total: number; first: string; last: string }) {
   return (
     <ThemedText type="small" themeColor="textSecondary">
-      Where these numbers come from: {total} wait times that applicants posted publicly on the Canadian Gun Nutz forum between {first} and {last}
-      .{' '}
-      <ThemedText
-        type="small"
-        themeColor="signal"
-        accessibilityRole="link"
-        style={{ textDecorationLine: 'underline' }}
-        onPress={() => void Linking.openURL(SOURCE_URL)}>
-        Read the thread
-      </ThemedText>
-      . They are self-reported and not a random sample, so treat them as a rough guide. Renewals and files with a reported
-      problem are left out of the typical wait. This app is not affiliated with the RCMP or the Canadian Firearms Program.
+      These numbers are self-reported and not a random sample, so treat them as a rough guide. Renewals and files with a
+      reported problem are left out of the typical wait. This app is not affiliated with the RCMP or the Canadian Firearms
+      Program.
     </ThemedText>
   );
 }
