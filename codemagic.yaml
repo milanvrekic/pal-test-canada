@@ -1,0 +1,94 @@
+# Codemagic: builds the signed Android App Bundle in the cloud and sends it to Google Play (internal testing).
+# Same setup as Huntable's. One-time steps are in docs/codemagic.md. A release starts when a version tag is pushed
+# (v1.0.0 -> version name 1.0.0); a build can also be started by hand from the dashboard ("paltest-android", branch main).
+# GitHub Actions (.github/workflows/android.yml) keeps checking that every push to main still builds.
+workflows:
+  paltest-android:
+    name: PAL Test Android (Google Play)
+    instance_type: mac_mini_m2       # the free plan's 500 minutes/month are macOS M2 only; it builds Android too
+    max_build_duration: 45
+    environment:
+      android_signing:
+        - paltest_upload             # the upload keystore (pal-test-upload.jks), uploaded in Codemagic under this name
+      groups:
+        - google_play                # GCLOUD_SERVICE_ACCOUNT_CREDENTIALS (Play Console service account JSON), shared with Huntable
+      vars:
+        PACKAGE_NAME: ca.paltest.app
+      java: 17
+      node: 22
+    triggering:
+      events:
+        - tag
+      tag_patterns:
+        - pattern: 'v*'              # v1.0.0, v1.0.1 ...
+          include: true
+    scripts:
+      - name: Install
+        working_directory: app
+        script: npm ci
+      - name: Compile content (approved questions, guides and drills only)
+        working_directory: app
+        script: npm run content
+      - name: Version name from the tag
+        working_directory: app
+        script: |
+          # v1.2.0 -> 1.2.0; a hand-started build keeps the "version" in app.json.
+          case "$CM_TAG" in v*) node -e "const f='app.json',j=require('./'+f);j.expo.version=process.argv[1];require('fs').writeFileSync(f,JSON.stringify(j,null,2)+'\n')" "${CM_TAG#v}" ;; esac
+          node -p "'Version name: ' + require('./app.json').expo.version"
+      - name: Version code (always higher than any before)
+        script: |
+          # The higher of: Google Play's latest + 1, and Codemagic's build counter + 10 (it never goes down), so it never
+          # repeats one Play already has, even when Play can't be asked (before the first upload, or missing permissions).
+          if LATEST=$(google-play get-latest-build-number --package-name "$PACKAGE_NAME" 2>/tmp/latest.err); then
+            echo "Google Play's latest version code: $LATEST"
+          else
+            echo "Couldn't read Google Play's latest version code (the counter below still keeps this build unique):"
+            cat /tmp/latest.err; LATEST=0
+          fi
+          FLOOR=$(( ${BUILD_NUMBER:-0} + 10 ))
+          CODE=$(( LATEST + 1 > FLOOR ? LATEST + 1 : FLOOR ))
+          echo "ANDROID_VERSION_CODE=$CODE" >> $CM_ENV
+          echo "This build's version code: $CODE"
+      - name: Generate the native Android project
+        working_directory: app
+        script: npx expo prebuild --platform android --no-install --clean
+      - name: Signed release bundle
+        working_directory: app/android
+        script: |
+          # plugins/with-release-signing.js reads these; Codemagic supplies the uploaded keystore as CM_KEYSTORE_*.
+          export ANDROID_UPLOAD_STORE_FILE="$CM_KEYSTORE_PATH"
+          export ANDROID_UPLOAD_STORE_PASSWORD="$CM_KEYSTORE_PASSWORD"
+          export ANDROID_UPLOAD_KEY_ALIAS="$CM_KEY_ALIAS"
+          export ANDROID_UPLOAD_KEY_PASSWORD="$CM_KEY_PASSWORD"
+          ./gradlew --no-daemon --stacktrace bundleRelease
+    artifacts:
+      - app/android/app/build/outputs/bundle/release/*.aab
+    publishing:
+      email:
+        recipients:
+          - milan@vrekic.com
+        notify: { success: true, failure: true }
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: internal
+        submit_as_draft: true        # Google Play only accepts drafts until the app is published; switch to false then
+
+  # A 2-minute check of the Google Play key, with no build: which service account is loaded, and can it see the app?
+  # Start it by hand ("paltest-play-access-check", branch main) after changing the key or Play Console permissions.
+  paltest-play-access-check:
+    name: Check Google Play access (no build)
+    instance_type: mac_mini_m2
+    max_build_duration: 10
+    environment:
+      groups:
+        - google_play
+      vars:
+        PACKAGE_NAME: ca.paltest.app
+    scripts:
+      - name: Which service account is loaded?
+        script: |
+          python3 -c "import json,os; k=json.loads(os.environ['GCLOUD_SERVICE_ACCOUNT_CREDENTIALS']); print('service account:', k['client_email']); print('project:', k.get('project_id'))"
+      - name: Can it see the app and its internal track?
+        script: |
+          python3 -m pip install --quiet codemagic-cli-tools
+          google-play get-latest-build-number --package-name "$PACKAGE_NAME" --tracks internal --credentials @env:GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
