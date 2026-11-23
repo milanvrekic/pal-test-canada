@@ -42,7 +42,11 @@ export default function GuidePage() {
       ) : null}
       <Markdown source={guide.body} />
       <Button label="Start practising" href="/" />
-      <HandoffCards placement="guide" title="After your course" />
+      <HandoffCards
+        placement="guide"
+        title={guide.slug === 'can-you-hunt-with-a-pal' ? 'Find where you can hunt' : 'After your course'}
+        order={guide.slug === 'pal-vs-rpal' ? ['shootable', 'huntable'] : ['huntable', 'shootable']}
+      />
     </Screen>
   );
 }
