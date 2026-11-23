@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 
 import { Radius, RadiusControl, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
+import { haptic } from '@/lib/haptics';
 
 import { ThemedText } from './themed-text';
 
@@ -40,7 +41,10 @@ export function AnswerOption({
       accessibilityRole="radio"
       accessibilityState={{ checked: state === 'selected' || state === 'wrong' }}
       accessibilityLabel={`${letter}. ${label}${suffix}`}
-      onPress={onPress}
+      onPress={() => {
+        if (state === 'idle') haptic.tap();
+        onPress();
+      }}
       style={({ pressed, hovered }: { pressed: boolean; hovered?: boolean }) => [
         styles.option,
         look,

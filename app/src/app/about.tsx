@@ -40,6 +40,7 @@ export default function About() {
         <ThemedText themeColor="textSecondary">
           There are no accounts. Your answers, scores and licence tracker dates are stored on this device only.
         </ThemedText>
+        <Button variant="secondary" label="Privacy policy" href="/privacy" />
         {confirming ? (
           <View style={{ gap: Spacing.two }}>
             <ThemedText type="small" themeColor="danger">

@@ -10,6 +10,7 @@ import { RadiusControl, Spacing } from '@/constants/theme';
 import { shuffle } from '@/features/quiz/engine';
 import { useTheme } from '@/hooks/use-theme';
 import { track } from '@/lib/analytics';
+import { haptic } from '@/lib/haptics';
 import { type PracticalDrill, practicalDrills } from '@/lib/content';
 import { page } from '@/lib/seo';
 
@@ -117,7 +118,10 @@ function DrillCards({ onOrder, onPick }: { onOrder: (d: PracticalDrill) => void;
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={flipped ? 'Answer side. Tap to see the question.' : 'Question side. Tap to see the steps.'}
-            onPress={() => setFlipped(!flipped)}
+            onPress={() => {
+              haptic.tap();
+              setFlipped(!flipped);
+            }}
             style={({ pressed }) => [styles.card, { backgroundColor: flipped ? theme.backgroundElement : theme.tintBlue, borderColor: theme.border }, pressed ? { transform: [{ scale: 0.99 }] } : null]}>
             {flipped ? (
               <View style={{ gap: Spacing.three }}>
@@ -281,10 +285,12 @@ function OrderDrill({ drill, onBack, onRecite }: { drill: PracticalDrill; onBack
 
   const tap = (i: number) => {
     if (i === placed.length) {
+      haptic.tap();
       setPlaced([...placed, i]);
       setWrong(null);
       if (i === drill.steps.length - 1) track({ name: 'test_completed', course: drill.course, mode: `practical:${drill.id}`, correct: drill.steps.length - Math.min(mistakes, drill.steps.length), total: drill.steps.length });
     } else {
+      haptic.wrong();
       setWrong(i);
       setMistakes(mistakes + 1);
     }

@@ -6,7 +6,7 @@ import { join, relative } from 'node:path';
 
 const SITE_URL = 'https://paltest.ca'; // keep in step with SITE_URL in app/src/lib/content.ts
 const dist = process.argv[2] ?? 'dist';
-const skip = (p) => /(^|\/)(\[|_|\+)/.test(p) || p === 'quiz.html' || p === '404.html';
+const skip = (p) => /(^|\/)(\[|_|\+|\()/.test(p) || p === 'quiz.html' || p === 'more.html' || p === '404.html';
 
 const walk = (dir) =>
   readdirSync(dir).flatMap((name) => {
