@@ -2,8 +2,8 @@
 title: "PAL or RPAL: which course do you need?"
 description: The difference between a non-restricted PAL and a restricted PAL (RPAL), which safety courses each needs, and how to choose.
 order: 4
-status: draft
-last_reviewed: TBD
+status: reviewed
+last_reviewed: 2026-11-22
 ---
 There is one licence, the Possession and Acquisition Licence (PAL). What it covers depends on the safety courses you pass. People call the version that includes restricted firearms an "RPAL".
 

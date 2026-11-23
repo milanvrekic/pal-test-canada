@@ -2,8 +2,8 @@
 title: Can you hunt with just a PAL?
 description: Why a firearms licence alone does not let you hunt, and what else you need in British Columbia and Nova Scotia.
 order: 5
-status: draft
-last_reviewed: TBD
+status: reviewed
+last_reviewed: 2026-11-22
 ---
 No. A PAL lets you possess and buy firearms. Hunting is regulated by your province, and every province has its own requirements on top of the firearms licence. For first-time hunters these usually include a hunter education course and a hunting licence.
 

@@ -2,8 +2,8 @@
 title: How hard is the PAL test?
 description: What the CFSC and CRFSC tests ask, the 80% pass mark, where people lose marks, and how to know you are ready.
 order: 6
-status: draft
-last_reviewed: TBD
+status: reviewed
+last_reviewed: 2026-11-22
 ---
 Most people who prepare pass. The material isn't advanced, but the pass mark is high and the practical test punishes habits you may not know you have.
 

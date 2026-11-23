@@ -526,7 +526,7 @@
   law_checked_on: "2026-11-22"
   review: *reviewed2
 
-# Batch 3 (drafted 2026-11-22 from the 2014 handbook; awaiting instructor review)
+# Batch 3 (drafted 2026-11-22 from the 2014 handbook; approved by Milan Vrekic 2026-11-22)
 - id: cfsc-handling-101
   course: cfsc
   topic: handling
@@ -536,7 +536,7 @@
   answer: 3
   explanation: "Loaded firearms leaned against a vehicle, tree or wall can fall over and discharge. Unload first, and lay the firearm down or keep it in hand."
   source: {handbook_edition: "2014 (5th ed.)", section: "4.2.2. Load a firearm only for actual use", page: "59"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-handling-102
   course: cfsc
   topic: handling
@@ -546,7 +546,7 @@
   answer: 0
   explanation: "Never run, climb, cross an obstacle or jump a ditch with a loaded firearm, and never toss or drop a firearm across a ditch or fence. Unload, open the action, then cross."
   source: {handbook_edition: "2014 (5th ed.)", section: "4.2.2. Load a firearm only for actual use", page: "59"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-range-101
   course: cfsc
   topic: range-and-field
@@ -556,7 +556,7 @@
   answer: 0
   explanation: "Load only when you have reached the shooting area and are ready to shoot, and completely unload before you leave the shooting area."
   source: {handbook_edition: "2014 (5th ed.)", section: "4.2.2. Load a firearm only for actual use", page: "59"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-range-102
   course: cfsc
   topic: range-and-field
@@ -566,7 +566,7 @@
   answer: 2
   explanation: "Safeties wear down and may not work properly. A loaded firearm may fire even with the safety on, because all mechanical devices can fail."
   source: {handbook_edition: "2014 (5th ed.)", section: "4.2.3. Be sure before you shoot", page: "60"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-field-101
   course: cfsc
   topic: range-and-field
@@ -576,7 +576,7 @@
   answer: 3
   explanation: "Positively identify your target before you shoot. Never fire at a movement, a colour, a sound or a shape. When in doubt, do not shoot."
   source: {handbook_edition: "2014 (5th ed.)", section: "4.2.4. Be sure of your target and beyond", page: "60"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-field-102
   course: cfsc
   topic: range-and-field
@@ -586,7 +586,7 @@
   answer: 2
   explanation: "Water and hard surfaces can make a bullet or its fragments ricochet in unsafe directions. Never shoot if your bullet may hit either."
   source: {handbook_edition: "2014 (5th ed.)", section: "4.2.4. Be sure of your target and beyond", page: "61"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-field-103
   course: cfsc
   topic: range-and-field
@@ -596,7 +596,7 @@
   answer: 2
   explanation: "People or livestock may be in the line of fire over the hill. Always be sure of your target and what is beyond it."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-range-103
   course: cfsc
   topic: range-and-field
@@ -606,7 +606,7 @@
   answer: 0
   explanation: "Wear safety glasses made of impact-resistant glass or polycarbonate plastic with side shields. They guard against ejected casings, fragments, debris and stray pellets."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.2.1. Sight protection", page: "146"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-range-104
   course: cfsc
   topic: range-and-field
@@ -616,7 +616,7 @@
   answer: 1
   explanation: "If you fall, your first action should be to control the muzzle. Plan ahead how you would protect the firearm and control its direction in a fall."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.2.3. Slips and falls", page: "147"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-range-105
   course: cfsc
   topic: range-and-field
@@ -626,7 +626,7 @@
   answer: 2
   explanation: "A hot ejected casing touching bare skin can make you flinch, and a sudden movement can lead to poor muzzle control or an unintentional discharge."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.2.3. Slips and falls", page: "147"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-range-106
   course: cfsc
   topic: range-and-field
@@ -636,7 +636,7 @@
   answer: 1
   explanation: "In an emergency, anyone can call a cease-fire."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.3.1. Additional range safety suggestions", page: "150"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-range-107
   course: cfsc
   topic: range-and-field
@@ -646,7 +646,7 @@
   answer: 2
   explanation: "Direct and immediate supervision means the supervisor is within arm's reach of the shooter at all times while shooting is supervised."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.3.1. Additional range safety suggestions", page: "150"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-range-108
   course: cfsc
   topic: range-and-field
@@ -656,7 +656,7 @@
   answer: 0
   explanation: "If firing particularly smoky firearms, shoot from downwind of other shooters on the firing line. Black-powder firearms are especially smoky."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.4. Range courtesy", page: "151"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-handling-103
   course: cfsc
   topic: handling
@@ -666,7 +666,7 @@
   answer: 3
   explanation: "It is especially difficult to control muzzle direction when entering or leaving vehicles, so take extra care to keep the muzzle in the safest available direction."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.5. Safe handling of firearms in vehicles", page: "152"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-handling-104
   course: cfsc
   topic: handling
@@ -676,7 +676,7 @@
   answer: 3
   explanation: "Unload your firearm and place it outside before entering. Then enter and bring the unloaded firearm into the pit or blind after you."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-handling-105
   course: cfsc
   topic: handling
@@ -686,7 +686,7 @@
   answer: 0
   explanation: "In a group, one person should stand away from the crossing point and hold the unloaded, open firearms while the others cross."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-field-104
   course: cfsc
   topic: range-and-field
@@ -696,7 +696,7 @@
   answer: 0
   explanation: "Check your firearm for dirt if you lay it on the ground, especially the muzzle. An obstruction in the bore can burst the barrel."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-field-105
   course: cfsc
   topic: range-and-field
@@ -706,7 +706,7 @@
   answer: 3
   explanation: "Before starting, everyone agrees which area each shooter will cover. That is each person's safe zone of fire. Positions change as you move, so always know where your partners are."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.7.2. Safe zones of fire", page: "156"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-field-106
   course: cfsc
   topic: range-and-field
@@ -716,7 +716,7 @@
   answer: 2
   explanation: "For an informal firing line, appoint someone as Range Officer to supervise, then set up a firing line, follow range commands and agree a safe shooting zone with a safe backstop."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.7.1. Informal firing line", page: "156"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-handling-106
   course: cfsc
   topic: handling
@@ -726,7 +726,7 @@
   answer: 1
   explanation: "The two-hand or ready carry is the safest carry. It gives the best control of the firearm and muzzle and lets you get into shooting position quickly."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.8. Carrying positions", page: "158"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-handling-107
   course: cfsc
   topic: handling
@@ -736,7 +736,7 @@
   answer: 2
   explanation: "The shoulder carry is the least safe: muzzle control is poor in a fall. It must not be used for loaded firearms or when others are with you."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.8. Carrying positions", page: "160"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-handling-108
   course: cfsc
   topic: handling
@@ -746,7 +746,7 @@
   answer: 0
   explanation: "In the cradle carry the muzzle points to one side, so the other person has to walk on the opposite side of the muzzle."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.8. Carrying positions", page: "158"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-shooting-101
   course: cfsc
   topic: shooting-technique
@@ -756,7 +756,7 @@
   answer: 0
   explanation: "Prone is the steadiest position, good for accurate long shots when grass or brush doesn't block the view. Standing is the least stable."
   source: {handbook_edition: "2014 (5th ed.)", section: "8.2.1. Rifles: Prone position", page: "168"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-shooting-102
   course: cfsc
   topic: shooting-technique
@@ -766,7 +766,7 @@
   answer: 0
   explanation: "Rifle triggers are squeezed slowly and steadily. Shotgun triggers are slapped, like striking a typewriter key: quickly, but not hard."
   source: {handbook_edition: "2014 (5th ed.)", section: "8.4.3. Trigger control", page: "177"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-care-101
   course: cfsc
   topic: care
@@ -776,7 +776,7 @@
   answer: 1
   explanation: "Modern primers and powders are non-corrosive, but some older military surplus ammunition still contains corrosive chemicals. Clean immediately after using it."
   source: {handbook_edition: "2014 (5th ed.)", section: "9.2. Firearm cleaning", page: "181"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-care-102
   course: cfsc
   topic: care
@@ -786,7 +786,7 @@
   answer: 1
   explanation: "Clean from the breech toward the muzzle when you can. If you must clean from the muzzle end, lock the breech open and avoid rubbing the rod on the muzzle."
   source: {handbook_edition: "2014 (5th ed.)", section: "9.2.1. Cleaning materials", page: "182"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-ammo-101
   course: cfsc
   topic: ammunition
@@ -796,7 +796,7 @@
   answer: 3
   explanation: "Primers are harmed by penetrating oils. Keep ammunition clean and dry, away from heat and long-term vibration."
   source: {handbook_edition: "2014 (5th ed.)", section: "9.2.3. Ammunition storage", page: "186"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-resp-101
   course: cfsc
   topic: responsibilities
@@ -806,7 +806,7 @@
   answer: 1
   explanation: "Go beyond safe storage: completely remove firearms from situations of potential violence. If that isn't possible, at least notify the police. You can also call 1-800-731-4000."
   source: {handbook_edition: "2014 (5th ed.)", section: "10.6. Social responsibilities and ethics", page: "193"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-resp-102
   course: cfsc
   topic: responsibilities
@@ -816,7 +816,7 @@
   answer: 0
   explanation: "Pointing a firearm at another person without lawful excuse is a Criminal Code offence whether the firearm is loaded or unloaded (subsections 87(1) and (2))."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: Other duties of firearms owners/users", page: "24"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-muzzle-101
   course: cfsc
   topic: muzzleloaders
@@ -826,7 +826,7 @@
   answer: 0
   explanation: "It is hard to tell if a muzzleloader is loaded. Experienced shooters mark the ramrod at the bore depth when empty; inserted, it shows whether there is a charge."
   source: {handbook_edition: "2014 (5th ed.)", section: "2.2.1. Loading muzzleloaders", page: "39"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-prove-101
   course: cfsc
   topic: prove
@@ -836,7 +836,7 @@
   answer: 1
   explanation: "Look through the barrel from the back or breech end whenever possible. Only look from the muzzle end once the firearm is unloaded, the action open and the chamber empty."
   source: {handbook_edition: "2014 (5th ed.)", section: "6.4.2. Checking the barrel for obstructions", page: "110"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: cfsc-actions-101
   course: cfsc
   topic: actions
@@ -846,4 +846,4 @@
   answer: 0
   explanation: "Half cock is considered safety on; full cock is safety off. With the hammer fully forward on the firing pin, a sharp blow to the hammer can fire the firearm."
   source: {handbook_edition: "2014 (5th ed.)", section: "6.10. Lever-action repeaters", page: "129"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}

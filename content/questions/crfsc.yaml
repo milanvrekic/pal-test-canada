@@ -542,7 +542,7 @@
   law_checked_on: "2026-11-22"
   review: *reviewed2
 
-# Batch 3 (drafted 2026-11-22 from the 2014 handbook; awaiting instructor review)
+# Batch 3 (drafted 2026-11-22 from the 2014 handbook; approved by Milan Vrekic 2026-11-22)
 - id: crfsc-muzzle-101
   course: crfsc
   topic: muzzleloaders
@@ -552,7 +552,7 @@
   answer: 3
   explanation: "FFFFg has the finest granules and is used only in flintlock priming pans. Never use it as a powder charge."
   source: {handbook_edition: "2014 (5th ed.)", section: "12.1.1. Black powder", page: "224"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-muzzle-102
   course: crfsc
   topic: muzzleloaders
@@ -562,7 +562,7 @@
   answer: 2
   explanation: "The finer the granules, the more pressure they create when fired. That is why FFFFg is only ever used for priming."
   source: {handbook_edition: "2014 (5th ed.)", section: "12.1.1. Black powder", page: "224"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-muzzle-103
   course: crfsc
   topic: muzzleloaders
@@ -572,7 +572,7 @@
   answer: 2
   explanation: "Caked powder with white crystals has become very unstable and should be soaked in water immediately."
   source: {handbook_edition: "2014 (5th ed.)", section: "12.1.1. Black powder", page: "224"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-muzzle-104
   course: crfsc
   topic: muzzleloaders
@@ -582,7 +582,7 @@
   answer: 1
   explanation: "Glowing embers may remain in the bore after firing. Reloading straight away could create an explosion hazard."
   source: {handbook_edition: "2014 (5th ed.)", section: "12.1.1. Black powder", page: "225"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-muzzle-105
   course: crfsc
   topic: muzzleloaders
@@ -592,7 +592,7 @@
   answer: 0
   explanation: "Grease in front of each projectile in a black-powder revolver helps prevent chain-firing, where one discharge sets off the other chambers."
   source: {handbook_edition: "2014 (5th ed.)", section: "12.2.3. DOs and DON'Ts of muzzleloading", page: "232"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-muzzle-106
   course: crfsc
   topic: muzzleloaders
@@ -602,7 +602,7 @@
   answer: 1
   explanation: "A sabot is a plastic or synthetic carrier that encases a projectile. Other projectiles are round balls with patches, conical Minié balls and shot."
   source: {handbook_edition: "2014 (5th ed.)", section: "12.1.2. Black powder projectiles", page: "225"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-handling-101
   course: crfsc
   topic: handling
@@ -612,7 +612,7 @@
   answer: 3
   explanation: "To close the action: point downrange, extend the arm, lock the wrist and elbow, and close the action. Leave any safety on until ready to fire."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.6.3. Loading procedure", page: "264"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-actions-101
   course: crfsc
   topic: actions
@@ -622,7 +622,7 @@
   answer: 3
   explanation: "With a single-action revolver the hammer must be placed in full cock by hand for each shot. Pulling the trigger does one thing: it releases the hammer."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.7.0. Operating repeating firearms: revolver actions", page: "265"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-actions-102
   course: crfsc
   topic: actions
@@ -632,7 +632,7 @@
   answer: 2
   explanation: "Most single-action revolvers have cylinders that do not swing out. Cartridges go in and come out one at a time through a loading port, usually on the right side."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.7.0. Operating repeating firearms: revolver actions", page: "265"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-prove-101
   course: crfsc
   topic: prove
@@ -642,7 +642,7 @@
   answer: 0
   explanation: "Let any cartridge or casing fall on the bench or range floor and leave it there until you have completed all the unloading steps."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.7.1. Revolver: single-action unloading procedure", page: "267"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-actions-103
   course: crfsc
   topic: actions
@@ -652,7 +652,7 @@
   answer: 2
   explanation: "In double-action-only pistols the hammer returns forward after each shot. In single-action and double-action pistols it stays cocked."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.8. Semi-automatic actions: pistols", page: "275"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-handling-102
   course: crfsc
   topic: handling
@@ -662,7 +662,7 @@
   answer: 1
   explanation: "Put the firearm down with the muzzle pointed in a safe direction and the action open, then charge the magazine by inserting cartridges."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.8.2. Semi-automatic loading procedure", page: "281"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-range-101
   course: crfsc
   topic: range-and-field
@@ -672,7 +672,7 @@
   answer: 1
   explanation: "On the range, always wear headphone-type protectors. For maximum protection, wear earplugs under them as well."
   source: {handbook_edition: "2014 (5th ed.)", section: "15.1.2. Hearing protection", page: "286"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-range-102
   course: crfsc
   topic: range-and-field
@@ -682,7 +682,7 @@
   answer: 2
   explanation: "Your first action in a fall is to control the muzzle. The damage from a fall is probably less than the damage from an unintentional discharge."
   source: {handbook_edition: "2014 (5th ed.)", section: "15.1.3. Slips and falls", page: "287"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-shooting-101
   course: crfsc
   topic: shooting-technique
@@ -692,7 +692,7 @@
   answer: 2
   explanation: "With an incorrect grip, the weak-hand thumb can sit behind the slide, and the recoiling slide can injure it. Keep both thumbs on the weak-hand side, clear of the slide."
   source: {handbook_edition: "2014 (5th ed.)", section: "15.3.1. The two-handed grip", page: "288"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-shooting-102
   course: crfsc
   topic: shooting-technique
@@ -702,7 +702,7 @@
   answer: 1
   explanation: "Grip the handgun with about the same pressure you would use to hold a carpenter's hammer."
   source: {handbook_edition: "2014 (5th ed.)", section: "15.3.1. The two-handed grip", page: "288"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-shooting-103
   course: crfsc
   topic: shooting-technique
@@ -712,7 +712,7 @@
   answer: 1
   explanation: "Face the target squarely, feet about shoulder width apart, weight even, knees straight but not locked, arms out with elbows locked."
   source: {handbook_edition: "2014 (5th ed.)", section: "15.3.2. The two-handed stance", page: "289"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-shooting-104
   course: crfsc
   topic: shooting-technique
@@ -722,7 +722,7 @@
   answer: 3
   explanation: "Always try to aim with both eyes open, as this gives a better view of the area surrounding the target."
   source: {handbook_edition: "2014 (5th ed.)", section: "15.4. Aiming handguns", page: "292"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-shooting-105
   course: crfsc
   topic: shooting-technique
@@ -732,7 +732,7 @@
   answer: 3
   explanation: "Don't look away and then search through the sight. Keep watching the target and raise the handgun into the two-handed stance until the sight comes up between your eye and the target."
   source: {handbook_edition: "2014 (5th ed.)", section: "15.4. Aiming handguns", page: "292"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-range-103
   course: crfsc
   topic: range-and-field
@@ -742,7 +742,7 @@
   answer: 3
   explanation: "Range safety rules normally require the action of any firearm to be open at all times except when actually shooting."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.5.2. Range safety rules", page: "299"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-range-104
   course: crfsc
   topic: range-and-field
@@ -752,7 +752,7 @@
   answer: 0
   explanation: "No firearm is loaded until the Range Officer gives the command to load. Commands of the Range Officer must be followed at all times."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.5.2. Range safety rules", page: "299"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-range-105
   course: crfsc
   topic: range-and-field
@@ -762,7 +762,7 @@
   answer: 1
   explanation: "Unacceptable targets include anything that can cause ricochets, such as target holder frames or concrete walkways, and anything that may damage the range."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.6.2. Unacceptable targets", page: "303"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-range-106
   course: crfsc
   topic: range-and-field
@@ -772,7 +772,7 @@
   answer: 1
   explanation: "Those firing semi-automatic firearms should take a firing point where other people will not be disturbed by ejected casings."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.5.3. Range courtesy", page: "302"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-care-101
   course: crfsc
   topic: care
@@ -782,7 +782,7 @@
   answer: 1
   explanation: "When cleaning a revolver, always support the cylinder to avoid potential damage, and clean from the breech toward the muzzle."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.8.2. General cleaning procedures", page: "306"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-care-102
   course: crfsc
   topic: care
@@ -792,7 +792,7 @@
   answer: 0
   explanation: "Before the next firing, run a dry patch through the bore and chambers to remove any oil. Oil or dirt in the barrel can raise pressure enough to burst it."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.8.2. General cleaning procedures", page: "306"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-care-103
   course: crfsc
   topic: care
@@ -802,7 +802,7 @@
   answer: 1
   explanation: "After cleaning for storage, avoid skin contact with metal parts. Acids in perspiration can cause rust."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.8.2. General cleaning procedures", page: "307"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-care-104
   course: crfsc
   topic: care
@@ -812,7 +812,7 @@
   answer: 3
   explanation: "Always give cleaning your full attention. Never clean a firearm while doing something else, like watching television, and make sure no ammunition is nearby."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.8.1. Cleaning materials", page: "306"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-resp-101
   course: crfsc
   topic: responsibilities
@@ -822,7 +822,7 @@
   answer: 3
   explanation: "The handbook states that it is forbidden to hunt with a restricted firearm in Canada, and that hunting with a handgun is not permitted."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: Legal responsibilities", page: "220"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-range-107
   course: crfsc
   topic: range-and-field
@@ -832,7 +832,7 @@
   answer: 3
   explanation: "Verify every target: Is the range active? Am I sure I am shooting at my target? Are the targets approved by the Range Safety Officer?"
   source: {handbook_edition: "2014 (5th ed.)", section: "16.6.1. Acceptable targets", page: "303"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-muzzle-107
   course: crfsc
   topic: muzzleloaders
@@ -842,4 +842,4 @@
   answer: 1
   explanation: "Don't load one chamber of a muzzleloading revolver unless the percussion caps on the nipples of the other chambers have been removed."
   source: {handbook_edition: "2014 (5th ed.)", section: "12.2.3. DOs and DON'Ts of muzzleloading", page: "233"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
