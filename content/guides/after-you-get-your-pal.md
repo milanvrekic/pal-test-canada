@@ -2,8 +2,8 @@
 title: "Got your PAL? What to do next"
 description: Buying your first firearm, finding a range, getting a hunting and fishing licence, storage and transport, and keeping your licence valid.
 order: 4
-status: draft
-last_reviewed: TBD
+status: reviewed
+last_reviewed: 2026-11-22
 ---
 Your licence card has arrived. Here is what most new licence holders do next, in the order it usually comes up.
 

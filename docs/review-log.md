@@ -79,8 +79,7 @@ The correct answer was the longest option in 56 of 92 multiple-choice questions;
 
 - All 7 drills (content/practical/drills.yaml) approved by Milan; flashcard prompts added in his style ("Click, but no bang. What do you do?").
 
-## 2026-11-22: "Got your PAL? What to do next" guide (draft)
+## 2026-11-22: "Got your PAL? What to do next" guide
 
-- content/guides/after-you-get-your-pal.md, status draft. Release builds leave it out until approved.
+- content/guides/after-you-get-your-pal.md approved by Milan on 2026-11-22.
 - Checked against RCMP pages (transfers and reference numbers, shooting clubs and ranges, licence renewal, change of address), the handgun freeze notes from Public Safety Canada, and BC's WILD and freshwater fishing licence pages.
-- To approve: set status to reviewed and last_reviewed to the approval date.
