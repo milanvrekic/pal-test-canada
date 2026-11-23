@@ -6,7 +6,7 @@ import { track } from '@/lib/analytics';
 import { APP_ICONS, type AppId, type PromoItem, hrefFor, usePromo } from '@/lib/handoff';
 
 import { ThemedText } from './themed-text';
-import { Col, Eyebrow, Split } from './ui';
+import { Col, Split } from './ui';
 
 export type Placement =
   | 'home'
@@ -42,7 +42,6 @@ export function HandoffCards({
   if (!items.length) return null;
   return (
     <View style={{ gap: Spacing.two, marginTop: Spacing.three }} accessibilityRole="none">
-      <Eyebrow tone="signal">From the same team</Eyebrow>
       <ThemedText type="heading" accessibilityRole="header">
         {title}
       </ThemedText>
@@ -86,7 +85,7 @@ export function MoreLink({ item, placement }: { item: PromoItem; placement: Plac
           {item.name}
           {item.inSeason ? <ThemedText type="small" themeColor="success">{'  · in season'}</ThemedText> : null}
         </ThemedText>
-        <ThemedText type="small" themeColor="textSecondary" numberOfLines={1}>
+        <ThemedText type="small" themeColor="textSecondary" numberOfLines={2}>
           {item.line}
         </ThemedText>
       </View>

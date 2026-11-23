@@ -26,7 +26,7 @@ export function TryScene() {
   const right = picked === d.answer;
 
   return (
-    <View style={[styles.card, { backgroundColor: theme.backgroundElement, borderColor: theme.border }]}>
+    <View style={styles.card}>
       <View style={styles.photo} accessibilityRole="image" accessibilityLabel={d.alt ?? 'Practice scene'}>
         <Image source={drillPhotos[d.photo]} style={styles.fill} resizeMode="cover" accessibilityIgnoresInvertColors />
         <View style={[styles.tag, { backgroundColor: 'rgba(10,11,14,0.55)' }]}>
@@ -75,10 +75,11 @@ export function TryScene() {
 }
 
 const styles = StyleSheet.create({
-  card: { borderRadius: 28, borderWidth: 1, overflow: 'hidden', boxShadow: '0 1px 2px rgba(28,43,51,0.06), 0 24px 48px -16px rgba(28,43,51,0.22)' },
-  photo: { width: '100%', aspectRatio: 16 / 9, overflow: 'hidden' },
+  // No card around the demo: the photo and the answers sit on the page, so the answers are the only boxes.
+  card: { gap: Spacing.three + 4 },
+  photo: { width: '100%', aspectRatio: 16 / 9, overflow: 'hidden', borderRadius: 20 },
   fill: { width: '100%', height: '100%' },
   tag: { position: 'absolute', top: Spacing.three, left: Spacing.three, borderRadius: 999, paddingHorizontal: Spacing.two + 4, paddingVertical: Spacing.one },
-  body: { padding: Spacing.three + 4, gap: Spacing.three },
+  body: { gap: Spacing.three },
   result: { borderRadius: 16, padding: Spacing.three, flexDirection: 'row' },
 });

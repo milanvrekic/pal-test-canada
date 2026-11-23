@@ -2,17 +2,28 @@ import { Link, type Href } from 'expo-router';
 import type { Metadata } from 'expo-router/server';
 
 import { page } from '@/lib/seo';
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
 
 import { HandoffCards } from '@/components/handoff-cards';
 import { TryScene } from '@/components/try-scene';
 import { ThemedText } from '@/components/themed-text';
-import { Button, Col, Eyebrow, LinkCard, Ring, Screen, Split } from '@/components/ui';
-import { Radius, RadiusControl, Shadow, Spacing, TINTS } from '@/constants/theme';
-import { type Course, EXAM_SIZE, READY_EXAMS, READY_MARK, dueForReview, readiness, today, topicLabel, topicStats } from '@/features/quiz/engine';
+import { APP_LAYOUT, Button, Col, Ring, Screen, Split } from '@/components/ui';
+import { Radius, RadiusControl, Shadow, Spacing } from '@/constants/theme';
+import {
+  type Course,
+  EXAM_SIZE,
+  PASS_MARK,
+  READY_EXAMS,
+  READY_MARK,
+  dueForReview,
+  readiness,
+  today,
+  topicLabel,
+  topicStats,
+} from '@/features/quiz/engine';
 import { useTheme } from '@/hooks/use-theme';
-import { drillPhotos } from '@/content/drill-photos';
 import { drills, questions } from '@/lib/content';
 import { useProgress } from '@/lib/progress';
 import { useTracker } from '@/lib/tracker';
@@ -26,247 +37,445 @@ export function generateMetadata(): Metadata {
 }
 
 const TOPICS_SHOWN = 5;
+const QUICK_SIZE = 10;
+const MOCK_MINUTES = 60;
+const pct = (x: number) => `${Math.round(x * 100)}%`;
 
 const COURSES: { id: Course; label: string; sub: string }[] = [
   { id: 'cfsc', label: 'CFSC', sub: 'Non-restricted' },
   { id: 'crfsc', label: 'CRFSC', sub: 'Restricted' },
 ];
 
+type TopicStat = ReturnType<typeof topicStats>[number];
+type ExamLite = { correct: number; total: number };
+
+/**
+ * The website home sells the course and lets people try a question; the app home (iOS, Android) starts with what to
+ * study next, because people open it again and again and have already decided to use it.
+ */
 export default function Home() {
-  const theme = useTheme();
+  const t = useTheme();
   const [course, setCourse] = useState<Course>('cfsc');
   const [allTopics, setAllTopics] = useState(false);
   const { progress, loaded } = useProgress();
   const { tracker } = useTracker();
-  // The handover scene reads well cropped to 16:9; fall back to any scene with a photo.
-  const drillPhoto = drills.find((d) => d.id === 'spot-pass-closed' && d.photo && drillPhotos[d.photo]) ?? drills.find((d) => d.photo && drillPhotos[d.photo]);
 
   const bank = questions.filter((q) => q.course === course);
   const examSize = Math.min(EXAM_SIZE, bank.length);
   const stats = topicStats(questions, progress, course);
   const due = loaded ? dueForReview(questions, progress, course, today()).length : 0;
   const ready = readiness(questions, progress, course);
-  const hasHistory = stats.some((s) => s.seen > 0) || progress.exams.some((e) => e.course === course);
+  const exams = progress.exams.filter((e) => e.course === course);
+  const hasHistory = stats.some((s) => s.seen > 0) || exams.length > 0;
   // Weakest first once there is history; biggest first before that.
   const sorted = [...stats].sort((a, b) =>
     hasHistory ? (a.accuracy ?? 2) - (b.accuracy ?? 2) || b.total - a.total : b.total - a.total || a.topic.localeCompare(b.topic),
   );
-  const shown = allTopics ? sorted : sorted.slice(0, TOPICS_SHOWN);
-
   const tracking = !!tracker.submittedOn && !tracker.arrivedOn;
-  const exams = progress.exams.filter((e) => e.course === course);
+
+  const picker = <CoursePicker course={course} onChange={setCourse} />;
+  const start = <StartActions course={course} examSize={examSize} />;
+  const readinessPanel = <ReadinessPanel loaded={loaded} hasHistory={hasHistory} ready={ready} exams={exams} />;
+  const topics = (
+    <TopicList
+      course={course}
+      total={bank.length}
+      stats={sorted}
+      hasHistory={hasHistory}
+      all={allTopics}
+      onToggle={() => setAllTopics(!allTopics)}
+    />
+  );
+  const handoff = (
+    <HandoffCards
+      placement="home"
+      title="After your course"
+      lead="Licence on the way? These apps are made by the same team."
+      order={course === 'crfsc' ? ['shootable', 'huntable'] : ['huntable', 'shootable']}
+    />
+  );
+
+  if (APP_LAYOUT) {
+    return (
+      <Screen>
+        {picker}
+        {loaded ? <UpNext course={course} due={due} stats={sorted} exams={exams} ready={ready.ready} examSize={examSize} /> : null}
+        <OtherWays course={course} examSize={examSize} />
+        {readinessPanel}
+        {topics}
+        {handoff}
+      </Screen>
+    );
+  }
 
   return (
     <Screen width="wide">
-      <View style={[styles.hero, { backgroundColor: theme.backgroundElement }, Shadow]}>
-        <Split gap={Spacing.five} style={{ alignItems: 'center' }}>
-          <Col basis={420} grow={5} style={{ gap: Spacing.four }}>
-            <View style={[styles.chip, { backgroundColor: theme.backgroundElement, borderColor: theme.border }]}>
-              <View style={[styles.dot, { backgroundColor: theme.success }]} />
-              <ThemedText type="smallBold" themeColor="textSecondary">
-                Free · Instructor-reviewed
-              </ThemedText>
-            </View>
-            <ThemedText type="display" accessibilityRole="header">
-              Pass your PAL course <ThemedText type="display" style={{ color: theme.accent }}>the first time.</ThemedText>
-            </ThemedText>
-            <ThemedText themeColor="textSecondary" style={{ fontSize: 18, lineHeight: 28, maxWidth: 520 }}>
-              Practice tests for the CFSC and CRFSC, written from the student handbook. No account, no ads. Your progress
-              stays on this device.
-            </ThemedText>
-
-            <View style={[styles.segment, { backgroundColor: theme.backgroundSelected }]} accessibilityRole="radiogroup" accessibilityLabel="Which course are you taking?">
-              {COURSES.map((c) => {
-                const active = c.id === course;
-                return (
-                  <Pressable
-                    key={c.id}
-                    accessibilityRole="radio"
-                    accessibilityState={{ checked: active }}
-                    onPress={() => setCourse(c.id)}
-                    style={[styles.segmentItem, active ? [styles.segmentActive, Shadow, { backgroundColor: theme.backgroundElement }] : null]}
-                  >
-                    <ThemedText type="bold" themeColor={active ? 'accent' : 'text'}>
-                      {c.label}
-                    </ThemedText>
-                    <ThemedText type="small" themeColor="textSecondary">
-                      {c.sub}
-                    </ThemedText>
-                  </Pressable>
-                );
-              })}
-            </View>
-
-            <View style={styles.ctaRow}>
-              <Button size="lg" label="Start practice exam" href={{ pathname: '/quiz', params: { course, mode: 'exam' } }} />
-              <Button size="lg" variant="secondary" label="Quick practice" href={{ pathname: '/quiz', params: { course, mode: 'practice' } }} />
-            </View>
-            <View style={styles.facts}>
-              {[`${questions.length} questions`, `${drills.length} photo drills`, `${examSize}-question exams`, 'No sign-up'].map((f) => (
-                <ThemedText key={f} type="small" themeColor="textSecondary">
-                  <ThemedText type="smallBold" themeColor="success">✓ </ThemedText>
+      <Split gap={Spacing.five} style={{ alignItems: 'center', paddingVertical: Spacing.three }}>
+        <Col basis={420} grow={5} style={{ gap: Spacing.four }}>
+          <ThemedText type="display" accessibilityRole="header">
+            Pass your PAL course the first time.
+          </ThemedText>
+          <ThemedText themeColor="textSecondary" style={{ fontSize: 18, lineHeight: 28, maxWidth: 520 }}>
+            Practice tests for the CFSC and CRFSC, written from the student handbook and reviewed by a certified instructor. Free, with no
+            account and no ads. Your progress stays on this device.
+          </ThemedText>
+          {picker}
+          {start}
+          <View style={styles.facts}>
+            {[`${questions.length} questions`, `${drills.length} photo scenes`, 'Handbook page on every answer', 'No sign-up'].map((f) => (
+              <View key={f} style={styles.fact}>
+                <Check color={t.textSecondary} />
+                <ThemedText type="small" themeColor="textSecondary">
                   {f}
                 </ThemedText>
-              ))}
-            </View>
-          </Col>
-          <Col basis={360} grow={4}>
-            <TryScene />
-          </Col>
-        </Split>
-      </View>
+              </View>
+            ))}
+          </View>
+        </Col>
+        <Col basis={360} grow={4}>
+          <TryScene />
+        </Col>
+      </Split>
 
       {due > 0 ? (
-        <Button variant="secondary" label={`Review ${due} missed question${due === 1 ? '' : 's'}`} href={{ pathname: '/quiz', params: { course, mode: 'review' } }} />
+        <View style={{ alignSelf: 'flex-start' }}>
+          <Button
+            variant="secondary"
+            label={`Review ${due} missed question${due === 1 ? '' : 's'}`}
+            href={{ pathname: '/quiz', params: { course, mode: 'review' } }}
+          />
+        </View>
       ) : null}
 
-      <Split>
+      <Split gap={Spacing.four}>
         <Col basis={380} grow={3}>
-          <ReadinessPanel loaded={loaded} hasHistory={hasHistory} ready={ready} exams={exams} />
+          {readinessPanel}
         </Col>
-        <Col basis={240} grow={2}>
-          <BentoTile
-            href="/wait-times"
-            tint="tintBlue"
-            eyebrow={tracking ? 'Your licence tracker' : 'Licence wait times'}
-            stat="28"
-            statNote="day legal minimum"
-            body={tracking ? 'See how your wait compares with other applicants.' : 'How long applicants wait for a PAL, plus a tracker for yours.'}
-          />
-        </Col>
-        <Col basis={240} grow={2}>
-          <BentoTile
-            href="/guides/what-fails-people"
-            tint="tintSand"
-            eyebrow="What fails people"
-            stat="80%"
-            statNote="to pass each test"
-            body="Most failures are handling habits, not missing knowledge. How to fix them."
+        <Col basis={300} grow={2}>
+          <RowList
+            title="Good to know"
+            rows={[
+              {
+                href: '/wait-times',
+                label: tracking ? 'Your licence tracker' : 'How long the licence takes',
+                sub: tracking ? 'See how your wait compares with other applicants' : 'At least 28 days by law; see what applicants report',
+              },
+              {
+                href: '/guides/what-fails-people',
+                label: 'What fails people',
+                sub: 'Mostly handling habits, not missing knowledge',
+              },
+              {
+                href: '/pal-courses',
+                label: 'Where to take the course',
+                sub: 'Course providers by province',
+              },
+            ]}
           />
         </Col>
       </Split>
 
-      <View style={{ gap: Spacing.three }}>
-        <ThemedText type="heading" accessibilityRole="header">
-          Study tools
-        </ThemedText>
-        <Split gap={Spacing.two + 4}>
-          {[
-            { href: '/practical' as Href, title: 'Practical trainer', body: 'Put PROVE and handling steps in order, then say them out loud.', tint: 'tintRed' as const },
-            { href: { pathname: '/quiz', params: { course, mode: 'mock' } } as Href, title: 'Test-day mock', body: `${examSize} questions against a 60-minute clock, then the practical.`, tint: 'tintLilac' as const },
-            { href: '/flashcards' as Href, title: 'Flashcards', body: 'Question on the front, answer and handbook page on the back.', tint: 'tintGreen' as const },
-            { href: '/rules' as Href, title: 'Storage and transport rules', body: 'Pick the firearm and situation, see what the law requires.', tint: 'tintSand' as const },
-          ].map((t) => (
-            <Col key={t.title} basis={240}>
-              <Link href={t.href} asChild>
-                <Pressable accessibilityRole="link" style={{ flexGrow: 1 }}>
-                  {({ pressed }) => (
-                    <View style={[styles.toolTile, { backgroundColor: theme[t.tint] }, pressed ? { transform: [{ scale: 0.98 }] } : null]}>
-                      <ThemedText type="heading">{t.title}</ThemedText>
-                      <ThemedText type="small" themeColor="textSecondary">
-                        {t.body}
-                      </ThemedText>
-                      <ThemedText type="smallBold" style={{ marginTop: 'auto' }}>
-                        Open →
-                      </ThemedText>
-                    </View>
-                  )}
-                </Pressable>
-              </Link>
-            </Col>
-          ))}
-        </Split>
-      </View>
-
-      <View style={{ gap: Spacing.three }}>
-        <View style={styles.sectionHead}>
-          <ThemedText type="heading" accessibilityRole="header">
-            {hasHistory ? 'Your topics, weakest first' : 'Practice by topic'}
-          </ThemedText>
-          <ThemedText type="small" themeColor="textSecondary">
-            {course.toUpperCase()} · {bank.length} questions
-          </ThemedText>
-        </View>
-        <Split gap={Spacing.two + 4}>
-          {shown.map((s, i) => (
-            <Col key={s.topic} basis={320}>
-              <Link href={{ pathname: '/quiz', params: { course, mode: 'practice', topic: s.topic } }} asChild>
-                <Pressable accessibilityRole="link" accessibilityLabel={`${topicLabel(s.topic)}. ${s.accuracy === null ? `${s.total} questions` : `${Math.round(s.accuracy * 100)}% correct`}`}>
-                  {({ pressed }) => (
-                    <View style={[styles.topicCard, { backgroundColor: theme[TINTS[i % TINTS.length]] }, pressed ? { opacity: 0.85 } : null]}>
-                      <View style={{ flex: 1, gap: Spacing.half }}>
-                        <ThemedText type="bold">{topicLabel(s.topic)}</ThemedText>
-                        <ThemedText type="small" themeColor="textSecondary">
-                          {s.total} question{s.total === 1 ? '' : 's'}
-                          {s.seen > 0 ? ` · ${s.seen} answered` : ''}
-                        </ThemedText>
-                      </View>
-                      <Ring
-                        value={s.accuracy}
-                        size={48}
-                        label={s.accuracy === null ? '–' : `${Math.round(s.accuracy * 100)}%`}
-                        track="rgba(0,0,0,0.08)"
-                        color={s.accuracy !== null && s.accuracy < 0.8 ? theme.danger : theme.success}
-                      />
-                    </View>
-                  )}
-                </Pressable>
-              </Link>
-            </Col>
-          ))}
-        </Split>
-        {sorted.length > TOPICS_SHOWN ? (
-          <View style={{ alignSelf: 'flex-start' }}>
-            <Button
-              variant="secondary"
-              label={allTopics ? 'Show fewer topics' : `Show all ${sorted.length} topics`}
-              onPress={() => setAllTopics(!allTopics)}
-            />
-          </View>
-        ) : null}
-      </View>
-
-      <HandoffCards
-        placement="home"
-        title="After your course"
-        lead="Licence on the way? These are made by the same team."
-        order={course === 'crfsc' ? ['shootable', 'huntable'] : ['huntable', 'shootable']}
-      />
+      <Split gap={Spacing.four} style={{ alignItems: 'flex-start' }}>
+        <Col basis={420} grow={1}>
+          {topics}
+        </Col>
+        <Col basis={420} grow={1}>
+          <RowList
+            title="Study tools"
+            rows={[
+              {
+                href: '/practical',
+                label: 'Practical trainer',
+                sub: 'Put PROVE and the handling steps in order, then say them out loud',
+              },
+              {
+                href: '/spot',
+                label: 'Spot the mistake',
+                sub: `${drills.length} photo scenes from the range and the field`,
+              },
+              {
+                href: '/flashcards',
+                label: 'Flashcards',
+                sub: 'Question on the front, answer and handbook page on the back',
+              },
+              {
+                href: '/rules',
+                label: 'Storage and transport rules',
+                sub: 'Pick the firearm and the situation, see what the law requires',
+              },
+            ]}
+          />
+        </Col>
+      </Split>
+      {handoff}
     </Screen>
   );
 }
 
-/** A tinted bento tile that links somewhere, with one big number. */
-function BentoTile({ href, tint, eyebrow, stat, statNote, body }: { href: Href; tint: (typeof TINTS)[number]; eyebrow: string; stat: string; statNote: string; body: string }) {
-  const theme = useTheme();
+function Check({ color }: { color: string }) {
   return (
-    <Link href={href} asChild>
-      <Pressable accessibilityRole="link" style={{ flexGrow: 1 }}>
-        {({ pressed }) => (
-          <View style={[styles.tile, { backgroundColor: theme[tint] }, pressed ? { transform: [{ scale: 0.98 }] } : null]}>
-            <View style={styles.tileHead}>
-              <ThemedText type="eyebrow">{eyebrow}</ThemedText>
-              <View style={[styles.arrow, { backgroundColor: theme.backgroundElement }]}>
-                <ThemedText type="bold" style={{ lineHeight: 18 }}>
-                  →
-                </ThemedText>
-              </View>
-            </View>
-            <View style={{ marginTop: 'auto', gap: Spacing.one }}>
-              <View style={styles.bandStat}>
-                <ThemedText type="stat">{stat}</ThemedText>
-                <ThemedText type="smallBold" themeColor="textSecondary" style={{ flex: 1, paddingBottom: 8 }}>
-                  {statNote}
-                </ThemedText>
-              </View>
-              <ThemedText type="small" themeColor="textSecondary">
-                {body}
-              </ThemedText>
-            </View>
-          </View>
-        )}
-      </Pressable>
+    <Svg width={14} height={14} viewBox="0 0 24 24" accessibilityElementsHidden importantForAccessibility="no">
+      <Path d="M5 12.5l4.2 4.2L19 7" stroke={color} strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </Svg>
+  );
+}
+
+function CoursePicker({ course, onChange }: { course: Course; onChange: (c: Course) => void }) {
+  const t = useTheme();
+  return (
+    <View
+      style={[styles.segment, { backgroundColor: t.backgroundSelected }]}
+      accessibilityRole="radiogroup"
+      accessibilityLabel="Which course are you taking?">
+      {COURSES.map((c) => {
+        const active = c.id === course;
+        return (
+          <Pressable
+            key={c.id}
+            accessibilityRole="radio"
+            accessibilityState={{ checked: active }}
+            onPress={() => onChange(c.id)}
+            style={[styles.segmentItem, active ? [Shadow, { backgroundColor: t.backgroundElement }] : null]}>
+            <ThemedText type="bold" themeColor={active ? 'accent' : 'text'}>
+              {c.label}
+            </ThemedText>
+            <ThemedText type="small" themeColor="textSecondary">
+              {c.sub}
+            </ThemedText>
+          </Pressable>
+        );
+      })}
+    </View>
+  );
+}
+
+/** One way in, explained: the practice exam is the main path; quick practice and the timed mock are quieter options. */
+function StartActions({ course, examSize }: { course: Course; examSize: number }) {
+  return (
+    <View style={{ gap: Spacing.two + 4 }}>
+      <View style={{ alignSelf: 'flex-start' }}>
+        <Button size="lg" label="Start practice exam" href={{ pathname: '/quiz', params: { course, mode: 'exam' } }} />
+      </View>
+      <ThemedText type="small" themeColor="textSecondary" style={{ maxWidth: 520 }}>
+        {examSize} questions like the real written test, with answers and handbook pages at the end. Or try{' '}
+        <TextLink href={{ pathname: '/quiz', params: { course, mode: 'practice' } }}>{QUICK_SIZE} quick questions</TextLink> with answers as
+        you go, or the <TextLink href={{ pathname: '/quiz', params: { course, mode: 'mock' } }}>timed {MOCK_MINUTES}-minute mock</TextLink>.
+      </ThemedText>
+    </View>
+  );
+}
+
+function TextLink({ href, children }: { href: Href; children: ReactNode }) {
+  return (
+    <Link href={href}>
+      <ThemedText type="smallBold" themeColor="accent" style={{ textDecorationLine: 'underline' }}>
+        {children}
+      </ThemedText>
     </Link>
+  );
+}
+
+/** In the app, Up next carries the main button; the other ways in are a single line of links under it. */
+function OtherWays({ course, examSize }: { course: Course; examSize: number }) {
+  return (
+    <ThemedText type="small" themeColor="textSecondary">
+      Other ways to practise: a full{' '}
+      <TextLink href={{ pathname: '/quiz', params: { course, mode: 'exam' } }}>{examSize}-question practice exam</TextLink>,{' '}
+      <TextLink href={{ pathname: '/quiz', params: { course, mode: 'practice' } }}>{QUICK_SIZE} quick questions</TextLink> with answers as
+      you go, or the <TextLink href={{ pathname: '/quiz', params: { course, mode: 'mock' } }}>timed {MOCK_MINUTES}-minute mock</TextLink>.
+    </ThemedText>
+  );
+}
+
+/** The app's first card: the single most useful thing to do now, from the learner's own history. */
+function UpNext({
+  course,
+  due,
+  stats,
+  exams,
+  ready,
+  examSize,
+}: {
+  course: Course;
+  due: number;
+  stats: TopicStat[];
+  exams: ExamLite[];
+  ready: boolean;
+  examSize: number;
+}) {
+  const t = useTheme();
+  const weak = stats.find((s) => s.accuracy !== null && s.accuracy < PASS_MARK);
+  const next: { title: string; body: string; label: string; href: Href } =
+    due > 0
+      ? {
+          title: `Review ${due} missed question${due === 1 ? '' : 's'}`,
+          body: 'Questions you got wrong come back after 1, 3 and 7 days until they stick.',
+          label: 'Start review',
+          href: { pathname: '/quiz', params: { course, mode: 'review' } },
+        }
+      : weak
+        ? {
+            title: `Work on ${topicLabel(weak.topic).toLowerCase()}`,
+            body: `You're at ${pct(weak.accuracy ?? 0)} on this topic. The real test needs 80%.`,
+            label: 'Practise this topic',
+            href: {
+              pathname: '/quiz',
+              params: { course, mode: 'practice', topic: weak.topic },
+            },
+          }
+        : exams.length === 0
+          ? {
+              title: 'Take your first practice exam',
+              body: `${examSize} questions like the real written test. It shows where to focus.`,
+              label: 'Start practice exam',
+              href: { pathname: '/quiz', params: { course, mode: 'exam' } },
+            }
+          : ready
+            ? {
+                title: 'You look ready',
+                body: `Keep it fresh with the timed ${MOCK_MINUTES}-minute mock before course day.`,
+                label: 'Start timed mock',
+                href: { pathname: '/quiz', params: { course, mode: 'mock' } },
+              }
+            : {
+                title: 'Next practice exam',
+                body: `Three in a row at 90% or better means you're ready.`,
+                label: 'Start practice exam',
+                href: { pathname: '/quiz', params: { course, mode: 'exam' } },
+              };
+  return (
+    <View style={[styles.panel, { backgroundColor: t.backgroundElement, borderColor: t.border }]}>
+      <ThemedText type="small" themeColor="textSecondary">
+        Up next · {course.toUpperCase()}
+      </ThemedText>
+      <ThemedText type="heading">{next.title}</ThemedText>
+      <ThemedText themeColor="textSecondary">{next.body}</ThemedText>
+      <Button label={next.label} href={next.href} />
+    </View>
+  );
+}
+
+type RowItem = { href: Href; label: string; sub: string };
+
+/** A titled, bordered list of links: one surface, rows divided by hairlines. */
+function RowList({ title, rows }: { title: string; rows: RowItem[] }) {
+  const t = useTheme();
+  return (
+    <View style={{ gap: Spacing.three, flexGrow: 1 }}>
+      <ThemedText type="heading" accessibilityRole="header">
+        {title}
+      </ThemedText>
+      <View style={[styles.list, { backgroundColor: t.backgroundElement, borderColor: t.border }]}>
+        {rows.map((r, i) => (
+          <Link key={r.label} href={r.href} asChild>
+            <Pressable accessibilityRole="link">
+              {({ pressed, hovered }: { pressed: boolean; hovered?: boolean }) => (
+                <View
+                  style={[
+                    styles.row,
+                    i > 0 ? { borderTopWidth: 1, borderTopColor: t.border } : null,
+                    pressed || hovered ? { backgroundColor: t.background } : null,
+                  ]}>
+                  <View style={{ flex: 1, gap: 2 }}>
+                    <ThemedText type="bold">{r.label}</ThemedText>
+                    <ThemedText type="small" themeColor="textSecondary">
+                      {r.sub}
+                    </ThemedText>
+                  </View>
+                  <Chevron color={t.textSecondary} />
+                </View>
+              )}
+            </Pressable>
+          </Link>
+        ))}
+      </View>
+    </View>
+  );
+}
+
+function Chevron({ color }: { color: string }) {
+  return (
+    <Svg width={16} height={16} viewBox="0 0 24 24" accessibilityElementsHidden importantForAccessibility="no">
+      <Path d="M9 5l7 7-7 7" stroke={color} strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </Svg>
+  );
+}
+
+/** Topics as one list. The ring is the only colour: green at 80% or better, red below, grey before any answers. */
+function TopicList({
+  course,
+  total,
+  stats,
+  hasHistory,
+  all,
+  onToggle,
+}: {
+  course: Course;
+  total: number;
+  stats: TopicStat[];
+  hasHistory: boolean;
+  all: boolean;
+  onToggle: () => void;
+}) {
+  const t = useTheme();
+  const shown = all ? stats : stats.slice(0, TOPICS_SHOWN);
+  return (
+    <View style={{ gap: Spacing.three }}>
+      <View style={{ gap: Spacing.one }}>
+        <ThemedText type="heading" accessibilityRole="header">
+          {hasHistory ? 'Your topics, weakest first' : 'Practise by topic'}
+        </ThemedText>
+        <ThemedText type="small" themeColor="textSecondary">
+          {course.toUpperCase()} · {total} questions. The ring shows your score on each topic; the real test needs 80%.
+        </ThemedText>
+      </View>
+      <View style={[styles.list, { backgroundColor: t.backgroundElement, borderColor: t.border }]}>
+        {shown.map((s, i) => {
+          const label = s.accuracy === null ? 'New' : pct(s.accuracy);
+          return (
+            <Link
+              key={s.topic}
+              href={{
+                pathname: '/quiz',
+                params: { course, mode: 'practice', topic: s.topic },
+              }}
+              asChild>
+              <Pressable
+                accessibilityRole="link"
+                accessibilityLabel={`${topicLabel(s.topic)}. ${s.total} questions. ${s.accuracy === null ? 'Not started' : `${pct(s.accuracy)} correct`}`}>
+                {({ pressed, hovered }: { pressed: boolean; hovered?: boolean }) => (
+                  <View
+                    style={[
+                      styles.row,
+                      i > 0 ? { borderTopWidth: 1, borderTopColor: t.border } : null,
+                      pressed || hovered ? { backgroundColor: t.background } : null,
+                    ]}>
+                    <View style={{ flex: 1, gap: 2 }}>
+                      <ThemedText type="bold">{topicLabel(s.topic)}</ThemedText>
+                      <ThemedText type="small" themeColor="textSecondary">
+                        {s.total} question{s.total === 1 ? '' : 's'}
+                        {s.seen > 0 ? ` · ${s.seen} answered` : ''}
+                      </ThemedText>
+                    </View>
+                    <Ring
+                      value={s.accuracy}
+                      size={44}
+                      label={label}
+                      color={s.accuracy !== null && s.accuracy < PASS_MARK ? t.danger : t.success}
+                    />
+                  </View>
+                )}
+              </Pressable>
+            </Link>
+          );
+        })}
+      </View>
+      {stats.length > TOPICS_SHOWN ? (
+        <View style={{ alignSelf: 'flex-start' }}>
+          <Button variant="secondary" label={all ? 'Show fewer topics' : `Show all ${stats.length} topics`} onPress={onToggle} />
+        </View>
+      ) : null}
+    </View>
   );
 }
 
@@ -279,11 +488,10 @@ function ReadinessPanel({
   loaded: boolean;
   hasHistory: boolean;
   ready: { ready: boolean; reasons: string[] };
-  exams: { correct: number; total: number }[];
+  exams: ExamLite[];
 }) {
-  const theme = useTheme();
+  const t = useTheme();
   const recent = exams.slice(-READY_EXAMS);
-  const last = exams.at(-1);
   const strong = recent.filter((e) => e.correct / e.total >= READY_MARK).length;
   const status = !loaded ? ' ' : ready.ready ? 'You look ready' : hasHistory ? 'Not ready yet' : 'How you know you’re ready';
   const detail = !loaded
@@ -292,90 +500,108 @@ function ReadinessPanel({
       ? 'Your last three practice exams were 90% or better and no topic is weak.'
       : hasHistory
         ? ready.reasons.join(' ')
-        : 'Score 90% or better on three practice exams in a row, with no weak topic. The real written test needs 80%.';
+        : 'Score 90% or better on three practice exams in a row, with no weak topic. The real test needs 80%, so 90% gives you a 10-point buffer for nerves on the day.';
   return (
-    <View style={[styles.panel, { backgroundColor: theme.backgroundElement, borderColor: theme.border }]}>
-      <View style={styles.panelTop}>
-        <Ring
-          value={strong / READY_EXAMS}
-          size={96}
-          stroke={9}
-          color={theme.success}
-          label={`${strong}/${READY_EXAMS}`}
-        />
-        <View style={{ flex: 1, gap: Spacing.one }}>
-          <ThemedText type="eyebrow" themeColor="textSecondary">Readiness</ThemedText>
-          <ThemedText type="heading">{status}</ThemedText>
-          <ThemedText type="small" themeColor="textSecondary">
-            {detail}
-          </ThemedText>
+    <View style={{ gap: Spacing.three }}>
+      <ThemedText type="heading" accessibilityRole="header">
+        Readiness
+      </ThemedText>
+      <View
+        style={[
+          styles.panel,
+          {
+            backgroundColor: t.backgroundElement,
+            borderColor: t.border,
+          },
+        ]}>
+        <View style={styles.panelTop}>
+          {hasHistory ? (
+            <Ring value={strong / READY_EXAMS} size={84} stroke={8} color={t.success} label={`${strong}/${READY_EXAMS}`} />
+          ) : null}
+          <View style={{ flex: 1, gap: Spacing.one }}>
+            <ThemedText type="subheading">{status}</ThemedText>
+            <ThemedText type="small" themeColor="textSecondary">
+              {detail}
+            </ThemedText>
+          </View>
         </View>
+        {hasHistory ? (
+          <View style={styles.ticks} accessibilityLabel={`${strong} of ${READY_EXAMS} recent exams at 90% or better`}>
+            {Array.from({ length: READY_EXAMS }, (_, i) => {
+              const e = recent[i];
+              const ok = e ? e.correct / e.total >= READY_MARK : false;
+              return (
+                <View
+                  key={i}
+                  style={[
+                    styles.tick,
+                    {
+                      borderColor: ok ? t.success : t.border,
+                      backgroundColor: ok ? t.successBg : e ? t.dangerBg : t.background,
+                    },
+                  ]}>
+                  <ThemedText
+                    type="smallBold"
+                    style={{
+                      color: ok ? t.successDark : t.textSecondary,
+                      fontVariant: ['tabular-nums'],
+                    }}>
+                    {e ? pct(e.correct / e.total) : 'Not taken'}
+                  </ThemedText>
+                </View>
+              );
+            })}
+          </View>
+        ) : null}
       </View>
-      <View style={styles.ticks} accessibilityLabel={`${strong} of ${READY_EXAMS} recent exams at 90% or better`}>
-        {Array.from({ length: READY_EXAMS }, (_, i) => {
-          const e = recent[i];
-          const ok = e ? e.correct / e.total >= READY_MARK : false;
-          return (
-            <View
-              key={i}
-              style={[
-                styles.tick,
-                { borderColor: ok ? theme.success : theme.border, backgroundColor: ok ? theme.successBg : e ? theme.dangerBg : theme.background },
-              ]}>
-              <ThemedText type="smallBold" style={{ color: ok ? theme.successDark : theme.textSecondary, fontVariant: ['tabular-nums'] }}>
-                {e ? `${Math.round((e.correct / e.total) * 100)}%` : `Exam ${i + 1}`}
-              </ThemedText>
-            </View>
-          );
-        })}
-      </View>
-      {last ? null : (
-        <ThemedText type="small" themeColor="textSecondary">
-          Your practice exam scores will fill these in.
-        </ThemedText>
-      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  drillPhoto: { width: '100%', aspectRatio: 16 / 9, overflow: 'hidden' },
-  fill: { width: '100%', height: '100%' },
-  band: { height: 132, padding: Spacing.three + 4, justifyContent: 'space-between' },
-  bandStat: { flexDirection: 'row', alignItems: 'flex-end', gap: Spacing.two },
-  switch: { flexDirection: 'row', gap: Spacing.two },
-  switchItem: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: Spacing.two + 4,
-    borderWidth: 2,
-    borderBottomWidth: 4,
-    borderRadius: RadiusControl,
-    paddingVertical: Spacing.two + 4,
-    paddingHorizontal: Spacing.three,
+  panel: {
+    borderRadius: Radius,
+    borderWidth: 1,
+    padding: Spacing.four,
+    gap: Spacing.three,
   },
-  radio: { width: 20, height: 20, borderRadius: 10, borderWidth: 2, alignItems: 'center', justifyContent: 'center' },
-  radioDot: { width: 10, height: 10, borderRadius: 5 },
-  panel: { borderRadius: 28, borderWidth: 1, padding: Spacing.four, gap: Spacing.three, flexGrow: 1 },
   panelTop: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three },
   ticks: { flexDirection: 'row', gap: Spacing.two },
-  tick: { flex: 1, height: 40, borderRadius: 999, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
-  hero: { borderRadius: 32, overflow: 'hidden', padding: Spacing.four, paddingVertical: Spacing.five },
-  chip: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two, alignSelf: 'flex-start', borderRadius: 999, borderWidth: 1, paddingHorizontal: Spacing.three, paddingVertical: 6 },
-  dot: { width: 8, height: 8, borderRadius: 4 },
-  segment: { flexDirection: 'row', borderRadius: 20, padding: 4, gap: 4, maxWidth: 460 },
-  segmentItem: { flex: 1, borderRadius: 16, paddingVertical: Spacing.two + 2, paddingHorizontal: Spacing.three },
-  segmentActive: {},
-  ctaRow: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two + 4 },
-  toolTile: { borderRadius: 24, padding: Spacing.four, gap: Spacing.two, flexGrow: 1, minHeight: 170 },
-  tile: { borderRadius: 28, padding: Spacing.four, gap: Spacing.three, flexGrow: 1, minHeight: 230 },
-  tileHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: Spacing.two },
-  arrow: { width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center' },
-  facts: { flexDirection: 'row', flexWrap: 'wrap', columnGap: Spacing.four, rowGap: Spacing.one },
-  fact: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two },
-  factTick: { width: 20, height: 20, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
-  sectionHead: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: Spacing.two },
-  topicCard: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three, borderRadius: Radius, paddingVertical: Spacing.three, paddingHorizontal: Spacing.three + 4, minHeight: 80 },
-  topicRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: Spacing.two },
+  tick: {
+    flex: 1,
+    height: 40,
+    borderRadius: 999,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  segment: {
+    flexDirection: 'row',
+    borderRadius: 20,
+    padding: 4,
+    gap: 4,
+    maxWidth: 460,
+  },
+  segmentItem: {
+    flex: 1,
+    borderRadius: RadiusControl,
+    paddingVertical: Spacing.two + 2,
+    paddingHorizontal: Spacing.three,
+  },
+  facts: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    columnGap: Spacing.four,
+    rowGap: Spacing.one,
+  },
+  fact: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  list: { borderRadius: Radius, borderWidth: 1, overflow: 'hidden' },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.three,
+    paddingVertical: Spacing.three,
+    paddingHorizontal: Spacing.three + 4,
+    minHeight: 64,
+  },
 });

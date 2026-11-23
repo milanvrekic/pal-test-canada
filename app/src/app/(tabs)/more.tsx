@@ -28,7 +28,7 @@ const SECTIONS: { title: string; rows: Row[] }[] = [
   {
     title: 'Your licence',
     rows: [
-      { href: '/pal-courses/bc', label: 'Where to take the course', sub: 'Course providers in BC by region' },
+      { href: '/pal-courses', label: 'Where to take the course', sub: 'Course providers by province' },
       { href: '/apply', label: 'Application checklist', sub: 'What to gather before you apply' },
       { href: '/wait-times', label: 'Wait times and tracker', sub: 'How long applicants wait, and your own countdown' },
       { href: '/guides', label: 'Guides', sub: 'What fails people, test day, after the exam' },

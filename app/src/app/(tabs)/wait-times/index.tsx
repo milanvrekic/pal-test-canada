@@ -6,7 +6,7 @@ import { Pressable, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
 import { NextSteps } from '@/components/next-steps';
-import { Card, Col, Eyebrow, Screen, Split } from '@/components/ui';
+import { Card, Col, Screen, Split } from '@/components/ui';
 import { SourceNote, SummaryCard, Tracker, provincesWithData, waitData } from '@/components/wait-times';
 import { Spacing } from '@/constants/theme';
 import { PROVINCES } from '@/features/wait/stats';
@@ -27,13 +27,18 @@ export default function WaitTimes() {
   return (
     <Screen width="wide">
       <View style={{ gap: Spacing.two }}>
-        <Eyebrow tone="signal">{d.total} reports from applicants</Eyebrow>
         <ThemedText type="title" accessibilityRole="header">
           PAL wait times
         </ThemedText>
         <ThemedText themeColor="textSecondary" style={{ maxWidth: 680 }}>
           How long people report waiting for a new firearms licence after they apply, and a tracker for yours. By law a first
           licence can't be issued until at least 28 days after the application.
+        </ThemedText>
+        <ThemedText type="small" themeColor="textSecondary">
+          {d.total} reports in total.{' '}
+          {d.window === 'recent'
+            ? `The typical wait uses the ${d.pool.length} new applications from the last 12 months.`
+            : `The typical wait uses the ${d.pool.length} new applications.`}
         </ThemedText>
       </View>
 

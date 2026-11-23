@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Pressable, StyleSheet, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
+import { DateField } from '@/components/date-field';
 import { NextSteps } from '@/components/next-steps';
 import { ThemedText } from '@/components/themed-text';
 import { Button, Card, Notice } from '@/components/ui';
@@ -136,7 +137,7 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
 
   if (!tracker.submittedOn) {
     const save = (value: string) => {
-      if (!isIsoDay(value)) return setError('Use the format YYYY-MM-DD, for example 2026-11-01.');
+      if (!isIsoDay(value)) return setError('Pick the day you sent your application.');
       if (value > day) return setError('That date is in the future.');
       setError(null);
       updateTracker((t) => ({ ...t, submittedOn: value }));
@@ -145,20 +146,17 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
       <Card style={{ gap: Spacing.three }}>
         <ThemedText type="heading">Track your application</ThemedText>
         <ThemedText type="small" themeColor="textSecondary">
-          Enter the day you sent your application. The date stays on this device.
+          Pick the day you sent your application. The date stays on this device.
         </ThemedText>
-        <TextInput
+        <DateField
           value={draft}
-          onChangeText={setDraft}
-          placeholder="YYYY-MM-DD"
-          placeholderTextColor={theme.textSecondary}
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="numbers-and-punctuation"
-          accessibilityLabel="Date you sent your application, YYYY-MM-DD"
-          onSubmitEditing={() => save(draft.trim())}
-          style={[styles.input, { borderColor: error ? theme.danger : theme.border, color: theme.text, backgroundColor: theme.background }]}
-          nativeID="tracker-date"
+          onChange={(v) => {
+            setDraft(v);
+            setError(null);
+          }}
+          max={day}
+          label="Date you sent your application"
+          invalid={!!error}
         />
         {error ? (
           <ThemedText type="small" themeColor="danger">
@@ -258,7 +256,6 @@ const styles = StyleSheet.create({
   you: { position: 'absolute', top: 0, width: 18, height: 18, borderRadius: 9, marginLeft: -9, borderWidth: 3 },
   axis: { flexDirection: 'row', justifyContent: 'space-between', marginTop: Spacing.one },
   tick: { fontSize: 12, lineHeight: 16 },
-  input: { borderWidth: 1, borderRadius: RadiusControl, minHeight: 48, paddingHorizontal: Spacing.three, fontSize: 16 },
   check: { flexDirection: 'row', gap: Spacing.three, alignItems: 'flex-start', minHeight: 44, paddingVertical: Spacing.one },
   box: { width: 22, height: 22, borderRadius: 6, borderWidth: 2, alignItems: 'center', justifyContent: 'center', marginTop: 1 },
   linkBtn: { minHeight: 44, justifyContent: 'center', alignSelf: 'flex-start' },

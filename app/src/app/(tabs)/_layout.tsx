@@ -23,8 +23,8 @@ export default function TabsLayout() {
       }}>
       <Tabs.Screen name="index" options={{ title: 'Practice', tabBarIcon: ({ color }) => <TabIcons.practice color={color} /> }} />
       <Tabs.Screen name="practical" options={{ title: 'Practical', tabBarIcon: ({ color }) => <TabIcons.practical color={color} /> }} />
-      <Tabs.Screen name="spot" options={{ title: 'Drills', tabBarIcon: ({ color }) => <TabIcons.drills color={color} /> }} />
-      <Tabs.Screen name="wait-times/index" options={{ title: 'Licence', tabBarIcon: ({ color }) => <TabIcons.licence color={color} /> }} />
+      <Tabs.Screen name="spot" options={{ title: 'Spot it', tabBarIcon: ({ color }) => <TabIcons.drills color={color} /> }} />
+      <Tabs.Screen name="wait-times/index" options={{ title: 'Wait times', tabBarIcon: ({ color }) => <TabIcons.licence color={color} /> }} />
       <Tabs.Screen name="more" options={{ title: 'More', tabBarIcon: ({ color }) => <TabIcons.more color={color} /> }} />
     </Tabs>
   );
