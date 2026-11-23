@@ -55,13 +55,13 @@ jobs:
           ANDROID_UPLOAD_KEY_PASSWORD: ${{ secrets.ANDROID_UPLOAD_KEY_PASSWORD }}
         run: |
           set -o pipefail
-          ./gradlew --no-daemon assembleRelease bundleRelease 2>&1 | tee "$RUNNER_TEMP/gradle.log"
+          ./gradlew --no-daemon --stacktrace assembleRelease bundleRelease 2>&1 | tee "$RUNNER_TEMP/gradle.log"
       - name: Show why Gradle failed
         if: failure()
         run: |
           # Surface the Gradle error as annotations, so it's readable from the PR checks.
           f="$RUNNER_TEMP/gradle.log"; [ -f "$f" ] || exit 0
-          { grep -n -A14 "What went wrong" "$f" || tail -n 25 "$f"; } | head -n 40 | while IFS= read -r line; do
+          { grep -n -A6 "What went wrong" "$f"; grep -n -E "Caused by|build\.gradle|settings\.gradle|\.kts:|at .*_closure|Script|line [0-9]+" "$f" | head -n 30; } | head -n 45 | while IFS= read -r line; do
             echo "::error::${line//%/%25}"
           done
       - uses: actions/upload-artifact@v6
