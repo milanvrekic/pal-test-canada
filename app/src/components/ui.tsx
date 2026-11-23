@@ -30,6 +30,13 @@ export function Screen({ children }: { children: ReactNode }) {
           ) : null}
           {children}
           <View style={[styles.footer, { borderTopColor: theme.border }]}>
+            <View style={styles.footerLinks}>
+              <NavLink href="/cfsc-practice-test">CFSC practice test</NavLink>
+              <NavLink href="/crfsc-practice-test">CRFSC practice test</NavLink>
+              <NavLink href="/pal-test-questions">PAL test questions</NavLink>
+              <NavLink href="/wait-times">PAL wait times</NavLink>
+              <NavLink href="/spot">Spot the mistake</NavLink>
+            </View>
             <ThemedText type="small" themeColor="textSecondary">
               {DISCLAIMER}
             </ThemedText>
@@ -126,6 +133,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   brand: { paddingVertical: Spacing.one },
+  footerLinks: { flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: -Spacing.two },
   navLinks: { flexDirection: 'row', gap: Spacing.one },
   navLink: { paddingVertical: Spacing.two, paddingHorizontal: Spacing.two, minHeight: 44, justifyContent: 'center' },
   footer: { marginTop: Spacing.four, paddingTop: Spacing.three, borderTopWidth: StyleSheet.hairlineWidth },
