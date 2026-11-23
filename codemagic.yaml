@@ -110,7 +110,7 @@ workflows:
         bundle_identifier: ca.paltest.app
       vars:
         BUNDLE_ID: ca.paltest.app
-        APP_STORE_APPLE_ID: 0          # App Store Connect → PAL Test Canada → App Information → Apple ID (a number)
+        APP_STORE_APPLE_ID: 6838490033          # App Store Connect → PAL Test Canada → App Information → Apple ID (a number)
         XCODE_WORKSPACE: ios/PALTestCanada.xcworkspace   # Expo names the project after "name" in app.json
         XCODE_SCHEME: PALTestCanada
       node: 22
