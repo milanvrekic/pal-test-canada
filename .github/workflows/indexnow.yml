@@ -1,0 +1,21 @@
+name: IndexNow
+# After each site deploy, tells Bing and the other IndexNow engines which pages to re-crawl (tools/indexnow.mjs).
+# Netlify deploys main in about a minute; the script waits until the new deploy is live.
+on:
+  push:
+    branches: [main]
+    paths: ['app/**', 'content/**', 'tools/**', 'netlify.toml']
+  workflow_dispatch:
+permissions: { contents: read }
+concurrency: { group: indexnow, cancel-in-progress: true }
+jobs:
+  ping:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: 22 }
+      - name: Give Netlify time to publish
+        run: sleep 120
+      - run: node tools/indexnow.mjs
