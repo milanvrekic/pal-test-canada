@@ -64,5 +64,6 @@ const styles = StyleSheet.create({
   verdict: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two + 2, flex: 1, minWidth: 0 },
   badge: { width: 32, height: 32, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
   badgeText: { color: '#FFFFFF', fontSize: 16, lineHeight: 20, fontWeight: '800' },
-  button: { width: 170 },
+  // Narrower on small phones so "Nice work" and "Not quite" never cut off; full width from 400pt up.
+  button: { width: 140 },
 });
