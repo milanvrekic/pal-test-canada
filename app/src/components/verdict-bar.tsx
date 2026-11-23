@@ -38,7 +38,7 @@ export function VerdictBar({
   return (
     <View style={[styles.pill, tone, Glass, styles.shadow]}>
       {verdict ? (
-        <View style={styles.verdict}>
+        <View style={[styles.verdict, styles.verdictKeep]}>
           <View style={[styles.badge, { backgroundColor: good ? theme.success : theme.danger }]}>
             <ThemedText style={styles.badgeText}>{good ? '✓' : '✕'}</ThemedText>
           </View>
@@ -64,5 +64,8 @@ const styles = StyleSheet.create({
   verdict: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two + 2, flex: 1, minWidth: 0 },
   badge: { width: 32, height: 32, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
   badgeText: { color: '#FFFFFF', fontSize: 16, lineHeight: 20, fontWeight: '800' },
-  button: { width: 170 },
+  // The verdict ("Nice work") keeps its full width; on narrow windows (iPhone Duo's outer display beside the tab
+  // rail) the button gives way first, down to a comfortable tap size.
+  verdictKeep: { flexShrink: 0, flexBasis: 'auto' },
+  button: { width: 170, flexShrink: 1, minWidth: 120 },
 });
