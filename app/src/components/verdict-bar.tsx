@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
+
+import { haptic } from '@/lib/haptics';
 
 import { Glass, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
@@ -26,6 +29,11 @@ export function VerdictBar({
 }) {
   const theme = useTheme();
   const good = verdict === 'correct';
+  // A buzz for the verdict on the native apps.
+  useEffect(() => {
+    if (verdict === 'correct') haptic.correct();
+    else if (verdict === 'wrong') haptic.wrong();
+  }, [verdict]);
   const tone = verdict ? (good ? { backgroundColor: `${theme.successBg}E6`, borderColor: `${theme.success}55` } : { backgroundColor: `${theme.dangerBg}E6`, borderColor: `${theme.danger}55` }) : { backgroundColor: `${theme.backgroundElement}E6`, borderColor: theme.border };
   return (
     <View style={[styles.pill, tone, Glass, styles.shadow]}>

@@ -4,7 +4,7 @@
 //   the copy gets a title and noindex tag.
 // - Drops Expo's route list (_sitemap.html) in case the plugin option ever stops applying.
 // - Writes sitemap.xml.
-import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { readdirSync, existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const dist = process.argv[2] ?? 'dist';
@@ -15,5 +15,7 @@ const head =
   '<title>Page not found | PAL Test Canada</title><meta name="robots" content="noindex, follow"/>';
 writeFileSync(join(dist, '404.html'), readFileSync(notFound, 'utf8').replace('</head>', `${head}</head>`));
 rmSync(join(dist, '_sitemap.html'), { force: true });
+// Route groups like (tabs) are also exported under their folder name; the same pages already exist at their real URLs.
+for (const f of readdirSync(dist)) if (f.startsWith('(')) rmSync(join(dist, f), { recursive: true, force: true });
 console.log('404.html written; _sitemap.html removed');
 await import('./sitemap.mjs');

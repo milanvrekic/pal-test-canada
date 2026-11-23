@@ -1,4 +1,4 @@
-import { Link, type Href } from 'expo-router';
+import { Link, type Href, usePathname, useRouter } from 'expo-router';
 import { type ReactNode } from 'react';
 import { Linking, Platform, Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewProps, type ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -23,11 +23,44 @@ type ScreenProps = {
   bottomTone?: 'success' | 'danger' | null;
 };
 
+// The app layout; EXPO_PUBLIC_APP_LAYOUT=1 renders it on the web for screenshots and review.
+const native = Platform.OS !== 'web' || process.env.EXPO_PUBLIC_APP_LAYOUT === '1';
+const TAB_ROOTS = ['/', '/practical', '/spot', '/wait-times', '/more'];
+
+/** The native apps' slim header: the logo on a tab's first screen, a Back button on screens opened on top. */
+function AppHeader() {
+  const theme = useTheme();
+  const router = useRouter();
+  const path = usePathname();
+  const back = !TAB_ROOTS.includes(path) && router.canGoBack();
+  return (
+    <View style={[styles.appHeader, { borderBottomColor: theme.border, backgroundColor: theme.background }]}>
+      {back ? (
+        <Pressable accessibilityRole="button" accessibilityLabel="Back" onPress={() => router.back()} hitSlop={12} style={styles.backBtn}>
+          <ThemedText type="bold" themeColor="accent" style={{ fontSize: 17 }}>
+            ‹ Back
+          </ThemedText>
+        </Pressable>
+      ) : (
+        <View style={styles.brandRow}>
+          <View style={[styles.mark, { backgroundColor: theme.brand, width: 28, height: 28, borderRadius: 8 }]}>
+            <Svg width={16} height={16} viewBox="0 0 24 24" accessibilityElementsHidden importantForAccessibility="no">
+              <Path d="M5 12.5l4.2 4.2L19 7" stroke="#FFFFFF" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            </Svg>
+          </View>
+          <ThemedText style={[styles.wordmark, { fontSize: 20 }]}>PAL TEST CANADA</ThemedText>
+        </View>
+      )}
+    </View>
+  );
+}
+
 export function Screen({ children, width = 'reading', bottomBar, bottomTone }: ScreenProps) {
   const theme = useTheme();
   const maxWidth = width === 'wide' ? MaxWideWidth : MaxContentWidth;
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.background }]} edges={['top', 'left', 'right']}>
+      {native ? <AppHeader /> : (
       <View style={[styles.navBar, { borderBottomColor: theme.border, backgroundColor: `${theme.background}D9` }, Glass]}>
         <View style={[styles.navInner, { maxWidth: MaxWideWidth }]}>
           <Link href="/" style={styles.brand} accessibilityLabel={`${SITE_NAME} home`}>
@@ -49,6 +82,7 @@ export function Screen({ children, width = 'reading', bottomBar, bottomTone }: S
           </View>
         </View>
       </View>
+      )}
       <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
         <View style={[styles.column, { maxWidth }]}>
           {containsDrafts ? (
@@ -56,8 +90,8 @@ export function Screen({ children, width = 'reading', bottomBar, bottomTone }: S
           ) : null}
           {children}
         </View>
-        {/* Quiz and drill screens are focus modes: no footer behind the pinned Next bar. */}
-        {bottomBar ? <View style={{ height: Spacing.five }} /> : <Footer />}
+        {/* Quiz and drill screens are focus modes: no footer behind the pinned Next bar. The apps have no web footer. */}
+        {bottomBar || native ? <View style={{ height: Spacing.five }} /> : <Footer />}
       </ScrollView>
       {bottomBar ? (
         <SafeAreaView edges={['bottom']} style={[styles.bottomBar, { backgroundColor: theme.background }]}>
@@ -90,6 +124,7 @@ const FOOTER_GROUPS: { title: string; links: { href: Href; label: string }[] }[]
       { href: '/guides', label: 'Guides' },
       { href: '/pal-courses', label: 'All course providers' },
       { href: '/about', label: 'About' },
+      { href: '/privacy', label: 'Privacy' },
     ],
   },
 ];
@@ -313,6 +348,8 @@ export function Ring({ value, size = 44, stroke = 4, color, track, label }: { va
 
 const styles = StyleSheet.create({
   safe: { flex: 1 },
+  appHeader: { borderBottomWidth: StyleSheet.hairlineWidth, paddingHorizontal: Spacing.three, minHeight: 48, justifyContent: 'center' },
+  backBtn: { minHeight: 44, justifyContent: 'center', alignSelf: 'flex-start' },
   navBar: { borderBottomWidth: StyleSheet.hairlineWidth, alignItems: 'center', paddingHorizontal: Spacing.three },
   navInner: { width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', minHeight: 60 },
   brand: { paddingVertical: Spacing.two },
