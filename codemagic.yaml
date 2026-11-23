@@ -106,7 +106,7 @@ workflows:
       app_store_connect: paltest_asc   # the App Store Connect API key's name in Codemagic (Team integrations)
     environment:
       ios_signing:
-        distribution_type: app_store   # Codemagic creates or fetches the distribution certificate and profile itself
+        distribution_type: app_store   # uses the certificate and profile saved in Codemagic (docs/codemagic.md, step 4)
         bundle_identifier: ca.paltest.app
       vars:
         BUNDLE_ID: ca.paltest.app

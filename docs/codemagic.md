@@ -57,10 +57,14 @@ starts it alongside the Android release, so one tag ships both.
 3. **Apple ID of the app.** App Store Connect → PAL Test Canada → App Information → Apple ID (a number). Put it in
    `APP_STORE_APPLE_ID` in `codemagic.yaml`. Until then, builds still work; the build number just comes from
    Codemagic's counter.
-4. **Signing.** Nothing to upload. With the API key, Codemagic fetches or creates the App Store distribution
-   certificate and provisioning profile for `ca.paltest.app` on the first build. If the team already has the maximum
-   number of distribution certificates, upload the existing one (`.p12`) under Team settings → codemagic.yaml
-   settings → Code signing identities → iOS certificates instead.
+4. **Signing.** Codemagic only uses a certificate and profile that are saved in Codemagic; it doesn't create them.
+   - Certificate: Team settings → codemagic.yaml settings → Code signing identities → iOS certificates. One Apple
+     Distribution certificate covers every app on the team, so Huntable's works. If none is listed, Generate
+     certificate (key `paltest_asc`, type Apple Distribution) and keep the `.p12` it offers.
+   - Profile: developer.apple.com → Certificates, Identifiers & Profiles → Profiles → + → Distribution → App Store
+     Connect → App ID `ca.paltest.app` → the same certificate → name `PAL Test App Store` → Generate. Then in
+     Codemagic → Code signing identities → iOS provisioning profiles → Fetch profiles (key `paltest_asc`) → save
+     `PAL Test App Store`.
 5. **First build.** Start `paltest-ios` by hand (branch `main`). When it finishes, the build shows up in App Store
    Connect → TestFlight after Apple processes it (usually 10–30 minutes).
 
