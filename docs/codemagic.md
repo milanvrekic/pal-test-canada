@@ -16,8 +16,8 @@ still builds; Codemagic is for releases.
    this app too. Then give the same service account access to PAL Test: Play Console → Users and permissions → the
    service account → App permissions → add PAL Test Canada → Release to testing tracks (and View app information).
 4. **First upload by hand.** Google Play only accepts uploads through its API once the app has one build. Start
-   `paltest-android` by hand (branch `main`); the upload step will fail, but the `.aab` is under the build's
-   Artifacts. Upload that file yourself in Play Console → Test and release → Testing → Internal testing → Create new
+   `paltest-android-bundle-only` by hand (branch `main`): it builds and signs the bundle without uploading it, and
+   doesn't need the Play key. Download the `.aab` from the build's Artifacts. Upload that file yourself in Play Console → Test and release → Testing → Internal testing → Create new
    release, and accept Play App Signing when asked. Every build after that uploads by itself.
 5. **Check access (optional).** Start `paltest-play-access-check` by hand: it shows which service account is loaded and
    whether it can see `ca.paltest.app`.
