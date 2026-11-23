@@ -114,7 +114,7 @@ workflows:
         XCODE_WORKSPACE: ios/PALTestCanada.xcworkspace   # Expo names the project after "name" in app.json
         XCODE_SCHEME: PALTestCanada
       node: 22
-      xcode: latest
+      xcode: 27.2                      # 27.1 or later: the iOS 27.1 SDK gives the full iPhone Duo layout (both displays, every pose)
       cocoapods: default
     triggering:
       events:
