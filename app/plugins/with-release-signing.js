@@ -30,7 +30,8 @@ module.exports = function withReleaseSigning(config) {
       );
       g = g.replace(
         /versionCode\s+\d+/,
-        "versionCode (System.getenv('ANDROID_VERSION_CODE') ?: '" + (cfg.android?.versionCode ?? 1) + "').toInteger()",
+        // Integer.parseInt(...) rather than "versionCode (x).toInteger()": Groovy reads the latter as versionCode(x).toInteger().
+        "versionCode Integer.parseInt(System.getenv('ANDROID_VERSION_CODE') ?: '" + (cfg.android?.versionCode ?? 1) + "')",
       );
     }
     cfg.modResults.contents = g;
