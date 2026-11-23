@@ -1,0 +1,22 @@
+# PAL course providers in Ontario. Same rules as bc.yaml. Status "draft" until Milan approves.
+province: ON
+intro: >-
+  In Ontario, every CFSC and CRFSC instructor works through the Firearms Safety Education Service of Ontario (FSESO),
+  the province's only course provider. Use its Find a Course search to book with an instructor near you.
+regions:
+  - {id: province-wide, name: "Across Ontario"}
+
+providers:
+  - id: fseso
+    name: "Firearms Safety Education Service of Ontario (FSESO)"
+    regions: [province-wide]
+    venues:
+      - {city: "Across Ontario", place: "Courses run by FSESO instructors; search Find a Course on fseso.org"}
+      - {city: Orillia, place: "FSESO office, 3 Progress Dr, Unit 2 (no courses at the office)"}
+    courses: [cfsc, crfsc]
+    website: "https://fseso.org/course/"
+    phone: "1-877-322-2345"
+    email: "info@fseso.org"
+    source: "https://fseso.org/contact-us/"
+    checked: 2026-11-23
+    status: draft

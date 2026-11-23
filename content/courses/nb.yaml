@@ -1,0 +1,29 @@
+# PAL course providers in New Brunswick. Same rules as bc.yaml. Status "draft" until Milan approves.
+province: NB
+intro: >-
+  New Brunswick splits the two courses. The Department of Natural Resources and Energy Development teaches the CFSC
+  in classrooms through its regional offices. The Provincial Firearms Office teaches the CRFSC and keeps a waitlist.
+regions:
+  - {id: province-wide, name: "Across New Brunswick"}
+
+providers:
+  - id: nb-nred
+    name: "NB Natural Resources and Energy Development (CFSC)"
+    regions: [province-wide]
+    venues: [{city: "Across New Brunswick", place: "Classroom courses booked online or through your nearest district office"}]
+    courses: [cfsc]
+    website: "https://www2.gnb.ca/content/gnb/en/departments/erd/fish-and-wildlife/content/ConservationEducationCoursesByRegion/CSFC.html"
+    source: "https://mynbpropertyassessment.ca/content/gnb/en/services/services_renderer.3536.Firearms_Safety_Training.html"
+    checked: 2026-11-23
+    status: draft
+
+  - id: nb-firearms-office
+    name: "New Brunswick Provincial Firearms Office (CRFSC)"
+    regions: [province-wide]
+    venues: [{city: "Across New Brunswick", place: "Scheduled by the Provincial Firearms Office; join its waitlist"}]
+    courses: [crfsc]
+    website: "https://www2.gnb.ca/content/gnb/en/departments/public-safety/community_safety/content/firearms/Courses.html"
+    phone: "1-800-731-4000 ext. 6000"
+    source: "https://www2.gnb.ca/content/gnb/en/departments/public-safety/community_safety/content/firearms.html"
+    checked: 2026-11-23
+    status: draft

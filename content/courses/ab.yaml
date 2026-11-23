@@ -1,0 +1,36 @@
+# PAL course providers in Alberta. Same rules as bc.yaml: every listing comes from the provider's own page or an
+# official government page, with where and when it was checked. Status "draft" until Milan approves.
+province: AB
+intro: >-
+  In Alberta, the Sherwood Park Fish and Game Association administers both courses for the Alberta Chief Firearms
+  Office, and its website lists every designated instructor. If your instructor isn't on that list, check with the
+  Chief Firearms Office (780-401-4140) before you pay.
+regions:
+  - {id: province-wide, name: "Across Alberta"}
+  - {id: calgary-edmonton, name: "Calgary and Edmonton"}
+
+providers:
+  - id: spfga
+    name: "Sherwood Park Fish and Game Association"
+    regions: [province-wide]
+    venues: [{city: "Across Alberta", place: "Courses run by designated instructors listed on the SPFGA website"}]
+    courses: [cfsc, crfsc]
+    website: "https://www.spfga.ca/"
+    source: "https://alberta.ca/firearms-safety-training-and-instructors"
+    checked: 2026-11-23
+    status: draft
+    note: "alberta.ca names SPFGA as the course administrator and links its instructor list. The province posted an RFP for a new delivery agent in 2026 (AB-2026-04244), so confirm before approving."
+
+  - id: aheia
+    name: "Alberta Hunter Education Instructors' Association (AHEIA)"
+    regions: [calgary-edmonton]
+    venues:
+      - {city: "De Winton (Calgary)", place: "Calgary Firearms Centre"}
+      - {city: Edmonton, place: "AHEIA Edmonton office"}
+    courses: [cfsc, crfsc]
+    website: "https://aheia.com/cfsc"
+    phone: "1-866-852-4342"
+    source: "https://aheia.com/classroom-training"
+    checked: 2026-11-23
+    status: draft
+    note: "AHEIA delivered the courses province-wide until the province moved administration to SPFGA. Its class page lists 2025 dates; confirm it still runs courses before approving."
