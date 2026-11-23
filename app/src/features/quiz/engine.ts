@@ -199,6 +199,8 @@ const TOPIC_LABELS: Record<string, string> = {
   prove: 'PROVE',
   'range-and-field': 'Range and field',
   misfires: 'Misfires and hang fires',
+  'shooting-technique': 'Shooting technique',
+  care: 'Care and cleaning',
 };
 
 export function topicLabel(topic: string): string {
