@@ -137,6 +137,7 @@ const FOOTER_GROUPS: { title: string; links: { href: Href; label: string }[] }[]
       { href: '/guides', label: 'Guides' },
       { href: '/about', label: 'About' },
       { href: '/privacy', label: 'Privacy' },
+      { href: '/terms', label: 'Terms of use' },
     ],
   },
 ];
