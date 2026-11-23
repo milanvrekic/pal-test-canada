@@ -3,7 +3,7 @@ import { type ReactNode } from 'react';
 import { Linking, Platform, Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewProps, type ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import Svg, { Circle, Path } from 'react-native-svg';
+import Svg, { Circle, Path, G } from 'react-native-svg';
 
 import { Fonts, Glass, MaxContentWidth, MaxWideWidth, Radius, RadiusControl, Shadow, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
@@ -44,14 +44,26 @@ function AppHeader() {
       ) : (
         <View style={styles.brandRow}>
           <View style={[styles.mark, { backgroundColor: theme.brand, width: 28, height: 28, borderRadius: 8 }]}>
-            <Svg width={16} height={16} viewBox="0 0 24 24" accessibilityElementsHidden importantForAccessibility="no">
-              <Path d="M5 12.5l4.2 4.2L19 7" stroke="#FFFFFF" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
-            </Svg>
+            <LogoGlyph size={20} />
           </View>
           <ThemedText style={[styles.wordmark, { fontSize: 20 }]}>PAL TEST CANADA</ThemedText>
         </View>
       )}
     </View>
+  );
+}
+
+/** The app-icon glyph: a test sheet with a check. Same paths as store/icon/pal-test-icon.svg. */
+function LogoGlyph({ size }: { size: number }) {
+  return (
+    <Svg width={size} height={size} viewBox="160 160 704 704" accessibilityElementsHidden importantForAccessibility="no">
+      <G fill="none" stroke="#FFFFFF" strokeWidth={64} strokeLinecap="round" strokeLinejoin="round">
+        <Path d="M332 196 H580 L712 328 V752 a76 76 0 0 1 -76 76 H388 a76 76 0 0 1 -76 -76 V272 a76 76 0 0 1 76 -76 Z" />
+        <Path d="M580 196 V300 a28 28 0 0 0 28 28 H712" />
+        <Path d="M410 520 L478 588 L614 452" />
+        <Path d="M420 690 H604" />
+      </G>
+    </Svg>
   );
 }
 
@@ -66,9 +78,7 @@ export function Screen({ children, width = 'reading', bottomBar, bottomTone }: S
           <Link href="/" style={styles.brand} accessibilityLabel={`${SITE_NAME} home`}>
             <View style={styles.brandRow}>
               <View style={[styles.mark, { backgroundColor: theme.brand }]}>
-                <Svg width={20} height={20} viewBox="0 0 24 24" accessibilityElementsHidden importantForAccessibility="no">
-                  <Path d="M5 12.5l4.2 4.2L19 7" stroke="#FFFFFF" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                </Svg>
+                <LogoGlyph size={26} />
               </View>
               <View>
                 <ThemedText style={styles.wordmark}>PAL TEST CANADA</ThemedText>

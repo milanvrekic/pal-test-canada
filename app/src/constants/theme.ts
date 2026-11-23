@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 
 // Light and friendly, Meta-style: soft blue-grey canvas, white cards, Meta-blue pill buttons, slate ink.
-// Canadian red is kept for the logo mark only. Not the Canada.ca look.
+// The logo mark uses the app icon's indigo. Not the Canada.ca look.
 export const Colors = {
   light: {
     text: '#1C2B33',
@@ -21,7 +21,7 @@ export const Colors = {
     signal: '#0064E0',
     onSignal: '#FFFFFF',
     signalBg: '#E6F0FD',
-    brand: '#E5322D',
+    brand: '#5A4BD6',
     cover: '#FFFFFF',
     onCover: '#1C2B33',
     onCoverMuted: '#465A69',
@@ -57,7 +57,7 @@ export const Colors = {
     signal: '#4C9AFF',
     onSignal: '#0B1A2E',
     signalBg: '#1B2C44',
-    brand: '#FF5A50',
+    brand: '#7B6CF0',
     cover: '#242526',
     onCover: '#E4E6EB',
     onCoverMuted: '#B0B3B8',
