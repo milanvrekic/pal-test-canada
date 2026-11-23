@@ -1,4 +1,4 @@
-# PAL course providers in Nova Scotia. Same rules as bc.yaml. Status "draft" until Milan approves.
+# PAL course providers in Nova Scotia. Same rules as bc.yaml. Approved by Milan 2026-11-23.
 province: NS
 intro: >-
   In Nova Scotia, Safety Services Nova Scotia coordinates both courses for the Provincial Firearms Office. You need
@@ -19,4 +19,4 @@ providers:
     email: "contact@safetyservicesns.ca"
     source: "https://safetyservicesns.squarespace.com/firearms"
     checked: 2026-11-23
-    status: draft
+    status: reviewed

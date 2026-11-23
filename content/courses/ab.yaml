@@ -1,5 +1,5 @@
 # PAL course providers in Alberta. Same rules as bc.yaml: every listing comes from the provider's own page or an
-# official government page, with where and when it was checked. Status "draft" until Milan approves.
+# official government page, with where and when it was checked. Approved by Milan 2026-11-23.
 province: AB
 intro: >-
   In Alberta, the Sherwood Park Fish and Game Association administers both courses for the Alberta Chief Firearms
@@ -18,7 +18,7 @@ providers:
     website: "https://www.spfga.ca/"
     source: "https://alberta.ca/firearms-safety-training-and-instructors"
     checked: 2026-11-23
-    status: draft
+    status: reviewed
     note: "alberta.ca names SPFGA as the course administrator and links its instructor list. The province posted an RFP for a new delivery agent in 2026 (AB-2026-04244), so confirm before approving."
 
   - id: aheia
@@ -32,5 +32,5 @@ providers:
     phone: "1-866-852-4342"
     source: "https://aheia.com/classroom-training"
     checked: 2026-11-23
-    status: draft
+    status: reviewed
     note: "AHEIA delivered the courses province-wide until the province moved administration to SPFGA. Its class page lists 2025 dates; confirm it still runs courses before approving."
