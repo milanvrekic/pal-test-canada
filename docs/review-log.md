@@ -63,3 +63,8 @@ The correct answer was the longest option in 56 of 92 multiple-choice questions;
 - crfsc-shooting-004: "Walking to the target to check your shot" → "Walking to the target to check where your shot landed once the line is safe"
 - crfsc-range-003: "When it is anywhere on the same range" → "When it is anywhere on the same range as you, even out of sight"
 - crfsc-range-004: "They may shoot alone if they have watched others first" → "They may shoot alone once they have watched licensed shooters for a while first"
+
+## 2026-11-22: Batch 3
+
+- 62 questions (32 CFSC, 30 CRFSC), 4 photo drills (leaning rifle, target on water, muzzle at a partner, hilltop) and 3 search guides (PAL or RPAL, can you hunt with a PAL, how hard is the PAL test) approved by Milan.
+- Bank now 82 CFSC and 80 CRFSC questions, 10 drills, 6 guides. Strict build passes.
