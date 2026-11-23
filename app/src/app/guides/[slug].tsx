@@ -11,6 +11,9 @@ import { Button, Card, Notice, Screen } from '@/components/ui';
 import { Spacing } from '@/constants/theme';
 import { guides } from '@/lib/content';
 
+// Guides where the reader is planning to hunt: Huntable plus Campable for the trip.
+const HUNTING = ['can-you-hunt-with-a-pal', 'how-to-get-a-hunting-licence-in-bc'];
+
 export function generateStaticParams(): { slug: string }[] {
   return guides.map((g) => ({ slug: g.slug }));
 }
@@ -60,8 +63,10 @@ export default function GuidePage() {
       </Card>
       <HandoffCards
         placement="guide"
-        title={['can-you-hunt-with-a-pal', 'how-to-get-a-hunting-licence-in-bc'].includes(guide.slug) ? 'Find where you can hunt' : 'After your course'}
-        order={guide.slug === 'pal-vs-rpal' ? ['shootable', 'huntable'] : ['huntable', 'shootable']}
+        title={HUNTING.includes(guide.slug) ? 'Plan your first hunt' : 'After your course'}
+        lead={HUNTING.includes(guide.slug) ? 'Where you can hunt today, and where you can camp nearby.' : undefined}
+        order={HUNTING.includes(guide.slug) ? ['huntable', 'campable'] : guide.slug === 'pal-vs-rpal' ? ['shootable', 'huntable'] : ['huntable', 'shootable']}
+        more={HUNTING.includes(guide.slug) ? ['fishable', 'shootable'] : ['fishable', 'campable']}
       />
     </Screen>
   );

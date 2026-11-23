@@ -1,13 +1,15 @@
 import { Link, type Href } from 'expo-router';
 import { type ReactNode } from 'react';
-import { Platform, Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewProps, type ViewStyle } from 'react-native';
+import { Linking, Platform, Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewProps, type ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Svg, { Circle, Path } from 'react-native-svg';
 
-import { Fonts, Glass, MaxContentWidth, MaxWideWidth, Radius, RadiusControl, Spacing } from '@/constants/theme';
+import { Fonts, Glass, MaxContentWidth, MaxWideWidth, Radius, RadiusControl, Shadow, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
+import { track } from '@/lib/analytics';
 import { DISCLAIMER, SITE_NAME, containsDrafts } from '@/lib/content';
+import { type AppId, usePromo } from '@/lib/handoff';
 
 import { ThemedText } from './themed-text';
 
@@ -30,9 +32,9 @@ export function Screen({ children, width = 'reading', bottomBar, bottomTone }: S
         <View style={[styles.navInner, { maxWidth: MaxWideWidth }]}>
           <Link href="/" style={styles.brand} accessibilityLabel={`${SITE_NAME} home`}>
             <View style={styles.brandRow}>
-              <View style={[styles.mark, { backgroundColor: theme.signal }]}>
+              <View style={[styles.mark, { backgroundColor: theme.brand }]}>
                 <Svg width={20} height={20} viewBox="0 0 24 24" accessibilityElementsHidden importantForAccessibility="no">
-                  <Path d="M5 12.5l4.2 4.2L19 7" stroke={theme.onSignal} strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                  <Path d="M5 12.5l4.2 4.2L19 7" stroke="#FFFFFF" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round" fill="none" />
                 </Svg>
               </View>
               <View>
@@ -92,8 +94,11 @@ const FOOTER_GROUPS: { title: string; links: { href: Href; label: string }[] }[]
   },
 ];
 
+const FAMILY: AppId[] = ['huntable', 'fishable', 'campable', 'shootable'];
+
 function Footer() {
   const theme = useTheme();
+  const family = usePromo(FAMILY);
   return (
     <View style={styles.footer}>
       <View style={[styles.footerInner, { maxWidth: MaxWideWidth, borderTopColor: theme.border }]}>
@@ -110,6 +115,26 @@ function Footer() {
               ))}
             </View>
           ))}
+          <View style={styles.footerGroup}>
+            <ThemedText type="eyebrow" themeColor="textSecondary">
+              Outdoor apps by 10ten
+            </ThemedText>
+            {family.map((a) => (
+              <Pressable
+                key={a.id}
+                accessibilityRole="link"
+                onPress={() => {
+                  track({ name: 'handoff_click', destination: a.id, placement: 'footer' });
+                  void Linking.openURL(a.href);
+                }}
+                style={styles.footerLink}>
+                <ThemedText type="small">
+                  {a.name}
+                  {a.soon ? <ThemedText type="small" themeColor="textSecondary">{' · coming soon'}</ThemedText> : null}
+                </ThemedText>
+              </Pressable>
+            ))}
+          </View>
         </View>
         <ThemedText type="small" themeColor="textSecondary" style={styles.disclaimer}>
           {DISCLAIMER}
@@ -141,7 +166,7 @@ export function Col({ children, basis = 320, grow = 1, style }: { children: Reac
 
 export function Card({ style, ...rest }: ViewProps) {
   const theme = useTheme();
-  return <View style={[styles.card, { backgroundColor: theme.backgroundElement, borderColor: theme.border }, style]} {...rest} />;
+  return <View style={[styles.card, Shadow, { backgroundColor: theme.backgroundElement, borderColor: theme.border }, style]} {...rest} />;
 }
 
 /** Small uppercase label above a title. */
@@ -184,7 +209,7 @@ export function Button({ label, onPress, href, variant = 'primary', disabled, si
     ? { backgroundColor: theme.backgroundSelected, borderColor: theme.backgroundSelected }
     : {
         primary: { backgroundColor: theme.accent, borderColor: theme.accent },
-        secondary: { backgroundColor: theme.backgroundElement, borderColor: theme.borderStrong },
+        secondary: { backgroundColor: theme.backgroundSelected, borderColor: theme.backgroundSelected },
         inverse: { backgroundColor: '#FFFFFF', borderColor: '#FFFFFF' },
         glass: { backgroundColor: 'rgba(255,255,255,0.10)', borderColor: 'rgba(255,255,255,0.22)', ...Glass },
       }[v];

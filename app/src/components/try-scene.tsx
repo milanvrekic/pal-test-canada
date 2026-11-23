@@ -26,7 +26,7 @@ export function TryScene() {
   const right = picked === d.answer;
 
   return (
-    <View style={[styles.card, { backgroundColor: theme.backgroundElement, borderColor: 'rgba(255,255,255,0.2)' }]}>
+    <View style={[styles.card, { backgroundColor: theme.backgroundElement, borderColor: theme.border }]}>
       <View style={styles.photo} accessibilityRole="image" accessibilityLabel={d.alt ?? 'Practice scene'}>
         <Image source={drillPhotos[d.photo]} style={styles.fill} resizeMode="cover" accessibilityIgnoresInvertColors />
         <View style={[styles.tag, { backgroundColor: 'rgba(10,11,14,0.55)' }]}>
@@ -75,7 +75,7 @@ export function TryScene() {
 }
 
 const styles = StyleSheet.create({
-  card: { borderRadius: 28, borderWidth: 1, overflow: 'hidden', boxShadow: '0 30px 60px -20px rgba(0,0,0,0.55)' },
+  card: { borderRadius: 28, borderWidth: 1, overflow: 'hidden', boxShadow: '0 1px 2px rgba(28,43,51,0.06), 0 24px 48px -16px rgba(28,43,51,0.22)' },
   photo: { width: '100%', aspectRatio: 16 / 9, overflow: 'hidden' },
   fill: { width: '100%', height: '100%' },
   tag: { position: 'absolute', top: Spacing.three, left: Spacing.three, borderRadius: 999, paddingHorizontal: Spacing.two + 4, paddingVertical: Spacing.one },

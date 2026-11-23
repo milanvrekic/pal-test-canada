@@ -27,13 +27,17 @@ export function HandoffCards({
   title = 'After your course',
   lead,
   order = ['huntable', 'shootable'],
+  more = ['fishable', 'campable'],
 }: {
   placement: Placement;
   title?: string;
   lead?: string;
   order?: AppId[];
+  /** Smaller links under the cards for the rest of the family; in-season apps first. Pass [] to hide. */
+  more?: AppId[];
 }) {
   const items = usePromo(order);
+  const extras = usePromo(more.filter((id) => !order.includes(id))).sort((a, b) => Number(b.inSeason) - Number(a.inSeason));
   if (!items.length) return null;
   return (
     <View style={{ gap: Spacing.two, marginTop: Spacing.three }} accessibilityRole="none">
@@ -49,7 +53,43 @@ export function HandoffCards({
           </Col>
         ))}
       </Split>
+      {extras.length ? (
+        <View style={styles.moreRow} accessibilityLabel="More apps from the same team">
+          <ThemedText type="smallBold" themeColor="textSecondary">
+            More outdoor apps:
+          </ThemedText>
+          {extras.map((it) => (
+            <MoreLink key={it.id} item={it} placement={placement} />
+          ))}
+        </View>
+      ) : null}
     </View>
+  );
+}
+
+/** A compact link for the rest of the family: icon, name and one line. */
+function MoreLink({ item, placement }: { item: PromoItem; placement: Placement }) {
+  const theme = useTheme();
+  return (
+    <Pressable
+      accessibilityRole="link"
+      accessibilityLabel={`${item.name}. ${item.line}`}
+      onPress={() => {
+        track({ name: 'handoff_click', destination: item.id, placement: `${placement}_more` });
+        void Linking.openURL(item.href);
+      }}
+      style={({ pressed }) => [styles.more, { backgroundColor: theme.backgroundElement, borderColor: theme.border }, pressed ? { transform: [{ scale: 0.98 }] } : null]}>
+      <Image source={APP_ICONS[item.id]} style={styles.moreIcon} accessibilityIgnoresInvertColors />
+      <View style={{ flexShrink: 1 }}>
+        <ThemedText type="smallBold">
+          {item.name}
+          {item.inSeason ? <ThemedText type="small" themeColor="success">{'  · in season'}</ThemedText> : null}
+        </ThemedText>
+        <ThemedText type="small" themeColor="textSecondary" numberOfLines={1}>
+          {item.line}
+        </ThemedText>
+      </View>
+    </Pressable>
   );
 }
 
@@ -90,6 +130,9 @@ function AppRow({ item, placement }: { item: PromoItem; placement: Placement }) 
 }
 
 const styles = StyleSheet.create({
+  moreRow: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: Spacing.two, marginTop: Spacing.one },
+  more: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two + 2, borderWidth: 1, borderRadius: 999, paddingVertical: 6, paddingLeft: 6, paddingRight: Spacing.three, maxWidth: 420, flexShrink: 1 },
+  moreIcon: { width: 32, height: 32, borderRadius: 9 },
   row: { flex: 1, flexDirection: 'row', gap: Spacing.three, padding: Spacing.three, borderWidth: 1, borderRadius: Radius, alignItems: 'flex-start' },
   icon: { width: 56, height: 56, borderRadius: 13 },
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two, flexWrap: 'wrap' },

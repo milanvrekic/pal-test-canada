@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
   small: { fontFamily: Fonts.body, fontSize: 14, lineHeight: 20 },
   smallBold: { fontFamily: Fonts.body, fontSize: 14, lineHeight: 20, fontWeight: '600' },
   /** Hero headline: oversized and tight. */
-  display: { fontFamily: Fonts.display, ...w('800'), fontSize: fluid(42, 5.4, 76), lineHeight: (web ? '1.0' : 46) as unknown as number, letterSpacing: web ? ('-0.045em' as unknown as number) : -1.6 },
-  title: { fontFamily: Fonts.display, ...w('800'), fontSize: fluid(34, 3.6, 48), lineHeight: (web ? '1.06' : 38) as unknown as number, letterSpacing: web ? ('-0.035em' as unknown as number) : -1 },
-  heading: { fontFamily: Fonts.bold, ...w('700'), fontSize: 22, lineHeight: 28, letterSpacing: -0.5 },
+  display: { fontFamily: Fonts.bold, ...w('700'), fontSize: fluid(40, 4.8, 68), lineHeight: (web ? '1.05' : 46) as unknown as number, letterSpacing: web ? ('-0.035em' as unknown as number) : -1.2 },
+  title: { fontFamily: Fonts.bold, ...w('700'), fontSize: fluid(32, 3.2, 44), lineHeight: (web ? '1.1' : 38) as unknown as number, letterSpacing: web ? ('-0.03em' as unknown as number) : -0.8 },
+  heading: { fontFamily: Fonts.semi, ...w('600'), fontSize: 21, lineHeight: 28, letterSpacing: -0.3 },
   subheading: { fontFamily: Fonts.semi, ...w('600'), fontSize: 20, lineHeight: 28, letterSpacing: -0.3 },
   eyebrow: { fontFamily: Fonts.semi, ...w('600'), fontSize: 13, lineHeight: 16, letterSpacing: 0 },
-  stat: { fontFamily: Fonts.display, ...w('800'), fontSize: 52, lineHeight: 54, letterSpacing: -2, fontVariant: ['tabular-nums'] },
+  stat: { fontFamily: Fonts.bold, ...w('700'), fontSize: 48, lineHeight: 52, letterSpacing: -1.5, fontVariant: ['tabular-nums'] },
   statSmall: { fontFamily: Fonts.bold, ...w('700'), fontSize: 15, lineHeight: 20, fontVariant: ['tabular-nums'] },
 });
