@@ -196,8 +196,12 @@ function loadGuides() {
     const meta = YAML.parse(m[1]);
     for (const k of ['title', 'description', 'status']) if (!meta[k]) errors.push(`${file} front matter missing ${k}`);
     if (meta.status !== 'reviewed') {
-      if (!allowDrafts) errors.push(`${file} not shippable: status is ${meta.status}`);
-      else warnings.push(`${file} draft guide`);
+      // Release builds leave unapproved guides out (they never ship) rather than failing the whole deploy.
+      if (!allowDrafts) {
+        warnings.push(`${file} left out of release: status is ${meta.status}`);
+        continue;
+      }
+      warnings.push(`${file} draft guide`);
     }
     out.push({
       slug: file.replace(/\.md$/, ''),

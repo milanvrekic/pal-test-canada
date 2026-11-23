@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Linking, Pressable, StyleSheet, TextInput, View } from 'react-native';
 
-import { HandoffCards } from '@/components/handoff-cards';
+import { NextSteps } from '@/components/next-steps';
 import { ThemedText } from '@/components/themed-text';
 import { Button, Card, Notice } from '@/components/ui';
 import { RadiusControl, Spacing } from '@/constants/theme';
@@ -129,7 +129,7 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
         <Notice tone="success">
           {took !== null ? `Your licence arrived after ${took} days. Congratulations.` : 'Your licence arrived. Congratulations.'}
         </Notice>
-        <HandoffCards placement="licence_arrived" title="Now you're licensed" lead="Find where you can legally hunt and shoot." />
+        <NextSteps placement="licence_arrived" title="Now you're licensed" lead="What most new licence holders do next." />
         <Button variant="secondary" label="Undo: my licence hasn't arrived" onPress={() => updateTracker((t) => ({ ...t, arrivedOn: null }))} />
       </View>
     );
@@ -235,7 +235,6 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
           );
         })}
       </Card>
-      <HandoffCards placement="wait_times" title="Get ready for when it arrives" lead="Plan where you'll hunt and shoot while you wait." />
     </View>
   );
 }

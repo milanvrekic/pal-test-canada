@@ -6,12 +6,15 @@ import { page } from '@/lib/seo';
 
 import { HandoffCards } from '@/components/handoff-cards';
 import { Markdown } from '@/components/markdown';
+import { NextSteps } from '@/components/next-steps';
 import { ThemedText } from '@/components/themed-text';
 import { Button, Card, Notice, Screen } from '@/components/ui';
 import { Spacing } from '@/constants/theme';
 import { guides } from '@/lib/content';
 
 // Guides where the reader is planning to hunt: Huntable plus Campable for the trip.
+const AFTER_PAL = 'after-you-get-your-pal';
+
 const HUNTING = ['can-you-hunt-with-a-pal', 'how-to-get-a-hunting-licence-in-bc'];
 
 export function generateStaticParams(): { slug: string }[] {
@@ -56,6 +59,7 @@ export default function GuidePage() {
         </ThemedText>
       ) : null}
       <Markdown source={guide.body} />
+      {guide.slug === AFTER_PAL ? <NextSteps placement="after_pal_guide" title="Your next steps" lead="The same list, with the apps that help." /> : null}
       <Card style={{ gap: Spacing.three }}>
         <ThemedText type="heading">Test yourself</ThemedText>
         <ThemedText themeColor="textSecondary">Practice questions written from the handbook, with the page for every answer.</ThemedText>

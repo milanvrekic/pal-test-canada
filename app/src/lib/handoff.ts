@@ -76,13 +76,44 @@ export const APP_ICONS: Record<AppId, number> = {
   campable: require('../../assets/images/apps/campable.png'),
 };
 
-/** The same campaign tags the Moment Engine's /xp/go redirect adds (storeUrlFor in netlify/lib/apps.mts). */
-export function directLink(id: AppId, os: string = Platform.OS): string {
+/**
+ * Apple's provider token (App Store Connect → Analytics → Campaigns). It is public: it appears in every campaign link.
+ * Without it Apple still opens the store, but App Analytics can't attribute installs to a campaign. Play needs no token.
+ */
+export const APPLE_PROVIDER_TOKEN = '';
+
+/** Which store to send this person to. On the website this reads the browser, so phones skip the landing page. */
+export function deviceOs(os: string = Platform.OS): 'ios' | 'android' | 'other' {
+  if (os === 'ios' || os === 'android') return os;
+  if (typeof navigator === 'undefined') return 'other';
+  const ua = navigator.userAgent.toLowerCase();
+  // iPadOS reports a Mac user agent; touch support tells them apart.
+  if (/iphone|ipad|ipod/.test(ua) || (/macintosh/.test(ua) && (navigator as { maxTouchPoints?: number }).maxTouchPoints! > 1)) return 'ios';
+  if (/android/.test(ua)) return 'android';
+  return 'other';
+}
+
+/**
+ * Store link with campaign tags, matching the Moment Engine's /xp/go redirect (storeUrlFor in netlify/lib/apps.mts), plus
+ * the placement so each spot in the app can be compared: Apple `ct=xp-paltest-<placement>`, Play `utm_content=<placement>`.
+ */
+export function directLink(id: AppId, placement?: string, os: string = Platform.OS): string {
   const a = BUILTIN[id];
-  if (!a.soon && os === 'ios' && a.ios) return `${a.ios}?ct=xp-${CAMPAIGN}&mt=8`;
-  if (!a.soon && os === 'android' && a.android)
-    return `${a.android}&referrer=${encodeURIComponent(`utm_source=10ten-crosspromo&utm_medium=app&utm_campaign=${CAMPAIGN}`)}`;
-  return `${a.web}/?utm_source=10ten-crosspromo&utm_medium=app&utm_campaign=${CAMPAIGN}`;
+  const where = deviceOs(os);
+  const spot = placement ? placement.replace(/[^a-z0-9_]/gi, '').slice(0, 28) : '';
+  if (!a.soon && where === 'ios' && a.ios) {
+    const pt = APPLE_PROVIDER_TOKEN ? `&pt=${APPLE_PROVIDER_TOKEN}` : '';
+    return `${a.ios}?ct=xp-${CAMPAIGN}${spot ? `-${spot}` : ''}${pt}&mt=8`;
+  }
+  const utm = `utm_source=10ten-crosspromo&utm_medium=${Platform.OS === 'web' ? 'web' : 'app'}&utm_campaign=${CAMPAIGN}${spot ? `&utm_content=${spot}` : ''}`;
+  if (!a.soon && where === 'android' && a.android) return `${a.android}&referrer=${encodeURIComponent(utm)}`;
+  return `${a.web}/?${utm}`;
+}
+
+/** The link for one tap: the remote redirect when the feed supplies one (it tags and counts), else a tagged direct link. */
+export function hrefFor(item: PromoItem, placement: string): string {
+  if (item.href.includes('/xp/go/')) return `${item.href}${item.href.includes('?') ? '&' : '?'}placement=${encodeURIComponent(placement)}`;
+  return directLink(item.id, placement);
 }
 
 function builtinItems(month: number): PromoItem[] {
