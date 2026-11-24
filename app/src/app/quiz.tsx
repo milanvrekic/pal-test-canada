@@ -1,7 +1,7 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import type { Metadata } from 'expo-router/server';
 import { useEffect, useRef, useState } from 'react';
-import { Platform, Pressable, StyleSheet, View } from 'react-native';
+import { Alert, Platform, Pressable, StyleSheet, View } from 'react-native';
 
 import { AnswerOption, Feedback, sourceLine } from '@/components/answer';
 import { FeaturedHandoff, HandoffCards } from '@/components/handoff-cards';
@@ -179,8 +179,28 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
     />
   );
 
+  const isExam = mode === 'exam' || mode === 'mock';
+  // Leave the quiz the same way every other pushed screen does. dismissTo('/') was reported to do nothing on iOS,
+  // likely because Home sits inside the tabs, not directly in the root stack.
+  const leave = () => (router.canGoBack() ? router.back() : router.replace('/'));
+  // Back and Quit both ask first. In the apps that is a native alert, always on screen; an inline card above the
+  // question was out of view whenever the page was scrolled, so the buttons seemed to do nothing.
+  const askQuit = () => {
+    if (Platform.OS === 'web') return setQuitting(true);
+    Alert.alert(
+      `Quit this ${isExam ? 'exam' : 'session'}?`,
+      isExam
+        ? 'Answers so far are kept for review, but this exam will not count toward your readiness score.'
+        : 'Answers so far are kept for review.',
+      [
+        { text: 'Keep going', style: 'cancel' },
+        { text: 'Quit', style: 'destructive', onPress: leave },
+      ],
+    );
+  };
+
   return (
-    <Screen onBack={() => setQuitting(true)} bottomBar={nextBar} bottomTone={verdict === 'correct' ? 'success' : verdict === 'wrong' ? 'danger' : null}>
+    <Screen onBack={askQuit} bottomBar={nextBar} bottomTone={verdict === 'correct' ? 'success' : verdict === 'wrong' ? 'danger' : null}>
       <View style={{ gap: Spacing.two }}>
         <View style={styles.headRow}>
           <Eyebrow>{heading}</Eyebrow>
@@ -196,7 +216,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
               {' '}/ {set.length}
             </ThemedText>
           </ThemedText>
-          <Pressable accessibilityRole="button" onPress={() => setQuitting(true)} hitSlop={8} style={styles.quit}>
+          <Pressable accessibilityRole="button" accessibilityLabel="Quit" onPress={askQuit} hitSlop={8} style={styles.quit}>
             <ThemedText type="smallBold" themeColor="textSecondary">
               Quit
             </ThemedText>
@@ -207,9 +227,9 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
 
       {quitting ? (
         <Card>
-          <ThemedText type="bold">Quit this {mode === 'exam' || mode === 'mock' ? 'exam' : 'session'}?</ThemedText>
+          <ThemedText type="bold">Quit this {isExam ? 'exam' : 'session'}?</ThemedText>
           <ThemedText type="small" themeColor="textSecondary">
-            {mode === 'exam' || mode === 'mock'
+            {isExam
               ? 'Answers so far are kept for review, but this exam will not count toward your readiness score.'
               : 'Answers so far are kept for review.'}
           </ThemedText>
@@ -218,7 +238,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
               <Button variant="secondary" label="Keep going" onPress={() => setQuitting(false)} />
             </Col>
             <Col basis={160}>
-              <Button label="Quit" onPress={() => router.dismissTo('/')} />
+              <Button label="Quit" onPress={leave} />
             </Col>
           </Split>
         </Card>
