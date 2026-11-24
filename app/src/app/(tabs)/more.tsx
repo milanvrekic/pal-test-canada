@@ -38,6 +38,7 @@ const SECTIONS: { title: string; rows: Row[] }[] = [
     title: 'App',
     rows: [
       { href: '/about', label: 'About and your data', sub: 'How questions are made, reset progress' },
+      { href: '/support', label: 'Support', sub: 'Report a question or get in touch' },
       { href: '/privacy', label: 'Privacy policy', sub: 'What the app stores, and where' },
       { href: '/terms', label: 'Terms of use', sub: 'What the app is and isn\'t, and the limits' },
     ],
