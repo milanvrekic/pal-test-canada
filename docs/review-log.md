@@ -11,6 +11,7 @@ What was reviewed, by whom, and when. One entry per review batch.
 | 2026-11-22 | Milan | cfsc-licence-002, crfsc-handling-004, cfsc-muzzle-001, crfsc-range-001 | Approved. The 28-day minimum in cfsc-licence-002 matches the current Firearms Licences Regulations (SOR/98-199), checked the same day. |
 | 2026-11-22 | Claude | Batch 2: 40 new questions (20 CFSC, 20 CRFSC) | Drafted from the 2014 handbook, each cited to its page. Awaiting instructor review. |
 | 2026-11-22 | Milan | Batch 2: 40 questions | All 40 approved, including a check of the 9 law-dependent questions against current law. |
+| 2026-11-24 | Claude | Batch 4: 60 new questions (36 CFSC, 24 CRFSC) aimed at thin topics | Drafted from the 2014 handbook. All 60 pages and section headings checked against the official PDF (PS99-2/2-1-2014) on 2026-11-24, and wording aligned with the page text. 9 questions need a law check. Awaiting instructor review. |
 
 ## 2026-11-22: Spot the mistake drills
 
@@ -90,3 +91,6 @@ The correct answer was the longest option in 56 of 92 multiple-choice questions;
 - Each province names its official course provider, checked against the RCMP find-an-instructor page and the
   provincial pages (alberta.ca, fseso.org, Safety Services Nova Scotia, gnb.ca).
 - Alberta: alberta.ca now names the Sherwood Park Fish and Game Association; AHEIA is listed with a note to confirm.
+| 2026-11-24 | Milan | Batch 4, CFSC: 36 questions | All 36 approved as written. The 5 law-dependent ones (cfsc-resp-103, cfsc-licence-101, cfsc-muzzle-105, cfsc-transport-101, cfsc-transport-102) still need their check against current law. |
+| 2026-11-24 | Milan | Batch 4, CRFSC: the 4 law-dependent questions (crfsc-storage-101, crfsc-transport-101, crfsc-transport-102, crfsc-display-101) | Confirmed correct, including against current law. |
+| 2026-11-24 | Milan | Batch 4: the remaining 20 CRFSC questions and the 5 CFSC law questions | All approved as written; the 5 CFSC law-dependent questions confirmed against current law. Batch 4 is fully reviewed. |
