@@ -661,7 +661,7 @@
   options: ["Held in your hand, slide forward, finger off", "Set down, muzzle safe, action open", "Holstered, with the safety on", "Pointed downrange, slide closed"]
   answer: 1
   explanation: "Put the firearm down with the muzzle pointed in a safe direction and the action open, then charge the magazine by inserting cartridges."
-  source: {handbook_edition: "2014 (5th ed.)", section: "14.8.2. Semi-automatic loading procedure", page: "281"}
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.8.2. Semi-automatic: loading procedure", page: "281"}
   review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 - id: crfsc-range-101
   course: crfsc
@@ -843,3 +843,273 @@
   explanation: "Don't load one chamber of a muzzleloading revolver unless the percussion caps on the nipples of the other chambers have been removed."
   source: {handbook_edition: "2014 (5th ed.)", section: "12.2.3. DOs and DON'Ts of muzzleloading", page: "233"}
   review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
+
+# Batch 4, drafted 2026-11-24 from the 2014 handbook. Drafts until reviewed. Pages still to confirm against the official PDF.
+- id: crfsc-ammo-101
+  course: crfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "Can .38 S&W, .38 Special and .38 Super Auto cartridges be used in place of one another?"
+  options: ["Yes, they are all .38 calibre, so any of them will chamber and fire safely", "Yes, in any revolver", "No: cartridges with different names are not interchangeable", "Only the two shorter ones"]
+  answer: 2
+  explanation: "Cartridges with different names are not interchangeable, even when the calibre number is the same. Use only the cartridge named on the handgun's data stamp."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 240, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "13.3.2. Cartridge names", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-ammo-102
+  course: crfsc
+  topic: ammunition
+  type: true-false
+  question: "A .22 Magnum cartridge can be used in a handgun made for .22 Long Rifle cartridges."
+  options: ["True", "False"]
+  answer: 1
+  explanation: "False. The .22 Magnum is not interchangeable with the other .22 rim-fire cartridges."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 238, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "13.3.1. Types of cartridges", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-ammo-103
+  course: crfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "Someone offers you a box of reloaded cartridges. What does the handbook advise?"
+  options: ["Use them only for practice", "Do not accept or use them unless you know they were reloaded correctly", "Use them only in a revolver", "Fire one from each box to test the batch before you use the rest"]
+  answer: 1
+  explanation: "Do not accept or use reloaded cartridges unless you know they were made and reloaded correctly."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 236, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "13.3. Cartridges", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-ammo-104
+  course: crfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "Which list names the four components of a handgun cartridge?"
+  options: ["Bullet, powder charge, case and primer", "Bullet, wad, case and primer", "Slug, powder charge, rim and cap", "Bullet, powder charge, case and magazine"]
+  answer: 0
+  explanation: "A handgun cartridge has four components: the bullet, the powder charge, the case and the primer."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 243, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "13.3.3. Cartridge components and materials", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-ammo-105
+  course: crfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "According to the handbook, how far can a handgun fire a bullet?"
+  options: ["About 100 metres", "About 500 metres", "About one kilometre", "More than two kilometres"]
+  answer: 3
+  explanation: "Handguns can shoot a bullet more than two kilometres. Know the dangerous range of your ammunition and what lies beyond your target."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 246, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "13.4. Ballistics", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-ammo-106
+  course: crfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "Why should you avoid dry firing a rim-fire handgun?"
+  options: ["It can damage the firearm", "It wears out the sights", "It loosens the grips", "It is against range rules everywhere"]
+  answer: 0
+  explanation: "Dry firing a rim-fire firearm can damage it."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 238, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "13.3.1. Types of cartridges", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-misfire-101
+  course: crfsc
+  topic: misfires
+  type: multiple-choice
+  question: "A cartridge misfired, and after waiting you have unloaded it safely. What do you do with it?"
+  options: ["Load it again as the last round in the magazine", "Keep it for practice", "Dispose of it properly and do not reuse it", "Tap the primer to check it"]
+  answer: 2
+  explanation: "Misfired cartridges should not be reused. Dispose of them properly."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 248, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "13.6. Hazards", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-misfire-102
+  course: crfsc
+  topic: misfires
+  type: multiple-choice
+  question: "A shot makes only a faint pop with almost no recoil. What is the danger?"
+  options: ["The magazine has jammed and will not feed", "The sights have moved", "The slide has cracked", "A bullet may be lodged in the barrel"]
+  answer: 3
+  explanation: "A primer pop (squib) has little or no powder. It may have enough force to push the bullet into the barrel but not out of it, leaving the barrel obstructed."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 248, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "13.6. Hazards", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-storage-101
+  course: crfsc
+  topic: storage
+  type: multiple-choice
+  question: "Where may ammunition be kept in relation to a stored restricted firearm?"
+  options: ["Anywhere, if the firearm has a trigger lock", "Not within easy access of it, unless the ammunition is in a securely locked container", "In the magazine, if the magazine is out of the firearm and kept in the same unlocked drawer", "Beside it, if both are out of sight"]
+  answer: 1
+  explanation: "Ammunition for a restricted firearm must not be within easy access of the firearm unless it is in a securely locked container or receptacle, or in a vault, safe or room built for restricted firearms."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 249, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "13.8. Ammunition precautions and legislation", page: TBD}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-actions-104
+  course: crfsc
+  topic: actions
+  type: multiple-choice
+  question: "What are the two basic types of handgun action?"
+  options: ["Bolt and lever", "Pump and hinge", "Revolver and semi-automatic", "Single shot and fully automatic"]
+  answer: 2
+  explanation: "Handguns are generally classified by their action as revolvers or semi-automatics."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 254, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.1. Common types of handgun actions", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-actions-105
+  course: crfsc
+  topic: actions
+  type: multiple-choice
+  question: "Which list gives the three trigger functions found on handguns?"
+  options: ["Single action only, single and double action, double action only", "Light, medium and heavy", "Safe, half cock and full cock", "Semi-automatic fire, burst fire and fully automatic fire, chosen with a selector"]
+  answer: 0
+  explanation: "The three trigger functions are single action only, single and double action, and double action only."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 255, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.3. Trigger functions", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-safeties-101
+  course: crfsc
+  topic: safeties
+  type: multiple-choice
+  question: "You need to lower the hammer of a single-action handgun from full cock without firing. What controls the hammer on its way down?"
+  options: ["The safety catch", "The slide", "Your thumb, holding the hammer as you pull the trigger and lower it slowly", "The mainspring alone, once the safety catch has been applied and the trigger released"]
+  answer: 2
+  explanation: "With the muzzle in a safe direction, hold the hammer with your thumb, pull the trigger, lower the hammer slowly, and take your finger off the trigger once the hammer is disengaged."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 258, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-safeties-102
+  course: crfsc
+  topic: safeties
+  type: multiple-choice
+  question: "Besides its safeties, what does a double-action handgun rely on to help prevent unintentional firing?"
+  options: ["A lighter trigger", "A heavy double-action trigger pull", "A shorter barrel", "A magazine that locks the slide when empty"]
+  answer: 1
+  explanation: "Double-action handguns also rely on a heavy double-action trigger pull as a barrier to unintentional firing."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 258, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-safeties-103
+  course: crfsc
+  topic: safeties
+  type: multiple-choice
+  question: "Why do handguns with an internal hammer or striker need extra care?"
+  options: ["They cannot be unloaded", "They have no safeties", "They fire as soon as the slide closes", "You cannot see whether they are cocked"]
+  answer: 3
+  explanation: "Because the hammer is not visible, it is harder to tell whether the firearm is cocked. Follow the same safety procedures as for an exposed hammer, with extra care."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 259, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-actions-106
+  course: crfsc
+  topic: actions
+  type: multiple-choice
+  question: "After operating the cylinder release on a swing-out revolver, how do you remove the cartridges?"
+  options: ["Point the muzzle up and push the ejector rod", "Shake the revolver over the bench", "Pull the trigger to turn the cylinder and drop them one at a time", "Pick each one out with a tool"]
+  answer: 0
+  explanation: "Operate the cylinder release and swing the cylinder out, tip the muzzle up, and push the ejector rod to remove the cartridges."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 269, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.7.3. Revolver: double-action swing-out cylinder and break open, unloading procedure", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-actions-107
+  course: crfsc
+  topic: actions
+  type: multiple-choice
+  question: "A charged magazine is seated in a semi-automatic pistol. What chambers the first cartridge?"
+  options: ["Pressing the magazine release while holding the trigger", "Pulling the trigger", "Applying the safety", "Pulling the slide fully to the rear and releasing it"]
+  answer: 3
+  explanation: "Pull the slide quickly and completely to the rear and release it. This chambers a cartridge from the magazine."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 280, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.8.2. Semi-automatic: loading procedure", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-shooting-106
+  course: crfsc
+  topic: shooting-technique
+  type: multiple-choice
+  question: "In the one-handed stance, how is your body turned?"
+  options: ["Square to the target", "About 45 degrees to the target", "With your back to the target", "Side-on, at 90 degrees"]
+  answer: 1
+  explanation: "Stand with your body turned about 45 degrees to the target, with the elbow and wrist of the shooting arm locked."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 289, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "15.3.4. The one-handed stance", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-shooting-107
+  course: crfsc
+  topic: shooting-technique
+  type: multiple-choice
+  question: "Which sights do not need the sight alignment that open sights need?"
+  options: ["Fixed iron sights", "Adjustable target sights", "Scopes and electronic sights", "Any sights fitted to a revolver"]
+  answer: 2
+  explanation: "Open sights need you to line up the front and rear sights. Scopes and electronic sights do not require sight alignment."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 290, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "15.4. Aiming handguns", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-care-105
+  course: crfsc
+  topic: care
+  type: multiple-choice
+  question: "How much firearm maintenance should the average user do?"
+  options: ["Basic cleaning and lubrication only", "Full disassembly after each use", "Trigger adjustments as needed", "Any repair at all, given the right tools"]
+  answer: 0
+  explanation: "The average user should do basic cleaning and lubrication only."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 302, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.7. Firearm servicing", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-care-106
+  course: crfsc
+  topic: care
+  type: multiple-choice
+  question: "Your handgun has been in storage for a long time. What should you do before using it?"
+  options: ["Fire a test shot", "Oil the bore heavily", "Dry fire it several times", "Clean it thoroughly"]
+  answer: 3
+  explanation: "Any firearm that has been stored for a long time, or exposed to moisture or dirt, should be cleaned thoroughly before use."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 303, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.8. Firearm cleaning", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-transport-101
+  course: crfsc
+  topic: transport
+  type: multiple-choice
+  question: "Does a heavy-duty soft case, such as a nylon one, meet the container requirement for transporting a restricted firearm?"
+  options: ["No, only a hard case does", "Yes, as long as it can be locked securely", "Yes, even if it cannot be locked, provided it is zipped", "Only for trips under an hour"]
+  answer: 1
+  explanation: "A restricted firearm must travel in a locked, opaque container that cannot easily be broken open. A heavy-duty soft case qualifies if it can be locked securely."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 318, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "17.5. Transportation", page: TBD}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-transport-102
+  course: crfsc
+  topic: transport
+  type: multiple-choice
+  question: "Who do you contact to obtain an Authorization to Transport?"
+  options: ["The local police detachment", "The range officer at your club", "A Chief Firearms Officer", "The dealer who sold the firearm"]
+  answer: 2
+  explanation: "To obtain an Authorization to Transport, contact a Chief Firearms Officer (the handbook gives 1-800-731-4000)."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 318, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "17.5. Transportation", page: TBD}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-display-101
+  course: crfsc
+  topic: display
+  type: multiple-choice
+  question: "A restricted firearm on display at a show is attached by a cable. When may it be detached for someone to handle?"
+  options: ["Whenever a visitor asks", "Only under the direct supervision of the person displaying it", "Only if the visitor shows a valid licence, whether or not the exhibitor is present", "Never"]
+  answer: 1
+  explanation: "It may be removed from the display to be handled only under the direct supervision of the person displaying it."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 316, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "17.4. Display", page: TBD}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-resp-102
+  course: crfsc
+  topic: responsibilities
+  type: multiple-choice
+  question: "What does the handbook suggest every firearm owner keep, stored safely?"
+  options: ["A spare trigger lock key at a neighbour's", "A list of everyone who knows there are firearms in the home", "A photo of the firearms on the wall", "An inventory of their firearms, with supporting documents"]
+  answer: 3
+  explanation: "Keep an inventory of your firearms with the supporting documents in a safe place, and avoid advertising that there are firearms in your home."
+  # Page to confirm against the official PDF. The copy read for drafting has this on p. 221, and its restricted-course pages run 0 to 3 lower than the official PDF.
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: Other Duties of Firearm Owners/Users", page: TBD}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}

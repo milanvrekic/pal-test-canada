@@ -11,6 +11,7 @@ What was reviewed, by whom, and when. One entry per review batch.
 | 2026-11-22 | Milan | cfsc-licence-002, crfsc-handling-004, cfsc-muzzle-001, crfsc-range-001 | Approved. The 28-day minimum in cfsc-licence-002 matches the current Firearms Licences Regulations (SOR/98-199), checked the same day. |
 | 2026-11-22 | Claude | Batch 2: 40 new questions (20 CFSC, 20 CRFSC) | Drafted from the 2014 handbook, each cited to its page. Awaiting instructor review. |
 | 2026-11-22 | Milan | Batch 2: 40 questions | All 40 approved, including a check of the 9 law-dependent questions against current law. |
+| 2026-11-24 | Claude | Batch 4: 60 new questions (36 CFSC, 24 CRFSC) aimed at thin topics | Drafted from the 2014 handbook. CFSC questions cite a page. CRFSC pages are TBD: the copy read for drafting numbers the restricted-course pages 0 to 3 lower than the official PDF. 9 questions need a law check. Awaiting instructor review. |
 
 ## 2026-11-22: Spot the mistake drills
 

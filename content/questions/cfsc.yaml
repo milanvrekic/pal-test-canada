@@ -847,3 +847,372 @@
   explanation: "Half cock is considered safety on; full cock is safety off. With the hammer fully forward on the firing pin, a sharp blow to the hammer can fire the firearm."
   source: {handbook_edition: "2014 (5th ed.)", section: "6.10. Lever-action repeaters", page: "129"}
   review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
+
+# Batch 4, drafted 2026-11-24 from the 2014 handbook. Drafts until reviewed by the instructor.
+- id: cfsc-acts-101
+  course: cfsc
+  topic: vital-four-acts
+  type: multiple-choice
+  question: "According to the handbook, what is true whenever a firearm incident happens?"
+  options: ["The firearm had a mechanical fault that nobody could have found", "At least one of the Vital Four ACTS was broken", "The safety was left off", "The ammunition was the wrong type"]
+  answer: 1
+  explanation: "The handbook says that any time you hear of a firearm incident, at least one of the Vital Four ACTS has been broken. Following all four every time is what prevents incidents."
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: The Vital Four ACTS of Firearm Safety", page: "21"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-resp-103
+  course: cfsc
+  topic: responsibilities
+  type: multiple-choice
+  question: "You hold a firearms licence and move to a new home. How soon must you notify the Canadian Firearms Program of your new address?"
+  options: ["Within 7 days", "Within 30 days", "Within 90 days", "When you next renew the licence"]
+  answer: 1
+  explanation: "A licence holder must notify the RCMP Canadian Firearms Program of a change of address within 30 days."
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: Legal Responsibilities (Table 1)", page: "23"}
+  law_sensitive: true
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-licence-101
+  course: cfsc
+  topic: licensing
+  type: multiple-choice
+  question: "Which firearms may the holder of a Possession and Acquisition Licence acquire?"
+  options: ["Any firearm sold by a licensed dealer", "Only non-restricted rifles, never shotguns", "Only the classes of firearm the licence covers", "Any firearm, once it has been registered in the holder's own name"]
+  answer: 2
+  explanation: "A PAL holder may acquire only firearms of the class the licence is valid for."
+  source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: Legal Responsibilities (Table 1)", page: "23"}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-muzzle-102
+  course: cfsc
+  topic: muzzleloaders
+  type: multiple-choice
+  question: "Your muzzleloader fails to fire when you pull the trigger. What should you do?"
+  options: ["Re-cock and try again straight away", "Look down the muzzle to check the charge, then re-prime and fire again without waiting any longer", "Pour in a little more powder", "Treat it as a hang fire and wait at least 60 seconds, muzzle in a safe direction"]
+  answer: 3
+  explanation: "Treat a muzzleloader misfire as a hang fire: the charge may still go off. Keep it pointed in a safe direction and wait at least 60 seconds."
+  source: {handbook_edition: "2014 (5th ed.)", section: "2.2.3. DOs and DON'Ts of muzzleloading", page: "44"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-muzzle-103
+  course: cfsc
+  topic: muzzleloaders
+  type: multiple-choice
+  question: "You want to load one barrel of a double-barrelled muzzleloader. What must you do first?"
+  options: ["Remove the cap from the nipple of the other barrel", "Cock both hammers fully", "Load the other barrel with powder only, so that both are part charged", "Plug the other barrel with a patch"]
+  answer: 0
+  explanation: "Do not load one barrel of a double-barrelled muzzleloader unless the cap has been removed from the other barrel's nipple."
+  source: {handbook_edition: "2014 (5th ed.)", section: "2.2.3. DOs and DON'Ts of muzzleloading", page: "44"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-muzzle-104
+  course: cfsc
+  topic: muzzleloaders
+  type: multiple-choice
+  question: "How should the powder charge for a muzzleloader be measured?"
+  options: ["By eye, straight from the powder can", "With the palm of your hand", "With a volumetric measure, never poured from the main container", "By filling the barrel until the powder reaches a mark scratched on the ramrod"]
+  answer: 2
+  explanation: "Always use a volumetric measure for the charge, and never pour powder directly from the main container into the barrel."
+  source: {handbook_edition: "2014 (5th ed.)", section: "2.2.1. Loading muzzleloaders", page: "42"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-muzzle-105
+  course: cfsc
+  topic: muzzleloaders
+  type: true-false
+  question: "For the safe-storage rules, a black-powder firearm with powder in the barrel but no ball counts as unloaded."
+  options: ["True", "False"]
+  answer: 1
+  explanation: "False. Under the safe-storage regulations a black-powder firearm is considered loaded when powder, a ball, or both are in the barrel."
+  source: {handbook_edition: "2014 (5th ed.)", section: "2.2.1. Loading muzzleloaders", page: "42"}
+  law_sensitive: true
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-muzzle-106
+  course: cfsc
+  topic: muzzleloaders
+  type: multiple-choice
+  question: "How often should a black-powder firearm be cleaned?"
+  options: ["Once a season", "After every firing session", "Only when accuracy drops", "Every 100 shots"]
+  answer: 1
+  explanation: "A black-powder firearm must be cleaned after every firing session. The residue is corrosive and attracts moisture."
+  source: {handbook_edition: "2014 (5th ed.)", section: "2.2.2. Cleaning a muzzleloader", page: "43"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-handling-109
+  course: cfsc
+  topic: handling
+  type: multiple-choice
+  question: "For safe handling, how does the handbook say all air guns should be treated?"
+  options: ["As toys, if they are low-powered", "As firearms", "As firearms only when loaded", "As firearms only if they need a licence"]
+  answer: 1
+  explanation: "Many high-powered air guns are firearms under the Firearms Act, so for safe practices all air guns should be treated as firearms."
+  source: {handbook_edition: "2014 (5th ed.)", section: "3.4. Classification of firearms", page: "54"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-ammo-102
+  course: cfsc
+  topic: ammunition
+  type: true-false
+  question: "A .22 Magnum cartridge can be used in a rifle made for .22 Long Rifle cartridges."
+  options: ["True", "False"]
+  answer: 1
+  explanation: "False. The .22 rim-fire comes in several versions, and the .22 Magnum is not interchangeable with the others. Use only the cartridge named on the firearm's data stamp."
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.3.2. Types of cartridges", page: "71"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-ammo-103
+  course: cfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "Some rim-fire cartridges have no cartridge name on the head stamp. How do you identify them?"
+  options: ["By the colour of the bullet", "By the weight of the cartridge", "By trying them in the chamber to see which ones fit properly", "From the information on the ammunition box"]
+  answer: 3
+  explanation: "When a cartridge has no head stamp name, refer to the information on the box. If you are in any doubt about ammunition, have a qualified person check it."
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.3.3. Cartridge names", page: "73"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-ammo-104
+  course: cfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "Which shotgun bore is named by its calibre instead of a gauge?"
+  options: ["The .410", "The 28", "The 20", "The 10"]
+  answer: 0
+  explanation: "The .410 is the exception to the gauge system: it is measured as a calibre."
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.5. Shotgun gauge", page: "75"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-ammo-105
+  course: cfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "Why must you never load a shotgun shell that is longer than the length marked on the barrel's data stamp?"
+  options: ["The shot pattern becomes too wide", "The barrel may burst", "The shell will not eject", "The recoil becomes lighter"]
+  answer: 1
+  explanation: "Do not use shells longer than the data stamp allows: the barrel may burst. Chamber length refers to a fired shell, so an unfired shell can look shorter than it is."
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.7.2. Shotgun shell types", page: "86"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-misfire-101
+  course: cfsc
+  topic: misfires
+  type: multiple-choice
+  question: "A cartridge misfired, and after waiting you have unloaded it safely. What do you do with it?"
+  options: ["Reload it and try once more", "Put it back in the box with the others and use it another day", "Dispose of it properly and do not reuse it", "Save it for use in another firearm"]
+  answer: 2
+  explanation: "A misfired cartridge should not be reused. Dispose of it properly."
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.10. Hazards", page: "92"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-ammo-106
+  course: cfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "Why does the handbook recommend storing ammunition in a vented container?"
+  options: ["An unvented container can create an explosive hazard in a fire", "Vents keep the primers lubricated", "Vents let you see how much ammunition is left without opening the container", "Vented containers are easier to lock"]
+  answer: 0
+  explanation: "Store ammunition in a cool, dry place, preferably in a vented container. In a fire, an unvented container can create an explosive hazard."
+  source: {handbook_edition: "2014 (5th ed.)", section: "5.12. Ammunition precautions and legislation", page: "93"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-actions-102
+  course: cfsc
+  topic: actions
+  type: multiple-choice
+  question: "Why is pointed centre-fire ammunition a hazard in most tubular magazines?"
+  options: ["It is too long to feed", "It wears out the magazine spring much faster than round-nosed ammunition does", "It lowers the muzzle velocity", "A jolt can drive a bullet point into the primer of the cartridge ahead of it"]
+  answer: 3
+  explanation: "In a tubular magazine the cartridges sit nose to tail. A pointed bullet rests against the primer of the cartridge in front, and a jolt could set that primer off."
+  source: {handbook_edition: "2014 (5th ed.)", section: "6.8.2. Tubular magazine", page: "123"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-actions-103
+  course: cfsc
+  topic: actions
+  type: multiple-choice
+  question: "How do you confirm that a tubular magazine is empty?"
+  options: ["Shake the firearm and listen", "See or feel the magazine follower", "Count the cartridges you removed and compare with the capacity", "Check that the safety is on"]
+  answer: 1
+  explanation: "Always be sure you can see or feel the follower. If you cannot, a cartridge may still be in the magazine."
+  source: {handbook_edition: "2014 (5th ed.)", section: "6.8.2. Tubular magazine", page: "122"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-actions-104
+  course: cfsc
+  topic: actions
+  type: multiple-choice
+  question: "Which action is sometimes called a slide or trombone action?"
+  options: ["Lever action", "Bolt action", "Pump action", "Hinge action"]
+  answer: 2
+  explanation: "The pump action is sometimes called the slide or trombone action."
+  source: {handbook_edition: "2014 (5th ed.)", section: "6.11. Pump-action repeaters", page: "134"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-actions-105
+  course: cfsc
+  topic: actions
+  type: multiple-choice
+  question: "Many lever actions have a trigger-block safety. What must happen before such a firearm will fire?"
+  options: ["The hammer must be at half cock, with the lever left partly open", "The magazine must be full", "The lever must be squeezed fully closed against the stock", "The action must be partly open"]
+  answer: 2
+  explanation: "On this type of lever action the firearm will not fire unless the lever is fully closed against the stock, which releases the trigger block."
+  source: {handbook_edition: "2014 (5th ed.)", section: "6.10. Lever-action repeaters", page: "129"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-parts-101
+  course: cfsc
+  topic: parts
+  type: multiple-choice
+  question: "How does a safety stop a firearm from firing?"
+  options: ["It removes the cartridge from the chamber and holds it in the magazine until needed", "It blocks one or more of the trigger, sear, hammer or firing pin", "It locks the magazine in place", "It closes the muzzle"]
+  answer: 1
+  explanation: "A safety blocks one or more parts of the firing mechanism: the trigger, sear, hammer or firing pin. It is a mechanical device and can fail, so never rely on it."
+  source: {handbook_edition: "2014 (5th ed.)", section: "6.2. Safeties", page: "102"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-parts-102
+  course: cfsc
+  topic: parts
+  type: multiple-choice
+  question: "What does the action of a firearm do?"
+  options: ["It aims the firearm", "It absorbs the recoil and steadies the firearm", "It spins the bullet", "It loads, fires and ejects the cartridge"]
+  answer: 3
+  explanation: "The action holds the parts that chamber the cartridge, fire it, and eject fired or unfired cartridges."
+  source: {handbook_edition: "2014 (5th ed.)", section: "3.1.2. Action", page: "49"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-range-109
+  course: cfsc
+  topic: range-and-field
+  type: multiple-choice
+  question: "At the range you would like to pick up another shooter's firearm for a closer look. What should you do first?"
+  options: ["Check that its action is open", "Ask the owner's permission", "Wait for a cease-fire", "Put on gloves"]
+  answer: 1
+  explanation: "Range courtesy: ask the owner's or shooter's permission before handling someone else's firearm."
+  source: {handbook_edition: "2014 (5th ed.)", section: "7.4. Range courtesy", page: "151"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-handling-110
+  course: cfsc
+  topic: handling
+  type: multiple-choice
+  question: "Where should you avoid using the sling carry?"
+  options: ["In dense bush", "On open ground", "On a marked trail", "At a range"]
+  answer: 0
+  explanation: "Do not use the sling carry in dense bush. It can also point the muzzle at people in front of you if you bend sharply forward."
+  source: {handbook_edition: "2014 (5th ed.)", section: "7.8. Carrying positions", page: "160"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-shooting-103
+  course: cfsc
+  topic: shooting-technique
+  type: multiple-choice
+  question: "Which rifle shooting position is the least stable?"
+  options: ["Prone", "Sitting", "Kneeling", "Standing"]
+  answer: 3
+  explanation: "Standing is the least stable of the four rifle positions (standing, kneeling, sitting and prone). Prone is the steadiest."
+  source: {handbook_edition: "2014 (5th ed.)", section: "8.2.1. Rifles", page: "165"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-shooting-104
+  course: cfsc
+  topic: shooting-technique
+  type: multiple-choice
+  question: "How is firing a shotgun at a moving target different from firing a rifle?"
+  options: ["A shotgun is pointed, not aimed", "A shotgun is fired from the hip", "A shotgun is aimed more slowly", "A shotgun is fired with one eye closed"]
+  answer: 0
+  explanation: "A shotgun is pointed, not aimed. Stand like a boxer, feet apart and body free to swing with the target."
+  source: {handbook_edition: "2014 (5th ed.)", section: "8.2.2. Shotguns", page: "169"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-shooting-105
+  course: cfsc
+  topic: shooting-technique
+  type: multiple-choice
+  question: "How can you find your master eye?"
+  options: ["Read an eye chart with each eye", "Look at a distant object through a triangle made with your hands, then close each eye in turn", "Ask which hand you write with", "Close one eye at a time while reading small print at arm's length, and pick the eye that reads it faster"]
+  answer: 1
+  explanation: "Make a triangle with your hands and look at a distant object through it with both eyes open. Close each eye in turn: the eye that keeps the object centred is your master eye."
+  source: {handbook_edition: "2014 (5th ed.)", section: "8.4.1. Sight alignment", page: "175"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-shooting-106
+  course: cfsc
+  topic: shooting-technique
+  type: multiple-choice
+  question: "When in your breathing should you release a rifle shot?"
+  options: ["At the top of a deep breath", "While breathing in slowly", "In the natural pause after you breathe out", "Whenever the sights look right, however you are breathing"]
+  answer: 2
+  explanation: "Fire during the natural pause after you exhale. It lasts about 2.5 seconds, and controlled breathing can stretch it to about 8.5 seconds."
+  source: {handbook_edition: "2014 (5th ed.)", section: "8.4.2. Breathing as it relates to shot release", page: "175"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-shooting-107
+  course: cfsc
+  topic: shooting-technique
+  type: multiple-choice
+  question: "What is follow-through?"
+  options: ["Reloading as fast as you can", "Walking to the target after the shot", "Lowering the firearm the moment it fires, to see where the shot went", "Keeping your sight picture and position after the shot"]
+  answer: 3
+  explanation: "Follow-through means maintaining your sight picture and shooting position after the shot is fired."
+  source: {handbook_edition: "2014 (5th ed.)", section: "8.4.4. Follow-through", page: "177"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-shooting-108
+  course: cfsc
+  topic: shooting-technique
+  type: multiple-choice
+  question: "Most shotguns have only a bead at the front. What acts as the rear sight?"
+  options: ["The safety", "The shooter's eye", "The receiver screws", "The trigger guard"]
+  answer: 1
+  explanation: "Most shotguns have only a bead front sight, so the shooter's eye acts as the rear sight."
+  source: {handbook_edition: "2014 (5th ed.)", section: "8.3. Aiming your firearm", page: "170"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-care-103
+  course: cfsc
+  topic: care
+  type: multiple-choice
+  question: "You cleaned and oiled your rifle after the last outing. What should you do before firing it again?"
+  options: ["Add more oil to the bore", "Fire one cartridge to clear the oil", "Run a dry patch through the barrel", "Nothing: a film of oil protects the bore"]
+  answer: 2
+  explanation: "Before the next firing, run a dry patch through the barrel to remove the oil."
+  source: {handbook_edition: "2014 (5th ed.)", section: "9.2.2. Cleaning procedures", page: "183"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-resp-104
+  course: cfsc
+  topic: responsibilities
+  type: true-false
+  question: "Some non-prescription drugs, such as allergy medicines, can affect the alertness and balance you need to handle a firearm safely."
+  options: ["True", "False"]
+  answer: 0
+  explanation: "True. Never consume alcohol or drugs before or while handling firearms. Prescription and non-prescription drugs, including some allergy medicines, can affect alertness, the senses and balance."
+  source: {handbook_edition: "2014 (5th ed.)", section: "10.6. Social responsibilities and ethics", page: "193"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-resp-105
+  course: cfsc
+  topic: responsibilities
+  type: multiple-choice
+  question: "What does the handbook say about the key or combination to your firearm storage?"
+  options: ["Keep it taped to the cabinet", "Give a copy to each family member", "Do not leave it lying around", "Write it on the trigger lock"]
+  answer: 2
+  explanation: "Do not leave the key or combination lying around, and do not let it become widely known that you have firearms. Making access difficult can delay an impulse to do harm."
+  source: {handbook_edition: "2014 (5th ed.)", section: "10.4. Secure storage", page: "190"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-resp-106
+  course: cfsc
+  topic: responsibilities
+  type: multiple-choice
+  question: "You want to shoot on land that belongs to someone else. What does the handbook tell you to do?"
+  options: ["Get the owner's permission first", "Shoot only if no signs are posted", "Stay within sight of a road", "Go when the owner is away"]
+  answer: 0
+  explanation: "Always get permission before shooting on someone else's property."
+  source: {handbook_edition: "2014 (5th ed.)", section: "10.6. Social responsibilities and ethics", page: "193"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-transport-101
+  course: cfsc
+  topic: transport
+  type: multiple-choice
+  question: "You must leave a non-restricted rifle in an unattended vehicle that has no trunk. How must it be left?"
+  options: ["Unloaded, on the seat with the doors unlocked", "Unloaded and out of sight, inside the locked vehicle", "Loaded, with the safety on, under a blanket", "Unloaded and in plain view on the seat, so police can see it"]
+  answer: 1
+  explanation: "With no trunk or similar compartment, the firearm must be unloaded and out of sight, and the vehicle (or the part holding the firearm) must be locked."
+  source: {handbook_edition: "2014 (5th ed.)", section: "11.5. Transportation", page: "203"}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-transport-102
+  course: cfsc
+  topic: transport
+  type: multiple-choice
+  question: "When may a loaded muzzleloader be transported between hunting sites?"
+  options: ["Never", "When the hammer is at half cock and the muzzle is pointed up", "When it is in a locked case", "When its percussion cap or flint has been removed"]
+  answer: 3
+  explanation: "Non-restricted firearms must be transported unloaded. The exception is a muzzleloader moved between hunting sites with its firing cap or flint removed. Provincial rules may add to this."
+  source: {handbook_edition: "2014 (5th ed.)", section: "11.5. Transportation", page: "203"}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: cfsc-handling-111
+  course: cfsc
+  topic: handling
+  type: multiple-choice
+  question: "You have just bought a rifle and are carrying it out of the shop to your car. What does the handbook recommend?"
+  options: ["Carry it over your shoulder", "Carry it in a case or opaque container", "Carry it with the action closed and the muzzle down", "Carry it by the barrel"]
+  answer: 1
+  explanation: "The handbook recommends carrying firearms in a case or opaque container when you leave a seller in a public place, so the firearm is not on display."
+  source: {handbook_edition: "2014 (5th ed.)", section: "11.6. Handling", page: "205"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
