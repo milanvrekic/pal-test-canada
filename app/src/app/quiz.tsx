@@ -331,6 +331,11 @@ function Results({ heading, set, picks, mode, course, topic }: { heading: string
                 Correct answer: {q.options[q.answer]}
               </ThemedText>
               <ThemedText>{q.explanation}</ThemedText>
+              {sourceLine(q.source) ? (
+                <ThemedText type="small" themeColor="textSecondary">
+                  {sourceLine(q.source)}
+                </ThemedText>
+              ) : null}
             </Card>
           ))}
         </View>
