@@ -6,6 +6,7 @@ import {
   addDays,
   buildExam,
   buildPractice,
+  examQuotas,
   dueForReview,
   emptyProgress,
   readiness,
@@ -42,6 +43,27 @@ test('exam has 50 unique questions from one course, every topic present', () => 
   assert.equal(new Set(exam.map((q) => q.id)).size, 50);
   assert.ok(exam.every((q) => q.course === 'cfsc'));
   assert.equal(new Set(exam.map((q) => q.topic)).size, 4);
+});
+
+test('exam gives each topic its share of the bank, and at least one question', () => {
+  const counts = new Map([['big', 20], ['mid', 12], ['small', 4], ['tiny', 2], ['other', 44]]);
+  const q = examQuotas(counts, 50);
+  assert.equal([...q.values()].reduce((a, b) => a + b, 0), 50);
+  assert.deepEqual(Object.fromEntries(q), { big: 12, mid: 7, small: 3, tiny: 1, other: 27 });
+  // Many one-question topics: the floor of one each must not push the exam over its size.
+  const many = examQuotas(new Map(Array.from({ length: 60 }, (_, i) => [`t${i}`, i === 0 ? 40 : 1] as [string, number])), 50);
+  assert.equal([...many.values()].reduce((a, b) => a + b, 0), 50);
+});
+
+test('a small topic is not used up in every exam', () => {
+  const uneven = [...make(76, 'cfsc', ['handling']), ...make(4, 'cfsc', ['misfires']).map((q, i) => ({ ...q, id: `m-${i}` }))];
+  const seen = new Set<string>();
+  for (let seed = 1; seed <= 20; seed++) {
+    const picked = buildExam(uneven, 'cfsc', seededRng(seed)).filter((q) => q.topic === 'misfires');
+    assert.ok(picked.length >= 1 && picked.length <= 3);
+    picked.forEach((q) => seen.add(q.id));
+  }
+  assert.equal(seen.size, 4);
 });
 
 test('exam uses the whole bank when the bank is smaller than an exam', () => {

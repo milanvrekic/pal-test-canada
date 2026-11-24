@@ -118,21 +118,39 @@ export function buildPractice(
     .map((q) => shuffleOptions(q, opts.rng));
 }
 
-/** An exam: up to EXAM_SIZE questions spread across topics in proportion to the bank. */
+/**
+ * How many questions each topic gets in an exam of `size`: its share of the bank, rounded by largest remainder, with
+ * at least one per topic. A topic with 20 of 80 questions gets a quarter of the exam, not the same count as a topic
+ * with 4, so small topics are not used up (and repeated word for word) in every exam.
+ */
+export function examQuotas(counts: ReadonlyMap<string, number>, size: number): Map<string, number> {
+  const total = [...counts.values()].reduce((a, b) => a + b, 0);
+  const shares = [...counts].map(([topic, n]) => ({ topic, n, exact: (size * n) / total }));
+  const quota = new Map(shares.map((s) => [s.topic, Math.min(s.n, Math.max(1, Math.floor(s.exact)))]));
+  const sum = () => [...quota.values()].reduce((a, b) => a + b, 0);
+  // Hand out what rounding down left over, biggest remainder first.
+  const byRemainder = [...shares].sort((a, b) => (b.exact % 1) - (a.exact % 1) || b.n - a.n);
+  for (let i = 0; sum() < size && i < byRemainder.length * 2; i++) {
+    const s = byRemainder[i % byRemainder.length];
+    if ((quota.get(s.topic) ?? 0) < s.n) quota.set(s.topic, (quota.get(s.topic) ?? 0) + 1);
+  }
+  // The one-per-topic floor can overshoot when there are many tiny topics: take back from the biggest.
+  while (sum() > size) {
+    const [topic, n] = [...quota].sort((a, b) => b[1] - a[1])[0];
+    quota.set(topic, n - 1);
+  }
+  return quota;
+}
+
+/** An exam: up to EXAM_SIZE questions, each topic represented in proportion to its share of the bank. */
 export function buildExam(questions: readonly Question[], course: Course, rng: Rng = Math.random, size = EXAM_SIZE): Question[] {
   const pool = questions.filter((q) => q.course === course);
   if (pool.length <= size) return shuffle(pool, rng).map((q) => shuffleOptions(q, rng));
   const byTopic = new Map<string, Question[]>();
   for (const q of shuffle(pool, rng)) byTopic.set(topicGroup(q.topic), [...(byTopic.get(topicGroup(q.topic)) ?? []), q]);
-  const picked: Question[] = [];
-  // Round-robin across topics keeps every topic represented.
-  while (picked.length < size) {
-    for (const list of byTopic.values()) {
-      const q = list.pop();
-      if (q) picked.push(q);
-      if (picked.length === size) break;
-    }
-  }
+  const quotas = examQuotas(new Map([...byTopic].map(([t, list]) => [t, list.length])), size);
+  // Each topic's list is already shuffled, so the first few are a random draw from it.
+  const picked = [...byTopic].flatMap(([t, list]) => list.slice(0, quotas.get(t) ?? 0));
   return shuffle(picked, rng).map((q) => shuffleOptions(q, rng));
 }
 
