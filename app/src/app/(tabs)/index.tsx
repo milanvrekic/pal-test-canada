@@ -25,6 +25,7 @@ import {
 } from '@/features/quiz/engine';
 import { useTheme } from '@/hooks/use-theme';
 import { drills, questions } from '@/lib/content';
+import { useCourse } from '@/lib/course';
 import { useProgress } from '@/lib/progress';
 import { useTracker } from '@/lib/tracker';
 
@@ -55,7 +56,7 @@ type ExamLite = { correct: number; total: number };
  */
 export default function Home() {
   const t = useTheme();
-  const [course, setCourse] = useState<Course>('cfsc');
+  const [course, setCourse] = useCourse();
   const [allTopics, setAllTopics] = useState(false);
   const { progress, loaded } = useProgress();
   const { tracker } = useTracker();

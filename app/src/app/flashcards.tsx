@@ -9,6 +9,7 @@ import { Spacing } from '@/constants/theme';
 import { type Course, type Question, buildPractice, recordAnswer, today } from '@/features/quiz/engine';
 import { useTheme } from '@/hooks/use-theme';
 import { questions } from '@/lib/content';
+import { useCourse } from '@/lib/course';
 import { updateProgress, useProgress } from '@/lib/progress';
 import { page } from '@/lib/seo';
 
@@ -24,7 +25,7 @@ const DECK = 20;
 export default function Flashcards() {
   const theme = useTheme();
   const { progress, loaded } = useProgress();
-  const [course, setCourse] = useState<Course>('cfsc');
+  const [course, setCourse] = useCourse();
   const [deck, setDeck] = useState<Question[] | null>(null);
   const [i, setI] = useState(0);
   const [flipped, setFlipped] = useState(false);

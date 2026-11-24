@@ -156,6 +156,7 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
           }}
           max={day}
           label="Date you sent your application"
+          shortLabel="Date sent"
           invalid={!!error}
         />
         {error ? (

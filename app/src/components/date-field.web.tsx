@@ -15,6 +15,8 @@ export function DateField({
   onChange: (iso: string) => void;
   max?: string;
   label: string;
+  /** Used by the native picker only; the browser's date input shows its own text. */
+  shortLabel?: string;
   invalid?: boolean;
 }) {
   const theme = useTheme();
