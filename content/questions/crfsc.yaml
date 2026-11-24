@@ -934,8 +934,8 @@
   answer: 1
   explanation: "Ammunition for a restricted firearm must not be within easy access of the firearm unless it is in a securely locked container or receptacle, or in a vault, safe or room built for restricted firearms."
   source: {handbook_edition: "2014 (5th ed.)", section: "13.8. Ammunition precautions and legislation", page: "251"}
-  law_checked_on: TBD
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  law_checked_on: "2026-11-24"
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-actions-104
   course: crfsc
   topic: actions
@@ -1055,8 +1055,8 @@
   answer: 1
   explanation: "A restricted firearm must travel in a locked, opaque container that cannot easily be broken open. A heavy-duty soft case qualifies if it can be locked securely."
   source: {handbook_edition: "2014 (5th ed.)", section: "17.5. Transportation", page: "321"}
-  law_checked_on: TBD
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  law_checked_on: "2026-11-24"
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-transport-102
   course: crfsc
   topic: transport
@@ -1066,8 +1066,8 @@
   answer: 2
   explanation: "To obtain an Authorization to Transport, contact a Chief Firearms Officer (the handbook gives 1-800-731-4000)."
   source: {handbook_edition: "2014 (5th ed.)", section: "17.5. Transportation", page: "321"}
-  law_checked_on: TBD
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  law_checked_on: "2026-11-24"
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-display-101
   course: crfsc
   topic: display
@@ -1077,8 +1077,8 @@
   answer: 1
   explanation: "It may be removed from the display to be handled only under the direct supervision of the person displaying it."
   source: {handbook_edition: "2014 (5th ed.)", section: "17.4. Display", page: "319"}
-  law_checked_on: TBD
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  law_checked_on: "2026-11-24"
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-resp-102
   course: crfsc
   topic: responsibilities
