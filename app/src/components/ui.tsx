@@ -143,6 +143,7 @@ const FOOTER_GROUPS: { title: string; links: { href: Href; label: string }[] }[]
       ...(guides.some((g) => g.slug === 'after-you-get-your-pal') ? [{ href: '/guides/after-you-get-your-pal', label: 'After you get your PAL' }] : []),
       { href: '/guides', label: 'Guides' },
       { href: '/about', label: 'About' },
+      { href: '/support', label: 'Support' },
       { href: '/privacy', label: 'Privacy' },
       { href: '/terms', label: 'Terms of use' },
     ],
