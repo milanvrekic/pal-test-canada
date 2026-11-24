@@ -91,3 +91,4 @@ The correct answer was the longest option in 56 of 92 multiple-choice questions;
 - Each province names its official course provider, checked against the RCMP find-an-instructor page and the
   provincial pages (alberta.ca, fseso.org, Safety Services Nova Scotia, gnb.ca).
 - Alberta: alberta.ca now names the Sherwood Park Fish and Game Association; AHEIA is listed with a note to confirm.
+| 2026-11-24 | Milan | Batch 4, CFSC: 36 questions | All 36 approved as written. The 5 law-dependent ones (cfsc-resp-103, cfsc-licence-101, cfsc-muzzle-105, cfsc-transport-101, cfsc-transport-102) still need their check against current law. |
