@@ -57,6 +57,7 @@ const BUILTIN: Record<AppId, Builtin> = {
     months: [5, 6, 7, 8, 9],
     soon: false,
     ios: 'https://apps.apple.com/app/apple-store/id6831671747',
+    android: 'https://play.google.com/store/apps/details?id=app.campable',
     web: 'https://getcampable.app',
   },
   shootable: {
