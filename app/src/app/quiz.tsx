@@ -102,10 +102,18 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
   const timeUp = remaining === 0 && !!set && index < set.length;
   useEffect(() => {
     if (!timeUp || !set) return;
-    // Unanswered questions count as wrong, as on a real test.
-    const allPicks = [...picks, ...Array(set.length - picks.length).fill(-1)];
+    // The answer on screen counts even if Next wasn't pressed (the bar already said "Saved"). Unanswered questions
+    // count as wrong, as on a real test, and are recorded as missed so they come back in Review.
+    const answered = selected !== null ? [...picks, selected] : picks;
+    const allPicks = [...answered, ...Array(set.length - answered.length).fill(-1)];
     const correct = set.filter((item, i) => allPicks[i] === item.answer).length;
-    updateProgress((p) => recordExam(p, { course, date: today(), correct, total: set.length }));
+    const day = today();
+    updateProgress((p) => {
+      let next = p;
+      for (let i = picks.length; i < set.length; i++) next = recordAnswer(next, set[i].id, allPicks[i] === set[i].answer, day);
+      return recordExam(next, { course, date: day, correct, total: set.length });
+    });
+    setSelected(null);
     track({ name: 'test_completed', course, mode, correct, total: set.length });
     setPicks(allPicks);
     setIndex(set.length);
@@ -141,7 +149,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
     );
   }
 
-  if (index >= set.length) return <Results heading={heading} set={set} picks={picks} mode={mode} course={course} />;
+  if (index >= set.length) return <Results heading={heading} set={set} picks={picks} mode={mode} course={course} topic={topic} />;
 
   const q = set[index];
   const showFeedback = mode !== 'exam' && mode !== 'mock' && selected !== null;
@@ -277,7 +285,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
-function Results({ heading, set, picks, mode, course }: { heading: string; set: Question[]; picks: number[]; mode: Mode; course: Course }) {
+function Results({ heading, set, picks, mode, course, topic }: { heading: string; set: Question[]; picks: number[]; mode: Mode; course: Course; topic?: string }) {
   const correct = set.filter((q, i) => picks[i] === q.answer).length;
   const score = correct / set.length;
   const passed = score >= PASS_MARK;
@@ -297,7 +305,7 @@ function Results({ heading, set, picks, mode, course }: { heading: string; set: 
       <View style={{ gap: Spacing.two }}>
         <Split gap={Spacing.two}>
           <Col basis={200}>
-            <Button variant="signal" label="Go again" href={{ pathname: '/quiz', params: { course, mode, t: String(Date.now()) } }} />
+            <Button variant="signal" label="Go again" href={{ pathname: '/quiz', params: { course, mode, ...(topic ? { topic } : {}), t: String(Date.now()) } }} />
           </Col>
           <Col basis={200}>
             <Button variant="secondary" label="Back to home" href="/" />
@@ -358,7 +366,8 @@ function Results({ heading, set, picks, mode, course }: { heading: string; set: 
 
 function ResultsHead({ heading, correct, total, score, passed, exam }: { heading: string; correct: number; total: number; score: number; passed: boolean; exam: boolean }) {
   const theme = useTheme();
-  const good = !exam || passed;
+  // Green only for a pass mark, in practice rounds as in exams.
+  const good = passed;
   return (
     <View style={[styles.resultHead, { backgroundColor: good ? theme.successBg : theme.tintSand }]}>
       <Ring value={score} size={132} stroke={12} color={good ? theme.success : theme.danger} track="rgba(0,0,0,0.07)" label={`${Math.round(score * 100)}%`} />

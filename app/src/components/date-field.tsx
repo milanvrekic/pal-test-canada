@@ -1,4 +1,5 @@
 import DateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import { useEffect } from 'react';
 import { Platform, Pressable, StyleSheet, View } from 'react-native';
 
 import { RadiusControl, Spacing } from '@/constants/theme';
@@ -18,17 +19,26 @@ export function DateField({
   onChange,
   max,
   label,
+  shortLabel,
   invalid,
 }: {
   value: string;
   onChange: (iso: string) => void;
   max?: string;
   label: string;
+  /** Short text shown beside the iOS picker. Defaults to the label. */
+  shortLabel?: string;
   invalid?: boolean;
 }) {
   const theme = useTheme();
   const date = value ? fromIso(value) : max ? fromIso(max) : new Date();
   const maximumDate = max ? fromIso(max) : undefined;
+  // iOS always shows a date and only reports changes, so a date left as shown (today) was never picked. Make the shown
+  // date the value.
+  const shown = toIso(date);
+  useEffect(() => {
+    if (Platform.OS === 'ios' && !value) onChange(shown);
+  }, [value, shown, onChange]);
 
   if (Platform.OS === 'ios') {
     return (
@@ -40,7 +50,9 @@ export function DateField({
             backgroundColor: theme.background,
           },
         ]}>
-        <ThemedText themeColor="textSecondary">Date sent</ThemedText>
+        <ThemedText themeColor="textSecondary" style={{ flexShrink: 1 }}>
+          {shortLabel ?? label}
+        </ThemedText>
         <DateTimePicker
           value={date}
           mode="date"
