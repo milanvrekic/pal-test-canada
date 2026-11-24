@@ -848,7 +848,7 @@
   source: {handbook_edition: "2014 (5th ed.)", section: "6.10. Lever-action repeaters", page: "129"}
   review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 
-# Batch 4, drafted 2026-11-24 from the 2014 handbook; approved by Milan Vrekic 2026-11-24. Five law questions still await their law check.
+# Batch 4, drafted 2026-11-24 from the 2014 handbook; approved by Milan Vrekic 2026-11-24.
 - id: cfsc-acts-101
   course: cfsc
   topic: vital-four-acts
@@ -869,7 +869,7 @@
   explanation: "A licence holder must notify the RCMP Canadian Firearms Program of a change of address within 30 days."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: Legal Responsibilities (Table 1)", page: "23"}
   law_sensitive: true
-  law_checked_on: TBD
+  law_checked_on: "2026-11-24"
   review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: cfsc-licence-101
   course: cfsc
@@ -880,7 +880,7 @@
   answer: 2
   explanation: "A PAL holder may acquire only firearms of the class the licence is valid for."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: Legal Responsibilities (Table 1)", page: "23"}
-  law_checked_on: TBD
+  law_checked_on: "2026-11-24"
   review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: cfsc-muzzle-102
   course: cfsc
@@ -922,7 +922,7 @@
   explanation: "False. Under the safe-storage regulations a black-powder firearm is considered loaded when powder, a ball, or both are in the barrel."
   source: {handbook_edition: "2014 (5th ed.)", section: "2.2.1. Loading muzzleloaders", page: "42"}
   law_sensitive: true
-  law_checked_on: TBD
+  law_checked_on: "2026-11-24"
   review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: cfsc-muzzle-106
   course: cfsc
@@ -1193,7 +1193,7 @@
   answer: 1
   explanation: "With no trunk or similar compartment, the firearm must be unloaded and out of sight, and the vehicle (or the part holding the firearm) must be locked."
   source: {handbook_edition: "2014 (5th ed.)", section: "11.5. Transportation", page: "203"}
-  law_checked_on: TBD
+  law_checked_on: "2026-11-24"
   review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: cfsc-transport-102
   course: cfsc
@@ -1204,7 +1204,7 @@
   answer: 3
   explanation: "Non-restricted firearms must be transported unloaded. The exception is a muzzleloader moved between hunting sites with its firing cap or flint removed. Provincial rules may add to this."
   source: {handbook_edition: "2014 (5th ed.)", section: "11.5. Transportation", page: "203"}
-  law_checked_on: TBD
+  law_checked_on: "2026-11-24"
   review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: cfsc-handling-111
   course: cfsc

@@ -844,7 +844,7 @@
   source: {handbook_edition: "2014 (5th ed.)", section: "12.2.3. DOs and DON'Ts of muzzleloading", page: "233"}
   review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-22, status: reviewed}
 
-# Batch 4, drafted 2026-11-24 from the 2014 handbook. Drafts until reviewed by the instructor.
+# Batch 4, drafted 2026-11-24 from the 2014 handbook; approved by Milan Vrekic 2026-11-24.
 - id: crfsc-ammo-101
   course: crfsc
   topic: ammunition
@@ -854,7 +854,7 @@
   answer: 2
   explanation: "Cartridges with different names are not interchangeable, even when the calibre number is the same. Use only the cartridge named on the handgun's data stamp."
   source: {handbook_edition: "2014 (5th ed.)", section: "13.3.2. Cartridge names", page: "242"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-ammo-102
   course: crfsc
   topic: ammunition
@@ -864,7 +864,7 @@
   answer: 1
   explanation: "False. The .22 Magnum is not interchangeable with the other .22 rim-fire cartridges."
   source: {handbook_edition: "2014 (5th ed.)", section: "13.3.1. Types of cartridges", page: "240"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-ammo-103
   course: crfsc
   topic: ammunition
@@ -874,7 +874,7 @@
   answer: 1
   explanation: "Do not accept or use reloaded cartridges unless you know they were made and reloaded correctly."
   source: {handbook_edition: "2014 (5th ed.)", section: "13.3. Cartridges", page: "238"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-ammo-104
   course: crfsc
   topic: ammunition
@@ -884,7 +884,7 @@
   answer: 0
   explanation: "A handgun cartridge has four components: the bullet, the powder charge, the case and the primer."
   source: {handbook_edition: "2014 (5th ed.)", section: "13.3.3. Cartridge components and materials", page: "245"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-ammo-105
   course: crfsc
   topic: ammunition
@@ -894,7 +894,7 @@
   answer: 3
   explanation: "Handguns can shoot a bullet more than two kilometres. Know the dangerous range of your ammunition and what lies beyond your target."
   source: {handbook_edition: "2014 (5th ed.)", section: "13.4. Ballistics", page: "248"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-ammo-106
   course: crfsc
   topic: ammunition
@@ -904,7 +904,7 @@
   answer: 0
   explanation: "Dry firing a rim-fire firearm can damage it."
   source: {handbook_edition: "2014 (5th ed.)", section: "13.3.1. Types of cartridges", page: "240"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-misfire-101
   course: crfsc
   topic: misfires
@@ -914,7 +914,7 @@
   answer: 2
   explanation: "Misfired cartridges should not be reused. Dispose of them properly."
   source: {handbook_edition: "2014 (5th ed.)", section: "13.6. Hazards", page: "250"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-misfire-102
   course: crfsc
   topic: misfires
@@ -924,7 +924,7 @@
   answer: 3
   explanation: "A primer pop (squib load) happens when the cartridge has no powder or the powder is no longer effective. It may have enough force to push the bullet out of the case, but the bullet may lodge in the barrel. If another round is fired, the barrel may rupture."
   source: {handbook_edition: "2014 (5th ed.)", section: "13.6. Hazards", page: "250"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-storage-101
   course: crfsc
   topic: storage
@@ -945,7 +945,7 @@
   answer: 2
   explanation: "Handguns are generally classified by their type of action. The two basic types are the revolving action and the semi-automatic action."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.1. Common types of handgun actions", page: "256"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-actions-105
   course: crfsc
   topic: actions
@@ -955,7 +955,7 @@
   answer: 0
   explanation: "There are three primary trigger functions: single action, double action and double action only."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.3. Trigger functions", page: "257"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-safeties-101
   course: crfsc
   topic: safeties
@@ -965,7 +965,7 @@
   answer: 2
   explanation: "Keep a solid grip with the strong hand and place the weak-hand thumb fully on the hammer. Pull the trigger and begin to lower the hammer slowly, releasing the trigger once the hammer is disengaged."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: "260"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-safeties-102
   course: crfsc
   topic: safeties
@@ -975,7 +975,7 @@
   answer: 1
   explanation: "Double-action handguns also rely on a heavy double-action trigger pull as a further safety barrier to unintentional firing."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: "260"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-safeties-103
   course: crfsc
   topic: safeties
@@ -985,7 +985,7 @@
   answer: 3
   explanation: "All the safety procedures for exposed hammers apply, but because the hammer is not visible it is difficult to see whether it is cocked. Great care should be taken."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: "261"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-actions-106
   course: crfsc
   topic: actions
@@ -995,7 +995,7 @@
   answer: 0
   explanation: "Operate the cylinder release and swing the cylinder out. Tip the muzzle slightly upward in a safe direction and operate the ejector rod so the cartridges or casings fall out. Remove by hand any that do not."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.7.3. Revolver: double-action swing-out cylinder and break open, unloading procedure", page: "271"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-actions-107
   course: crfsc
   topic: actions
@@ -1005,7 +1005,7 @@
   answer: 3
   explanation: "Pull the slide quickly and completely to the rear and let it go. The recoil spring pushes the slide forward, chambering a cartridge."
   source: {handbook_edition: "2014 (5th ed.)", section: "14.8.2. Semi-automatic: loading procedure", page: "282"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-shooting-106
   course: crfsc
   topic: shooting-technique
@@ -1015,7 +1015,7 @@
   answer: 1
   explanation: "Stand with your body turned about 45 degrees from the target, feet about shoulder-width apart, with the elbow and wrist of the firing arm locked."
   source: {handbook_edition: "2014 (5th ed.)", section: "15.3.4. The one-handed stance", page: "291"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-shooting-107
   course: crfsc
   topic: shooting-technique
@@ -1025,7 +1025,7 @@
   answer: 2
   explanation: "Open sights need you to line up the front and rear sights. Scopes and electronic sights do not require sight alignment."
   source: {handbook_edition: "2014 (5th ed.)", section: "15.4. Aiming handguns", page: "292"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-care-105
   course: crfsc
   topic: care
@@ -1035,7 +1035,7 @@
   answer: 0
   explanation: "The average user should do basic cleaning and lubrication only."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.7. Firearm servicing", page: "304"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-care-106
   course: crfsc
   topic: care
@@ -1045,7 +1045,7 @@
   answer: 3
   explanation: "Any firearm that has been stored for a long time must be cleaned thoroughly before use. The same applies when it has been exposed to moisture or dirt."
   source: {handbook_edition: "2014 (5th ed.)", section: "16.8. Firearm cleaning", page: "305"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 - id: crfsc-transport-101
   course: crfsc
   topic: transport
@@ -1088,4 +1088,4 @@
   answer: 3
   explanation: "Keep an inventory of your firearms with the supporting documents in a safe place, and avoid advertising that there are firearms in your home."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: Other Duties of Firearm Owners/Users", page: "221"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}

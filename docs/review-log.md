@@ -93,3 +93,4 @@ The correct answer was the longest option in 56 of 92 multiple-choice questions;
 - Alberta: alberta.ca now names the Sherwood Park Fish and Game Association; AHEIA is listed with a note to confirm.
 | 2026-11-24 | Milan | Batch 4, CFSC: 36 questions | All 36 approved as written. The 5 law-dependent ones (cfsc-resp-103, cfsc-licence-101, cfsc-muzzle-105, cfsc-transport-101, cfsc-transport-102) still need their check against current law. |
 | 2026-11-24 | Milan | Batch 4, CRFSC: the 4 law-dependent questions (crfsc-storage-101, crfsc-transport-101, crfsc-transport-102, crfsc-display-101) | Confirmed correct, including against current law. |
+| 2026-11-24 | Milan | Batch 4: the remaining 20 CRFSC questions and the 5 CFSC law questions | All approved as written; the 5 CFSC law-dependent questions confirmed against current law. Batch 4 is fully reviewed. |
