@@ -931,7 +931,7 @@
   question: "How often should a black-powder firearm be cleaned?"
   options: ["Once a season", "After every firing session", "Only when accuracy drops", "Every 100 shots"]
   answer: 1
-  explanation: "A black-powder firearm must be cleaned after every firing session. The residue is corrosive and attracts moisture."
+  explanation: "A black-powder firearm must be properly cleaned after every firing session. Black powder is very corrosive and attracts moisture, which causes rust."
   source: {handbook_edition: "2014 (5th ed.)", section: "2.2.2. Cleaning a muzzleloader", page: "43"}
   review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
 - id: cfsc-handling-109
@@ -1031,17 +1031,17 @@
   question: "Which action is sometimes called a slide or trombone action?"
   options: ["Lever action", "Bolt action", "Pump action", "Hinge action"]
   answer: 2
-  explanation: "The pump action is sometimes called the slide or trombone action."
-  source: {handbook_edition: "2014 (5th ed.)", section: "6.11. Pump-action repeaters", page: "134"}
+  explanation: "The pump action is sometimes called the slide or trombone action, because the fore-end of the stock is pumped back and forth to work the action."
+  source: {handbook_edition: "2014 (5th ed.)", section: "6.11. Pump-action repeaters", page: "133"}
   review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
 - id: cfsc-actions-105
   course: cfsc
   topic: actions
   type: multiple-choice
   question: "Many lever actions have a trigger-block safety. What must happen before such a firearm will fire?"
-  options: ["The hammer must be at half cock, with the lever left partly open", "The magazine must be full", "The lever must be squeezed fully closed against the stock", "The action must be partly open"]
+  options: ["The hammer must be at half cock, with the lever left partly open", "The magazine must be full", "The lever must be fully squeezed against the stock", "The action must be partly open"]
   answer: 2
-  explanation: "On this type of lever action the firearm will not fire unless the lever is fully closed against the stock, which releases the trigger block."
+  explanation: "This type of lever action often will not fire unless the lever is fully squeezed against the stock, which depresses the trigger-block safety."
   source: {handbook_edition: "2014 (5th ed.)", section: "6.10. Lever-action repeaters", page: "129"}
   review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
 - id: cfsc-parts-101
@@ -1081,7 +1081,7 @@
   question: "Where should you avoid using the sling carry?"
   options: ["In dense bush", "On open ground", "On a marked trail", "At a range"]
   answer: 0
-  explanation: "Do not use the sling carry in dense bush. It can also point the muzzle at people in front of you if you bend sharply forward."
+  explanation: "Do not use the sling carry in dense bush: the firearm may get caught in brush and be pulled off your shoulder, and debris may fall into the barrel. If you bend sharply forward, it is dangerous to anyone in front of you."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.8. Carrying positions", page: "160"}
   review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
 - id: cfsc-shooting-103
@@ -1099,9 +1099,9 @@
   topic: shooting-technique
   type: multiple-choice
   question: "How is firing a shotgun at a moving target different from firing a rifle?"
-  options: ["A shotgun is pointed, not aimed", "A shotgun is fired from the hip", "A shotgun is aimed more slowly", "A shotgun is fired with one eye closed"]
+  options: ["A shotgun is pointed at the target", "A shotgun is fired from the hip", "A shotgun is aimed more slowly", "A shotgun is fired with one eye closed"]
   answer: 0
-  explanation: "A shotgun is pointed, not aimed. Stand like a boxer, feet apart and body free to swing with the target."
+  explanation: "Precise aiming matters less with a shotgun than with a rifle: you point it at the target. Stand like a boxer, feet apart, well balanced, arms and body free to swing."
   source: {handbook_edition: "2014 (5th ed.)", section: "8.2.2. Shotguns", page: "169"}
   review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
 - id: cfsc-shooting-105
@@ -1121,7 +1121,7 @@
   question: "When in your breathing should you release a rifle shot?"
   options: ["At the top of a deep breath", "While breathing in slowly", "In the natural pause after you breathe out", "Whenever the sights look right, however you are breathing"]
   answer: 2
-  explanation: "Fire during the natural pause after you exhale. It lasts about 2.5 seconds, and controlled breathing can stretch it to about 8.5 seconds."
+  explanation: "Release the shot in the natural pause at the bottom of each exhale. It lasts about 2.5 seconds, and controlled breathing can lengthen it to about 8.5 seconds."
   source: {handbook_edition: "2014 (5th ed.)", section: "8.4.2. Breathing as it relates to shot release", page: "175"}
   review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
 - id: cfsc-shooting-107
@@ -1131,7 +1131,7 @@
   question: "What is follow-through?"
   options: ["Reloading as fast as you can", "Walking to the target after the shot", "Lowering the firearm the moment it fires, to see where the shot went", "Keeping your sight picture and position after the shot"]
   answer: 3
-  explanation: "Follow-through means maintaining your sight picture and shooting position after the shot is fired."
+  explanation: "Follow-through means maintaining your sight picture and shooting position after the firearm discharges. Without it, the shot is more likely to be off target."
   source: {handbook_edition: "2014 (5th ed.)", section: "8.4.4. Follow-through", page: "177"}
   review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
 - id: cfsc-shooting-108
@@ -1171,7 +1171,7 @@
   question: "What does the handbook say about the key or combination to your firearm storage?"
   options: ["Keep it taped to the cabinet", "Give a copy to each family member", "Do not leave it lying around", "Write it on the trigger lock"]
   answer: 2
-  explanation: "Do not leave the key or combination lying around, and do not let it become widely known that you have firearms. Making access difficult can delay an impulse to do harm."
+  explanation: "Do not leave the key or combination lying around or give it to others, and do not let it become widely known that you have firearms. Making access difficult can delay an impulse to do harm."
   source: {handbook_edition: "2014 (5th ed.)", section: "10.4. Secure storage", page: "190"}
   review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
 - id: cfsc-resp-106
