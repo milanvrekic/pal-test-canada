@@ -21,6 +21,8 @@ type ScreenProps = {
   bottomBar?: ReactNode;
   /** Tints the bottom bar after answering, Duolingo style. */
   bottomTone?: 'success' | 'danger' | null;
+  /** Apps only: replaces the header's Back action (the quiz asks before leaving an exam). */
+  onBack?: () => void;
 };
 
 // The app layout; EXPO_PUBLIC_APP_LAYOUT=1 renders it on the web for screenshots and review.
@@ -29,16 +31,19 @@ const native = Platform.OS !== 'web' || process.env.EXPO_PUBLIC_APP_LAYOUT === '
 export const APP_LAYOUT = native;
 const TAB_ROOTS = ['/', '/practical', '/spot', '/wait-times', '/more'];
 
-/** The native apps' slim header: the logo on a tab's first screen, a Back button on screens opened on top. */
-function AppHeader() {
+/** The native apps' slim header: the logo on a tab's first screen, a Back button on every screen opened on top.
+ * Back never depends on canGoBack() alone: it is read once at render and can be false on a freshly pushed screen,
+ * which left the quiz with no way out. With no history it goes to Home instead. */
+function AppHeader({ onBack }: { onBack?: () => void }) {
   const theme = useTheme();
   const router = useRouter();
   const path = usePathname();
-  const back = !TAB_ROOTS.includes(path) && router.canGoBack();
+  const back = !TAB_ROOTS.includes(path);
+  const goBack = onBack ?? (() => (router.canGoBack() ? router.back() : router.replace('/')));
   return (
     <View style={[styles.appHeader, { borderBottomColor: theme.border, backgroundColor: theme.background }]}>
       {back ? (
-        <Pressable accessibilityRole="button" accessibilityLabel="Back" onPress={() => router.back()} hitSlop={12} style={styles.backBtn}>
+        <Pressable accessibilityRole="button" accessibilityLabel="Back" onPress={goBack} hitSlop={12} style={styles.backBtn}>
           <ThemedText type="bold" themeColor="accent" style={{ fontSize: 17 }}>
             ‹ Back
           </ThemedText>
@@ -71,12 +76,12 @@ function LogoGlyph({ size }: { size: number }) {
   );
 }
 
-export function Screen({ children, width = 'reading', bottomBar, bottomTone }: ScreenProps) {
+export function Screen({ children, width = 'reading', bottomBar, bottomTone, onBack }: ScreenProps) {
   const theme = useTheme();
   const maxWidth = width === 'wide' ? MaxWideWidth : MaxContentWidth;
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.background }]} edges={['top', 'left', 'right']}>
-      {native ? <AppHeader /> : (
+      {native ? <AppHeader onBack={onBack} /> : (
       <View style={[styles.navBar, { borderBottomColor: theme.border, backgroundColor: `${theme.background}D9` }, Glass]}>
         <View style={[styles.navInner, { maxWidth: MaxWideWidth }]}>
           <Link href="/" style={styles.brand} accessibilityLabel={`${SITE_NAME} home`}>
