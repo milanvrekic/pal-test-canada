@@ -1,6 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7B6CF0"/><stop offset="1" stop-color="#4433C2"/></linearGradient></defs><rect width="1024" height="1024" rx="0" fill="url(#g)"/><g fill="none" stroke="#FFFFFF" stroke-width="54" stroke-linecap="round" stroke-linejoin="round" transform="">
-  <path d="M332 196 H580 L712 328 V752 a76 76 0 0 1 -76 76 H388 a76 76 0 0 1 -76 -76 V272 a76 76 0 0 1 76 -76 Z" />
-  <path d="M580 196 V300 a28 28 0 0 0 28 28 H712"/>
-  <path d="M410 520 L478 588 L614 452"/>
-  <path d="M420 690 H604"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7B6CF0"/><stop offset="1" stop-color="#4433C2"/></linearGradient></defs><rect width="1024" height="1024" rx="0" fill="url(#g)"/><g transform="translate(512 512) scale(1.0) translate(-512 -512)" fill="none" stroke="#FFFFFF" stroke-width="54" stroke-linecap="round" stroke-linejoin="round">
+  <rect x="186" y="292" width="652" height="440" rx="72"/>
+  <circle cx="366" cy="462" r="58"/>
+  <path d="M270 640 c14-64 56-96 96-96 s82 32 96 96"/>
+  <path d="M548 520 L614 586 L730 470"/>
+  <path d="M556 662 H730"/>
 </g></svg>

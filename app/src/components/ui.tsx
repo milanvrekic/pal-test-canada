@@ -3,7 +3,7 @@ import { type ReactNode } from 'react';
 import { Linking, Platform, Pressable, ScrollView, StyleSheet, View, type StyleProp, type ViewProps, type ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import Svg, { Circle, Path, G } from 'react-native-svg';
+import Svg, { Circle, Path, G, Rect } from 'react-native-svg';
 
 import { Fonts, Glass, MaxContentWidth, MaxWideWidth, Radius, RadiusControl, Shadow, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
@@ -21,6 +21,8 @@ type ScreenProps = {
   bottomBar?: ReactNode;
   /** Tints the bottom bar after answering, Duolingo style. */
   bottomTone?: 'success' | 'danger' | null;
+  /** Apps only: replaces the header's Back action (the quiz asks before leaving an exam). */
+  onBack?: () => void;
 };
 
 // The app layout; EXPO_PUBLIC_APP_LAYOUT=1 renders it on the web for screenshots and review.
@@ -29,16 +31,19 @@ const native = Platform.OS !== 'web' || process.env.EXPO_PUBLIC_APP_LAYOUT === '
 export const APP_LAYOUT = native;
 const TAB_ROOTS = ['/', '/practical', '/spot', '/wait-times', '/more'];
 
-/** The native apps' slim header: the logo on a tab's first screen, a Back button on screens opened on top. */
-function AppHeader() {
+/** The native apps' slim header: the logo on a tab's first screen, a Back button on every screen opened on top.
+ * Back never depends on canGoBack() alone: it is read once at render and can be false on a freshly pushed screen,
+ * which left the quiz with no way out. With no history it goes to Home instead. */
+function AppHeader({ onBack }: { onBack?: () => void }) {
   const theme = useTheme();
   const router = useRouter();
   const path = usePathname();
-  const back = !TAB_ROOTS.includes(path) && router.canGoBack();
+  const back = !TAB_ROOTS.includes(path);
+  const goBack = onBack ?? (() => (router.canGoBack() ? router.back() : router.replace('/')));
   return (
     <View style={[styles.appHeader, { borderBottomColor: theme.border, backgroundColor: theme.background }]}>
       {back ? (
-        <Pressable accessibilityRole="button" accessibilityLabel="Back" onPress={() => router.back()} hitSlop={12} style={styles.backBtn}>
+        <Pressable accessibilityRole="button" accessibilityLabel="Back" onPress={goBack} hitSlop={12} style={styles.backBtn}>
           <ThemedText type="bold" themeColor="accent" style={{ fontSize: 17 }}>
             ‹ Back
           </ThemedText>
@@ -48,33 +53,35 @@ function AppHeader() {
           <View style={[styles.mark, { backgroundColor: theme.brand, width: 28, height: 28, borderRadius: 8 }]}>
             <LogoGlyph size={20} />
           </View>
-          <ThemedText style={[styles.wordmark, { fontSize: 20 }]}>PAL TEST CANADA</ThemedText>
+          <ThemedText style={[styles.wordmark, styles.appWordmark]}>PAL TEST CANADA</ThemedText>
         </View>
       )}
     </View>
   );
 }
 
-/** The app-icon glyph: a test sheet with a check. Same paths as store/icon/pal-test-icon.svg. */
+/** The app-icon glyph: a licence card with the holder's photo and a check. Same drawing as store/icon/pal-test-icon.svg
+ * (tools/icons/make-icons.py renders every icon from it). */
 function LogoGlyph({ size }: { size: number }) {
   return (
-    <Svg width={size} height={size} viewBox="160 160 704 704" accessibilityElementsHidden importantForAccessibility="no">
+    <Svg width={size} height={size} viewBox="112 112 800 800" accessibilityElementsHidden importantForAccessibility="no">
       <G fill="none" stroke="#FFFFFF" strokeWidth={64} strokeLinecap="round" strokeLinejoin="round">
-        <Path d="M332 196 H580 L712 328 V752 a76 76 0 0 1 -76 76 H388 a76 76 0 0 1 -76 -76 V272 a76 76 0 0 1 76 -76 Z" />
-        <Path d="M580 196 V300 a28 28 0 0 0 28 28 H712" />
-        <Path d="M410 520 L478 588 L614 452" />
-        <Path d="M420 690 H604" />
+        <Rect x={186} y={292} width={652} height={440} rx={72} />
+        <Circle cx={366} cy={462} r={58} />
+        <Path d="M270 640 c14-64 56-96 96-96 s82 32 96 96" />
+        <Path d="M548 520 L614 586 L730 470" />
+        <Path d="M556 662 H730" />
       </G>
     </Svg>
   );
 }
 
-export function Screen({ children, width = 'reading', bottomBar, bottomTone }: ScreenProps) {
+export function Screen({ children, width = 'reading', bottomBar, bottomTone, onBack }: ScreenProps) {
   const theme = useTheme();
   const maxWidth = width === 'wide' ? MaxWideWidth : MaxContentWidth;
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.background }]} edges={['top', 'left', 'right']}>
-      {native ? <AppHeader /> : (
+      {native ? <AppHeader onBack={onBack} /> : (
       <View style={[styles.navBar, { borderBottomColor: theme.border, backgroundColor: `${theme.background}D9` }, Glass]}>
         <View style={[styles.navInner, { maxWidth: MaxWideWidth }]}>
           <Link href="/" style={styles.brand} accessibilityLabel={`${SITE_NAME} home`}>
@@ -370,6 +377,10 @@ const styles = StyleSheet.create({
   mark: { borderRadius: 11, width: 34, height: 34, alignItems: 'center', justifyContent: 'center' },
   markText: { fontFamily: Fonts.display, fontSize: 14, lineHeight: 18, letterSpacing: 0.4 },
   wordmark: { fontFamily: Fonts.logo, fontWeight: Platform.OS === 'web' ? '700' : undefined, fontSize: 22, lineHeight: 22, letterSpacing: 0.4, textTransform: 'uppercase' },
+  /** Khand's line box is tall (ascent 1.05em, descent 0.48em). On iOS a lineHeight below that keeps the baseline pinned
+   * to the bottom, so the capitals rode ~5pt above the tile's centre. 31 is the font's natural line at 20pt (1.53em), so
+   * nothing is squeezed; the 1pt nudge centres the capitals (not the line box) on the 28pt tile. */
+  appWordmark: { fontSize: 20, lineHeight: 31, includeFontPadding: false, transform: [{ translateY: 1 }] },
   tagline: { fontSize: 12, lineHeight: 16, fontWeight: '500' },
   navLinks: { flexDirection: 'row' },
   navLink: { paddingVertical: Spacing.two, paddingHorizontal: 6, minHeight: 44, justifyContent: 'center' },

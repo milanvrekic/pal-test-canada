@@ -35,6 +35,23 @@ export default function About() {
         </ThemedText>
       </Card>
 
+      {/* nativeID becomes id="age" on the web, so paltest.ca/about#age (the App Store age suitability URL) lands here. */}
+      <Card nativeID="age">
+        <ThemedText type="heading">Who this app is for</ThemedText>
+        <ThemedText themeColor="textSecondary">
+          PAL Test Canada is a study tool. It teaches the safe handling, storage and transport of firearms and the material
+          covered in the Canadian Firearms Safety Course (CFSC) and the Canadian Restricted Firearms Safety Course (CRFSC).
+        </ThemedText>
+        <ThemedText themeColor="textSecondary">
+          It is written for adults preparing for a PAL or RPAL. Young people aged 12 to 17 working toward a minor&apos;s licence
+          can use it with a parent or guardian.
+        </ThemedText>
+        <ThemedText themeColor="textSecondary">
+          The app has no violence, no accounts, no chat, no user-generated content and no third-party ads. It links to our own
+          hunting, fishing and camping apps and to course providers&apos; websites.
+        </ThemedText>
+      </Card>
+
       <Card>
         <ThemedText type="heading">Your data</ThemedText>
         <ThemedText themeColor="textSecondary">
