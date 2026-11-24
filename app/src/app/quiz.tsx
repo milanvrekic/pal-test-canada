@@ -180,7 +180,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
   );
 
   return (
-    <Screen bottomBar={nextBar} bottomTone={verdict === 'correct' ? 'success' : verdict === 'wrong' ? 'danger' : null}>
+    <Screen onBack={() => setQuitting(true)} bottomBar={nextBar} bottomTone={verdict === 'correct' ? 'success' : verdict === 'wrong' ? 'danger' : null}>
       <View style={{ gap: Spacing.two }}>
         <View style={styles.headRow}>
           <Eyebrow>{heading}</Eyebrow>
@@ -218,7 +218,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
               <Button variant="secondary" label="Keep going" onPress={() => setQuitting(false)} />
             </Col>
             <Col basis={160}>
-              <Button label="Quit" onPress={() => router.replace('/')} />
+              <Button label="Quit" onPress={() => router.dismissTo('/')} />
             </Col>
           </Split>
         </Card>
