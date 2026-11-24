@@ -48,7 +48,7 @@ function AppHeader() {
           <View style={[styles.mark, { backgroundColor: theme.brand, width: 28, height: 28, borderRadius: 8 }]}>
             <LogoGlyph size={20} />
           </View>
-          <ThemedText style={[styles.wordmark, { fontSize: 20 }]}>PAL TEST CANADA</ThemedText>
+          <ThemedText style={[styles.wordmark, styles.appWordmark]}>PAL TEST CANADA</ThemedText>
         </View>
       )}
     </View>
@@ -372,6 +372,10 @@ const styles = StyleSheet.create({
   mark: { borderRadius: 11, width: 34, height: 34, alignItems: 'center', justifyContent: 'center' },
   markText: { fontFamily: Fonts.display, fontSize: 14, lineHeight: 18, letterSpacing: 0.4 },
   wordmark: { fontFamily: Fonts.logo, fontWeight: Platform.OS === 'web' ? '700' : undefined, fontSize: 22, lineHeight: 22, letterSpacing: 0.4, textTransform: 'uppercase' },
+  /** Khand's line box is tall (ascent 1.05em, descent 0.48em). On iOS a lineHeight below that keeps the baseline pinned
+   * to the bottom, so the capitals rode ~5pt above the tile's centre. 31 is the font's natural line at 20pt (1.53em), so
+   * nothing is squeezed; the 1pt nudge centres the capitals (not the line box) on the 28pt tile. */
+  appWordmark: { fontSize: 20, lineHeight: 31, includeFontPadding: false, transform: [{ translateY: 1 }] },
   tagline: { fontSize: 12, lineHeight: 16, fontWeight: '500' },
   navLinks: { flexDirection: 'row' },
   navLink: { paddingVertical: Spacing.two, paddingHorizontal: 6, minHeight: 44, justifyContent: 'center' },
