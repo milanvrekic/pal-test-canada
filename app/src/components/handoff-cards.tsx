@@ -1,6 +1,6 @@
 import { Image, Linking, Pressable, StyleSheet, View } from 'react-native';
 
-import { Radius, Spacing } from '@/constants/theme';
+import { Radius, RadiusControl, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { track } from '@/lib/analytics';
 import { APP_ICONS, type AppId, type PromoItem, hrefFor, usePromo } from '@/lib/handoff';
@@ -135,8 +135,9 @@ const styles = StyleSheet.create({
   featuredIcon: { width: 72, height: 72, borderRadius: 16 },
   featuredCta: { borderRadius: 999, paddingVertical: 14, paddingHorizontal: Spacing.four, alignSelf: 'flex-start', minWidth: 200 },
   moreRow: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: Spacing.two, marginTop: Spacing.one },
-  more: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two + 2, borderWidth: 1, borderRadius: 999, paddingVertical: 6, paddingLeft: 6, paddingRight: Spacing.three, maxWidth: 420, flexShrink: 1 },
-  moreIcon: { width: 32, height: 32, borderRadius: 9 },
+  // A rounded card, not a pill: the line wraps to two rows on phones, and a 999 radius turns that into a stadium.
+  more: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three - 4, borderWidth: 1, borderRadius: RadiusControl, padding: Spacing.two + 2, paddingRight: Spacing.three, maxWidth: 420, flexShrink: 1 },
+  moreIcon: { width: 40, height: 40, borderRadius: 10 },
   row: { flex: 1, flexDirection: 'row', gap: Spacing.three, padding: Spacing.three, borderWidth: 1, borderRadius: Radius, alignItems: 'flex-start' },
   icon: { width: 56, height: 56, borderRadius: 13 },
   nameRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two, flexWrap: 'wrap' },
