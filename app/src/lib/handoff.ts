@@ -3,9 +3,10 @@
 //
 // - The app reads https://command.10tenstudio.com/xp/paltest.json once per session. It is data only (both stores forbid
 //   downloading code). `enabled: false` there hides every card without an app release; its lines and in-season flags win.
-// - Every tap goes through /xp/go/paltest/<app>, which counts the click and sends phones to the store with
-//   ct=xp-paltest (Apple) or utm_source=10ten-crosspromo (Play), desktops to the website, and pre-launch apps
-//   (Shootable) to their waitlist site.
+// - Every tap goes through /xp/go/paltest/<app>?placement=<spot>, which counts the click and sends phones to the store
+//   with ct=pal-test-app (Apple, the campaign set up in App Store Connect; the engine's HOSTS.paltest.appleCampaign) or
+//   utm_source=10ten-crosspromo&utm_content=<spot> (Play), desktops to the website, and pre-launch apps (Shootable) to
+//   their waitlist site. Taps and iPhone installs then sit on one row under Growth → Installs by campaign.
 // - Until the Moment Engine knows the paltest site (or when the request fails), the built-in copy below is used and taps
 //   go straight to the store with the same campaign tags, so installs are still attributed.
 import { useEffect, useState } from 'react';
@@ -114,9 +115,7 @@ export function directLink(id: AppId, placement?: string, os: string = Platform.
 
 /** The link for one tap: the remote redirect when the feed supplies one (it tags and counts), else a tagged direct link. */
 export function hrefFor(item: PromoItem, placement: string): string {
-  // iPhones go straight to the App Store with the pal-test-app campaign: the /xp/go redirect tags Apple links with its
-  // own ct, which would split App Store attribution. Taps are still counted by our handoff_click event.
-  if (!item.soon && deviceOs() === 'ios' && BUILTIN[item.id].ios) return directLink(item.id, placement);
+  // Every platform goes through the redirect so the Moment Engine counts the tap; it keeps ct=pal-test-app for iPhones.
   if (item.href.includes('/xp/go/')) return `${item.href}${item.href.includes('?') ? '&' : '?'}placement=${encodeURIComponent(placement)}`;
   return directLink(item.id, placement);
 }
