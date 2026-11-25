@@ -8,9 +8,12 @@ Follows the Moment Engine's site cross-promotion (10ten-command: `netlify/lib/pr
 - The app reads `https://command.10tenstudio.com/xp/paltest.json` once per session (data only; no code is downloaded,
   which both stores forbid). If the feed says `enabled: false`, every card disappears without an app release. Lines,
   names and "In season" flags from the feed replace the built-in copy.
-- Every tap goes through `/xp/go/paltest/<app>`: the Moment Engine counts the click, then sends phones to the store with
-  `ct=xp-paltest` (Apple) or `utm_source=10ten-crosspromo` (Play), desktops to the website, and pre-launch apps
-  (Shootable) to their waitlist site. Installs show up under **Growth → Installs by campaign** as `xp-paltest`.
+- Every tap goes through `/xp/go/paltest/<app>?placement=<spot>`: the Moment Engine counts the click, then sends phones
+  to the store with `ct=pal-test-app` (Apple, the campaign set up in App Store Connect) or
+  `utm_source=10ten-crosspromo&utm_content=<spot>` (Play), desktops to the website, and pre-launch apps (Shootable) to
+  their waitlist site. In the Moment Engine, **Growth → Installs by campaign** shows one row per target app,
+  "From the PAL Test Canada app" (`pal-test-app`): taps from every platform next to iPhone installs. Android installs
+  per placement are in Play Console → Acquisition, by `utm_content`.
 - Until the Moment Engine knows the `paltest` site, or if the request fails, the app uses its built-in copy and links
   straight to the store with the same tags, so installs are still attributed.
 - In-app event `handoff_click { destination, placement }` records where the tap happened (the redirect only knows the app).
