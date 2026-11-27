@@ -1089,3 +1089,523 @@
   explanation: "Keep an inventory of your firearms with the supporting documents in a safe place, and avoid advertising that there are firearms in your home."
   source: {handbook_edition: "2014 (5th ed.)", section: "Introduction: Other Duties of Firearm Owners/Users", page: "221"}
   review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
+
+# Batch 5 (drafted 2026-11-27 from the 2014 handbook, PS99-2/2-1-2014; every page checked against the PDF page text).
+# Awaiting instructor review. Law questions also need law_checked_on.
+- id: crfsc-acts-201
+  course: crfsc
+  topic: vital-four-acts
+  type: multiple-choice
+  question: "What does the A in ACTS stand for?"
+  options: ["Assume every firearm is loaded", "Always keep the safety on", "Aim only at the target in front of you", "Ask the owner before handling"]
+  answer: 0
+  explanation: "A: Assume every firearm is loaded. Regard any firearm as a potential danger."
+  source: {handbook_edition: "2014 (5th ed.)", section: "The Vital Four ACTS of Firearm Safety", page: "218"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-acts-202
+  course: crfsc
+  topic: vital-four-acts
+  type: multiple-choice
+  question: "What does the S in ACTS tell you to do?"
+  options: ["Store firearms separately from ammunition", "See that the firearm is unloaded, and PROVE it safe", "Set the safety before you load", "Stand square to the target"]
+  answer: 1
+  explanation: "S: See that the firearm is unloaded: PROVE it safe. Do not handle a firearm unless you can properly PROVE it safe."
+  source: {handbook_edition: "2014 (5th ed.)", section: "The Vital Four ACTS of Firearm Safety", page: "218"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-acts-203
+  course: crfsc
+  topic: vital-four-acts
+  type: multiple-choice
+  question: "Under ACTS, which firearms should you pass to someone or accept from them?"
+  options: ["Any firearm, once the safety is on", "Only firearms in a case", "Only open and unloaded firearms", "Only firearms you have used before"]
+  answer: 2
+  explanation: "Pass or accept only open and unloaded firearms. The handbook calls it an essential rule to adopt."
+  source: {handbook_edition: "2014 (5th ed.)", section: "The Vital Four ACTS of Firearm Safety", page: "218"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-acts-204
+  course: crfsc
+  topic: vital-four-acts
+  type: multiple-choice
+  question: "Under ACTS, what should you check every time you handle a firearm, for any reason?"
+  options: ["That the safety is on", "That the serial number on the frame matches the registration certificate", "That the sights are aligned", "That both the chamber and the magazine are empty"]
+  answer: 3
+  explanation: "Check that both the chamber and the magazine are empty. Do this every time you handle a firearm, for any reason."
+  source: {handbook_edition: "2014 (5th ed.)", section: "The Vital Four ACTS of Firearm Safety", page: "218"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-licence-201
+  course: crfsc
+  topic: licensing
+  type: multiple-choice
+  question: "You own restricted firearms and are moving. According to the handbook, what must you do?"
+  options: ["Tell the CFP before you move, and request an Authorization to Transport", "Tell the Canadian Firearms Program within a year of moving to the new house", "Nothing at all, as long as your firearms licence is still valid", "Tell your local police after you have moved the firearms"]
+  answer: 0
+  explanation: "A licence holder with restricted firearms must inform the Canadian Firearms Program before changing address and request an Authorization to Transport for the restricted firearms."
+  source: {handbook_edition: "2014 (5th ed.)", section: "Legal responsibilities", page: "220"}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-misfire-201
+  course: crfsc
+  topic: misfires
+  type: multiple-choice
+  question: "What is a primer pop, also called a squib load?"
+  options: ["A cartridge whose primer fires a few seconds after the trigger is pulled", "A cartridge loaded with a much heavier bullet than normal", "A cartridge with no powder, or spent powder, so only the primer fires", "A cartridge whose bullet has been seated backwards in the case"]
+  answer: 2
+  explanation: "A primer pop or squib load happens when a cartridge has no gunpowder, or its powder is no longer effective. Only the primer fires, without the usual noise or recoil, and the bullet may lodge in the barrel. Firing another bullet could rupture the barrel."
+  source: {handbook_edition: "2014 (5th ed.)", section: "13.6. Hazards", page: "250"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-misfire-202
+  course: crfsc
+  topic: misfires
+  type: multiple-choice
+  question: "Your handgun clicks but does not fire. Why must you not take the cartridge out right away?"
+  options: ["The slide stays locked until the primer has cooled down", "It may be a hang fire, and a case that fires outside the chamber can burst", "Removing it right away can damage the extractor and the chamber", "Only the Range Officer is allowed to remove a misfired cartridge"]
+  answer: 1
+  explanation: "A hang fire is a delayed fire. If the cartridge is removed from the chamber and then fires, the explosive rupture of the case can cause injury. Wait 60 seconds, muzzle in a safe direction, before unloading."
+  source: {handbook_edition: "2014 (5th ed.)", section: "13.6. Hazards", page: "250"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-ammo-201
+  course: crfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "If you hand load your own ammunition, why does the handbook say to treat primers with extra caution?"
+  options: ["They rust quickly once unpacked", "They are expensive and easy to lose", "They are explosive devices", "They are prohibited without a permit"]
+  answer: 2
+  explanation: "When hand loading, strictly follow the procedures in the reloading manuals, and treat primers with extra caution: they are explosive devices."
+  source: {handbook_edition: "2014 (5th ed.)", section: "Ammunition Safety Points to Remember", page: "252"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-ammo-202
+  course: crfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "What does the handbook say about firing modern ammunition in old firearms?"
+  options: ["It may be hazardous", "It is always safe if the calibre matches", "It improves accuracy", "It is required for black-powder revolvers"]
+  answer: 0
+  explanation: "Using modern ammunition in old firearms may be hazardous. Never experiment with unfamiliar ammunition."
+  source: {handbook_edition: "2014 (5th ed.)", section: "Ammunition Safety Points to Remember", page: "252"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-ammo-203
+  course: crfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "You find an old box of cartridges that are corroded. What should you do with them?"
+  options: ["Clean them with an oily rag and use them", "Use them for practice only", "Fire them in a newer handgun of the same calibre", "Never use them"]
+  answer: 3
+  explanation: "Never use old or corroded ammunition or reloading components, and never use cartridges if you are not certain they are safe."
+  source: {handbook_edition: "2014 (5th ed.)", section: "Ammunition Safety Points to Remember", page: "252"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-ammo-204
+  course: crfsc
+  topic: ammunition
+  type: multiple-choice
+  question: "Why keep ammunition away from heat and long-term vibration?"
+  options: ["The powder can decay and become unpredictable", "The bullets can work loose in the case and fall out in the magazine", "It voids the manufacturer's warranty", "The head stamp wears off"]
+  answer: 0
+  explanation: "Powder can decay and become unpredictable if it is exposed to excessive heat and long-term vibration."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.8.3. Cleaning ammunition", page: "308"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-display-201
+  course: crfsc
+  topic: display
+  type: multiple-choice
+  question: "You display a restricted firearm at a show, away from a dwelling house. When may its ammunition be displayed with it?"
+  options: ["Never, under any conditions, even if it is locked up", "Only if the ammunition is in a securely locked, sturdy container", "Whenever you are standing beside the display and watching it", "Only if the cartridges on display are dummies made of plastic or wood, never live"]
+  answer: 1
+  explanation: "Away from a dwelling house, ammunition must not be displayed with a restricted firearm or within easy access to it, unless the ammunition is displayed in a securely locked container or receptacle that cannot easily be broken into. In a dwelling house there is no such exception."
+  source: {handbook_edition: "2014 (5th ed.)", section: "17.4. Display", page: "319"}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-safeties-201
+  course: crfsc
+  topic: safeties
+  type: multiple-choice
+  question: "What are the two types of safeties found on handguns?"
+  options: ["Internal safeties and external safeties", "Primary safeties and secondary safeties", "Mechanical safeties and electronic safeties", "Manual safeties and built-in safety devices"]
+  answer: 3
+  explanation: "There are two types: manual safeties, which can be put on or off, and built-in safety devices, such as decocking levers, trigger safeties, magazine disconnects and grip safeties."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4. Safeties", page: "259"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-safeties-202
+  course: crfsc
+  topic: safeties
+  type: multiple-choice
+  question: "Which of these is a built-in safety device rather than a manual safety?"
+  options: ["A lever safety on the side of the receiver", "A safety lock pushed up into a notch on the slide", "A grip safety", "A frame safety lock"]
+  answer: 2
+  explanation: "Manual safeties include lever safeties and safety locks. Built-in safety devices include decocking levers, trigger safeties, magazine disconnects and grip safeties."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4. Safeties", page: "259"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-safeties-203
+  course: crfsc
+  topic: safeties
+  type: multiple-choice
+  question: "When does a grip safety disengage?"
+  options: ["When the handgun is held in the hand, ready to fire", "When the magazine is removed", "When the hammer is lowered to the half-cock position by the thumb", "When the decocking lever is pressed"]
+  answer: 0
+  explanation: "A grip safety, usually found on semi-automatic handguns, disengages when the firearm is held in the hand and ready to fire."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: "260"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-safeties-204
+  course: crfsc
+  topic: safeties
+  type: multiple-choice
+  question: "How does a trigger safety work?"
+  options: ["It locks the slide closed until the grip is squeezed", "A pivoting part of the trigger moves to off as the trigger is pulled", "It blocks the trigger whenever the magazine is out of the pistol", "It must be pushed up into a notch on the slide before firing"]
+  answer: 1
+  explanation: "A trigger safety is a pivoting device that is part of the trigger. As the trigger is pulled, the safety moves to the off position and the handgun can fire."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: "259"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-safeties-205
+  course: crfsc
+  topic: safeties
+  type: multiple-choice
+  question: "Which handguns do not have a decocking lever?"
+  options: ["Double-action semi-automatics", "Single-action semi-automatics with a safety lock", "Double-action-only handguns", "Pistols with a magazine disconnect"]
+  answer: 2
+  explanation: "Decocking levers are common on modern double-action semi-automatics. Double-action-only handguns do not have one, because the hammer returns forward after each shot."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: "259"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-safeties-206
+  course: crfsc
+  topic: safeties
+  type: multiple-choice
+  question: "According to the handbook, what is always the most important firearm safety device?"
+  options: ["The manual safety, if the handgun has one", "A secure locking device, such as a trigger lock or a cable lock", "The magazine disconnect on a semi-automatic", "Safe handling by the person holding the firearm"]
+  answer: 3
+  explanation: "Mechanical devices can fail, and a hard blow can make some firearms fire even with the safety on. Safe handling by the person holding the firearm will always be the most important safety device."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4. Safeties", page: "258"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-parts-201
+  course: crfsc
+  topic: parts
+  type: multiple-choice
+  question: "On a handgun with an internal hammer, what is a striker?"
+  options: ["A hammer that moves straight back and forth instead of pivoting", "The recoil spring that pushes the slide forward after each shot", "A lever that lowers the hammer safely without firing", "The part that throws empty cases out of the ejection port"]
+  answer: 0
+  explanation: "Most internal hammers work more like a bolt action: instead of pivoting, the hammer moves back and forth in a straight line. It is called a striker. Because it can't be seen, it is hard to tell whether it is cocked."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4.2. Built-in safeties", page: "261"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-actions-201
+  course: crfsc
+  topic: actions
+  type: multiple-choice
+  question: "On a single- or double-action semi-automatic pistol, what happens to the hammer when the slide is pulled to the rear?"
+  options: ["It is lowered to the rest position", "It is placed at full cock and stays there", "It moves to half cock", "It is held in place by the magazine disconnect until a magazine is inserted"]
+  answer: 1
+  explanation: "Each time the slide is pulled to the rear, the hammer is placed at full cock. In single- and double-action pistols it stays there; in double-action-only pistols it returns to the rest position."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.4.1. Manual safeties", page: "259"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-actions-202
+  course: crfsc
+  topic: actions
+  type: multiple-choice
+  question: "What does a semi-automatic pistol use to eject the empty case and chamber the next cartridge?"
+  options: ["The shooter pulling the slide back by hand after every shot", "A spring that is wound up when the magazine is loaded", "Part of the energy of the expanding gas from the burning powder", "The cylinder turning each time the trigger is pulled"]
+  answer: 2
+  explanation: "With each pull of the trigger, a semi-automatic action uses part of the energy of the expanding gas from the burning powder to extract the empty case and chamber the next cartridge from the magazine."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.8. Semi-automatic actions: pistols", page: "275"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-actions-203
+  course: crfsc
+  topic: actions
+  type: multiple-choice
+  question: "On a single- or double-action semi-automatic pistol, how does the trigger pull change after the first shot?"
+  options: ["It becomes longer and heavier", "It does not change", "It can then only be fired in double-action mode, with a full trigger pull", "It is shorter and may need less pressure"]
+  answer: 3
+  explanation: "In single- and double-action pistols the hammer stays cocked after each shot, so the trigger pull is shorter and may need less pressure once the first shot has been fired."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.8. Semi-automatic actions: pistols", page: "275"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-actions-204
+  course: crfsc
+  topic: actions
+  type: multiple-choice
+  question: "You open the loading gate of a single-action revolver and the cylinder will not rotate. What should you do before unloading?"
+  options: ["Put the safety on, with the hammer at half cock or in the loading notch", "Pull the trigger once to free the cylinder so it will turn", "Cock the hammer fully so the cylinder is released", "Push the ejector rod in until the cylinder starts to turn"]
+  answer: 0
+  explanation: "Open the loading gate and check whether the cylinder rotates. If it does not, put the safety on, with the hammer at half cock or in the loading notch, for the unloading procedure."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.7.1. Revolver: single-action non-swing-out cylinder (loading gate)/unloading procedure", page: "267"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-handling-201
+  course: crfsc
+  topic: handling
+  type: multiple-choice
+  question: "When should you wear safety glasses and hearing protection?"
+  options: ["Only on an outdoor range", "Only when firing magnum cartridges or shooting at an indoor range", "Whenever you load and fire a firearm", "Only during competitions"]
+  answer: 2
+  explanation: "Always wear safety glasses and hearing protection when loading and discharging firearms."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.0. Overview", page: "255"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-handling-202
+  course: crfsc
+  topic: handling
+  type: multiple-choice
+  question: "Someone hands you a handgun you don't know how to handle. What does the handbook say?"
+  options: ["Work the action slowly until you find out how the release works", "Leave it alone until you've checked the owner's manual or a gunsmith", "Ask the owner to load it for you so you can try it", "Point it downrange and pull the trigger to see how it works"]
+  answer: 1
+  explanation: "Do not touch any firearm unless you know how to handle it safely. If you don't, consult the owner's manual or a gunsmith who knows that firearm well."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.5. Action releases", page: "261"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-handling-203
+  course: crfsc
+  topic: handling
+  type: multiple-choice
+  question: "What is the first step of the loading procedure for a handgun?"
+  options: ["Insert a charged magazine into the magazine well", "Put the safety off so the action can be worked", "Match the head stamp on the cartridge to the data stamp on the barrel or slide", "Go through the complete unloading procedure: ACTS and PROVE it"]
+  answer: 3
+  explanation: "Loading starts by preparing the firearm with the complete unloading procedure: ACTS and PROVE it safe. Then clear any obstructions from the chambers and bore."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.6.3. Loading procedure", page: "264"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-handling-204
+  course: crfsc
+  topic: handling
+  type: multiple-choice
+  question: "You have just loaded your handgun. When should you take the safety off, if it has one?"
+  options: ["Right after closing the action", "When you are ready to fire", "As soon as you reach the firing line", "Before charging the magazine"]
+  answer: 1
+  explanation: "Leave any safety on until you are ready to fire. A loaded firearm needs continuous care and attention until it is unloaded."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.6.3. Loading procedure", page: "264"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-handling-205
+  course: crfsc
+  topic: handling
+  type: multiple-choice
+  question: "While loading a double-action swing-out or break-open revolver, where should the hammer be?"
+  options: ["Fully down, if possible", "At full cock", "At half cock", "It doesn't matter on a double action"]
+  answer: 0
+  explanation: "Leave the hammer fully down, if possible, while loading, and leave any safety on and the hammer down until you are ready to fire."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.7.4. Revolver: double-action break open/loading procedure", page: "273"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-handling-206
+  course: crfsc
+  topic: handling
+  type: multiple-choice
+  question: "When you pull the slide of a pistol to the rear to unload it, where must your weak hand not be?"
+  options: ["On the rear of the slide", "Below the trigger guard", "Over the ejection port", "Behind the strong hand"]
+  answer: 2
+  explanation: "Grip the rear of the slide with the weak hand and make sure your hand does not cover the ejection port, so any cartridge or casing can be ejected."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.8.1. Semi-automatic unloading procedure", page: "278"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-handling-207
+  course: crfsc
+  topic: handling
+  type: multiple-choice
+  question: "After loading some double-action semi-automatic pistols, what does the handbook say to do?"
+  options: ["Remove the magazine again", "Activate the decocking lever", "Pull the trigger to set the hammer", "Lock the slide to the rear"]
+  answer: 1
+  explanation: "After chambering a cartridge, leave the safety on until ready to fire. With certain double-action semi-automatics, activate the decocking lever."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.8.2. Semi-automatic loading procedure", page: "282"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-prove-201
+  course: crfsc
+  topic: prove
+  type: multiple-choice
+  question: "In the Point step of unloading, what else should you do if the handgun allows it?"
+  options: ["Pull the trigger once to release any tension on the spring", "Cock the hammer so the cylinder or slide moves freely", "Put the safety on, if it can stay on while unloading", "Remove the grips so you can see the trigger parts"]
+  answer: 2
+  explanation: "Point the firearm in the safest available direction throughout, make sure nothing touches the trigger, and put the safety on if it can be left on during unloading."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.6.1. Unloading procedure: ACTS and PROVE It Safe", page: "263"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-prove-202
+  course: crfsc
+  topic: prove
+  type: multiple-choice
+  question: "When you Observe the chambers, what are you confirming?"
+  options: ["That there are no cartridges or empty casings", "That the rifling is clean and free of fouling", "That the safety is on and working properly", "That the head stamps match the data stamp"]
+  answer: 0
+  explanation: "Observe the chamber or chambers to confirm that there are no cartridges or empty casings."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.6.1. Unloading procedure: ACTS and PROVE It Safe", page: "263"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-prove-203
+  course: crfsc
+  topic: prove
+  type: multiple-choice
+  question: "When you Verify the feeding path, what must it be clear of?"
+  options: ["Fingerprints, oil and other marks", "Ammunition, casings or foreign objects", "Live cartridges only, not empty cases", "Powder residue left from the last shot"]
+  answer: 1
+  explanation: "Verify that the feeding path is clear of ammunition, casings or foreign objects."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.6.1. Unloading procedure: ACTS and PROVE It Safe", page: "263"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-prove-204
+  course: crfsc
+  topic: prove
+  type: multiple-choice
+  question: "When you Examine the bore, what are you looking for?"
+  options: ["Only a bullet that is lodged in the bore", "The calibre marking stamped inside the barrel", "Wear or damage on the crown of the muzzle", "Lubricant, rust or other obstructions"]
+  answer: 3
+  explanation: "Examine the bore for lubricant, rust or other obstructions."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.6.1. Unloading procedure: ACTS and PROVE It Safe", page: "263"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-prove-205
+  course: crfsc
+  topic: prove
+  type: multiple-choice
+  question: "After you Remove all ammunition, how should the action be left?"
+  options: ["Open", "Closed, with the hammer down", "Closed, with the safety on", "Closed, so dirt can't get in"]
+  answer: 0
+  explanation: "In the Remove step, take out the magazine first if there is one, open the action to remove any cartridges from the chambers, and leave the action open."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.6.1. Unloading procedure: ACTS and PROVE It Safe", page: "263"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-prove-206
+  course: crfsc
+  topic: prove
+  type: multiple-choice
+  question: "When unloading a semi-automatic pistol, how should the slide be left once it has been pulled back?"
+  options: ["Released, so the slide closes on the empty chamber", "Held back by hand until someone else has checked it", "Locked to the rear, in the slide stop notch where possible", "Removed from the frame and set down on the bench beside the pistol"]
+  answer: 2
+  explanation: "After pulling the slide quickly and completely to the rear, lock it to the rear, normally by putting the slide lock into the slide stop notch, where possible."
+  source: {handbook_edition: "2014 (5th ed.)", section: "14.8.1. Semi-automatic unloading procedure", page: "278"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-care-201
+  course: crfsc
+  topic: care
+  type: multiple-choice
+  question: "Which two threats to firearm safety does the handbook name in its cleaning section?"
+  options: ["Dust from the range, and too much sunlight", "Rust from moisture, and a build-up of residue or rust", "Worn springs, and screws that have worked loose", "Cold weather in winter, and very dry air in heated houses"]
+  answer: 1
+  explanation: "The two major threats are rust caused by moisture and condensation, and an excessive build-up of residue or rust. Either can cause excessive pressure and damage the barrel."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.8. Firearm cleaning", page: "304"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-care-202
+  course: crfsc
+  topic: care
+  type: multiple-choice
+  question: "How often should the barrel of a handgun be cleaned?"
+  options: ["Once a year", "After every 500 rounds", "Only when it looks dirty", "After every use"]
+  answer: 3
+  explanation: "The barrel should be cleaned after every use. This protects its finish and keeps it in good working order."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.8. Firearm cleaning", page: "304"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-care-203
+  course: crfsc
+  topic: care
+  type: multiple-choice
+  question: "You have to clean a barrel from the muzzle end. What should you avoid?"
+  options: ["Rubbing the rod on the muzzle, which can damage the crown", "Using solvent or bore cleaner on the cloth patches", "Locking the breech open while the rod goes through", "Using a pull-through cleaning device instead of a rod"]
+  answer: 0
+  explanation: "If a firearm must be cleaned from the muzzle end, lock the breech open and avoid rubbing the cleaning rod on the muzzle: it can damage the crown."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.8.1. Cleaning materials", page: "305"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-care-204
+  course: crfsc
+  topic: care
+  type: multiple-choice
+  question: "While cleaning the bore, when can you stop running patches through it?"
+  options: ["After exactly three patches", "When the patch smells of solvent", "When a clean, dry patch comes through clean", "When the bore brush slides through the barrel without any resistance"]
+  answer: 2
+  explanation: "Run clean, dry patches through the bore. If a patch comes out dirty, repeat the brush and solvent steps until a patch comes through clean. Then run a lightly oiled patch."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.8.2. General cleaning procedures", page: "306"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-care-205
+  course: crfsc
+  topic: care
+  type: multiple-choice
+  question: "Besides the firearm itself, which part does the handbook remind you to clean?"
+  options: ["The holster", "The magazine", "The range bag", "The ear protectors"]
+  answer: 1
+  explanation: "The cleaning procedure ends with a reminder not to forget to clean your magazine."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.8.2. General cleaning procedures", page: "306"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-range-201
+  course: crfsc
+  topic: range-and-field
+  type: multiple-choice
+  question: "Who is ultimately responsible for the safety of everyone using the range?"
+  options: ["Each shooter, for themselves only", "The club's owner", "The Chief Firearms Officer", "The Range Officer"]
+  answer: 3
+  explanation: "The Range Officer is ultimately responsible for the safety of everyone using the range, and all shooters must follow the Range Officer's commands at all times."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.5.2. Range safety rules", page: "299"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-range-202
+  course: crfsc
+  topic: range-and-field
+  type: multiple-choice
+  question: "At a range, where may firearms be handled, loaded and discharged?"
+  options: ["Only at the firing line", "Anywhere behind the cease-fire line", "In the parking area, if cased afterwards", "At any bench in the clubhouse"]
+  answer: 0
+  explanation: "A standard range rule: firearms are handled, loaded and discharged only at the firing line."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.5.2. Range safety rules", page: "299"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-range-203
+  course: crfsc
+  topic: range-and-field
+  type: multiple-choice
+  question: "After a cease-fire, what happens before anyone may go forward of the firing line?"
+  options: ["Shooters holster their handguns and step back", "The Range Officer checks every firearm is open and empty", "Everyone waits and counts slowly to 60", "Each shooter reloads, puts the safety on and holsters the handgun"]
+  answer: 1
+  explanation: "The Range Officer inspects each firearm before anyone goes forward of the firing line, checking that every action is open and no ammunition is in the chambers."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.5.2. Range safety rules", page: "300"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-range-204
+  course: crfsc
+  topic: range-and-field
+  type: multiple-choice
+  question: "At the range, where should an unloaded firearm you are not using be?"
+  options: ["In your hand, pointed at the ground", "On the bench with the action open, or in a case", "On the bench with the action closed and the muzzle pointed downrange", "Behind the cease-fire line, uncased"]
+  answer: 1
+  explanation: "Unloaded firearms not in use go on the bench or table with the action open, or are kept in a case. Move them with the muzzle in the safest available direction, or cased, at the firing line."
+  source: {handbook_edition: "2014 (5th ed.)", section: "16.5.2. Range safety rules", page: "301"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-range-205
+  course: crfsc
+  topic: range-and-field
+  type: multiple-choice
+  question: "Why does the handbook warn against cumbersome clothing when shooting?"
+  options: ["It can interfere with safe handling of the firearm", "It is against most range rules", "It holds powder residue", "It makes earmuffs and other hearing protection fit poorly and work less well"]
+  answer: 0
+  explanation: "Beware of cumbersome clothing: it can interfere with the safe handling of your firearm."
+  source: {handbook_edition: "2014 (5th ed.)", section: "15.1.3. Slips and falls", page: "287"}
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-transport-201
+  course: crfsc
+  topic: transport
+  type: multiple-choice
+  question: "When requesting an Authorization to Transport, which information does the handbook say you must give?"
+  options: ["Only your name, address and date of birth", "Your licence and registration numbers, the dates, places and reason", "The name of the Range Officer at the range you will visit", "Proof that you own a vehicle with a lockable trunk"]
+  answer: 1
+  explanation: "You provide your firearms licence number, the registration certificate number of each firearm, how often and when it will be transported, where it leaves from and goes to, and the reason."
+  source: {handbook_edition: "2014 (5th ed.)", section: "17.5. Transportation", page: "321"}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-transport-202
+  course: crfsc
+  topic: transport
+  type: multiple-choice
+  question: "You must leave your restricted firearm, locked in its case, in an unattended car with no lockable trunk. How must you leave it?"
+  options: ["On the passenger seat, so it is in plain view", "Under the car, out of reach of passers-by", "In the locked car, with the case out of sight", "Unlocked, with the ATT on the dashboard"]
+  answer: 2
+  explanation: "Without a securely locked trunk or similar compartment, lock the vehicle, or the part of it holding the case, and leave the locked container out of sight."
+  source: {handbook_edition: "2014 (5th ed.)", section: "17.5. Transportation", page: "321"}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-class-201
+  course: crfsc
+  topic: classification
+  type: multiple-choice
+  question: "A handgun barrel of 105 mm or less is generally a prohibited device. Which barrels does the handbook say are excepted?"
+  options: ["Barrels for International Shooting Sport Federation competition, by regulation", "Any barrel on a revolver, whatever its calibre or length", "Barrels on handguns that were made before 1993", "Barrels fitted with a muzzle brake or compensator"]
+  answer: 0
+  explanation: "The prohibited-device definition excludes handgun barrels used in competitions governed by International Shooting Sport Federation rules and prescribed by regulation."
+  source: {handbook_edition: "2014 (5th ed.)", section: "17.2.1. Prohibited devices", page: "314"}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-class-202
+  course: crfsc
+  topic: classification
+  type: multiple-choice
+  question: "What did the handbook say owners of large-capacity magazines affected by the 1993 limit could do?"
+  options: ["Keep them unchanged, as long as they had a special permit", "Sell them only to licensed collectors and museums", "Keep them if properly modified to comply with the law", "Use them unmodified, but only at approved ranges"]
+  answer: 2
+  explanation: "Before July 1993, owners of large-capacity magazines affected by the limit could keep them if they had been properly modified to comply with the law."
+  source: {handbook_edition: "2014 (5th ed.)", section: "Magazine-Size Limits", page: "282"}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+- id: crfsc-storage-201
+  course: crfsc
+  topic: storage
+  type: multiple-choice
+  question: "For a first indictable offence of storing a firearm contrary to the regulations, what is the maximum prison term the handbook gives?"
+  options: ["Six months", "One year", "Five years", "Two years"]
+  answer: 3
+  explanation: "Under subsections 86(2) and (3) of the Criminal Code, as the handbook gives them: up to two years for a first indictable offence and up to five years for a second or later one, or a summary conviction with a fine of up to $5,000 and/or six months."
+  source: {handbook_edition: "2014 (5th ed.)", section: "17.6. Handling", page: "323"}
+  law_checked_on: TBD
+  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
