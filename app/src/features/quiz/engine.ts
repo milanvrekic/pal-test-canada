@@ -38,6 +38,7 @@ export const READY_MARK = 0.9;
 export const READY_EXAMS = 3;
 /** Days until a question comes back after 1, 2 and 3 correct answers in a row. */
 export const REVIEW_INTERVALS = [1, 3, 7];
+/** A topic is only called weak once this many of its questions have been answered. */
 const MIN_ANSWERS_FOR_TOPIC = 3;
 
 export const emptyProgress = (): Progress => ({ answers: {}, exams: [] });
@@ -171,6 +172,15 @@ export function recordAnswer(progress: Progress, questionId: string, wasCorrect:
   };
 }
 
+/**
+ * Flashcards are self-marked, so they never count as answers: "Got it" changes nothing, and "Again" only puts the card
+ * into review for tomorrow. Topic scores and readiness come from questions that were actually answered.
+ */
+export function markForReview(progress: Progress, questionId: string, day: string): Progress {
+  const prev = progress.answers[questionId] ?? { seen: 0, correct: 0, streak: 0, due: null };
+  return { ...progress, answers: { ...progress.answers, [questionId]: { ...prev, streak: 0, due: addDays(day, REVIEW_INTERVALS[0]) } } };
+}
+
 export function recordExam(progress: Progress, exam: ExamRecord): Progress {
   return { ...progress, exams: [...progress.exams, exam] };
 }
@@ -182,7 +192,13 @@ export function dueForReview(questions: readonly Question[], progress: Progress,
   });
 }
 
-export type TopicStat = { topic: string; total: number; answered: number; seen: number; correct: number; accuracy: number | null };
+/**
+ * `accuracy` is where the learner stands now: of the questions answered in the topic, the share whose latest answer was
+ * right. It is not a lifetime average, so early mistakes stop counting once the question is answered correctly; with a
+ * lifetime average, a few weak first exams kept topics "weak" through seven or more perfect ones.
+ * `seen` and `correct` are still every answer ever given.
+ */
+export type TopicStat = { topic: string; total: number; answered: number; right: number; seen: number; correct: number; accuracy: number | null };
 
 export function topicStats(questions: readonly Question[], progress: Progress, course: Course): TopicStat[] {
   return topicsFor(questions, course).map((topic) => {
@@ -190,21 +206,23 @@ export function topicStats(questions: readonly Question[], progress: Progress, c
     let seen = 0;
     let correct = 0;
     let answered = 0;
+    let right = 0;
     for (const q of qs) {
       const a = progress.answers[q.id];
       if (a?.seen) {
         answered += 1;
+        if (a.streak > 0) right += 1;
         seen += a.seen;
         correct += a.correct;
       }
     }
-    return { topic, total: qs.length, answered, seen, correct, accuracy: seen ? correct / seen : null };
+    return { topic, total: qs.length, answered, right, seen, correct, accuracy: answered ? right / answered : null };
   });
 }
 
 export function weakTopics(stats: readonly TopicStat[]): TopicStat[] {
   return stats
-    .filter((s) => s.seen >= MIN_ANSWERS_FOR_TOPIC && s.accuracy !== null && s.accuracy < PASS_MARK)
+    .filter((s) => s.answered >= MIN_ANSWERS_FOR_TOPIC && s.accuracy !== null && s.accuracy < PASS_MARK)
     .sort((a, b) => (a.accuracy ?? 0) - (b.accuracy ?? 0));
 }
 

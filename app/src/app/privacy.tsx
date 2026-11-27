@@ -6,7 +6,7 @@ import { Screen } from '@/components/ui';
 import { Spacing } from '@/constants/theme';
 import { page } from '@/lib/seo';
 
-export const PRIVACY_UPDATED = '2026-11-22';
+export const PRIVACY_UPDATED = '2026-11-27';
 export const SUPPORT_EMAIL = 'milan@10tenStudio.com';
 
 export function generateMetadata(): Metadata {
@@ -34,6 +34,12 @@ const SECTIONS: { h: string; p: string[] }[] = [
     p: [
       'Once per session the app downloads a small settings file from command.10tenstudio.com that controls the cards for our other apps (Huntable, Fishable, Campable, Shootable). It contains no personal information. Like any web request, it reaches our server with your IP address, which our hosting provider may log for security; we do not use it to identify you.',
       'When you tap a card for one of our other apps, the link passes through command.10tenstudio.com so we can count taps per app and per screen, then opens the App Store, Google Play or the app website. The count is not tied to you.',
+    ],
+  },
+  {
+    h: 'Anonymous usage counts',
+    p: [
+      'To see which parts of the app are useful, the app sends command.10tenstudio.com a count when a session starts, when a practice round, exam or drill is finished (the course, the kind of round and the score), and when a card for another app or a course provider is tapped (which card, on which screen). Each count says only whether it came from the iOS app, the Android app or the website. It carries no account, name, device or advertising ID, and it is not linked to your other counts or to you.',
     ],
   },
   {

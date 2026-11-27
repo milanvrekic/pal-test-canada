@@ -96,7 +96,7 @@ export function Screen({ children, width = 'reading', bottomBar, bottomTone, onB
             </View>
           </Link>
           <View style={styles.navLinks}>
-            <NavLink href="/pal-courses/bc">Courses</NavLink>
+            <NavLink href="/pal-courses">Courses</NavLink>
             <NavLink href="/wait-times">Wait times</NavLink>
           </View>
         </View>

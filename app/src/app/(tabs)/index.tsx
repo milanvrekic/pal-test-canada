@@ -23,6 +23,7 @@ import {
   today,
   topicLabel,
   topicStats,
+  weakTopics,
 } from '@/features/quiz/engine';
 import { useTheme } from '@/hooks/use-theme';
 import { drills, questions } from '@/lib/content';
@@ -312,7 +313,8 @@ function UpNext({
   examSize: number;
 }) {
   const t = useTheme();
-  const weak = stats.find((s) => s.accuracy !== null && s.accuracy < PASS_MARK);
+  // The same rule as readiness: a topic is only weak once at least three of its questions have been answered.
+  const weak = weakTopics(stats)[0];
   const next: { title: string; body: string; label: string; href: Href } =
     due > 0
       ? {
@@ -324,7 +326,7 @@ function UpNext({
       : weak
         ? {
             title: `Work on ${topicLabel(weak.topic).toLowerCase()}`,
-            body: `You're at ${pct(weak.accuracy ?? 0)} on this topic. The real test needs 80%.`,
+            body: `You got ${weak.right} of the ${weak.answered} questions you've answered here right the last time. The real test needs 80%.`,
             label: 'Practise this topic',
             href: {
               pathname: '/quiz',
@@ -434,7 +436,7 @@ function TopicList({
           {hasHistory ? 'Your topics, weakest first' : 'Practise by topic'}
         </ThemedText>
         <ThemedText type="small" themeColor="textSecondary">
-          {course.toUpperCase()} · {total} questions. The ring shows your score on each topic; the real test needs 80%.
+          {course.toUpperCase()} · {total} questions. The ring shows how many of the questions you've answered you got right the last time; the real test needs 80%.
         </ThemedText>
       </View>
       <View style={[styles.list, { backgroundColor: t.backgroundElement, borderColor: t.border }]}>
@@ -450,7 +452,7 @@ function TopicList({
               asChild>
               <Pressable
                 accessibilityRole="link"
-                accessibilityLabel={`${topicLabel(s.topic)}. ${s.total} questions. ${s.accuracy === null ? 'Not started' : `${pct(s.accuracy)} correct`}`}>
+                accessibilityLabel={`${topicLabel(s.topic)}. ${s.total} questions. ${s.accuracy === null ? 'Not started' : `${pct(s.accuracy)} right on the latest try`}`}>
                 {({ pressed, hovered }: { pressed: boolean; hovered?: boolean }) => (
                   <View
                     style={[
@@ -462,7 +464,7 @@ function TopicList({
                       <ThemedText type="bold">{topicLabel(s.topic)}</ThemedText>
                       <ThemedText type="small" themeColor="textSecondary">
                         {s.total} question{s.total === 1 ? '' : 's'}
-                        {s.seen > 0 ? ` · ${s.seen} answered` : ''}
+                        {s.answered > 0 ? ` · ${s.answered} answered` : ''}
                       </ThemedText>
                     </View>
                     <Ring

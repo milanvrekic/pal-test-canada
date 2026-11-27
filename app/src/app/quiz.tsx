@@ -1,7 +1,7 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import type { Metadata } from 'expo-router/server';
 import { useEffect, useRef, useState } from 'react';
-import { Alert, Platform, Pressable, StyleSheet, View } from 'react-native';
+import { Alert, BackHandler, Platform, Pressable, StyleSheet, View } from 'react-native';
 
 import { AnswerOption, Feedback, sourceLine } from '@/components/answer';
 import { FeaturedHandoff, HandoffCards } from '@/components/handoff-cards';
@@ -119,6 +119,15 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
     setIndex(set.length);
   }, [timeUp]); // eslint-disable-line react-hooks/exhaustive-deps
   const router = useRouter();
+  // Android's Back button asks before leaving a session, like the on-screen Back and Quit. Set further down, once the
+  // session is on screen; the loading, empty and results screens leave Back alone.
+  const hardwareBack = useRef<() => boolean>(() => false);
+  hardwareBack.current = () => false;
+  useEffect(() => {
+    if (Platform.OS !== 'android') return;
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => hardwareBack.current());
+    return () => sub.remove();
+  }, []);
 
   // Build the question set once, after saved progress has loaded.
   useEffect(() => {
@@ -152,17 +161,22 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
   if (index >= set.length) return <Results heading={heading} set={set} picks={picks} mode={mode} course={course} topic={topic} />;
 
   const q = set[index];
-  const showFeedback = mode !== 'exam' && mode !== 'mock' && selected !== null;
+  const isExam = mode === 'exam' || mode === 'mock';
+  const showFeedback = !isExam && selected !== null;
 
   const choose = (i: number) => {
     if (showFeedback) return;
     setSelected(i);
+    // Practice and review show the verdict at once, so the answer is final: save it now. Saving on Continue lost the
+    // answer when someone read the explanation and quit.
+    if (!isExam) updateProgress((p) => recordAnswer(p, q.id, i === q.answer, today()));
   };
 
   const next = () => {
     if (selected === null) return;
     const allPicks = [...picks, selected];
-    updateProgress((p) => recordAnswer(p, q.id, selected === q.answer, today()));
+    // In an exam the pick can still change until Next, so it is saved here.
+    if (isExam) updateProgress((p) => recordAnswer(p, q.id, selected === q.answer, today()));
     if (index + 1 === set.length) {
       const correct = set.filter((item, i) => allPicks[i] === item.answer).length;
       if (mode === 'exam' || mode === 'mock') updateProgress((p) => recordExam(p, { course, date: today(), correct, total: set.length }));
@@ -187,7 +201,6 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
     />
   );
 
-  const isExam = mode === 'exam' || mode === 'mock';
   // Leave the quiz the same way every other pushed screen does. dismissTo('/') was reported to do nothing on iOS,
   // likely because Home sits inside the tabs, not directly in the root stack.
   const leave = () => (router.canGoBack() ? router.back() : router.replace('/'));
@@ -205,6 +218,11 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
         { text: 'Quit', style: 'destructive', onPress: leave },
       ],
     );
+  };
+
+  hardwareBack.current = () => {
+    askQuit();
+    return true;
   };
 
   return (
