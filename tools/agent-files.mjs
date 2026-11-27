@@ -14,6 +14,8 @@ import { fileURLToPath } from 'node:url';
 
 const SITE = 'https://paltest.ca'; // keep in step with SITE_URL in app/src/lib/content.ts
 const NAME = 'PAL Test Canada';
+const APP_STORE_ID = '6838490033'; // keep in step with PAL_TEST_APP_STORE_ID in app/src/lib/handoff.ts
+const APP_STORE = `https://apps.apple.com/ca/app/pal-test-canada-cfsc-rpal/id${APP_STORE_ID}`;
 const dist = process.argv[2] ?? 'dist';
 const appDir = fileURLToPath(new URL('../app/', import.meta.url));
 const bundle = JSON.parse(readFileSync(join(appDir, 'src/content/bundle.json'), 'utf8'));
@@ -145,7 +147,7 @@ function llmsTxt() {
     '',
     `> ${ABOUT}`,
     '',
-    `Website: ${SITE}. ${DISCLAIMER}`,
+    `Website: ${SITE}. iPhone app: ${APP_STORE}. ${DISCLAIMER}`,
     '',
     '## Guides',
     '',
@@ -210,6 +212,15 @@ function ldFor(path, wait) {
         url: SITE,
         applicationCategory: 'EducationalApplication',
         operatingSystem: 'Web, iOS, Android',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
+        publisher: { '@id': `${SITE}/#org` },
+      },
+      {
+        '@type': 'MobileApplication',
+        name: NAME,
+        operatingSystem: 'iOS',
+        applicationCategory: 'EducationalApplication',
+        installUrl: APP_STORE,
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
         publisher: { '@id': `${SITE}/#org` },
       },

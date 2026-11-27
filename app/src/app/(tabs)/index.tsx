@@ -6,6 +6,7 @@ import { type ReactNode, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
+import { AppStoreBadge } from '@/components/app-store-badge';
 import { HandoffCards } from '@/components/handoff-cards';
 import { TryScene } from '@/components/try-scene';
 import { ThemedText } from '@/components/themed-text';
@@ -131,6 +132,12 @@ export default function Home() {
                 </ThemedText>
               </View>
             ))}
+          </View>
+          <View style={{ gap: Spacing.two }}>
+            <ThemedText type="small" themeColor="textSecondary">
+              Study on your iPhone too:
+            </ThemedText>
+            <AppStoreBadge />
           </View>
         </Col>
         <Col basis={360} grow={4}>

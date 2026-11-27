@@ -85,6 +85,14 @@ export const APPLE_PROVIDER_TOKEN = '129676545';
 /** The App Store Connect campaign for every link from this app (set up by Milan). Placement detail is in Play's utm_content and our own handoff_click events. */
 export const APPLE_CAMPAIGN = 'pal-test-app';
 
+/** PAL Test Canada's own App Store listing (Apple ID 6838490033). Keep in step with APP_STORE_ID in tools/agent-files.mjs. */
+export const PAL_TEST_APP_STORE_ID = '6838490033';
+/**
+ * The App Store link for the website's download buttons. It uses its own campaign (paltest-web) so installs that come
+ * from paltest.ca show apart from the pal-test-app campaign used for links out of the app.
+ */
+export const PAL_TEST_APP_STORE_URL = `https://apps.apple.com/ca/app/pal-test-canada-cfsc-rpal/id${PAL_TEST_APP_STORE_ID}?pt=${APPLE_PROVIDER_TOKEN}&ct=paltest-web&mt=8`;
+
 /** Which store to send this person to. On the website this reads the browser, so phones skip the landing page. */
 export function deviceOs(os: string = Platform.OS): 'ios' | 'android' | 'other' {
   if (os === 'ios' || os === 'android') return os;
