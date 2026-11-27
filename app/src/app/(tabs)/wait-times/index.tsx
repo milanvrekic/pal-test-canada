@@ -6,10 +6,12 @@ import { Pressable, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
 import { NextSteps } from '@/components/next-steps';
+import { ProvincePicker } from '@/components/province-picker';
 import { Card, Col, Screen, Split } from '@/components/ui';
 import { SourceNote, SummaryCard, Tracker, provincesWithData, waitData } from '@/components/wait-times';
 import { Spacing } from '@/constants/theme';
 import { PROVINCES } from '@/features/wait/stats';
+import { useProvince } from '@/lib/province';
 
 export function generateMetadata(): Metadata {
   const d = waitData();
@@ -24,6 +26,8 @@ export function generateMetadata(): Metadata {
 export default function WaitTimes() {
   const d = waitData();
   const provinces = provincesWithData();
+  const province = useProvince();
+  const local = province ? waitData(province).local : null;
   return (
     <Screen width="wide">
       <View style={{ gap: Spacing.two }}>
@@ -42,10 +46,15 @@ export default function WaitTimes() {
         </ThemedText>
       </View>
 
+      <ProvincePicker />
+
       <Split gap={Spacing.four}>
         <Col basis={420} style={{ gap: Spacing.three }}>
+          {province ? (
+            <SummaryCard title={`New applications in ${PROVINCES[province]}`} s={local} note="Renewals and files with a reported problem left out" />
+          ) : null}
           <SummaryCard
-            title={d.window === 'recent' ? 'New applications, last 12 months' : 'New applications'}
+            title={province ? 'All of Canada, for comparison' : d.window === 'recent' ? 'New applications, last 12 months' : 'New applications'}
             s={d.national}
             note="Renewals and files with a reported problem left out"
           />

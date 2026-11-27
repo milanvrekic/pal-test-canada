@@ -3,11 +3,13 @@ import type { Metadata } from 'expo-router/server';
 import { Pressable, View } from 'react-native';
 
 import { ListYourCourse } from '@/components/course-directory';
+import { ProvincePicker } from '@/components/province-picker';
 import { ThemedText } from '@/components/themed-text';
-import { Card, Col, Eyebrow, Screen, Split } from '@/components/ui';
+import { Button, Card, Col, Eyebrow, Notice, Screen, Split } from '@/components/ui';
 import { Spacing } from '@/constants/theme';
 import { PROVINCES } from '@/features/wait/stats';
 import { courseCities, courseDirectory } from '@/lib/content';
+import { useProvince } from '@/lib/province';
 import { page } from '@/lib/seo';
 
 export function generateMetadata(): Metadata {
@@ -18,6 +20,8 @@ export function generateMetadata(): Metadata {
 }
 
 export default function PalCourses() {
+  const province = useProvince();
+  const mine = province ? courseDirectory.find((c) => c.province === province) : undefined;
   return (
     <Screen width="wide">
       <View style={{ gap: Spacing.two }}>
@@ -30,6 +34,19 @@ export default function PalCourses() {
           provinces as we check them.
         </ThemedText>
       </View>
+      <ProvincePicker hint="Pick yours to jump to its course providers. Stays on this device." />
+      {province && mine ? (
+        <View style={{ alignSelf: 'flex-start' }}>
+          <Button
+            label={`${mine.providers.length} course ${mine.providers.length === 1 ? 'provider' : 'providers'} in ${PROVINCES[province]}`}
+            href={{ pathname: '/pal-courses/[province]', params: { province: province.toLowerCase() } }}
+          />
+        </View>
+      ) : province ? (
+        <Notice tone="warning">
+          We haven't checked course providers in {PROVINCES[province]} yet.
+        </Notice>
+      ) : null}
       <Split>
         {courseDirectory.map((c) => {
           const cities = courseCities(c);

@@ -8,7 +8,8 @@ import Svg, { Circle, Path, G, Rect } from 'react-native-svg';
 import { Fonts, Glass, MaxContentWidth, MaxWideWidth, Radius, RadiusControl, Shadow, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { track } from '@/lib/analytics';
-import { DISCLAIMER, SITE_NAME, containsDrafts, guides } from '@/lib/content';
+import { DISCLAIMER, SITE_NAME, containsDrafts, coursesPath, guides } from '@/lib/content';
+import { useProvince } from '@/lib/province';
 import { type AppId, hrefFor, usePromo } from '@/lib/handoff';
 
 import { ThemedText } from './themed-text';
@@ -78,6 +79,7 @@ function LogoGlyph({ size }: { size: number }) {
 
 export function Screen({ children, width = 'reading', bottomBar, bottomTone, onBack }: ScreenProps) {
   const theme = useTheme();
+  const province = useProvince();
   const maxWidth = width === 'wide' ? MaxWideWidth : MaxContentWidth;
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: theme.background }]} edges={['top', 'left', 'right']}>
@@ -96,7 +98,7 @@ export function Screen({ children, width = 'reading', bottomBar, bottomTone, onB
             </View>
           </Link>
           <View style={styles.navLinks}>
-            <NavLink href="/pal-courses">Courses</NavLink>
+            <NavLink href={coursesPath(province) as Href}>Courses</NavLink>
             <NavLink href="/wait-times">Wait times</NavLink>
           </View>
         </View>

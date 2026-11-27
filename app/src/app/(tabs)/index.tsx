@@ -26,7 +26,8 @@ import {
   weakTopics,
 } from '@/features/quiz/engine';
 import { useTheme } from '@/hooks/use-theme';
-import { drills, questions } from '@/lib/content';
+import { coursesPath, drills, practicalDrills, questions } from '@/lib/content';
+import { useProvince } from '@/lib/province';
 import { useCourse } from '@/lib/course';
 import { useProgress } from '@/lib/progress';
 import { useTracker } from '@/lib/tracker';
@@ -62,14 +63,16 @@ export default function Home() {
   const [allTopics, setAllTopics] = useState(false);
   const { progress, loaded } = useProgress();
   const { tracker } = useTracker();
+  const province = useProvince();
 
   const bank = questions.filter((q) => q.course === course);
   const examSize = Math.min(EXAM_SIZE, bank.length);
   const stats = topicStats(questions, progress, course);
   const due = loaded ? dueForReview(questions, progress, course, today()).length : 0;
-  const ready = readiness(questions, progress, course);
+  // Readiness covers the practical side too: every handling drill for the course, and a run of Spot the mistake.
+  const ready = readiness(questions, progress, course, { drills: practicalDrills, spotScenes: drills.length });
   const exams = progress.exams.filter((e) => e.course === course);
-  const hasHistory = stats.some((s) => s.seen > 0) || exams.length > 0;
+  const hasHistory = stats.some((s) => s.seen > 0) || exams.length > 0 || !!progress.spot || Object.keys(progress.drills ?? {}).length > 0;
   // Weakest first once there is history; biggest first before that.
   const sorted = [...stats].sort((a, b) =>
     hasHistory ? (a.accuracy ?? 2) - (b.accuracy ?? 2) || b.total - a.total : b.total - a.total || a.topic.localeCompare(b.topic),
@@ -102,7 +105,7 @@ export default function Home() {
     return (
       <Screen>
         {picker}
-        {loaded ? <UpNext course={course} due={due} stats={sorted} exams={exams} ready={ready.ready} examSize={examSize} /> : null}
+        {loaded ? <UpNext course={course} due={due} stats={sorted} exams={exams} ready={ready} examSize={examSize} /> : null}
         <OtherWays course={course} examSize={examSize} />
         {readinessPanel}
         {topics}
@@ -175,7 +178,7 @@ export default function Home() {
                 sub: 'Mostly handling habits, not missing knowledge',
               },
               {
-                href: '/pal-courses',
+                href: coursesPath(province) as Href,
                 label: 'Where to take the course',
                 sub: 'Course providers by province',
               },
@@ -309,7 +312,7 @@ function UpNext({
   due: number;
   stats: TopicStat[];
   exams: ExamLite[];
-  ready: boolean;
+  ready: { ready: boolean; writtenReady: boolean; drillsLeft: string[]; spotLeft: boolean };
   examSize: number;
 }) {
   const t = useTheme();
@@ -340,7 +343,21 @@ function UpNext({
               label: 'Start practice exam',
               href: { pathname: '/quiz', params: { course, mode: 'exam' } },
             }
-          : ready
+          : ready.writtenReady && ready.drillsLeft.length
+            ? {
+                title: 'Now the handling drills',
+                body: `Your written scores are there. ${ready.drillsLeft.length === 1 ? 'One practical drill is' : `${ready.drillsLeft.length} practical drills are`} left: put the steps in order with no wrong pick.`,
+                label: 'Open the practical trainer',
+                href: '/practical',
+              }
+            : ready.writtenReady && ready.spotLeft
+              ? {
+                  title: 'Spot the mistakes',
+                  body: 'Your written scores are there. Find 80% of the handling mistakes in the photo scenes.',
+                  label: 'Start Spot the mistake',
+                  href: '/spot',
+                }
+          : ready.ready
             ? {
                 title: 'You look ready',
                 body: `Keep it fresh with the timed ${MOCK_MINUTES}-minute mock before course day.`,
@@ -349,7 +366,7 @@ function UpNext({
               }
             : {
                 title: 'Next practice exam',
-                body: `Three in a row at 90% or better means you're ready.`,
+                body: `Three in a row at 90% or better, plus clean handling drills, means you're ready.`,
                 label: 'Start practice exam',
                 href: { pathname: '/quiz', params: { course, mode: 'exam' } },
               };
@@ -507,10 +524,10 @@ function ReadinessPanel({
   const detail = !loaded
     ? ' '
     : ready.ready
-      ? 'Your last three practice exams were 90% or better and no topic is weak.'
+      ? 'Your last three practice exams were 90% or better, no topic is weak, and your handling drills are clean.'
       : hasHistory
         ? ready.reasons.join(' ')
-        : 'Score 90% or better on three practice exams in a row, with no weak topic. The real test needs 80%, so 90% gives you a 10-point buffer for nerves on the day.';
+        : 'Score 90% or better on three practice exams in a row, with no weak topic, then run each practical drill with no wrong pick and find 80% of the mistakes in Spot the mistake. The real tests need 80%, so 90% gives you a 10-point buffer for nerves on the day.';
   return (
     <View style={{ gap: Spacing.three }}>
       <ThemedText type="heading" accessibilityRole="header">

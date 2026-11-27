@@ -58,6 +58,11 @@ export type ProvinceCourses = {
 export const courseCities = (c: ProvinceCourses) =>
   [...new Set(c.providers.flatMap((p) => p.venues.map((v) => v.city)))].filter((city) => !/^across /i.test(city));
 export const courseDirectory = ((bundle as { courses?: ProvinceCourses[] }).courses ?? []) as ProvinceCourses[];
+/** The course listings for a province when we have them, the province list otherwise. */
+export const coursesPath = (province: string | null): string =>
+  province && courseDirectory.some((c) => c.province === province) ? `/pal-courses/${province.toLowerCase()}` : '/pal-courses';
+/** Where support requests and question reports go. */
+export const SUPPORT_EMAIL = 'milan@10tenStudio.com';
 /** Where instructors ask to be listed or corrected. */
 export const LISTINGS_EMAIL = 'milan@10tenStudio.com';
 export type PracticalDrill = {

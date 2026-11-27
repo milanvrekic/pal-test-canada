@@ -3,7 +3,8 @@ import { Image, Linking, Pressable, StyleSheet, View } from 'react-native';
 import { Radius, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { track } from '@/lib/analytics';
-import { APP_ICONS, type AppId, type PromoItem, hrefFor, usePromo } from '@/lib/handoff';
+import { APPS_BY_PROVINCE, APP_ICONS, type AppId, type PromoItem, hrefFor, localApps, usePromo } from '@/lib/handoff';
+import { useProvince } from '@/lib/province';
 
 import { ThemedText } from './themed-text';
 import { Col, Split } from './ui';
@@ -27,8 +28,9 @@ export function HandoffCards({
   placement,
   title = 'After your course',
   lead,
-  order = ['huntable', 'shootable'],
-  more = ['fishable', 'campable'],
+  order: wanted = ['huntable', 'shootable'],
+  more: wantedMore = ['fishable', 'campable'],
+  local = true,
 }: {
   placement: Placement;
   title?: string;
@@ -36,7 +38,11 @@ export function HandoffCards({
   order?: AppId[];
   /** Smaller links under the cards for the rest of the family; in-season apps first. Pass [] to hide. */
   more?: AppId[];
+  /** Narrow the cards to the apps that cover the person's chosen province. Off where the page sets the province itself. */
+  local?: boolean;
 }) {
+  const province = useProvince();
+  const { order, more } = local ? localApps(wanted, wantedMore, province) : { order: wanted, more: wantedMore };
   const items = usePromo(order);
   const extras = usePromo(more.filter((id) => !order.includes(id))).sort((a, b) => Number(b.inSeason) - Number(a.inSeason));
   if (!items.length) return null;
@@ -160,8 +166,13 @@ export function FeaturedHandoff({
   more?: AppId[];
 }) {
   const theme = useTheme();
-  const [item] = usePromo([app]);
-  const extras = usePromo(more.filter((id) => id !== app)).sort((a, b) => Number(b.inSeason) - Number(a.inSeason));
+  // In a province the featured app doesn't cover, feature the most relevant app that does.
+  const province = useProvince();
+  const covered = province ? APPS_BY_PROVINCE[province] : undefined;
+  const pick = covered && !covered.includes(app) ? covered[0] : app;
+  const swapped = pick !== app;
+  const [item] = usePromo([pick]);
+  const extras = usePromo(more.filter((id) => id !== pick && (!covered || covered.includes(id)))).sort((a, b) => Number(b.inSeason) - Number(a.inSeason));
   if (!item) return null;
   const open = () => {
     track({ name: 'handoff_click', destination: item.id, placement: `${placement}_featured` });
@@ -173,7 +184,7 @@ export function FeaturedHandoff({
       <Pressable
         onPress={open}
         accessibilityRole="link"
-        accessibilityLabel={`${headline} ${item.name}. ${item.line}`}
+        accessibilityLabel={`${swapped ? 'Ready for what comes next?' : headline} ${item.name}. ${item.line}`}
         style={({ pressed }) => [
           styles.featured,
           { backgroundColor: theme.backgroundElement, borderColor: pressed ? theme.accent : theme.border },
@@ -185,7 +196,7 @@ export function FeaturedHandoff({
             <ThemedText type="smallBold" themeColor={item.inSeason && !item.soon ? 'success' : 'signal'}>
               {eyebrow}
             </ThemedText>
-            <ThemedText type="heading">{headline}</ThemedText>
+            <ThemedText type="heading">{swapped ? 'Ready for what comes next?' : headline}</ThemedText>
           </View>
         </View>
         <ThemedText themeColor="textSecondary">

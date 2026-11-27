@@ -7,11 +7,12 @@ import { HandoffCards } from '@/components/handoff-cards';
 import { ThemedText } from '@/components/themed-text';
 import { Button, Card, Col, Eyebrow, ProgressBar, Screen, Split } from '@/components/ui';
 import { RadiusControl, Spacing } from '@/constants/theme';
-import { shuffle } from '@/features/quiz/engine';
+import { recordDrill, shuffle } from '@/features/quiz/engine';
 import { useTheme } from '@/hooks/use-theme';
 import { track } from '@/lib/analytics';
 import { haptic } from '@/lib/haptics';
 import { type PracticalDrill, practicalDrills } from '@/lib/content';
+import { updateProgress, useProgress } from '@/lib/progress';
 import { page } from '@/lib/seo';
 
 export function generateMetadata(): Metadata {
@@ -213,6 +214,7 @@ function DrillCards({ onOrder, onPick }: { onOrder: (d: PracticalDrill) => void;
 
 function Picker({ onPick, onCards }: { onPick: (d: PracticalDrill) => void; onCards: () => void }) {
   const theme = useTheme();
+  const { progress } = useProgress();
   return (
     <Screen width="wide">
       <View style={{ gap: Spacing.two }}>
@@ -254,6 +256,11 @@ function Picker({ onPick, onCards }: { onPick: (d: PracticalDrill) => void; onCa
                         <ThemedText type="smallBold" style={{ marginTop: 'auto' }}>
                           {d.steps.length} steps · Start →
                         </ThemedText>
+                        {progress.drills?.[d.id] ? (
+                          <ThemedText type="small" themeColor={progress.drills[d.id].lastClean ? 'success' : 'textSecondary'}>
+                            {progress.drills[d.id].lastClean ? 'Done with no wrong pick' : 'Last run had a wrong pick: run it again'}
+                          </ThemedText>
+                        ) : null}
                         {d.draft ? (
                           <ThemedText type="small" style={{ color: theme.warning }}>
                             Draft: not yet reviewed
@@ -292,6 +299,8 @@ function OrderDrill({ drill, onBack, onRecite }: { drill: PracticalDrill; onBack
       haptic.tap();
       setPlaced([...placed, i]);
       setWrong(null);
+      // A finished run counts toward readiness; only a run with no wrong pick clears the drill.
+      if (i === drill.steps.length - 1) updateProgress((p) => recordDrill(p, drill.id, mistakes === 0));
       if (i === drill.steps.length - 1) track({ name: 'test_completed', course: drill.course, mode: `practical:${drill.id}`, correct: drill.steps.length - Math.min(mistakes, drill.steps.length), total: drill.steps.length });
     } else {
       haptic.wrong();

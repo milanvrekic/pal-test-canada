@@ -4,10 +4,11 @@ import { Linking, View } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { Screen } from '@/components/ui';
 import { Spacing } from '@/constants/theme';
+import { SUPPORT_EMAIL } from '@/lib/content';
 import { page } from '@/lib/seo';
 
 export const PRIVACY_UPDATED = '2026-11-27';
-export const SUPPORT_EMAIL = 'milan@10tenStudio.com';
+export { SUPPORT_EMAIL };
 
 export function generateMetadata(): Metadata {
   return page('/privacy', {
@@ -20,13 +21,13 @@ const SECTIONS: { h: string; p: string[] }[] = [
   {
     h: 'The short version',
     p: [
-      'PAL Test Canada (the website paltest.ca and the iOS and Android apps) has no accounts, no ads and no tracking across apps or websites. We do not collect your name, email address, location or contacts.',
+      'PAL Test Canada (the website paltest.ca and the iOS and Android apps) has no accounts, no ads and no tracking across apps or websites. We do not collect your name, email address, location or contacts. The one exception is your province, and only if you choose to send us your wait time (see below).',
     ],
   },
   {
     h: 'What stays on your device',
     p: [
-      'Your answers, practice exam scores, review schedule, licence-tracker dates and checklist ticks are stored only on your device (in the browser on the website). They are not sent to us. You can delete them at any time from About > Reset progress, or by deleting the app.',
+      'Your answers, practice exam scores, review schedule, an exam in progress, licence-tracker dates, checklist ticks and the province you pick are stored only on your device (in the browser on the website). They are not sent to us. Tracker reminders in the apps are local notifications set on your device; no push token is created. You can delete them at any time from About > Reset progress, or by deleting the app.',
     ],
   },
   {
@@ -40,6 +41,7 @@ const SECTIONS: { h: string; p: string[] }[] = [
     h: 'Anonymous usage counts',
     p: [
       'To see which parts of the app are useful, the app sends command.10tenstudio.com a count when a session starts, when a practice round, exam or drill is finished (the course, the kind of round and the score), and when a card for another app or a course provider is tapped (which card, on which screen). Each count says only whether it came from the iOS app, the Android app or the website. It carries no account, name, device or advertising ID, and it is not linked to your other counts or to you.',
+      'If you tap "Send my wait" in the licence tracker after your licence arrives, the app sends the number of days you waited, your province if you chose one, how you applied and the licence type. It is sent only when you tap that button, with no name, dates or ID, and is used for the wait-time figures.',
     ],
   },
   {

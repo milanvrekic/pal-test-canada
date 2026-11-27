@@ -3,7 +3,7 @@ import type { Metadata } from 'expo-router/server';
 import { useEffect, useRef, useState } from 'react';
 import { Alert, BackHandler, Platform, Pressable, StyleSheet, View } from 'react-native';
 
-import { AnswerOption, Feedback, sourceLine } from '@/components/answer';
+import { AnswerOption, Feedback, ReportLink, sourceLine } from '@/components/answer';
 import { FeaturedHandoff, HandoffCards } from '@/components/handoff-cards';
 import { VerdictBar } from '@/components/verdict-bar';
 import { ThemedText } from '@/components/themed-text';
@@ -18,6 +18,7 @@ import {
   dueForReview,
   shuffleOptions,
   recordAnswer,
+  topicGroup,
   recordExam,
   today,
   topicLabel,
@@ -26,7 +27,9 @@ import { useTheme } from '@/hooks/use-theme';
 import { track } from '@/lib/analytics';
 import { questions } from '@/lib/content';
 import { updateProgress, useProgress } from '@/lib/progress';
+import { reportProblem } from '@/lib/report';
 import { page } from '@/lib/seo';
+import { type SavedSession, clearSession, loadSession, saveSession } from '@/lib/session';
 
 export function generateMetadata(): Metadata {
   return page('/quiz', {
@@ -63,6 +66,18 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
   const [quitting, setQuitting] = useState(false);
   const [deadline, setDeadline] = useState<number | null>(null);
   const [now, setNow] = useState(() => Date.now());
+  // An unfinished exam or mock saved on this device: undefined while checking, null when there is none (or the person
+  // chose to start again). While one is waiting, the screen asks before building a new set.
+  const savable = mode === 'exam' || mode === 'mock';
+  const [saved, setSaved] = useState<SavedSession | null | undefined>(savable ? undefined : null);
+  useEffect(() => {
+    if (!savable) return;
+    let live = true;
+    void loadSession(course, mode).then((s) => live && setSaved(s));
+    return () => {
+      live = false;
+    };
+  }, [savable, course, mode]);
   // Keyboard answering on the web: A–F or 1–6 picks an answer, Enter goes on. The handlers change every render, so the
   // listener (added once) calls whatever the latest render stored here.
   const keys = useRef<{ choose?: (i: number) => void; next?: () => void; count: number }>({ count: 0 });
@@ -114,6 +129,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
       return recordExam(next, { course, date: day, correct, total: set.length });
     });
     setSelected(null);
+    clearSession();
     track({ name: 'test_completed', course, mode, correct, total: set.length });
     setPicks(allPicks);
     setIndex(set.length);
@@ -131,11 +147,43 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
 
   // Build the question set once, after saved progress has loaded.
   useEffect(() => {
-    if (!loaded || set) return;
+    if (!loaded || set || saved !== null) return;
     if (mode === 'exam' || mode === 'mock') setSet(buildExam(questions, course));
     else if (mode === 'review') setSet(dueForReview(questions, progress, course, today()).map((q) => shuffleOptions(q)));
     else setSet(buildPractice(questions, progress, { course, topic }));
-  }, [loaded, set, mode, course, topic, progress]);
+  }, [loaded, set, saved, mode, course, topic, progress]);
+
+  if (!set && saved) {
+    const resume = () => {
+      setPicks(saved.picks);
+      setIndex(saved.picks.length);
+      if (saved.remainingMs !== null) setDeadline(Date.now() + saved.remainingMs);
+      setSet(saved.set);
+      setSaved(null);
+    };
+    return (
+      <Screen>
+        <Card style={{ gap: Spacing.three }}>
+          <ThemedText type="heading" accessibilityRole="header">
+            Pick up where you left off?
+          </ThemedText>
+          <ThemedText themeColor="textSecondary">
+            You answered {saved.picks.length} of {saved.set.length} questions in a {course.toUpperCase()} {mode === 'mock' ? 'test-day mock' : 'practice exam'} on{' '}
+            {saved.savedOn}.{saved.remainingMs !== null ? ` ${Math.ceil(saved.remainingMs / 60_000)} minutes are left on the clock.` : ''}
+          </ThemedText>
+          <Button label={`Continue from question ${saved.picks.length + 1}`} onPress={resume} />
+          <Button
+            variant="secondary"
+            label="Start a new one"
+            onPress={() => {
+              clearSession();
+              setSaved(null);
+            }}
+          />
+        </Card>
+      </Screen>
+    );
+  }
 
   if (!set) {
     return (
@@ -180,7 +228,11 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
     if (index + 1 === set.length) {
       const correct = set.filter((item, i) => allPicks[i] === item.answer).length;
       if (mode === 'exam' || mode === 'mock') updateProgress((p) => recordExam(p, { course, date: today(), correct, total: set.length }));
+      if (isExam) clearSession();
       track({ name: 'test_completed', course, mode, correct, total: set.length });
+    } else if (mode === 'exam' || mode === 'mock') {
+      // Saved after every answer, so a closed tab or app doesn't lose the sitting.
+      saveSession({ course, mode, set, picks: allPicks, remainingMs: deadline ? Math.max(0, deadline - Date.now()) : null, savedOn: today() });
     }
     setPicks(allPicks);
     setSelected(null);
@@ -211,7 +263,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
     Alert.alert(
       `Quit this ${isExam ? 'exam' : 'session'}?`,
       isExam
-        ? 'Answers so far are kept for review, but this exam will not count toward your readiness score.'
+        ? 'Your answers so far are saved. You can pick this exam up where you left off; it only counts toward readiness once it is finished.'
         : 'Answers so far are kept for review.',
       [
         { text: 'Keep going', style: 'cancel' },
@@ -256,7 +308,7 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
           <ThemedText type="bold">Quit this {isExam ? 'exam' : 'session'}?</ThemedText>
           <ThemedText type="small" themeColor="textSecondary">
             {isExam
-              ? 'Answers so far are kept for review, but this exam will not count toward your readiness score.'
+              ? 'Your answers so far are saved. You can pick this exam up where you left off; it only counts toward readiness once it is finished.'
               : 'Answers so far are kept for review.'}
           </ThemedText>
           <Split gap={Spacing.two}>
@@ -290,7 +342,13 @@ function Session({ course, mode, topic }: { course: Course; mode: Mode; topic: s
       </View>
 
       {showFeedback ? (
-        <Feedback good={selected === q.answer} title="Why" explanation={q.explanation} source={sourceLine(q.source)} />
+        <Feedback
+          good={selected === q.answer}
+          title="Why"
+          explanation={q.explanation}
+          source={sourceLine(q.source)}
+          onReport={() => reportProblem('question', q.id, q.question)}
+        />
       ) : null}
       {Platform.OS === 'web' && !APP_LAYOUT ? (
         <ThemedText type="small" themeColor="textSecondary">
@@ -331,6 +389,8 @@ function Results({ heading, set, picks, mode, course, topic }: { heading: string
         </Split>
       </View>
 
+      {mode === 'exam' || mode === 'mock' ? <TopicBreakdown set={set} picks={picks} course={course} /> : null}
+
       {missed.length ? (
         <View style={{ gap: Spacing.two }}>
           <ThemedText type="heading" accessibilityRole="header">
@@ -354,6 +414,7 @@ function Results({ heading, set, picks, mode, course, topic }: { heading: string
                   {sourceLine(q.source)}
                 </ThemedText>
               ) : null}
+              <ReportLink onPress={() => reportProblem('question', q.id, q.question)} />
             </Card>
           ))}
         </View>
@@ -387,6 +448,53 @@ function Results({ heading, set, picks, mode, course, topic }: { heading: string
   );
 }
 
+/** An exam's score by topic, weakest first, with a way to practise each topic that fell under the pass mark. */
+function TopicBreakdown({ set, picks, course }: { set: Question[]; picks: number[]; course: Course }) {
+  const theme = useTheme();
+  const byTopic = new Map<string, { correct: number; total: number }>();
+  set.forEach((q, i) => {
+    const t = byTopic.get(topicGroup(q.topic)) ?? { correct: 0, total: 0 };
+    t.total += 1;
+    if (picks[i] === q.answer) t.correct += 1;
+    byTopic.set(topicGroup(q.topic), t);
+  });
+  const rows = [...byTopic].map(([topic, r]) => ({ topic, ...r, score: r.correct / r.total })).sort((a, b) => a.score - b.score || b.total - a.total);
+  return (
+    <View style={{ gap: Spacing.two }}>
+      <ThemedText type="heading" accessibilityRole="header">
+        Your score by topic
+      </ThemedText>
+      <Card style={{ gap: 0, paddingVertical: Spacing.two }}>
+        {rows.map((r, i) => {
+          const low = r.score < PASS_MARK;
+          return (
+            <View
+              key={r.topic}
+              style={[styles.topicRow, i > 0 ? { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: theme.border } : null]}
+              accessible
+              accessibilityLabel={`${topicLabel(r.topic)}: ${r.correct} of ${r.total} correct`}>
+              <View style={{ flex: 1, gap: Spacing.one }}>
+                <ThemedText type="smallBold">{topicLabel(r.topic)}</ThemedText>
+                <ProgressBar value={r.score} height={6} />
+              </View>
+              <ThemedText type="smallBold" themeColor={low ? 'danger' : 'success'} style={styles.count}>
+                {r.correct} / {r.total}
+              </ThemedText>
+              {low ? (
+                <View style={{ width: 112 }}>
+                  <Button variant="secondary" label="Practise" href={{ pathname: '/quiz', params: { course, mode: 'practice', topic: r.topic } }} />
+                </View>
+              ) : (
+                <View style={{ width: 112 }} />
+              )}
+            </View>
+          );
+        })}
+      </Card>
+    </View>
+  );
+}
+
 function ResultsHead({ heading, correct, total, score, passed, exam }: { heading: string; correct: number; total: number; score: number; passed: boolean; exam: boolean }) {
   const theme = useTheme();
   // Green only for a pass mark, in practice rounds as in exams.
@@ -413,6 +521,7 @@ const styles = StyleSheet.create({
   quit: { minHeight: 44, minWidth: 44, alignItems: 'flex-end', justifyContent: 'center' },
   question: { marginTop: Spacing.two, fontSize: 21, lineHeight: 29 },
   explain: { borderLeftWidth: 4 },
+  topicRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.three, paddingVertical: Spacing.two },
   barRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: Spacing.three },
   barHint: { flex: 1 },
   resultHead: { borderRadius: Radius + 4, padding: Spacing.five, gap: Spacing.three, alignItems: 'center' },
