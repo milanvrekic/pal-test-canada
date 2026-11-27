@@ -7,7 +7,9 @@ import { ThemedText } from '@/components/themed-text';
 import { Screen } from '@/components/ui';
 import { Radius, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
+import type { Course } from '@/features/quiz/engine';
 import { DISCLAIMER } from '@/lib/content';
+import { useCourse } from '@/lib/course';
 import { page } from '@/lib/seo';
 
 export function generateMetadata(): Metadata {
@@ -16,12 +18,13 @@ export function generateMetadata(): Metadata {
 
 type Row = { href: Href; label: string; sub: string };
 
-const SECTIONS: { title: string; rows: Row[] }[] = [
+// The mock opens on the course the person is studying (the picker on the Practice tab), not always the CFSC.
+const sections = (course: Course): { title: string; rows: Row[] }[] => [
   {
     title: 'Study tools',
     rows: [
       { href: '/flashcards', label: 'Flashcards', sub: 'Question on the front, answer and handbook page on the back' },
-      { href: { pathname: '/quiz', params: { course: 'cfsc', mode: 'mock' } }, label: 'Test-day mock', sub: '50 questions against a 60-minute clock' },
+      { href: { pathname: '/quiz', params: { course, mode: 'mock' } }, label: 'Test-day mock', sub: '50 questions against a 60-minute clock' },
       { href: '/rules', label: 'Storage and transport rules', sub: 'What the law requires, by firearm and situation' },
     ],
   },
@@ -47,12 +50,13 @@ const SECTIONS: { title: string; rows: Row[] }[] = [
 
 export default function More() {
   const theme = useTheme();
+  const [course] = useCourse();
   return (
     <Screen>
       <ThemedText type="title" accessibilityRole="header">
         More
       </ThemedText>
-      {SECTIONS.map((sec) => (
+      {sections(course).map((sec) => (
         <View key={sec.title} style={{ gap: Spacing.two }}>
           <ThemedText type="smallBold" themeColor="textSecondary" style={{ marginLeft: Spacing.two }}>
             {sec.title}

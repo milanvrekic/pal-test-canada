@@ -14,6 +14,7 @@ import {
   recordExam,
   seededRng,
   shuffleOptions,
+  markForReview,
   topicStats,
   weakTopics,
   topicGroup,
@@ -108,6 +109,30 @@ test('weak topics need at least three answers and sit under 80%', () => {
   const weak = weakTopics(topicStats(bank, p, 'cfsc'));
   assert.deepEqual(weak.map((w) => w.topic), ['storage-transport-display']);
   assert.equal(weak[0].accuracy, 0.25);
+});
+
+test('a topic stops being weak once its questions are answered right again', () => {
+  let p = emptyProgress();
+  // Three rounds of wrong answers on four storage questions: a lifetime average would stay under 80% for a long time.
+  for (const day of ['2026-01-01', '2026-01-02', '2026-01-03']) [2, 6, 10, 14].forEach((i) => (p = recordAnswer(p, `cfsc-${i}`, false, day)));
+  assert.equal(weakTopics(topicStats(bank, p, 'cfsc')).length, 1);
+  [2, 6, 10, 14].forEach((i) => (p = recordAnswer(p, `cfsc-${i}`, true, '2026-01-04')));
+  const s = topicStats(bank, p, 'cfsc').find((t) => t.topic === 'storage-transport-display')!;
+  assert.equal(s.accuracy, 1);
+  assert.equal(s.seen, 16); // every answer is still counted
+  assert.equal(s.correct, 4);
+  assert.equal(weakTopics(topicStats(bank, p, 'cfsc')).length, 0);
+});
+
+test('flashcard "Again" schedules a review without counting as an answer', () => {
+  const p = markForReview(emptyProgress(), 'cfsc-2', '2026-01-01');
+  assert.equal(dueForReview(bank, p, 'cfsc', '2026-01-02').length, 1);
+  const s = topicStats(bank, p, 'cfsc').find((t) => t.topic === 'storage-transport-display')!;
+  assert.equal(s.answered, 0);
+  assert.equal(s.accuracy, null);
+  // An answered question keeps its counts when it is marked again.
+  const q = markForReview(recordAnswer(emptyProgress(), 'cfsc-2', true, '2026-01-01'), 'cfsc-2', '2026-01-01');
+  assert.deepEqual(q.answers['cfsc-2'], { seen: 1, correct: 1, streak: 0, due: '2026-01-02' });
 });
 
 test('thin topics share a practice group', () => {

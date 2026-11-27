@@ -18,5 +18,27 @@ rmSync(join(dist, '_sitemap.html'), { force: true });
 // Route groups like (tabs) are also exported under their folder name; the same pages already exist at their real URLs.
 for (const f of readdirSync(dist)) if (f.startsWith('(')) rmSync(join(dist, f), { recursive: true, force: true });
 console.log('404.html written; _sitemap.html removed');
+
+// Offline support: write the list of pages and built files into sw.js, so the service worker can save the whole site
+// on the first visit. Without it only the pages already opened worked offline; every other page was blank.
+{
+  const walk = (dir) =>
+    readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(dir, e.name)) : [join(dir, e.name)]));
+  const rel = (f) => '/' + f.slice(dist.length + 1).split('\\').join('/');
+  const files = walk(dist).map(rel);
+  // Pages by their public address (/quiz, /guides/exam-day). Templates ([slug].html) and Expo's own pages are skipped.
+  const pages = files
+    .filter((f) => f.endsWith('.html') && !/\/(\[|_|\+)/.test(f) && f !== '/404.html')
+    .map((f) => f.replace(/\/index\.html$/, '/').replace(/\.html$/, ''))
+    .map((f) => (f.length > 1 ? f.replace(/\/$/, '') : f))
+    .sort();
+  const assets = files.filter((f) => /^\/(_expo|assets|fonts)\//.test(f)).map((f) => f.replace(/ /g, '%20')).sort();
+  const swFile = join(dist, 'sw.js');
+  const sw = readFileSync(swFile, 'utf8');
+  const marker = /\/\*PRECACHE\*\/ \{[^\n]*\};/;
+  if (!marker.test(sw)) throw new Error('sw.js: PRECACHE marker missing');
+  writeFileSync(swFile, sw.replace(marker, () => `${JSON.stringify({ pages, assets })};`));
+  console.log(`sw.js: ${pages.length} pages and ${assets.length} files saved for offline use`);
+}
 await import('./sitemap.mjs');
 await import('./agent-files.mjs');

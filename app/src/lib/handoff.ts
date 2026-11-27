@@ -123,7 +123,7 @@ export function directLink(id: AppId, placement?: string, os: string = Platform.
 /** The link for one tap: the remote redirect when the feed supplies one (it tags and counts), else a tagged direct link. */
 export function hrefFor(item: PromoItem, placement: string): string {
   // iPhones go straight to the App Store with the pal-test-app campaign: the /xp/go redirect tags Apple links with its
-  // own ct, which would split App Store attribution. Taps are still counted by our handoff_click event.
+  // own ct, which would split App Store attribution. Taps are still counted, with their placement, by our handoff_click event (lib/analytics.ts).
   if (!item.soon && deviceOs() === 'ios' && BUILTIN[item.id].ios) return directLink(item.id, placement);
   if (item.href.includes('/xp/go/')) return `${item.href}${item.href.includes('?') ? '&' : '?'}placement=${encodeURIComponent(placement)}`;
   return directLink(item.id, placement);

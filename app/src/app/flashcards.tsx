@@ -6,7 +6,7 @@ import { sourceLine } from '@/components/answer';
 import { ThemedText } from '@/components/themed-text';
 import { Button, Col, Eyebrow, ProgressBar, Screen, Split } from '@/components/ui';
 import { Spacing } from '@/constants/theme';
-import { type Course, type Question, buildPractice, recordAnswer, today } from '@/features/quiz/engine';
+import { type Course, type Question, buildPractice, markForReview, today } from '@/features/quiz/engine';
 import { useTheme } from '@/hooks/use-theme';
 import { questions } from '@/lib/content';
 import { useCourse } from '@/lib/course';
@@ -43,7 +43,8 @@ export default function Flashcards() {
   const q = deck?.[i];
   const answer = (gotIt: boolean) => {
     if (!q) return;
-    updateProgress((p) => recordAnswer(p, q.id, gotIt, today()));
+    // Self-marked cards are not answers: "Got it" must not raise a topic's score. "Again" only schedules a review.
+    if (!gotIt) updateProgress((p) => markForReview(p, q.id, today()));
     if (gotIt) setKnown(known + 1);
     setFlipped(false);
     setI(i + 1);

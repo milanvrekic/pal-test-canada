@@ -68,8 +68,11 @@ function DrillCards({ onOrder, onPick }: { onOrder: (d: PracticalDrill) => void;
     setKnown(0);
   }, [course]);
   const d = deck?.[i];
+  // "Again" puts the card back at the end of the deck, so it returns until it is known.
+  const cards = deck ? new Set(deck.map((c) => c.id)).size : 0;
   const next = (gotIt: boolean) => {
     if (gotIt) setKnown(known + 1);
+    else if (d && deck) setDeck([...deck, d]);
     if (d) track({ name: 'test_completed', course: d.course, mode: `practical_card:${d.id}`, correct: gotIt ? 1 : 0, total: 1 });
     setFlipped(false);
     setI(i + 1);
@@ -108,13 +111,13 @@ function DrillCards({ onOrder, onPick }: { onOrder: (d: PracticalDrill) => void;
         <View style={{ gap: Spacing.three }}>
           <View style={styles.meta}>
             <ThemedText type="smallBold" themeColor="textSecondary">
-              Card {i + 1} of {deck.length}
+              {cards - known} {cards - known === 1 ? 'card' : 'cards'} left
             </ThemedText>
             <ThemedText type="smallBold" themeColor="textSecondary">
-              {known} known
+              {known} of {cards} known
             </ThemedText>
           </View>
-          <ProgressBar value={i / deck.length} height={10} />
+          <ProgressBar value={cards ? known / cards : 0} height={10} />
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={flipped ? 'Answer side. Tap to see the question.' : 'Question side. Tap to see the steps.'}
@@ -184,14 +187,15 @@ function DrillCards({ onOrder, onPick }: { onOrder: (d: PracticalDrill) => void;
       ) : (
         <View style={{ gap: Spacing.three }}>
           <ThemedText type="heading">
-            Deck done: {known} of {deck.length} known
+            Deck done: all {cards} known
           </ThemedText>
           <Split gap={Spacing.two}>
             <Col basis={180}>
               <Button
                 label="Shuffle again"
                 onPress={() => {
-                  setDeck(shuffle(deck));
+                  // Back to one of each card: the finished deck also holds the repeats from "Again".
+                  setDeck(shuffle(deck.filter((c, n) => deck.findIndex((x) => x.id === c.id) === n)));
                   setI(0);
                   setKnown(0);
                 }}
