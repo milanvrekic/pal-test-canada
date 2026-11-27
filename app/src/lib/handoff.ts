@@ -159,6 +159,28 @@ function load(): Promise<PromoItem[] | null> {
   return cache;
 }
 
+/** Apps that cover (or will soon cover) each province, most relevant first. Provinces not listed keep the default cards. */
+export const APPS_BY_PROVINCE: Record<string, AppId[]> = {
+  BC: ['huntable', 'fishable', 'campable', 'shootable'],
+  AB: ['shootable', 'huntable', 'campable'],
+  ON: ['fishable', 'campable'],
+  NS: ['huntable'],
+  NB: ['huntable'],
+};
+
+/**
+ * The cards for someone in `province`: only the apps that cover it, most relevant first, so nobody is sent to an app
+ * that has nothing for where they live. With no province chosen, or one we have no coverage list for, nothing changes.
+ */
+export function localApps(order: AppId[], more: AppId[], province: string | null): { order: AppId[]; more: AppId[] } {
+  const covered = province ? APPS_BY_PROVINCE[province] : undefined;
+  if (!covered) return { order, more };
+  const offered = new Set([...order, ...more]);
+  const local = covered.filter((id) => offered.has(id));
+  if (!local.length) return { order, more };
+  return { order: local.slice(0, order.length), more: local.slice(order.length) };
+}
+
 /** Items to show, in the order given. Starts with the built-in copy so cards never pop in late on a slow network. */
 export function usePromo(order: AppId[]): PromoItem[] {
   const [items, setItems] = useState<PromoItem[] | null>(() => builtinItems(new Date().getMonth() + 1));

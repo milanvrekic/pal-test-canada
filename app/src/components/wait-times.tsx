@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 
 import { DateField } from '@/components/date-field';
 import { NextSteps } from '@/components/next-steps';
+import { ProvincePicker } from '@/components/province-picker';
 import { ThemedText } from '@/components/themed-text';
 import { Button, Card, Notice } from '@/components/ui';
 import { RadiusControl, Spacing } from '@/constants/theme';
@@ -22,8 +23,11 @@ import {
   typical,
 } from '@/features/wait/stats';
 import { useTheme } from '@/hooks/use-theme';
+import { sendWaitReport } from '@/lib/analytics';
 import { contentBuiltAt, waitRows } from '@/lib/content';
-import { updateTracker, useTracker } from '@/lib/tracker';
+import { useProvince } from '@/lib/province';
+import { cancelWaitReminders, remindersSupported, scheduleWaitReminders } from '@/lib/reminders';
+import { type Tracker as TrackerState, updateTracker, useTracker } from '@/lib/tracker';
 
 const SCALE_DAYS = 180;
 
@@ -130,6 +134,7 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
           {took !== null ? `Your licence arrived after ${took} days. Congratulations.` : 'Your licence arrived. Congratulations.'}
         </Notice>
         <NextSteps placement="licence_arrived" title="Now you're licensed" lead="What most new licence holders do next." />
+        {took !== null && took > 0 ? <ShareWait days={took} reported={!!tracker.reported} /> : null}
         <Button variant="secondary" label="Undo: my licence hasn't arrived" onPress={() => updateTracker((t) => ({ ...t, arrivedOn: null }))} />
       </View>
     );
@@ -200,8 +205,22 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
               : `${share}% of reported first-time applicants had heard back by day ${elapsed}.`}
           </ThemedText>
         ) : null}
-        <Button variant="signal" label="My licence arrived" onPress={() => updateTracker((t) => ({ ...t, arrivedOn: day }))} />
-        <Pressable accessibilityRole="button" onPress={() => updateTracker((t) => ({ ...t, submittedOn: null }))} style={styles.linkBtn}>
+        <Button
+          variant="signal"
+          label="My licence arrived"
+          onPress={() => {
+            stopReminders(tracker);
+            updateTracker((t) => ({ ...t, arrivedOn: day, reminders: null }));
+          }}
+        />
+        {remindersSupported ? <Reminders tracker={tracker} typicalDays={national?.median ?? null} /> : null}
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => {
+            stopReminders(tracker);
+            updateTracker((t) => ({ ...t, submittedOn: null, reminders: null }));
+          }}
+          style={styles.linkBtn}>
           <ThemedText type="small" themeColor="textSecondary" style={{ textDecorationLine: 'underline' }}>
             Change the date
           </ThemedText>
@@ -237,6 +256,126 @@ export function Tracker({ national }: { national: WaitSummary | null }) {
   );
 }
 
+const stopReminders = (t: TrackerState) => {
+  if (t.reminders?.ids.length) void cancelWaitReminders(t.reminders.ids);
+};
+
+/** Native apps: a reminder on day 28 and on the day the typical reported wait is reached. Local notifications only. */
+function Reminders({ tracker, typicalDays }: { tracker: TrackerState; typicalDays: number | null }) {
+  const [note, setNote] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const on = tracker.reminders?.days.length ? tracker.reminders : null;
+  if (on) {
+    return (
+      <View style={{ gap: Spacing.one }}>
+        <ThemedText type="small" themeColor="textSecondary">
+          Reminders are on for day {on.days.join(' and day ')}.
+        </ThemedText>
+        <Pressable
+          accessibilityRole="button"
+          onPress={() => {
+            stopReminders(tracker);
+            updateTracker((t) => ({ ...t, reminders: null }));
+          }}
+          style={styles.linkBtn}>
+          <ThemedText type="small" themeColor="textSecondary" style={{ textDecorationLine: 'underline' }}>
+            Turn reminders off
+          </ThemedText>
+        </Pressable>
+      </View>
+    );
+  }
+  const later = typicalDays && typicalDays > MINIMUM_WAIT_DAYS ? typicalDays : null;
+  const turnOn = async () => {
+    if (!tracker.submittedOn || busy) return;
+    setBusy(true);
+    const result = await scheduleWaitReminders(tracker.submittedOn, later);
+    setBusy(false);
+    if (result === 'denied') return setNote('Notifications are off for PAL Test Canada. Turn them on in your phone\'s Settings, then try again.');
+    if (result === 'past') return setNote('Those days have already passed for this application.');
+    setNote(null);
+    updateTracker((t) => ({ ...t, reminders: result }));
+  };
+  return (
+    <View style={{ gap: Spacing.one }}>
+      <Button variant="secondary" label={`Remind me on day ${MINIMUM_WAIT_DAYS}${later ? ` and day ${later}` : ''}`} onPress={() => void turnOn()} disabled={busy} />
+      {note ? (
+        <ThemedText type="small" themeColor="textSecondary">
+          {note}
+        </ThemedText>
+      ) : null}
+    </View>
+  );
+}
+
+const METHODS = [
+  { id: 'online', label: 'Online' },
+  { id: 'mail', label: 'By mail' },
+] as const;
+const LICENCES = [
+  { id: 'pal', label: 'PAL' },
+  { id: 'rpal', label: 'RPAL' },
+] as const;
+
+/**
+ * After "My licence arrived": offer to add this wait to the reported numbers. Sends the day count, the province and the
+ * two answers below, only when the button is tapped, with no name or ID. Reports are checked before they are added.
+ */
+function ShareWait({ days, reported }: { days: number; reported: boolean }) {
+  const theme = useTheme();
+  const province = useProvince();
+  const [method, setMethod] = useState<'online' | 'mail' | null>(null);
+  const [licence, setLicence] = useState<'pal' | 'rpal' | null>(null);
+  const [state, setState] = useState<'idle' | 'sending' | 'failed'>('idle');
+  if (reported) return <Notice tone="success">Thanks. Your wait was sent and will be added to the numbers once it has been checked.</Notice>;
+  const send = async () => {
+    setState('sending');
+    const ok = await sendWaitReport({ province, days, method, licence });
+    if (!ok) return setState('failed');
+    updateTracker((t) => ({ ...t, reported: true }));
+  };
+  const chips = <T extends string>(label: string, options: readonly { id: T; label: string }[], value: T | null, set: (v: T | null) => void) => (
+    <View style={{ gap: Spacing.one }}>
+      <ThemedText type="smallBold">{label}</ThemedText>
+      <View style={styles.chips} accessibilityRole="radiogroup" accessibilityLabel={label}>
+        {options.map((o) => {
+          const active = value === o.id;
+          return (
+            <Pressable
+              key={o.id}
+              accessibilityRole="radio"
+              accessibilityState={{ checked: active }}
+              onPress={() => set(active ? null : o.id)}
+              style={[styles.chip, active ? { backgroundColor: theme.accent, borderColor: theme.accent } : { borderColor: theme.borderStrong }]}>
+              <ThemedText type="smallBold" style={{ color: active ? theme.onAccent : theme.text }}>
+                {o.label}
+              </ThemedText>
+            </Pressable>
+          );
+        })}
+      </View>
+    </View>
+  );
+  return (
+    <Card style={{ gap: Spacing.three }}>
+      <ThemedText type="heading">Add your wait to the numbers</ThemedText>
+      <ThemedText type="small" themeColor="textSecondary">
+        The wait times here come from applicants' own reports. Yours helps the next person know what to expect. This sends your {days}-day
+        wait, your province and the two answers below. No name, no dates, no ID.
+      </ThemedText>
+      <ProvincePicker hint="Optional. Wait times differ by province." />
+      {chips('How did you apply?', METHODS, method, setMethod)}
+      {chips('Which licence?', LICENCES, licence, setLicence)}
+      <Button label={state === 'sending' ? 'Sending…' : `Send my ${days}-day wait`} onPress={() => void send()} disabled={state === 'sending'} />
+      {state === 'failed' ? (
+        <ThemedText type="small" themeColor="danger">
+          That didn't send. Check your connection and try again.
+        </ThemedText>
+      ) : null}
+    </Card>
+  );
+}
+
 // Callers still pass the sample size and dates; the note no longer shows them.
 export function SourceNote(_props: { total: number; first: string; last: string }) {
   return (
@@ -260,6 +399,8 @@ const styles = StyleSheet.create({
   check: { flexDirection: 'row', gap: Spacing.three, alignItems: 'flex-start', minHeight: 44, paddingVertical: Spacing.one },
   box: { width: 22, height: 22, borderRadius: 6, borderWidth: 2, alignItems: 'center', justifyContent: 'center', marginTop: 1 },
   linkBtn: { minHeight: 44, justifyContent: 'center', alignSelf: 'flex-start' },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two },
+  chip: { borderWidth: 1, borderRadius: 999, minHeight: 40, paddingHorizontal: Spacing.three, justifyContent: 'center' },
 });
 
 export type { WaitRow };

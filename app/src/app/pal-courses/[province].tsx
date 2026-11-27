@@ -8,22 +8,13 @@ import { ThemedText } from '@/components/themed-text';
 import { Button, Card, Col, Eyebrow, Screen, Split } from '@/components/ui';
 import { Spacing } from '@/constants/theme';
 import { PROVINCES } from '@/features/wait/stats';
-import type { AppId } from '@/lib/handoff';
+import { APPS_BY_PROVINCE } from '@/lib/handoff';
 import { courseCities, courseDirectory } from '@/lib/content';
 import { page } from '@/lib/seo';
 
 export function generateStaticParams(): { province: string }[] {
   return courseDirectory.map((c) => ({ province: c.province.toLowerCase() }));
 }
-
-/** Apps that cover (or will soon cover) each province, most relevant first. */
-const APPS: Record<string, AppId[]> = {
-  BC: ['huntable', 'fishable', 'campable', 'shootable'],
-  AB: ['shootable', 'huntable', 'campable'],
-  ON: ['fishable', 'campable'],
-  NS: ['huntable'],
-  NB: ['huntable'],
-};
 
 const find = (slug: unknown) => courseDirectory.find((c) => c.province.toLowerCase() === String(slug).toLowerCase());
 
@@ -106,7 +97,7 @@ export default function ProvinceCourses() {
 
       <ListYourCourse province={name} />
 
-      <HandoffCards placement="guide" title="After your course" order={APPS[d.province] ?? ['huntable', 'shootable']} more={[]} />
+      <HandoffCards placement="guide" title="After your course" order={APPS_BY_PROVINCE[d.province] ?? ['huntable', 'shootable']} more={[]} local={false} />
     </Screen>
   );
 }

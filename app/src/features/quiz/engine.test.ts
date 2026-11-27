@@ -11,6 +11,8 @@ import {
   emptyProgress,
   readiness,
   recordAnswer,
+  recordDrill,
+  recordSpot,
   recordExam,
   seededRng,
   shuffleOptions,
@@ -155,6 +157,35 @@ test('readiness needs three exams at 90% and no weak topic', () => {
   const r = readiness(bank, p, 'cfsc');
   assert.equal(r.ready, false);
   assert.match(r.reasons[0], /Storage/);
+});
+
+test('readiness also needs clean practical drills and a passing Spot the mistake run', () => {
+  let p = emptyProgress();
+  for (const correct of [47, 45, 50]) p = recordExam(p, { course: 'cfsc', date: '2026-01-01', correct, total: 50 });
+  const handling = {
+    drills: [
+      { id: 'prove', course: 'cfsc' as const, title: 'PROVE' },
+      { id: 'fence', course: 'cfsc' as const, title: 'Crossing a fence' },
+      { id: 'pistol', course: 'crfsc' as const, title: 'Unloading a pistol' },
+    ],
+    spotScenes: 10,
+  };
+  assert.equal(readiness(bank, p, 'cfsc').ready, true); // without the handling side, as before
+  let r = readiness(bank, p, 'cfsc', handling);
+  assert.equal(r.ready, false);
+  assert.equal(r.writtenReady, true);
+  assert.deepEqual(r.drillsLeft, ['prove', 'fence']); // the restricted drill belongs to the other course
+  assert.equal(r.spotLeft, true);
+  p = recordDrill(p, 'prove', true);
+  p = recordDrill(p, 'fence', false); // a wrong pick: not clean yet
+  p = recordSpot(p, 7, 10, '2026-01-02');
+  r = readiness(bank, p, 'cfsc', handling);
+  assert.deepEqual(r.drillsLeft, ['fence']);
+  assert.match(r.reasons.join(' '), /Crossing a fence/);
+  assert.match(r.reasons.join(' '), /7 of 10/);
+  p = recordSpot(recordDrill(p, 'fence', true), 8, 10, '2026-01-03');
+  assert.deepEqual(p.drills!.fence, { runs: 2, clean: 1, lastClean: true });
+  assert.equal(readiness(bank, p, 'cfsc', handling).ready, true);
 });
 
 test('shuffled options keep the same correct answer text and move it around', () => {

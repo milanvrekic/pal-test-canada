@@ -11,11 +11,13 @@ import { AnswerOption, Feedback, sourceLine } from '@/components/answer';
 import { VerdictBar } from '@/components/verdict-bar';
 import { Button, Col, Eyebrow, Notice, ProgressBar, Screen, Split } from '@/components/ui';
 import { Radius, Spacing } from '@/constants/theme';
-import { shuffle } from '@/features/quiz/engine';
+import { recordSpot, shuffle, today } from '@/features/quiz/engine';
 import { useTheme } from '@/hooks/use-theme';
 import { track } from '@/lib/analytics';
 import { drillPhotos } from '@/content/drill-photos';
 import { type Drill, drills } from '@/lib/content';
+import { updateProgress } from '@/lib/progress';
+import { reportProblem } from '@/lib/report';
 
 export function generateMetadata(): Metadata {
   return page('/spot', {
@@ -88,7 +90,11 @@ function SpotSession({ onRestart }: { onRestart: () => void }) {
   const answered = selected !== null;
 
   const next = () => {
-    if (index + 1 === set.length) track({ name: 'test_completed', course: 'all', mode: 'spot', correct, total: set.length });
+    if (index + 1 === set.length) {
+      track({ name: 'test_completed', course: 'all', mode: 'spot', correct, total: set.length });
+      // A finished run counts toward readiness (the practical side of the course).
+      updateProgress((p) => recordSpot(p, correct, set.length, today()));
+    }
     setSelected(null);
     setIndex(index + 1);
   };
@@ -159,6 +165,7 @@ function SpotSession({ onRestart }: { onRestart: () => void }) {
               title="Why"
               explanation={d.explanation}
               source={sourceLine(d.source)}
+              onReport={() => reportProblem('scene', d.id, d.question)}
             />
           ) : null}
           {d.draft ? <Notice tone="warning">Draft scene. Not yet reviewed by the instructor.</Notice> : null}

@@ -2,7 +2,7 @@ import type { Metadata } from 'expo-router/server';
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 
-import { sourceLine } from '@/components/answer';
+import { ReportLink, sourceLine } from '@/components/answer';
 import { ThemedText } from '@/components/themed-text';
 import { Button, Col, Eyebrow, ProgressBar, Screen, Split } from '@/components/ui';
 import { Spacing } from '@/constants/theme';
@@ -11,6 +11,7 @@ import { useTheme } from '@/hooks/use-theme';
 import { questions } from '@/lib/content';
 import { useCourse } from '@/lib/course';
 import { updateProgress, useProgress } from '@/lib/progress';
+import { reportProblem } from '@/lib/report';
 import { page } from '@/lib/seo';
 
 export function generateMetadata(): Metadata {
@@ -116,6 +117,7 @@ export default function Flashcards() {
               </View>
             )}
           </Pressable>
+          {flipped ? <ReportLink onPress={() => reportProblem('question', q.id, q.question)} /> : null}
           {flipped ? (
             <Split gap={Spacing.two}>
               <Col basis={160}>

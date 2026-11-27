@@ -71,7 +71,7 @@ export function AnswerOption({
 }
 
 /** The explanation shown after answering, with the handbook source as a tab. */
-export function Feedback({ good, title, explanation, source }: { good: boolean; title: string; explanation: string; source?: string }) {
+export function Feedback({ good, title, explanation, source, onReport }: { good: boolean; title: string; explanation: string; source?: string; onReport?: () => void }) {
   const theme = useTheme();
   return (
     <View style={[styles.explain, { backgroundColor: theme.backgroundElement, borderColor: theme.border }]}>
@@ -85,7 +85,19 @@ export function Feedback({ good, title, explanation, source }: { good: boolean; 
           <ThemedText type="small">{source}</ThemedText>
         </View>
       ) : null}
+      {onReport ? <ReportLink onPress={onReport} /> : null}
     </View>
+  );
+}
+
+/** "Report a problem": opens an email with the question already filled in (lib/report.ts). */
+export function ReportLink({ onPress, label = 'Something wrong with this question? Report it' }: { onPress: () => void; label?: string }) {
+  return (
+    <Pressable accessibilityRole="link" onPress={onPress} hitSlop={6} style={styles.report}>
+      <ThemedText type="small" themeColor="textSecondary" style={{ textDecorationLine: 'underline' }}>
+        {label}
+      </ThemedText>
+    </Pressable>
   );
 }
 
@@ -106,6 +118,7 @@ const styles = StyleSheet.create({
   },
   optionPressed: { transform: [{ scale: 0.985 }] },
   chip: { width: 30, height: 30, borderRadius: 999, borderWidth: 1.5, alignItems: 'center', justifyContent: 'center' },
+  report: { alignSelf: 'flex-start', minHeight: 32, justifyContent: 'center' },
   explain: { borderRadius: Radius, borderWidth: 1, padding: Spacing.four, gap: Spacing.two },
   cite: { borderRadius: 12, paddingVertical: Spacing.two, paddingHorizontal: Spacing.two + 4, gap: Spacing.half, alignSelf: 'flex-start' },
 });

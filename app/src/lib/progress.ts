@@ -17,7 +17,7 @@ function load(): Promise<void> {
     .then((raw) => {
       if (raw) {
         const parsed = JSON.parse(raw) as Partial<Progress>;
-        state = { answers: parsed.answers ?? {}, exams: parsed.exams ?? [] };
+        state = { ...parsed, answers: parsed.answers ?? {}, exams: parsed.exams ?? [] };
       }
     })
     .catch(() => {

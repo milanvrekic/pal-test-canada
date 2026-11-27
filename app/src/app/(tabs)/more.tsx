@@ -3,6 +3,7 @@ import type { Metadata } from 'expo-router/server';
 import { Linking, Pressable, StyleSheet, View } from 'react-native';
 
 import { HandoffCards } from '@/components/handoff-cards';
+import { ProvincePicker } from '@/components/province-picker';
 import { ThemedText } from '@/components/themed-text';
 import { Screen } from '@/components/ui';
 import { Radius, Spacing } from '@/constants/theme';
@@ -85,6 +86,7 @@ export default function More() {
           </View>
         </View>
       ))}
+      <ProvincePicker />
       <HandoffCards placement="home" title="Outdoor apps by 10ten" order={['huntable', 'shootable']} more={['fishable', 'campable']} />
       <View style={{ gap: Spacing.two }}>
         <ThemedText type="small" themeColor="textSecondary">

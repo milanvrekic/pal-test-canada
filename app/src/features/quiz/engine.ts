@@ -27,9 +27,17 @@ export type AnswerRecord = {
 
 export type ExamRecord = { course: Course; date: string; correct: number; total: number };
 
+/** One practical drill (put the steps in order): how often it was run, and whether the latest run had no wrong pick. */
+export type DrillRecord = { runs: number; clean: number; lastClean: boolean };
+/** The latest full run of Spot the mistake. */
+export type SpotRecord = { correct: number; total: number; date: string };
+
 export type Progress = {
   answers: Record<string, AnswerRecord>;
   exams: ExamRecord[];
+  /** Practical trainer results by drill id. Missing in progress saved before the trainer counted toward readiness. */
+  drills?: Record<string, DrillRecord>;
+  spot?: SpotRecord | null;
 };
 
 export const EXAM_SIZE = 50;
@@ -185,6 +193,15 @@ export function recordExam(progress: Progress, exam: ExamRecord): Progress {
   return { ...progress, exams: [...progress.exams, exam] };
 }
 
+export function recordDrill(progress: Progress, drillId: string, clean: boolean): Progress {
+  const prev = progress.drills?.[drillId] ?? { runs: 0, clean: 0, lastClean: false };
+  return { ...progress, drills: { ...progress.drills, [drillId]: { runs: prev.runs + 1, clean: prev.clean + (clean ? 1 : 0), lastClean: clean } } };
+}
+
+export function recordSpot(progress: Progress, correct: number, total: number, day: string): Progress {
+  return { ...progress, spot: { correct, total, date: day } };
+}
+
 export function dueForReview(questions: readonly Question[], progress: Progress, course: Course, day: string): Question[] {
   return questions.filter((q) => {
     const a = progress.answers[q.id];
@@ -229,10 +246,26 @@ export function weakTopics(stats: readonly TopicStat[]): TopicStat[] {
 export const examScore = (e: ExamRecord): number => (e.total ? e.correct / e.total : 0);
 export const examPassed = (e: ExamRecord): boolean => examScore(e) >= PASS_MARK;
 
-export type Readiness = { ready: boolean; reasons: string[] };
+/** The handling side of the course, passed in by the app so the engine stays free of content imports. */
+export type Handling = { drills: readonly { id: string; course: Course; title: string }[]; spotScenes: number };
 
-/** Ready means: the last READY_EXAMS exams all at READY_MARK or better, and no weak topic. */
-export function readiness(questions: readonly Question[], progress: Progress, course: Course): Readiness {
+export type Readiness = {
+  ready: boolean;
+  reasons: string[];
+  /** The written side alone: the last READY_EXAMS exams at READY_MARK or better, and no weak topic. */
+  writtenReady: boolean;
+  /** Practical drills for this course whose latest run was not clean (or that were never run). */
+  drillsLeft: string[];
+  /** True when Spot the mistake still needs a run at the pass mark. */
+  spotLeft: boolean;
+};
+
+/**
+ * Ready means: the last READY_EXAMS exams all at READY_MARK or better, no weak topic and, when `handling` is given,
+ * every practical drill for the course done with no wrong pick and the latest Spot the mistake run at the pass mark.
+ * The practical test is where most marks are lost, so written scores alone do not make someone ready.
+ */
+export function readiness(questions: readonly Question[], progress: Progress, course: Course, handling?: Handling): Readiness {
   const reasons: string[] = [];
   const exams = progress.exams.filter((e) => e.course === course);
   const recent = exams.slice(-READY_EXAMS);
@@ -244,7 +277,19 @@ export function readiness(questions: readonly Question[], progress: Progress, co
   for (const s of weakTopics(topicStats(questions, progress, course))) {
     reasons.push(`Bring ${topicLabel(s.topic)} up to ${Math.round(PASS_MARK * 100)}% (now ${Math.round((s.accuracy ?? 0) * 100)}%).`);
   }
-  return { ready: reasons.length === 0, reasons };
+  const writtenReady = reasons.length === 0;
+  const left = (handling?.drills ?? []).filter((d) => d.course === course && !progress.drills?.[d.id]?.lastClean);
+  if (left.length) reasons.push(`Put the steps in order with no wrong pick in the practical trainer: ${left.map((d) => d.title).join(', ')}.`);
+  const spot = progress.spot;
+  const spotLeft = !!handling && handling.spotScenes > 0 && (!spot || spot.total === 0 || spot.correct / spot.total < PASS_MARK);
+  if (spotLeft) {
+    reasons.push(
+      spot && spot.total
+        ? `Find ${Math.round(PASS_MARK * 100)}% of the mistakes in Spot the mistake (last run: ${spot.correct} of ${spot.total}).`
+        : 'Do a run of Spot the mistake.',
+    );
+  }
+  return { ready: reasons.length === 0, reasons, writtenReady, drillsLeft: left.map((d) => d.id), spotLeft };
 }
 
 const TOPIC_LABELS: Record<string, string> = {

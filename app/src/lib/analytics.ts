@@ -11,6 +11,25 @@ export type AnalyticsEvent =
 const ENDPOINT = 'https://command.10tenstudio.com/ev/paltest';
 const os = Platform.OS === 'ios' || Platform.OS === 'android' ? Platform.OS : 'web';
 
+export type WaitReport = { province: string | null; days: number; method: 'online' | 'mail' | null; licence: 'pal' | 'rpal' | null };
+
+/**
+ * A wait time the person chose to add to the reported numbers (the tracker's "Add my wait" button): days, province,
+ * how they applied and the licence type. Nothing else, and never sent without that tap. Resolves to whether it arrived.
+ */
+export async function sendWaitReport(report: WaitReport): Promise<boolean> {
+  if (__DEV__) {
+    console.log('[wait report]', report);
+    return true;
+  }
+  try {
+    const res = await fetch(ENDPOINT, { method: 'POST', headers: { 'content-type': 'text/plain' }, body: JSON.stringify({ name: 'wait_report', os, ...report }) });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
 export function track(event: AnalyticsEvent): void {
   if (__DEV__) {
     console.log('[analytics]', event);
