@@ -1218,7 +1218,7 @@
   review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-24, status: reviewed}
 
 # Batch 5 (drafted 2026-11-27 from the 2014 handbook, PS99-2/2-1-2014; every page checked against the PDF page text).
-# Awaiting instructor review. Law questions also need law_checked_on.
+# Approved by Milan Vrekic 2026-11-27.
 - id: cfsc-storage-201
   course: cfsc
   topic: storage
@@ -1228,8 +1228,8 @@
   answer: 2
   explanation: "An unloaded non-restricted firearm must also be made inoperable with a secure locking device, have its bolt or bolt carrier removed, or be kept in a securely locked opaque container, receptacle or room that cannot easily be broken into. An unlocked closet is none of these."
   source: {handbook_edition: "2014 (5th ed.)", section: "11.3. Storage", page: "199"}
-  law_checked_on: TBD
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  law_checked_on: "2026-11-27"
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-storage-202
   course: cfsc
   topic: storage
@@ -1239,8 +1239,8 @@
   answer: 0
   explanation: "In a remote area where hunting might reasonably occur, a non-restricted firearm may be stored unlocked, out in the open and accessible to ammunition, as long as it is unloaded."
   source: {handbook_edition: "2014 (5th ed.)", section: "11.3. Storage", page: "199"}
-  law_checked_on: TBD
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  law_checked_on: "2026-11-27"
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-storage-203
   course: cfsc
   topic: storage
@@ -1250,8 +1250,8 @@
   answer: 1
   explanation: "Where it is legal to discharge a firearm, a non-restricted firearm used for predator control may be stored temporarily unlocked and out in the open, as long as it is unloaded and not readily accessible to ammunition."
   source: {handbook_edition: "2014 (5th ed.)", section: "11.3. Storage", page: "199"}
-  law_checked_on: TBD
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  law_checked_on: "2026-11-27"
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-display-201
   course: cfsc
   topic: display
@@ -1261,8 +1261,8 @@
   answer: 3
   explanation: "A displayed non-restricted firearm must not be displayed with, or within easy access to, ammunition that can be fired from it. Storage is different: there, ammunition may share a securely locked container with the firearm."
   source: {handbook_edition: "2014 (5th ed.)", section: "11.4. Display", page: "201"}
-  law_checked_on: TBD
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  law_checked_on: "2026-11-27"
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-transport-201
   course: cfsc
   topic: transport
@@ -1272,8 +1272,8 @@
   answer: 2
   explanation: "In a remote area where hunting might reasonably occur, a non-restricted firearm may be left in an unattended vehicle with no lockable compartment, such as a canoe or snowmobile, if it is unloaded, out of sight and made inoperable with a secure locking device, unless you need it for predator control."
   source: {handbook_edition: "2014 (5th ed.)", section: "11.5. Transportation", page: "203"}
-  law_checked_on: TBD
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  law_checked_on: "2026-11-27"
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-transport-202
   course: cfsc
   topic: transport
@@ -1283,8 +1283,8 @@
   answer: 0
   explanation: "If you want to transport firearms on an aircraft, contact the air carrier first. It will tell you its regulations and requirements."
   source: {handbook_edition: "2014 (5th ed.)", section: "11.5. Transportation", page: "203"}
-  law_checked_on: TBD
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  law_checked_on: "2026-11-27"
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-handling-201
   course: cfsc
   topic: handling
@@ -1294,7 +1294,7 @@
   answer: 2
   explanation: "Having or firing a firearm is against the law in some places, and loading or handling one there may also be an offence. Load a firearm or handle a loaded one only where it is lawful to discharge it."
   source: {handbook_edition: "2014 (5th ed.)", section: "11.6. Handling", page: "205"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-handling-202
   course: cfsc
   topic: handling
@@ -1304,7 +1304,7 @@
   answer: 1
   explanation: "A firearm in a vehicle must be placed in a secure position where it will not be dislodged or stepped on. In the handbook's example, a dog jumped onto a loaded shotgun lying loose in a boat, and it fired."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.5. Safe handling of firearms in vehicles", page: "152"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-handling-203
   course: cfsc
   topic: handling
@@ -1314,7 +1314,7 @@
   answer: 3
   explanation: "A twig or branch may catch the trigger, put the safety off or swing the muzzle around, so protect the trigger and safety under all circumstances while carrying."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-handling-204
   course: cfsc
   topic: handling
@@ -1324,7 +1324,7 @@
   answer: 0
   explanation: "You can slip and fall and cause a discharge. Plan how to protect the firearm and control its direction if you fall and, if possible, unload it before crossing uneven ground or ice."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-handling-205
   course: cfsc
   topic: handling
@@ -1334,7 +1334,7 @@
   answer: 2
   explanation: "Control the muzzle direction at all times and keep the safety on until you are ready to use the firearm. Never rely on it, though: safeties can fail."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-handling-206
   course: cfsc
   topic: handling
@@ -1344,7 +1344,7 @@
   answer: 1
   explanation: "Never toss or drop a firearm across a ditch or fence, and never jump a ditch with a loaded firearm."
   source: {handbook_edition: "2014 (5th ed.)", section: "4.2.2. Load a firearm only for actual use", page: "59"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-handling-207
   course: cfsc
   topic: handling
@@ -1354,7 +1354,7 @@
   answer: 0
   explanation: "Many incidents happen while firearms are put into or taken out of vehicles. The motion of a vehicle or boat can make you stumble or drop the firearm, and a loaded one can fire unintentionally."
   source: {handbook_edition: "2014 (5th ed.)", section: "4.2.2. Load a firearm only for actual use", page: "60"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-handling-208
   course: cfsc
   topic: handling
@@ -1364,7 +1364,7 @@
   answer: 0
   explanation: "Secure locking devices such as trigger locks and cable locks block the action, but they only work when properly installed and not all fit every firearm. Check with a firearms dealer for the best device for your firearm."
   source: {handbook_edition: "2014 (5th ed.)", section: "4.3. Secure locking devices", page: "61"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-field-201
   course: cfsc
   topic: range-and-field
@@ -1374,7 +1374,7 @@
   answer: 1
   explanation: "Never shoot near a building without permission. Someone may be using it as a shelter."
   source: {handbook_edition: "2014 (5th ed.)", section: "7.6. Safe handling of firearms outdoors", page: "153"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-acts-201
   course: cfsc
   topic: vital-four-acts
@@ -1384,7 +1384,7 @@
   answer: 1
   explanation: "T: Trigger finger must be kept off the trigger and out of the trigger guard. Don't put your finger on the trigger or inside the guard when you pick up a firearm."
   source: {handbook_edition: "2014 (5th ed.)", section: "The Vital Four ACTS of Firearm Safety", page: "21"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-acts-202
   course: cfsc
   topic: vital-four-acts
@@ -1394,7 +1394,7 @@
   answer: 2
   explanation: "A: Assume every firearm is loaded. Regard any firearm as a potential danger."
   source: {handbook_edition: "2014 (5th ed.)", section: "The Vital Four ACTS of Firearm Safety", page: "21"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-acts-203
   course: cfsc
   topic: vital-four-acts
@@ -1404,7 +1404,7 @@
   answer: 1
   explanation: "S: See that the firearm is unloaded. Do not handle a firearm unless you can properly PROVE it safe."
   source: {handbook_edition: "2014 (5th ed.)", section: "The Vital Four ACTS of Firearm Safety", page: "21"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-resp-201
   course: cfsc
   topic: responsibilities
@@ -1414,7 +1414,7 @@
   answer: 3
   explanation: "All firearms and ammunition under your control are your responsibility 24 hours a day."
   source: {handbook_edition: "2014 (5th ed.)", section: "4.2.1. Firearms and ammunition safety practices", page: "59"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-resp-202
   course: cfsc
   topic: responsibilities
@@ -1424,7 +1424,7 @@
   answer: 0
   explanation: "Keeping firearms and ammunition out of sight during transport and storage reduces the chance of theft and keeps unqualified or unauthorized people from using them."
   source: {handbook_edition: "2014 (5th ed.)", section: "4.2.1. Firearms and ammunition safety practices", page: "59"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-resp-203
   course: cfsc
   topic: responsibilities
@@ -1434,7 +1434,7 @@
   answer: 1
   explanation: "The handbook gives blaze orange clothing for hunters as an example of a provincial or territorial rule, under Game, Fish and Wildlife Acts."
   source: {handbook_edition: "2014 (5th ed.)", section: "Legal Responsibilities", page: "23"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-resp-204
   course: cfsc
   topic: responsibilities
@@ -1444,7 +1444,7 @@
   answer: 2
   explanation: "Some municipalities or counties do not allow a firearm to be discharged within their boundaries under any circumstances, through noise, nuisance or zoning bylaws."
   source: {handbook_edition: "2014 (5th ed.)", section: "Legal Responsibilities", page: "23"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-resp-205
   course: cfsc
   topic: responsibilities
@@ -1454,7 +1454,7 @@
   answer: 2
   explanation: "Avoid advertising the firearms in your home. You may be inviting theft."
   source: {handbook_edition: "2014 (5th ed.)", section: "Other duties of firearms owners/users", page: "24"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-resp-206
   course: cfsc
   topic: responsibilities
@@ -1464,7 +1464,7 @@
   answer: 1
   explanation: "If firearms and ammunition are hard to get, there may be a delay before acting on an impulse to do harm, and that delay may be enough for the impulse to lessen or go away."
   source: {handbook_edition: "2014 (5th ed.)", section: "10.4. Secure storage", page: "190"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-resp-207
   course: cfsc
   topic: responsibilities
@@ -1474,7 +1474,7 @@
   answer: 2
   explanation: "Your Chief Firearms Officer determines the continued eligibility of individuals to keep firearms. You can raise a concern through the line at 1-800-731-4000."
   source: {handbook_edition: "2014 (5th ed.)", section: "10.2.1. Signs of risk", page: "190"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-resp-208
   course: cfsc
   topic: responsibilities
@@ -1484,7 +1484,7 @@
   answer: 2
   explanation: "Explain firearms safety to all family members. Everyone in a home where firearms are kept should know the safety rules."
   source: {handbook_edition: "2014 (5th ed.)", section: "10.6. Social responsibilities and ethics", page: "193"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-resp-209
   course: cfsc
   topic: responsibilities
@@ -1494,7 +1494,7 @@
   answer: 0
   explanation: "Have your eyesight checked regularly. Shooting needs good vision for target identification and accuracy."
   source: {handbook_edition: "2014 (5th ed.)", section: "10.6. Social responsibilities and ethics", page: "193"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-resp-210
   course: cfsc
   topic: responsibilities
@@ -1504,7 +1504,7 @@
   answer: 3
   explanation: "Unsafe storage of firearms is a criminal offence, and unsafely stored firearms may be misused. You and you alone will be held accountable, for example for criminal negligence causing death or bodily harm."
   source: {handbook_edition: "2014 (5th ed.)", section: "10.4. Secure storage", page: "191"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-misfire-201
   course: cfsc
   topic: misfires
@@ -1514,7 +1514,7 @@
   answer: 1
   explanation: "A primer pop or squib load happens when a cartridge has no gunpowder. The primer fires without the usual noise or recoil and may push the bullet into the barrel, where it can lodge. Firing another bullet could then rupture the barrel."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.10. Hazards", page: "92"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-misfire-202
   course: cfsc
   topic: misfires
@@ -1524,7 +1524,7 @@
   answer: 0
   explanation: "A hang fire is a delayed fire. If the cartridge is removed from the chamber and then fires, the explosive rupture of the case can cause injury. Wait 60 seconds with the muzzle pointed in a safe direction before opening the action."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.10. Hazards", page: "92"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-misfire-203
   course: cfsc
   topic: misfires
@@ -1534,7 +1534,7 @@
   answer: 3
   explanation: "A firearm jammed with a cartridge or shell in the chamber can be a hazard and may cause serious injury if not dealt with properly. Consult a qualified person or gunsmith on how to clear it in the safest way."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.11. Firearm malfunctions", page: "92"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-ammo-201
   course: cfsc
   topic: ammunition
@@ -1545,8 +1545,8 @@
   explanation: "You may keep reasonable quantities of sporting ammunition on your property: the amounts typically needed for a rifle or shotgun, or for part of a collection. It must be for your private use, not resale."
   source: {handbook_edition: "2014 (5th ed.)", section: "5.12. Ammunition precautions and legislation", page: "93"}
   law_sensitive: true
-  law_checked_on: TBD
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  law_checked_on: "2026-11-27"
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
 - id: cfsc-ammo-202
   course: cfsc
   topic: ammunition
@@ -1556,4 +1556,4 @@
   answer: 1
   explanation: "Use only the ammunition the firearm was designed for, and carry only the type of ammunition you intend to shoot."
   source: {handbook_edition: "2014 (5th ed.)", section: "4.2.3. Be sure before you shoot", page: "60"}
-  review: {reviewed_by: TBD, reviewed_on: TBD, status: draft}
+  review: {reviewed_by: Milan Vrekic, reviewed_on: 2026-11-27, status: reviewed}
