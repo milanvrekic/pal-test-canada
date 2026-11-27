@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 
+import { LaunchGlyph } from '@/components/launch-glyph';
 import { useTheme } from '@/hooks/use-theme';
 import { track } from '@/lib/analytics';
 
@@ -21,6 +22,7 @@ export default function RootLayout() {
         {/* The quiz is a focus mode: full screen, swipe down is off so a stray gesture can't end an exam. */}
         <Stack.Screen name="quiz" options={{ gestureEnabled: false }} />
       </Stack>
+      <LaunchGlyph />
     </>
   );
 }

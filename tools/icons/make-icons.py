@@ -18,19 +18,22 @@ CHROME = sys.argv[1] if len(sys.argv) > 1 else "/usr/bin/google-chrome"
 GLYPH = """
   <rect x="186" y="292" width="652" height="440" rx="72"/>
   <circle cx="366" cy="462" r="58"/>
-  <path d="M270 640 c14-64 56-96 96-96 s82 32 96 96"/>
+  <path d="M270 640 c14-64 56-96 96-96 s82 32 96 96"/>"""
+# The check and the line beside it. Left off the splash: the opening animation (app/src/components/launch-glyph.tsx)
+# draws them in.
+MARK = """
   <path d="M548 520 L614 586 L730 470"/>
   <path d="M556 662 H730"/>"""
 GRADIENT = ('<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7B6CF0"/>'
             '<stop offset="1" stop-color="#4433C2"/></linearGradient></defs>')
 
 
-def svg(scale=1.0, colour="#FFFFFF", tile=True, radius=0):
+def svg(scale=1.0, colour="#FFFFFF", tile=True, radius=0, mark=True):
     """1024 x 1024: the glyph scaled about the centre, optionally on the gradient tile (with rounded corners)."""
     bg = f'{GRADIENT}<rect width="1024" height="1024" rx="{radius}" fill="url(#g)"/>' if tile else ""
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">{bg}'
             f'<g transform="translate(512 512) scale({scale}) translate(-512 -512)" fill="none" stroke="{colour}" '
-            f'stroke-width="54" stroke-linecap="round" stroke-linejoin="round">{GLYPH}\n</g></svg>')
+            f'stroke-width="54" stroke-linecap="round" stroke-linejoin="round">{GLYPH}{MARK if mark else ''}\n</g></svg>')
 
 
 # path -> (svg, size, keep transparency)
@@ -47,8 +50,8 @@ OUT = {
     # Android adaptive icon: the glyph alone, inside the 66% safe circle; the gradient is the background layer.
     "app/assets/images/android-icon-foreground.png": (svg(scale=0.75, tile=False), 512, True),
     "app/assets/images/android-icon-monochrome.png": (svg(scale=0.75, tile=False), 432, True),
-    # Splash: the glyph in brand indigo on the light splash background.
-    "app/assets/images/splash-icon.png": (svg(scale=0.95, colour="#5A4BD6", tile=False), 1024, True),
+    # Splash: the card and photo in brand indigo on the light splash background; the app then animates the check in.
+    "app/assets/images/splash-icon.png": (svg(scale=0.95, colour="#5A4BD6", tile=False, mark=False), 1024, True),
 }
 
 (ROOT / "store/icon/pal-test-icon.svg").write_text(svg() + "\n")
